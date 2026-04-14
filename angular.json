@@ -1,19 +1,13 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": false
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nobleui-angular": {
+    "Matdash": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
         }
       },
       "root": "",
@@ -21,72 +15,46 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist",
-            "allowedCommonJsDependencies": [
-              "fast-deep-equal",
-              "sweetalert2",
-              "cropperjs",
-              "apexcharts",
-              "dropzone",
-              "quill",
-              "dayjs",
-              "metismenujs",
-              "feather-icons"
-            ],
+            "allowedCommonJsDependencies": ["apexcharts", "bezier-easing", "chance","moment","polylabel"],
+            "outputPath": {
+              "base": "dist/Matdash"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "./node_modules"
-              ]
-            },
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/.htaccess"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "./node_modules/@fullcalendar/common/main.css",
-              "./node_modules/@fullcalendar/daygrid/main.css",
-              "./node_modules/@fullcalendar/timegrid/main.css",
-              "./node_modules/@fullcalendar/list/main.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/scss/style.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/angular-calendar/css/angular-calendar.css",
+              "node_modules/highlight.js/styles/atom-one-dark.min.css",
+              "node_modules/dropzone/dist/dropzone.css"
             ],
-            "scripts": [
-              "node_modules/apexcharts/dist/apexcharts.min.js"
-            ]
+            "scripts": [],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "12mb",
+                  "maximumError": "12mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "maximumWarning": "12mb",
+                  "maximumError": "12mb"
                 }
               ],
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -98,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "nobleui-angular:build:production"
+              "buildTarget": "Matdash:build:production"
             },
             "development": {
-              "browserTarget": "nobleui-angular:build:development"
+              "buildTarget": "Matdash:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -109,28 +77,50 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nobleui-angular:build"
+            "buildTarget": "Matdash:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }
       }
+    }
+  },
+  "cli": {
+    "analytics": false
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   }
 }

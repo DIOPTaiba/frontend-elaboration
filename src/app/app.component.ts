@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    imports: [RouterOutlet],
+    templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
-  title = 'nobleui-angular';
-
-  ngOnInit(): void {}
-
+export class AppComponent {
+  title = 'Modernize Angular Admin Tempplate';
 }
