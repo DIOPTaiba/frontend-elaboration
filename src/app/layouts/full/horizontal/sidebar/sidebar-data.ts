@@ -5,29 +5,29 @@ export const navItems: NavItem[] = [
     navCap: 'Home',
   },
   {
-    displayName: 'Dashboards',
+    displayName: 'Tableau de bord',
     iconName: 'solar:chart-line-duotone',
-    route: 'dashboards',
-    children: [
-      {
-        displayName: 'Dashboard 1',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'dashboards/dashboard1',
-      },
-      {
-        displayName: 'Dashboard 2',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'dashboards/dashboard2',
-      },
-      {
-        displayName: 'Dashboard 3',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'dashboards/dashboard3',
-      },
-    ],
+    route: 'dashboards/dashboard1',
+    // children: [
+    //   {
+    //     displayName: 'Dashboard 1',
+    //     iconName: 'solar:round-alt-arrow-right-line-duotone',
+    //     route: 'dashboards/dashboard1',
+    //   },
+    //   {
+    //     displayName: 'Dashboard 2',
+    //     iconName: 'solar:round-alt-arrow-right-line-duotone',
+    //     route: 'dashboards/dashboard2',
+    //   },
+    //   {
+    //     displayName: 'Dashboard 3',
+    //     iconName: 'solar:round-alt-arrow-right-line-duotone',
+    //     route: 'dashboards/dashboard3',
+    //   },
+    // ],
   },
   {
-    displayName: 'Front Pages',
+    displayName: 'Paramètres dossiers',
     iconName: 'solar:home-angle-line-duotone',
     route: 'front-pages',
     children: [
@@ -69,142 +69,142 @@ export const navItems: NavItem[] = [
     ],
   },
   {
-    displayName: 'Apps',
+    displayName: 'Consultation enveloppes',
     iconName: 'solar:archive-minimalistic-line-duotone',
     route: 'apps',
-    ddType: 'two-column',
+    // ddType: 'two-column',
     children: [
       {
-        displayName: 'Chat',
+        displayName: 'Enveloppe de la section',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'apps/chat',
       },
       {
-        displayName: 'Calendar',
+        displayName: 'Liste enveloppe programmes',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'apps/calendar',
       },
       {
-        displayName: 'Email',
+        displayName: 'Enveloppe d\'un programme',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'apps/email/inbox',
       },
       {
-        displayName: 'Contacts',
+        displayName: 'Suivi répartition enveloppes',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'apps/contacts',
       },
-      {
-        displayName: 'Courses',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/courses',
-      },
-      {
-        displayName: 'Employee',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/employee',
-      },
-      {
-        displayName: 'Notes',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/notes',
-      },
-      {
-        displayName: 'Tickets',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/tickets',
-      },
-      {
-        displayName: 'Invoice',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/invoice',
-      },
-      {
-        displayName: 'ToDo',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/todo',
-      },
-      {
-        displayName: 'Kanban',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/kanban',
-      },
-      {
-        displayName: 'Blog',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/blog',
-        children: [
-          {
-            displayName: 'Post',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/blog/post',
-          },
-          {
-            displayName: 'Detail',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route:
-              'apps/blog/detail/Early Black Friday Amazon deals: cheap TVs, headphones, laptops',
-          },
-        ],
-      },
-      {
-        displayName: 'User Profile',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/profile-details',
-        children: [
-          {
-            displayName: 'Profile',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/profile-details/profile',
-          },
-          {
-            displayName: 'Followers',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/profile-details/followers',
-          },
-          {
-            displayName: 'Friends',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/profile-details/friends',
-          },
-          {
-            displayName: 'Gellary',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/profile-details/gallery',
-          },
-        ],
-      },
-      {
-        displayName: 'Ecommerce',
-        iconName: 'solar:cart-5-line-duotone',
-        route: 'apps/product',
-        children: [
-          {
-            displayName: 'Product List',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/product/product-list',
-          },
-          {
-            displayName: 'Add Product',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/product/add-product',
-          },
-          {
-            displayName: 'Edit Product',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/product/edit-product',
-          },
-          {
-            displayName: 'Shop',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'apps/product/shop',
-          },
-        ],
-      },
+      // {
+      //   displayName: 'Courses',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/courses',
+      // },
+      // {
+      //   displayName: 'Employee',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/employee',
+      // },
+      // {
+      //   displayName: 'Notes',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/notes',
+      // },
+      // {
+      //   displayName: 'Tickets',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/tickets',
+      // },
+      // {
+      //   displayName: 'Invoice',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/invoice',
+      // },
+      // {
+      //   displayName: 'ToDo',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/todo',
+      // },
+      // {
+      //   displayName: 'Kanban',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/kanban',
+      // },
+      // {
+      //   displayName: 'Blog',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/blog',
+      //   children: [
+      //     {
+      //       displayName: 'Post',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/blog/post',
+      //     },
+      //     {
+      //       displayName: 'Detail',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route:
+      //         'apps/blog/detail/Early Black Friday Amazon deals: cheap TVs, headphones, laptops',
+      //     },
+      //   ],
+      // },
+      // {
+      //   displayName: 'User Profile',
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'apps/profile-details',
+      //   children: [
+      //     {
+      //       displayName: 'Profile',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/profile-details/profile',
+      //     },
+      //     {
+      //       displayName: 'Followers',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/profile-details/followers',
+      //     },
+      //     {
+      //       displayName: 'Friends',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/profile-details/friends',
+      //     },
+      //     {
+      //       displayName: 'Gellary',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/profile-details/gallery',
+      //     },
+      //   ],
+      // },
+      // {
+      //   displayName: 'Ecommerce',
+      //   iconName: 'solar:cart-5-line-duotone',
+      //   route: 'apps/product',
+      //   children: [
+      //     {
+      //       displayName: 'Product List',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/product/product-list',
+      //     },
+      //     {
+      //       displayName: 'Add Product',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/product/add-product',
+      //     },
+      //     {
+      //       displayName: 'Edit Product',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/product/edit-product',
+      //     },
+      //     {
+      //       displayName: 'Shop',
+      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //       route: 'apps/product/shop',
+      //     },
+      //   ],
+      // },
     ],
   },
   {
-    displayName: 'Ui',
+    displayName: 'Dépenses de personnel et Emplois',
     iconName: 'solar:filters-line-duotone',
     route: 'ui-components',
     ddType: 'mega-menu',
@@ -297,7 +297,7 @@ export const navItems: NavItem[] = [
     ],
   },
   {
-    displayName: 'Pages',
+    displayName: 'Fonctionnement et Investissement',
     iconName: 'solar:document-text-line-duotone',
     route: '',
     children: [
@@ -478,7 +478,7 @@ export const navItems: NavItem[] = [
     ],
   },
   {
-    displayName: 'Forms',
+    displayName: 'Cadre de mesure performance',
     iconName: 'solar:folder-2-line-duotone',
     route: 'forms',
     children: [
@@ -552,7 +552,7 @@ export const navItems: NavItem[] = [
     ],
   },
   {
-    displayName: 'Tables',
+    displayName: 'Plans d\'engagement',
     iconName: 'solar:full-screen-square-line-duotone',
     route: 'tables',
     ddType: 'two-column',
@@ -632,6 +632,28 @@ export const navItems: NavItem[] = [
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: '/datatable/kichen-sink',
       },
+    ],
+  },
+  {
+    displayName: 'Editions et annexes',
+    iconName: 'solar:home-angle-line-duotone',
+    route: 'front-pages',
+    children: [
+      {
+        displayName: 'Homepage',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/homepage',
+      },
+      {
+        displayName: 'About Us',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/about',
+      },
+      {
+        displayName: 'Blog',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/blog',
+      }
     ],
   },
 ];

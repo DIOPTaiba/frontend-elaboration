@@ -5,6 +5,8 @@ html .topbar {
   top: 0;
   z-index: 9;
   height: $header-height;
+  background-color: white;
+  border-bottom: 1px solid #1d4991;
 
   i-tabler {
     stroke-width: 1.5px;
