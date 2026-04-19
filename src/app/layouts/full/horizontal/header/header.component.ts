@@ -161,28 +161,28 @@ export class AppHorizontalHeaderComponent {
   profiledd: profiledd[] = [
     {
       id: 1,
-      title: 'My Profile',
+      title: 'Habillitations et privilèges',
       link: '/',
     },
     {
       id: 2,
-      title: 'My Subscription',
+      title: 'Changer de fonction',
       link: '/',
     },
     {
       id: 3,
-      title: 'My Invoice',
+      title: 'Retour au menu principal',
       new: true,
       link: '/',
     },
     {
       id: 4,
-      title: ' Account Settings',
+      title: 'Retour aux processus',
       link: '/',
     },
     {
       id: 5,
-      title: 'Sign Out',
+      title: 'Déconnexion',
       link: '/authentication/login',
     },
   ];

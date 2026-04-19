@@ -483,71 +483,60 @@ export const navItems: NavItem[] = [
     route: 'forms',
     children: [
       {
-        displayName: 'Form elements',
+        displayName: 'DPPD',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'forms/forms-elements',
         children: [
           {
-            displayName: 'Autocomplete',
+            displayName: 'Objectifs sectoriels (ministériels)',
             iconName: 'solar:round-alt-arrow-right-line-duotone',
             route: 'forms/forms-elements/autocomplete',
           },
           {
-            displayName: 'Button',
+            displayName: 'Objectif global de programme',
             iconName: 'solar:round-alt-arrow-right-line-duotone',
             route: 'forms/forms-elements/button',
           },
           {
-            displayName: 'Checkbox',
+            displayName: 'Indicateurs d\'impacts associés',
             iconName: 'solar:round-alt-arrow-right-line-duotone',
             route: 'forms/forms-elements/checkbox',
-          },
-          {
-            displayName: 'Radio',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'forms/forms-elements/radio',
-          },
-          {
-            displayName: 'Datepicker',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'forms/forms-elements/datepicker',
+            children: [
+              {
+                displayName: 'Objectifs sectoriels (ministériels)',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'forms/forms-elements/autocomplete',
+              },
+              {
+                displayName: 'Objectif global de programme',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'forms/forms-elements/button',
+              }
+            ],
           },
         ],
       },
       {
-        displayName: 'File Upload',
+        displayName: 'PAP programme',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: '/forms/file-upload',
-      },
-      {
-        displayName: 'Form Layouts',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/forms/form-layouts',
-      },
-      {
-        displayName: 'Form Horizontal',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/forms/form-horizontal',
-      },
-      {
-        displayName: 'Form Vertical',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/forms/form-vertical',
-      },
-      {
-        displayName: 'Form Wizard',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/forms/form-wizard',
-      },
-      {
-        displayName: 'Toastr',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/forms/form-toastr',
-      },
-      {
-        displayName: 'Editor',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/forms/form-editor',
+        children: [
+          {
+            displayName: 'Objectifs spécifiques',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'forms/forms-elements/autocomplete',
+          },
+          {
+            displayName: 'Indicateurs de performance',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'forms/forms-elements/button',
+          },
+          {
+            displayName: 'Résultats attendus',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'forms/forms-elements/checkbox',
+          },
+        ]
       },
     ],
   },
@@ -555,82 +544,98 @@ export const navItems: NavItem[] = [
     displayName: 'Plans d\'engagement',
     iconName: 'solar:full-screen-square-line-duotone',
     route: 'tables',
-    ddType: 'two-column',
+    // ddType: 'two-column',
     children: [
       {
-        displayName: 'Basic Table',
+        displayName: 'Saisie / Mise à jour',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'tables/basic-table',
       },
       {
-        displayName: 'Dynamic Table',
+        displayName: 'Edition / Transmission',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'tables/dynamic-table',
+        children: [
+          {
+            displayName: 'PE de Ministère/Institution',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/basic-table',
+          },
+          {
+            displayName: 'PE de Programme',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/dynamic-table',
+          },
+          {
+            displayName: 'PE d\'Action',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/expand-table',
+          },
+          {
+            displayName: 'PE d\'Activité',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/filterable-table',
+          },
+          {
+            displayName: 'PE de service dépensier - Chapitre',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/expand-table',
+          },
+        ]
       },
       {
-        displayName: 'Expand Table',
+        displayName: 'Réception',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'tables/expand-table',
+        children: [
+          {
+            displayName: 'PE de Programmes',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/dynamic-table',
+          },
+          {
+            displayName: 'PE d\'Actions de Programme',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/expand-table',
+          },
+          {
+            displayName: 'PE d\'Activité',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/filterable-table',
+          },
+          {
+            displayName: 'PE de services dépensiers',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/expand-table',
+          },
+        ]
       },
       {
-        displayName: 'Filterable Table',
+        displayName: 'Validation',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'tables/filterable-table',
-      },
-      {
-        displayName: 'Footer Row Table',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/footer-row-table',
-      },
-      {
-        displayName: 'HTTP Table',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/http-table',
-      },
-      {
-        displayName: 'Mix Table',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/mix-table',
-      },
-      {
-        displayName: 'Multi Header Footer',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/multi-header-footer-table',
-      },
-      {
-        displayName: 'Pagination Table',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/pagination-table',
-      },
-      {
-        displayName: 'Row Context Table',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/row-context-table',
-      },
-      {
-        displayName: 'Selection Table',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/selection-table',
-      },
-      {
-        displayName: 'Sortable Table',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/sortable-table',
-      },
-      {
-        displayName: 'Sticky Column',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/sticky-column-table',
-      },
-      {
-        displayName: 'Sticky Header Footer',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'tables/sticky-header-footer-table',
-      },
-      {
-        displayName: 'Data table',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/datatable/kichen-sink',
+        children: [
+          {
+            displayName: 'PE de Programmes',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/dynamic-table',
+          },
+          {
+            displayName: 'PE d\'Actions de Programme',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/expand-table',
+          },
+          {
+            displayName: 'PE d\'Activité',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/filterable-table',
+          },
+          {
+            displayName: 'PE de services dépensiers',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'tables/expand-table',
+          },
+        ]
       },
     ],
   },
@@ -640,17 +645,17 @@ export const navItems: NavItem[] = [
     route: 'front-pages',
     children: [
       {
-        displayName: 'Homepage',
+        displayName: 'Budget Ministère/Institution',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'front-pages/homepage',
       },
       {
-        displayName: 'About Us',
+        displayName: 'Budget Programme',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'front-pages/about',
       },
       {
-        displayName: 'Blog',
+        displayName: 'PAP Programme',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'front-pages/blog',
       }
