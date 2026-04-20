@@ -36,7 +36,8 @@ export class AppBreadcrumbComponent {
       // tslint:disable-next-line - Disables all
       .subscribe((event) => {
         // tslint:disable-next-line - Disables all
-        this.titleService.setTitle(event['title'] + ' - angular 21');
+        this.titleService.setTitle( 'SYSBUDGEP - ' + event['title']);
+        console.log('XXXXX ', event['title']);
         this.pageInfo = event;
       });
   }

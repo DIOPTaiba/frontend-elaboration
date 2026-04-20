@@ -661,4 +661,48 @@ export const navItems: NavItem[] = [
       }
     ],
   },
+  {
+    displayName: 'AAAAAAA',
+    iconName: 'solar:home-angle-line-duotone',
+    route: 'front-pages',
+    children: [
+      {
+        displayName: 'Budget Ministère/Institution',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/homepage',
+      },
+      {
+        displayName: 'Budget Programme',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/about',
+      },
+      {
+        displayName: 'PAP Programme',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/blog',
+      }
+    ],
+  },
+  {
+    displayName: 'BBBBBB',
+    iconName: 'solar:home-angle-line-duotone',
+    route: 'front-pages',
+    children: [
+      {
+        displayName: 'Budget Ministère/Institution',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/homepage',
+      },
+      {
+        displayName: 'Budget Programme',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/about',
+      },
+      {
+        displayName: 'PAP Programme',
+        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        route: 'front-pages/blog',
+      }
+    ],
+  },
 ];
