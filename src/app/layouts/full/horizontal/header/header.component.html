@@ -98,7 +98,7 @@
       <i class="iconify icon-20 d-flex" data-icon="solar:menu-dots-outline"></i>
     </button>
 
-    @if(options.theme=='light'){
+    <!-- @if(options.theme=='light'){
     <button
       mat-icon-button
       aria-label="lightdark"
@@ -116,7 +116,7 @@
     >
       <i-tabler class="d-flex icon-20" [name]="'sun'"></i-tabler>
     </button>
-    }
+    } -->
 
     <!-- --------------------------------------------------------------- -->
     <!-- Notification Dropdown -->
@@ -207,6 +207,15 @@
     <!-- --------------------------------------------------------------- -->
     <!-- profile Dropdown -->
     <!-- --------------------------------------------------------------- -->
+    
+      <div class="d-flex align-items-center gap-4">
+        <img
+            class="rounded-circle object-cover icon-35 profile-dd"
+            src="/assets/images/logos/embleme_sn.png"
+            alt="profile"
+            title="Exploitation"
+          />
+      </div>
     <button
       mat-button
       [matMenuTriggerFor]="profilemenu"
@@ -214,11 +223,19 @@
       class="profile-btn"
     >
       <div class="d-flex align-items-center gap-4">
-        <img
+        <!-- <img
           src="/assets/images/profile/user-1.jpg"
           class="rounded-circle object-cover icon-35 profile-dd"
           width="35"
-        />
+
+          src="https://ui-avatars.com/api/?name={{currentUser.actPrenom}} {{currentUser.actNom}}"
+        /> -->
+        <img
+            class="rounded-circle object-cover icon-35 profile-dd"
+            src="https://ui-avatars.com/api/?name=X D"
+            alt="profile"
+            title="Exploitation"
+          />
 
         <i data-icon="solar:alt-arrow-down-bold" class="iconify f-s-8"></i>
       </div>

@@ -13,6 +13,11 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'depensePersonnellesEmplois',
+        loadChildren: () =>
+          import('./pages/pppb/depensesPersonnelles-emplois/depensesPersonnelles-emplois.routes').then((m) => m.DepensesPersonnellesEmploisRoutes),
+      },
+      {
         path: 'starter',
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),

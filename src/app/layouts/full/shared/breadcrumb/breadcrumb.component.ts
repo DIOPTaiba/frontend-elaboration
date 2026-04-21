@@ -37,7 +37,6 @@ export class AppBreadcrumbComponent {
       .subscribe((event) => {
         // tslint:disable-next-line - Disables all
         this.titleService.setTitle( 'SYSBUDGEP - ' + event['title']);
-        console.log('XXXXX ', event['title']);
         this.pageInfo = event;
       });
   }

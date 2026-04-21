@@ -13,7 +13,7 @@ export const DashboardsRoutes: Routes = [
         path: 'dashboard1',
         component: AppDashboard1Component,
         data: {
-          title: 'Dashboard 1',
+          title: 'Tableau de bord',
         
           breadcrumb: false,
         },
