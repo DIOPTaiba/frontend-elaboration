@@ -64,124 +64,17 @@ export const navItems: NavItem[] = [
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'apps/contacts',
       },
-      // {
-      //   displayName: 'Courses',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/courses',
-      // },
-      // {
-      //   displayName: 'Employee',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/employee',
-      // },
-      // {
-      //   displayName: 'Notes',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/notes',
-      // },
-      // {
-      //   displayName: 'Tickets',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/tickets',
-      // },
-      // {
-      //   displayName: 'Invoice',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/invoice',
-      // },
-      // {
-      //   displayName: 'ToDo',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/todo',
-      // },
-      // {
-      //   displayName: 'Kanban',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/kanban',
-      // },
-      // {
-      //   displayName: 'Blog',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/blog',
-      //   children: [
-      //     {
-      //       displayName: 'Post',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/blog/post',
-      //     },
-      //     {
-      //       displayName: 'Detail',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route:
-      //         'apps/blog/detail/Early Black Friday Amazon deals: cheap TVs, headphones, laptops',
-      //     },
-      //   ],
-      // },
-      // {
-      //   displayName: 'User Profile',
-      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //   route: 'apps/profile-details',
-      //   children: [
-      //     {
-      //       displayName: 'Profile',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/profile-details/profile',
-      //     },
-      //     {
-      //       displayName: 'Followers',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/profile-details/followers',
-      //     },
-      //     {
-      //       displayName: 'Friends',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/profile-details/friends',
-      //     },
-      //     {
-      //       displayName: 'Gellary',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/profile-details/gallery',
-      //     },
-      //   ],
-      // },
-      // {
-      //   displayName: 'Ecommerce',
-      //   iconName: 'solar:cart-5-line-duotone',
-      //   route: 'apps/product',
-      //   children: [
-      //     {
-      //       displayName: 'Product List',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/product/product-list',
-      //     },
-      //     {
-      //       displayName: 'Add Product',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/product/add-product',
-      //     },
-      //     {
-      //       displayName: 'Edit Product',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/product/edit-product',
-      //     },
-      //     {
-      //       displayName: 'Shop',
-      //       iconName: 'solar:round-alt-arrow-right-line-duotone',
-      //       route: 'apps/product/shop',
-      //     },
-      //   ],
-      // },
     ],
   },
   {
     displayName: 'Dépenses de personnel et Emplois',
     iconName: 'solar:filters-line-duotone',
-    route: 'ui-components',
+    route: 'pppb/depensesPersonnelles-emplois',
     children: [
       {
         displayName: 'Mise à jour Emplois et effectifs de la Section',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/badge',
+        route: 'depensePersonnellesEmplois/majEmploisEffectifSection',
       },
       {
         displayName: 'Mise à jour Emplois et effectifs du Programme',

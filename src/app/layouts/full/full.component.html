@@ -64,11 +64,14 @@
       <main class="pageWrapper" [ngClass]="{
           maxWidth: options.boxed
         }">
-        <app-breadcrumb></app-breadcrumb>
+         <!-- Activer pour le chemin en haut des pages -->
+        <!-- <app-breadcrumb></app-breadcrumb> -->
         <!-- ============================================================== -->
         <!-- Outlet -->
         <!-- ============================================================== -->
         <router-outlet></router-outlet>
+
+        <!-- Pour enlever le bouton settings en bas à droite de la page -->
         <div class="customizerBtn">
           <button mat-fab class="bg-error text-white" (click)="customizerRight.toggle()">
             <mat-icon>settings</mat-icon>
@@ -78,6 +81,7 @@
     </div>
   </mat-sidenav-content>
 
+  <!-- bouton settings en bas à droite de la page -->
   <mat-sidenav #customizerRight mode="over" position="end" class="customizerNav">
     <div class="p-x-16 p-y-20 d-flex align-items-center justify-content-between b-b-1">
       <h3 class="f-s-21 f-w-600">Settings</h3>
