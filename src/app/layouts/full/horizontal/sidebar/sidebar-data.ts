@@ -30,43 +30,13 @@ export const navItems: NavItem[] = [
     displayName: 'Paramètres dossiers',
     iconName: 'solar:home-angle-line-duotone',
     route: 'front-pages',
-    children: [
-      {
-        displayName: 'Homepage',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/homepage',
-      },
-      {
-        displayName: 'About Us',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/about',
-      },
-      {
-        displayName: 'Blog',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/blog',
-      },
-      {
-        displayName: 'Blog Details',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/blog-details',
-      },
-      {
-        displayName: 'Contact Us',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/contact',
-      },
-      {
-        displayName: 'Portfolio',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/portfolio',
-      },
-      {
-        displayName: 'Pricing',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/pricing',
-      }
-    ],
+    // children: [
+    //   {
+    //     displayName: 'Homepage',
+    //     iconName: 'solar:round-alt-arrow-right-line-duotone',
+    //     route: 'front-pages/homepage',
+    //   },
+    // ],
   },
   {
     displayName: 'Consultation enveloppes',
@@ -207,92 +177,94 @@ export const navItems: NavItem[] = [
     displayName: 'Dépenses de personnel et Emplois',
     iconName: 'solar:filters-line-duotone',
     route: 'ui-components',
-    ddType: 'mega-menu',
     children: [
       {
-        displayName: 'Badge',
+        displayName: 'Mise à jour Emplois et effectifs de la Section',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'ui-components/badge',
       },
       {
-        displayName: 'Expansion Panel',
+        displayName: 'Mise à jour Emplois et effectifs du Programme',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'ui-components/expansion',
+        children: [
+          {
+            displayName: 'Affectation agents solde',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'widgets',
+            children: [
+              {
+                displayName: 'Affectation agents par Programme',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/cards',
+              },
+              {
+                displayName: 'Affectation agents par Chapitre',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',
+              },
+            ],
+          },
+          {
+            displayName: 'Consultation crédits de personnel',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'charts',
+          },
+        ],
       },
       {
-        displayName: 'Chips',
+        displayName: 'Dotation et traitement agents',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'ui-components/chips',
+        children: [
+          {
+            displayName: 'Traitements collectifs',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'widgets/cards',
+          },
+          {
+            displayName: 'Traitement individuel',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'widgets/banners',
+          },
+          {
+            displayName: 'Nouveaux traitements',
+            iconName: 'solar:round-alt-arrow-right-line-duotone',
+            route: 'widgets/banners',
+          },
+        ],
       },
       {
-        displayName: 'Dialog',
+        displayName: 'Recherche un agent',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'ui-components/dialog',
       },
       {
-        displayName: 'Lists',
+        displayName: 'Editions - Crédits et emplois',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'ui-components/lists',
+        children: [
+              {
+                displayName: 'Ministère / Institution',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/cards',
+              },
+              {
+                displayName: 'Programme',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',
+              },
+              {
+                displayName: 'Chapitre',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',
+              },
+            ],
       },
       {
-        displayName: 'Divider',
+        displayName: 'Editions Tableaux nominatifs',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'ui-components/divider',
-      },
-      {
-        displayName: 'Menu',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/menu',
-      },
-      {
-        displayName: 'Paginator',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/paginator',
-      },
-      {
-        displayName: 'Progress Bar',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/progress',
-      },
-      {
-        displayName: 'Progress Spinner',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/progress-spinner',
-      },
-      {
-        displayName: 'Ripples',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/ripples',
-      },
-      {
-        displayName: 'Slide Toggle',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/slide-toggle',
-      },
-      {
-        displayName: 'Slider',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/slider',
-      },
-      {
-        displayName: 'Snackbar',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/snackbar',
-      },
-      {
-        displayName: 'Tabs',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/tabs',
-      },
-      {
-        displayName: 'Toolbar',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/toolbar',
-      },
-      {
-        displayName: 'Tooltips',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'ui-components/tooltips',
       },
     ],
   },
@@ -302,178 +274,67 @@ export const navItems: NavItem[] = [
     route: '',
     children: [
       {
-        displayName: 'Treeview',
+        displayName: 'Saisis / Mises à jour AE/CP par chapitre',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'theme-pages/treeview',
       },
       {
-        displayName: 'Pricing',
+        displayName: 'Consultation dotations AE/CP',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'theme-pages/pricing',
+        children: [
+              {
+                displayName: 'Section',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/cards',
+              },
+              {
+                displayName: 'Programme',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',
+              },
+              {
+                displayName: 'Acion',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',
+              },
+              {
+                displayName: 'Activité / Projet',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',
+              },
+            ],
       },
       {
-        displayName: 'Account Setting',
+        displayName: 'Edition AE/CP inscrits',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'theme-pages/account-setting',
-      },
-      {
-        displayName: 'FAQ',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'theme-pages/faq',
-      },
-      {
-        displayName: 'Landingpage',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'landingpage',
-      },
-      {
-        displayName: 'Widgets',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'widgets',
         children: [
-          {
-            displayName: 'Cards',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'widgets/cards',
-          },
-          {
-            displayName: 'Banners',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'widgets/banners',
-          },
-          {
-            displayName: 'Charts',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'widgets/charts',
-          },
-        ],
-      },
-      {
-        displayName: 'Charts',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'charts',
-        children: [
-          {
-            displayName: 'Line',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/charts/line',
-          },
-          {
-            displayName: 'Gredient',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/charts/gredient',
-          },
-          {
-            displayName: 'Area',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/charts/area',
-          },
-          {
-            displayName: 'Candlestick',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/charts/candlestick',
-          },
-          {
-            displayName: 'Column',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/charts/column',
-          },
-          {
-            displayName: 'Doughnut & Pie',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/charts/doughnut-pie',
-          },
-          {
-            displayName: 'Radialbar & Radar',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/charts/radial-radar',
-          },
-        ],
-      },
-      {
-        displayName: 'Auth',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/',
-        children: [
-          {
-            displayName: 'Login',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/authentication',
-            children: [
               {
-                displayName: 'Login 1',
+                displayName: 'Section',
                 iconName: 'solar:round-alt-arrow-right-line-duotone',
-                route: '/authentication/login',
+                route: 'widgets/cards',
               },
               {
-                displayName: 'Boxed Login',
+                displayName: 'Programme',
                 iconName: 'solar:round-alt-arrow-right-line-duotone',
-                route: '/authentication/boxed-login',
+                route: 'widgets/banners',
               },
+              {
+                displayName: 'Acion',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',
+              },
+              {
+                displayName: 'Activité / Projet',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',
+              },
+              {
+                displayName: 'Chapitre',
+                iconName: 'solar:round-alt-arrow-right-line-duotone',
+                route: 'widgets/banners',}
             ],
-          },
-          {
-            displayName: 'Register',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/authentication',
-            children: [
-              {
-                displayName: 'Login 1',
-                iconName: 'solar:round-alt-arrow-right-line-duotone',
-                route: '/authentication/side-register',
-              },
-              {
-                displayName: 'Boxed Login',
-                iconName: 'solar:round-alt-arrow-right-line-duotone',
-                route: '/authentication/boxed-register',
-              },
-            ],
-          },
-          {
-            displayName: 'Forgot Password',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/authentication',
-            children: [
-              {
-                displayName: 'Side Forgot Password',
-                iconName: 'solar:round-alt-arrow-right-line-duotone',
-                route: '/authentication/side-forgot-pwd',
-              },
-              {
-                displayName: 'Boxed Forgot Password',
-                iconName: 'solar:round-alt-arrow-right-line-duotone',
-                route: '/authentication/boxed-forgot-pwd',
-              },
-            ],
-          },
-          {
-            displayName: 'Two Steps',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/authentication',
-            children: [
-              {
-                displayName: 'Side Two Steps',
-                iconName: 'solar:round-alt-arrow-right-line-duotone',
-                route: '/authentication/side-two-steps',
-              },
-              {
-                displayName: 'Boxed Two Steps',
-                iconName: 'solar:round-alt-arrow-right-line-duotone',
-                route: '/authentication/boxed-two-steps',
-              },
-            ],
-          },
-          {
-            displayName: 'Error',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/authentication/error',
-          },
-          {
-            displayName: 'Maintenance',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: '/authentication/maintenance',
-          },
-        ],
       },
     ],
   },
@@ -641,50 +502,6 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Editions et annexes',
-    iconName: 'solar:home-angle-line-duotone',
-    route: 'front-pages',
-    children: [
-      {
-        displayName: 'Budget Ministère/Institution',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/homepage',
-      },
-      {
-        displayName: 'Budget Programme',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/about',
-      },
-      {
-        displayName: 'PAP Programme',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/blog',
-      }
-    ],
-  },
-  {
-    displayName: 'AAAAAAA',
-    iconName: 'solar:home-angle-line-duotone',
-    route: 'front-pages',
-    children: [
-      {
-        displayName: 'Budget Ministère/Institution',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/homepage',
-      },
-      {
-        displayName: 'Budget Programme',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/about',
-      },
-      {
-        displayName: 'PAP Programme',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'front-pages/blog',
-      }
-    ],
-  },
-  {
-    displayName: 'BBBBBB',
     iconName: 'solar:home-angle-line-duotone',
     route: 'front-pages',
     children: [

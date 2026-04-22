@@ -101,7 +101,8 @@
         border-radius: $border-radius;
         box-shadow: var(--mat-sys-level1);
         position: absolute;
-        width: 250px;
+        // width: 250px;
+        width: 400px;
         background-color: var(--mat-sys-surface);
 
         .ddmenu {
@@ -122,13 +123,19 @@
       }
 
       &:hover>.childBox>.ddmenu:hover>.childBox {
-        left: 230px;
+        // left: 230px;
+        left: 380px;
         top: 0px;
         z-index: 9;
+        // ajout
+        width: 300px;
 
         >.ddmenu:hover>.childBox {
-          left: 235px;
+          // left: 235px;
+          left: 280px;
           top: 0;
+          // ajout
+          width: 290px;
         }
       }
 

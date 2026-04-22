@@ -19,10 +19,14 @@ export class AppHorizontalNavItemComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
   onItemSelected(item: any) {
     if (!item.children || !item.children.length) {
       this.router.navigate([item.route]);
     }
   }
+
+  
 }
