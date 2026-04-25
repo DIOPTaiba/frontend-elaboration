@@ -1,5 +1,13 @@
 @use "../variables" as *;
 
+.horizontal-navbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.horizontal-navbar::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
 .sidebarNav-horizontal {
   .childBox {
     background: var(--mat-sys-surface);
@@ -23,13 +31,18 @@
 
   // sidebar
   .horizontal-navbar {
-    position: relative;
-    gap: 3px !important;
+    display: flex;
+    flex-wrap: nowrap;        // ❌ empêche retour à la ligne
+    overflow-x: auto;         // ✅ scroll horizontal
+    overflow-y: hidden;
+    white-space: nowrap;
+    // position: relative;
 
     .parentBox {
-      position: relative;
+      position: inherit;
       z-index: 5;
-      margin: 5px 0;
+      // margin: 5px 0;
+      flex: 0 0 auto;
 
       &.mega-menu {
         position: static;
