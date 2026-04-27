@@ -1,7 +1,11 @@
-.titreCard {
-    color: #1D4991;
-    padding-bottom: 12px;
+
+
+.table-container {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
 }
+
 
 table {
     width: 100%;
@@ -14,26 +18,36 @@ tr.example-detail-row {
 .mdc-data-table__cell,
 .mdc-data-table__header-cell {
     padding: 0 !important;
+    padding-left: 12px !important;
 }
 
-.example-element-row td {
+.rowTablePrincipale td {
     border-bottom-width: 0;
 }
 
-.tablechapitre th {
-    background-color: #5b8099;
+.headerTablePrincipale th {
+    background-color: #1D4991;
     color: #f8f8f8 !important;
 }
 
-.contentTabAgent {
-    background-color: #f4f4f4;
+
+.rowTablePrincipale:hover {
+  background: #f5f7fa;
 }
 
-.mdc-tab--active {
-    background-color: beige;
-    color: red;
-    font-size: large;
-    font-weight: 700;
+.rowTablePrincipale {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.trHeaderTableAgent th, .trFooterTableAgent {
+    background-color: #4972b6;
+    color: #f8f8f8 !important;
+}
+
+
+.contentTabAgent {
+    background-color: #f4f4f4;
 }
 
 .tableAgent,
@@ -47,26 +61,17 @@ tr.example-detail-row {
     background-color: #DEEAF6;
 }
 
-// .tbodytableAgent td {
-//     text-align: end;
-// }
 
-.footerTableAgent {
-    background-color: #5b8099;
+.trFooterTableAgent {
     padding: 2px;
-    color: #f8f8f8 !important;
 }
 
-.footerTableAgent td {
+.trFooterTableAgent td {
     padding: 0;
     padding-left: 20px;
     padding-right: 12px;
 }
 
 
-.trHeaderTableAgent {
-    background-color: #5b8099;
-    font-size: 16px;
-    color: #f8f8f8 !important;
-}
+
 

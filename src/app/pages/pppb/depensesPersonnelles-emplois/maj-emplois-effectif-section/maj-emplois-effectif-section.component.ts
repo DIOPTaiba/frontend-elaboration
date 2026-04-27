@@ -7,7 +7,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { EXPAND_TABLE_TS_SNIPPET } from 'src/app/pages/tables/expand-table/code/
 import { Highlight, HighlightAuto } from 'ngx-highlightjs';
 import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 import { TablerIconsModule } from 'angular-tabler-icons';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 
 const CHAPITRE_DATA: objetChapitre[] = [
@@ -317,6 +317,7 @@ const ACTIVITE_DATA: objetType[] = [
   selector: 'app-maj-emplois-effectif-section',
   imports: [
     MaterialModule,
+    DecimalPipe,
     MatCardModule,
     MatTableModule,
     MatIconModule,
@@ -343,6 +344,13 @@ const ACTIVITE_DATA: objetType[] = [
 })
 export class MajEmploisEffectifSectionComponent implements OnInit {
 
+  templates: string[] = [
+    'Depenses de personnels',
+    '2026',
+    'Dons Exterieurs',
+    'Electronics',
+  ];
+  
   choix: number = 1; // valeur par défaut
 
 
@@ -373,6 +381,7 @@ export class MajEmploisEffectifSectionComponent implements OnInit {
 
   ngOnInit(): void { }
 }
+
 
 export interface objetChapitre {
   code: string;

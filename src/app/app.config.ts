@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideHttpClient, HttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { routes } from './app.routes';
@@ -31,6 +31,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 // code view
 import { provideHighlightOptions } from 'ngx-highlightjs';
 import 'highlight.js/styles/atom-one-dark.min.css';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
 export class CustomLoader implements TranslateLoader {
   constructor(private http: HttpClient, private prefix: string, private suffix: string) { }
@@ -44,8 +46,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new CustomLoader(http, './assets/i18n/', '.json');
 }
 
+registerLocaleData(localeFr);
+
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: LOCALE_ID, useValue: 'fr-FR' },
     provideAnimationsAsync(), // required animations providers
     provideToastr(), // Toastr providers
     provideZoneChangeDetection({ eventCoalescing: true }),
