@@ -1,3 +1,58 @@
 .titre {
     color: #1D4991;
 }
+
+table {
+    width: 100%;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
+    padding: 0 !important;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+.tablechapitre th {
+    background-color: #5b8099;
+    color: #f8f8f8 !important;
+}
+.tableAgent,
+.tableAgent th,
+.tableAgent td {
+  border: 1px solid #dee2e6 !important;
+  border-collapse: collapse;
+}
+
+.tbodytableAgent {
+    background-color: #DEEAF6;
+}
+
+// .tbodytableAgent td {
+//     text-align: end;
+// }
+
+.footerTableAgent {
+    background-color: #5b8099;
+    padding: 2px;
+    color: #f8f8f8 !important;
+}
+
+.footerTableAgent td {
+    padding: 0;
+    padding-left: 20px;
+    padding-right: 12px;
+}
+
+
+
+.trHeaderTableAgent {
+    background-color: #5b8099;
+    font-size: 16px;
+    color: #f8f8f8 !important;
+}
