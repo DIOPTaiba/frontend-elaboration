@@ -110,7 +110,7 @@
       <div class="col-sm-4">
         <mat-label class="f-s-14 f-w-600 d-block">Emplois et Effectifs par</mat-label>
         <mat-form-field appearance="outline" class="w-100" color="primary">
-          <mat-select [(ngModel)]=choix >
+          <mat-select [(ngModel)]=choix>
             <mat-option value=1>Chapitre</mat-option>
             <mat-option value=2>Emploi</mat-option>
             <mat-option value=3>Action</mat-option>
@@ -221,83 +221,167 @@ $event.stopPropagation()
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
             <div [@detailExpand]="element === expandedElementChapitre ? 'expanded' : 'collapsed'">
-              <div class="p-15 rounded b-1 m-b-16 m-x-18">
+              <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
 
-                <!-- Debut Table 2 -->
+                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+                  <!-- TABS AGENTS -->
+                  <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
+                    <div class=" f-s-14 p-16 rounded m-t-12">
+                      <!-- Debut Table 2 -->
+                      <div class=" b-b-1">
+                        <mat-card-title>
 
-                <div class=" b-b-1">
-                  <mat-card-title>
-
-                    <div class="row justify-content-end align-items-center">
-                      <div class="col-6">
-                        <h4>
-                          Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
-                        </h4>
-                        <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
+                          <div class="row justify-content-end align-items-center">
+                            <div class="col-6">
+                              <h4>
+                                Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
+                              </h4>
+                              <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
+                            </div>
+                            <div class="col-6 text-right">
+                              <button mat-flat-button>Ajouter agent</button>
+                            </div>
+                          </div>
+                        </mat-card-title>
                       </div>
-                      <div class="col-6 text-right">
-                        <button mat-flat-button>Ajouter agent</button>
-                      </div>
-                    </div>
-                  </mat-card-title>
-                </div>
-                <div class="table-responsive">
-                  <table class="tableAgent">
-                    <thead class="text-center">
-                      <tr class="trHeaderTableAgent text-white ">
-                        <th class=" text-center ">Emploi</th>
-                        <th class="">Matricule</th>
-                        <th class="">Nom</th>
-                        <th class="">Age</th>
-                        <th class="">Statut</th>
-                        <th class="">Action</th>
-                        <th class="">Activité</th>
-                        <th class="">Effectifs</th>
-                        <th class="">Budget Prévu</th>
-                        <th class="">Opérations</th>
-                      </tr>
-                    </thead>
-                    <tbody class="tbodytableAgent">
-                      <tr *ngFor="let agent of listeAgent; let indexEngComptable = index">
-                        <td class="text-end">{{agent.emploi}}</td>
-                        <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
-                        <td class="">{{agent.nom }}</td>
-                        <td class="text-end">{{agent.age }}</td>
-                        <td class="">{{agent.statut }}</td>
-                        <td class="">{{agent.action }}</td>
-                        <td class="">{{agent.activite }}</td>
-                        <td class="text-right">{{agent.effectifs }}</td>
-                        <td class="text-right">{{agent.budgetPrevu }}</td>
-                        <td class="action-link text-center">
-                          <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Libérer/Affecter l'agent"
-              matTooltipPosition="above"><i-tabler name="edit"
-                              class="icon-18"></i-tabler></a>
-                          <a class="cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Retirer l'agent"
-              matTooltipPosition="above">
-                            <i-tabler name="trash" class="icon-18"></i-tabler>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                    <tfoot>
-                      <tr class=" footerTableAgent p-2 f-w-800 fw-bold ">
-                        <td class="  fw-bold " colspan="7">
-                          Total
-                        </td>
-                        <td class=" col-2 text-right fw-bold">150
-                        </td>
-                        <td class="pe-2 col-2 text-right fw-bold ">50000000
-                        </td>
-                        <td></td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                  <!-- <div class="mt-1 d-flex justify-content-end">
+                      <div class="table-responsive">
+                        <table class="tableAgent">
+                          <thead class="text-center">
+                            <tr class="trHeaderTableAgent text-white ">
+                              <th class=" text-center ">Emploi</th>
+                              <th class="">Matricule</th>
+                              <th class="">Nom</th>
+                              <th class="">Age</th>
+                              <th class="">Statut</th>
+                              <th class="">Action</th>
+                              <th class="">Activité</th>
+                              <th class="">Effectifs</th>
+                              <th class="">Budget Prévu</th>
+                              <th class="">Opérations</th>
+                            </tr>
+                          </thead>
+                          <tbody class="tbodytableAgent">
+                            <tr *ngFor="let agent of listeAgent; let indexEngComptable = index">
+                              <td class="text-end">{{agent.emploi}}</td>
+                              <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
+                              <td class="">{{agent.nom }}</td>
+                              <td class="text-end">{{agent.age }}</td>
+                              <td class="">{{agent.statut }}</td>
+                              <td class="">{{agent.action }}</td>
+                              <td class="">{{agent.activite }}</td>
+                              <td class="text-right">{{agent.effectifs }}</td>
+                              <td class="text-right">{{agent.budgetPrevu }}</td>
+                              <td class="action-link text-center">
+                                <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
+                                  matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
+                                    class="icon-18"></i-tabler></a>
+                                <a class="cursor-pointer" color="primary" #tooltip="matTooltip"
+                                  matTooltip="Retirer l'agent" matTooltipPosition="above">
+                                  <i-tabler name="trash" class="icon-18"></i-tabler>
+                                </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tfoot>
+                            <tr class=" footerTableAgent p-2 f-w-800 fw-bold ">
+                              <td class="  fw-bold " colspan="7">
+                                Total
+                              </td>
+                              <td class=" col-2 text-right fw-bold">150
+                              </td>
+                              <td class="pe-2 col-2 text-right fw-bold ">50000000
+                              </td>
+                              <td></td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                        <!-- <div class="mt-1 d-flex justify-content-end">
             <ngb-pagination [collectionSize]="totalPropositionEng" [(page)]="currentPage" [maxSize]="5" [pageSize]="pageSize"  [rotate]="true" [boundaryLinks]="true" (pageChange)="pageChange()" size="sm"></ngb-pagination>
           </div> -->
-                </div>
+                      </div>
 
-                <!-- Fin Table 2 -->
+                      <!-- Fin Table 2 -->
+                    </div>
+                  </mat-tab>
+
+                  <!-- TABS NOUVELLES DEMANDES -->
+                  <mat-tab label="Nouvelles demandes">
+                    <mat-card class="b-1 ">
+                        <mat-card-content class="contentNouvellesDemandes">
+                          <mat-card-title class="titreCard f-s-16 f-w-900">Budget</mat-card-title>
+                          <div class="row  justify-content-between">
+                            <div class="col-6">
+                              <div class="row justify-content-between">
+                                <div class="col-sm-6">
+                                  <mat-label class="f-s-14 f-w-600 col-6 ">Exercice</mat-label>
+                                  <mat-form-field appearance="outline" class="col-6 " color="primary">
+                                    <input matInput type="text" class="text-center" value="2027" readonly />
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-6">
+                                  <mat-label class="f-s-14 f-w-600 col-6 ">Version</mat-label>
+                                  <mat-form-field appearance="outline" class="col-6 " color="primary">
+                                    <input matInput type="text"  class="text-center" value="1" readonly />
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <!-- <div class="row"> -->
+                              <mat-label class="f-s-14 f-w-600 col-4">Type budget </mat-label>
+                              <!-- <div class="col-10"> -->
+                              <mat-form-field appearance="outline" class="col-8" color="primary">
+                                <input matInput type="text" value="Projet de Loi de Finances Initiale 2027" readonly />
+                              </mat-form-field>
+                              <!-- </div> -->
+                              <!-- </div> -->
+                            </div>
+                          </div>
+
+                          <div class="row ">
+                            <div class="col-sm-12">
+                              <!-- input -->
+                              <mat-label class="f-s-14 f-w-600 d-block">Section</mat-label>
+                              <mat-form-field appearance="outline" class="w-100" color="primary">
+                                <input matInput type="text"
+                                  value="Ministère des Finances et du Budget" readonly />
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row ">
+                            <div class="col-3">
+                              <!-- input -->
+                              <mat-label class="f-s-14 f-w-600 col-8 ">Catégorie de dépenses</mat-label>
+                              <mat-form-field appearance="outline" class="col-3 " color="primary">
+                                <input matInput  class="text-center p0" type="text"
+                                  value="2" readonly />
+                              </mat-form-field>
+                            </div>
+                            <div class="col-9">
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                <input matInput type="text"
+                                  value="Dépenses de personnel" readonly />
+                              </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row ">
+                              <!-- input -->
+                              <mat-label class="f-s-14 f-w-600 col-1">Chapitre</mat-label>
+                              <mat-form-field appearance="outline" class="col-11" color="primary">
+                                <mat-select value="1">
+                                  <mat-option value="1">Direction des Systèmes d’information</mat-option>
+                                  <mat-option value="2">Direction de la programmation budgétaire</mat-option>
+                                  <mat-option value="3">Direction de la Solde</mat-option>
+                                  <mat-option value="4">Direction du Contrôle budgétaire</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                          </div>
+                        </mat-card-content>
+                      </mat-card>
+                  </mat-tab>
+                </mat-tab-group>
+
+
 
 
               </div>
@@ -467,11 +551,11 @@ $event.stopPropagation()
                         <td class="text-right">{{agent.effectifs }}</td>
                         <td class="text-right">{{agent.budgetPrevu }}</td>
                         <td class="action-link text-center">
-                          <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Libérer/Affecter l'agent"
-              matTooltipPosition="above"><i-tabler name="edit"
+                          <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
+                            matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
                               class="icon-18"></i-tabler></a>
                           <a class="cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Retirer l'agent"
-              matTooltipPosition="above">
+                            matTooltipPosition="above">
                             <i-tabler name="trash" class="icon-18"></i-tabler>
                           </a>
                         </td>
@@ -665,11 +749,11 @@ $event.stopPropagation()
                         <td class="text-right">{{agent.effectifs }}</td>
                         <td class="text-right">{{agent.budgetPrevu }}</td>
                         <td class="action-link text-center">
-                          <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Libérer/Affecter l'agent"
-              matTooltipPosition="above"><i-tabler name="edit"
+                          <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
+                            matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
                               class="icon-18"></i-tabler></a>
                           <a class="cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Retirer l'agent"
-              matTooltipPosition="above">
+                            matTooltipPosition="above">
                             <i-tabler name="trash" class="icon-18"></i-tabler>
                           </a>
                         </td>
@@ -866,11 +950,11 @@ $event.stopPropagation()
                         <td class="text-right">{{agent.effectifs }}</td>
                         <td class="text-right">{{agent.budgetPrevu }}</td>
                         <td class="action-link text-center">
-                          <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Libérer/Affecter l'agent"
-              matTooltipPosition="above"><i-tabler name="edit"
+                          <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
+                            matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
                               class="icon-18"></i-tabler></a>
                           <a class="cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Retirer l'agent"
-              matTooltipPosition="above">
+                            matTooltipPosition="above">
                             <i-tabler name="trash" class="icon-18"></i-tabler>
                           </a>
                         </td>

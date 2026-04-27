@@ -24,6 +24,7 @@ import { Highlight, HighlightAuto } from 'ngx-highlightjs';
 import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -323,7 +324,9 @@ const ACTIVITE_DATA: objetType[] = [
     CommonModule,
     MatDividerModule,
     FormsModule,
+    MatTabsModule,
     TablerIconsModule,
+    
   ],
   templateUrl: './maj-emplois-effectif-section.component.html',
   styleUrl: './maj-emplois-effectif-section.component.scss',

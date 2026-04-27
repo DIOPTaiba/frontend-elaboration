@@ -1,5 +1,6 @@
-.titre {
+.titreCard {
     color: #1D4991;
+    padding-bottom: 12px;
 }
 
 table {
@@ -18,15 +19,28 @@ tr.example-detail-row {
 .example-element-row td {
     border-bottom-width: 0;
 }
+
 .tablechapitre th {
     background-color: #5b8099;
     color: #f8f8f8 !important;
 }
+
+.contentTabAgent {
+    background-color: #f4f4f4;
+}
+
+.mdc-tab--active {
+    background-color: beige;
+    color: red;
+    font-size: large;
+    font-weight: 700;
+}
+
 .tableAgent,
 .tableAgent th,
 .tableAgent td {
-  border: 1px solid #dee2e6 !important;
-  border-collapse: collapse;
+    border: 1px solid #dee2e6 !important;
+    border-collapse: collapse;
 }
 
 .tbodytableAgent {
@@ -50,9 +64,9 @@ tr.example-detail-row {
 }
 
 
-
 .trHeaderTableAgent {
     background-color: #5b8099;
     font-size: 16px;
     color: #f8f8f8 !important;
 }
+
