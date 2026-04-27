@@ -9,21 +9,12 @@ import {
 } from '@angular/animations';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-
-import { AppCodeViewComponent } from 'src/app/components/code-view/code-view.component';
-
-// snippets
-import { EXPAND_TABLE_HTML_SNIPPET } from 'src/app/pages/tables/expand-table/code/expand-table-html-snippet';
-import { EXPAND_TABLE_TS_SNIPPET } from 'src/app/pages/tables/expand-table/code/expand-table-ts-snippet';
-
-import { Highlight, HighlightAuto } from 'ngx-highlightjs';
-import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 import { TablerIconsModule } from 'angular-tabler-icons';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 
 const CHAPITRE_DATA: objetChapitre[] = [
@@ -77,8 +68,118 @@ const CHAPITRE_DATA: objetChapitre[] = [
     ecart: 100,
     dotation: 100
   },
+  {
+    code: '25025330',
+    libelle: 'Direction de la programmation budgétaire',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025331',
+    libelle: 'Direction de la Solde',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025332',
+    libelle: 'Direction des Systèmes d’information',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025333',
+    libelle: 'Direction du Contrôle budgétaire',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '2502533',
+    libelle: 'Direction des Pensions',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
 ];
 const AGENT_DATA: objetAgent[] = [
+  {
+    chapitre: 'Direction SI DGB',
+    emploi: 'Ing. Informaticien',
+    matricule: '12345678',
+    nom: 'xxxxx yyy',
+    age: 0,
+    statut: 'agent',
+    action: 'action',
+    activite: 'activité',
+    effectifs: 25,
+    budgetPrevu: 25000000,
+  },
+  {
+    chapitre: 'Direction SI DGB',
+    emploi: 'Ing. Informaticien',
+    matricule: '12345678',
+    nom: 'xxxxx yyy',
+    age: 0,
+    statut: 'agent',
+    action: 'action',
+    activite: 'activité',
+    effectifs: 25,
+    budgetPrevu: 25000000,
+  },
+  {
+    chapitre: 'Direction SI DGB',
+    emploi: 'Ing. Informaticien',
+    matricule: '12345678',
+    nom: 'xxxxx yyy',
+    age: 0,
+    statut: 'agent',
+    action: 'action',
+    activite: 'activité',
+    effectifs: 25,
+    budgetPrevu: 25000000,
+  },
+  {
+    chapitre: 'Direction SI DGB',
+    emploi: 'Ing. Informaticien',
+    matricule: '12345678',
+    nom: 'xxxxx yyy',
+    age: 0,
+    statut: 'agent',
+    action: 'action',
+    activite: 'activité',
+    effectifs: 25,
+    budgetPrevu: 25000000,
+  },
+  {
+    chapitre: 'Direction SI DGB',
+    emploi: 'Ing. Informaticien',
+    matricule: '12345678',
+    nom: 'xxxxx yyy',
+    age: 0,
+    statut: 'agent',
+    action: 'action',
+    activite: 'activité', 
+    effectifs: 25,
+    budgetPrevu: 25000000,
+  },
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
@@ -196,8 +297,118 @@ const EMPLOI_DATA: objetType[] = [
     ecart: 100,
     dotation: 100
   },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Emp01',
+    libelle: 'Ingénieurs informaticiens',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Emp02',
+    libelle: 'Ingénieurs informaticiens',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Emp03',
+    libelle: 'Ingénieurs informaticiens',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Emp04',
+    libelle: 'Ingénieurs informaticiens',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Emp05',
+    libelle: 'Ingénieurs informaticiens',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
 ];
 const ACTION_DATA: objetType[] = [
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Action01',
+    libelle: 'Élaboration des lois de finances',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Action02',
+    libelle: 'Élaboration des lois de finances',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Action03',
+    libelle: 'Élaboration des lois de finances',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Action04',
+    libelle: 'Élaboration des lois de finances',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Action05',
+    libelle: 'Élaboration des lois de finances',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
   {
     action: 'Élaboration des lois de finances',
     code: 'Action01',
@@ -310,6 +521,61 @@ const ACTIVITE_DATA: objetType[] = [
     total: 100,
     ecart: 100,
     dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Activite01',
+    libelle: 'Appui informatique',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Activite02',
+    libelle: 'Appui informatique',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Activite03',
+    libelle: 'Appui informatique',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Activite04',
+    libelle: 'Appui informatique',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    action: 'Élaboration des lois de finances',
+    code: 'Activite05',
+    libelle: 'Appui informatique',
+    effectifs0: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
   }
 ];
 
@@ -344,14 +610,15 @@ const ACTIVITE_DATA: objetType[] = [
 })
 export class MajEmploisEffectifSectionComponent implements OnInit {
 
-  templates: string[] = [
-    'Depenses de personnels',
-    '2026',
-    'Dons Exterieurs',
-    'Electronics',
-  ];
+  dataSourceChapitre = new MatTableDataSource(CHAPITRE_DATA);
   
-  choix: number = 1; // valeur par défaut
+  	applyFilter(event: Event) {
+const filterValue = (event.target as HTMLInputElement).value;
+this.dataSourceChapitre.filter = filterValue.trim().toLowerCase();
+}
+
+  
+  choix: string = "1"; // valeur par défaut
 
 
   listeChapitre = CHAPITRE_DATA;

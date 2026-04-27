@@ -52,7 +52,10 @@ tr.example-detail-row {
 
 .tableAgent,
 .tableAgent th,
-.tableAgent td {
+.tableAgent td,
+.tableNouvellesSaises,
+.tableNouvellesSaises th,
+.tableNouvellesSaises td {
     border: 1px solid #dee2e6 !important;
     border-collapse: collapse;
 }
