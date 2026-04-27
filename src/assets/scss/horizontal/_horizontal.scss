@@ -24,7 +24,9 @@
   // sidebar
   .horizontal-navbar {
     position: relative;
-    gap: 3px !important;
+    overflow-x: hidden;
+    white-space: nowrap;
+    //gap: 3px !important;
 
     .parentBox {
       position: relative;
@@ -100,8 +102,8 @@
       .childBox {
         border-radius: $border-radius;
         box-shadow: var(--mat-sys-level1);
-        position: absolute;
-        // width: 250px;
+        position: fixed;
+        width: max-content;
         width: 400px;
         background-color: var(--mat-sys-surface);
 

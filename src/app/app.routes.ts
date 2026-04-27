@@ -17,6 +17,11 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./pages/pppb/depensesPersonnelles-emplois/depensesPersonnelles-emplois.routes').then((m) => m.DepensesPersonnellesEmploisRoutes),
       },
+         {
+        path: 'fonctionnementInvestissements',
+        loadChildren: () =>
+          import('./pages/pppb/fonctionnement-investiss/fontionnement-ins.routes').then((m) => m.FonctionnementInvestissementsRoutes),
+      },
       {
         path: 'starter',
         loadChildren: () =>
