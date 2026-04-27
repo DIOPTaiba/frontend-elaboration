@@ -69,6 +69,9 @@ export class SaisieMajAeCpComponent {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   toggle(element: any) {
     this.expandedElement = this.expandedElement === element ? null : element;

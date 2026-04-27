@@ -183,7 +183,12 @@
 <mat-card class="cardWithShadow b-1 rounded p-20 p-b-20">
     <div class="row align-items-center justify-content-between">
      <h4 class="text-muted p-b-20 col-12 col-lg-2 col-md-2">Saisie / Mise à jour </h4>
-  
+   <!--  <div class="col-12 col-lg-10 col-md-10 row align-items-center "> -->
+       <!--  <label class="col-12 col-lg-4 col-md-4 f-s-14 f-w-600  ">Rechercher un chapitre </label> -->
+        <mat-form-field appearance="outline" class="col-12 col-lg-8 col-md-8 w-100">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher  un  chapitre ..." #input>
+        </mat-form-field>
+   <!--  </div> -->
    </div>
 
 
@@ -247,8 +252,10 @@
                 </button>
 
             </td>
+            
         </ng-container>
-
+        
+	
         <!-- HEADER -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
