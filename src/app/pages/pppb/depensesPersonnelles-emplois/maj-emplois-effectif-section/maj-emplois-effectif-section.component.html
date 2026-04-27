@@ -132,39 +132,13 @@
       </h4>
     </mat-card-title>
   </div>
-  <div class="p-16">
+  <div class="p-16 p-t-0 ">
 
-    <table border="1" style="border-collapse: collapse; width: 100%; text-align: center;">
-
-      <thead>
-        <tr>
-          <th rowspan="2">Code</th>
-          <th rowspan="2">Libellé</th>
-          <th rowspan="2">Effectifs 2026</th>
-          <th colspan="3">Prévisions Effectifs 2027</th>
-          <th rowspan="2">Ecarts</th>
-          <th rowspan="2">Dotation</th>
-        </tr>
-
-        <tr>
-          <th>Agents Solde</th>
-          <th>Contractuels</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-
-
-    </table>
     <div class="table-responsive-sm">
       <table tablechapitre mat-table [dataSource]="listeChapitre" multiTemplateDataRows>
         <!-- Row 1 -->
         <ng-container matColumnDef="0">
           <th mat-header-cell *matHeaderCellDef colspan="3" class="f-w-600 f-s-14">
-          </th>
-        </ng-container>
-        <ng-container matColumnDef="previosions1">
-          <th mat-header-cell *matHeaderCellDef colspan="3" class="text-center f-w-600 f-s-14">
-            Prévisions Effectifs 2027
           </th>
         </ng-container>
         <!-- Row 2 -->
@@ -178,27 +152,27 @@
         </ng-container>
         <ng-container matColumnDef="effectifs0">
           <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Effectifs2026 </th>
-          <td mat-cell *matCellDef="let element"> {{element.effectifs0}} </td>
+          <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{element.effectifs0}} </td>
         </ng-container>
         <ng-container matColumnDef="agentsSolde">
           <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
-          <td mat-cell *matCellDef="let element"> {{element.agentsSolde}} </td>
+          <td mat-cell class="text-right" *matCellDef="let element"> {{element.agentsSolde}} </td>
         </ng-container>
         <ng-container matColumnDef="contractuels">
           <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
-          <td mat-cell *matCellDef="let element"> {{element.contractuels}} </td>
+          <td mat-cell class="text-right" *matCellDef="let element"> {{element.contractuels}} </td>
         </ng-container>
         <ng-container matColumnDef="total">
           <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
-          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+          <td mat-cell class="text-right" *matCellDef="let element"> {{element.total}} </td>
         </ng-container>
         <ng-container matColumnDef="ecart">
           <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Ecart </th>
-          <td mat-cell *matCellDef="let element"> {{element.ecart}} </td>
+          <td mat-cell class="text-right" *matCellDef="let element"> {{element.ecart}} </td>
         </ng-container>
         <ng-container matColumnDef="dotation">
           <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Dotation </th>
-          <td mat-cell *matCellDef="let element"> {{element.dotation}} </td>
+          <td mat-cell class="text-right" *matCellDef="let element"> {{element.dotation}} </td>
         </ng-container>
         <ng-container matColumnDef="expand">
           <th mat-header-cell *matHeaderCellDef aria-label="row actions">
@@ -389,7 +363,6 @@ $event.stopPropagation()
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['0', 'previosions1']" class="example-second-header-row"></tr>
         <tr mat-header-row *matHeaderRowDef="columnsChapitreToDisplayWithExpand"></tr>
         <tr mat-row *matRowDef="let element; columns: columnsChapitreToDisplayWithExpand" class="example-element-row"
           [class.example-expanded-row]="expandedElementChapitre === element" (click)="
