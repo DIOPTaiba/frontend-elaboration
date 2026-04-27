@@ -9,7 +9,6 @@
     overflow-x: clip !important;
     overflow-y: visible !important;
     box-shadow: var(--mat-sys-level1);
-
     .branding {
       padding-left: 0;
     }
@@ -19,12 +18,13 @@
       display: flex;
       align-items: center;
       width: 100%;
+
     }
   }
 
   .horizontal-navbar {
     position: relative;
-    gap: 3px !important;
+    //gap: 3px !important;
     flex-wrap: nowrap !important;
 
     .parentBox {

@@ -1,9 +1,17 @@
-<mat-toolbar class=" horizontal-topbar gap-5">
-  <div class="container">
+<mat-toolbar class=" horizontal-topbar gap-5" >
+  <div class="container" >
     <div class="d-none d-sm-flex">
       <app-branding></app-branding>
     </div>
+    <div style="margin-left: 42%;" >
+  <img
+    src="./assets/images/logos/logo_sysbudgep.PNG"
+    alt="image-milieu"
+    style="height: 46,95px;width: 215px; margin-top: 10px;"
+  />
+</div>
 
+<div style="margin-left: 42%; " class="d-flex align-items-center">
     <!-- Mobile Menu -->
     <button
       mat-icon-button
@@ -88,7 +96,7 @@
     </div> -->
 
     <span class="flex-1-auto"></span>
-
+  
     <!-- Mobile Menu -->
     <button
       mat-icon-button
@@ -264,7 +272,7 @@
           class="p-8 text-decoration-none d-block text-hover-primary"
           [routerLink]="[profile.link]"
         >
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center" >
             <h5 class="f-s-14 f-w-600 m-0 lh-md hover-text">
               {{ profile.title }}
             </h5>
@@ -279,5 +287,6 @@
         }
       </div>
     </mat-menu>
+  </div>
   </div>
 </mat-toolbar>
