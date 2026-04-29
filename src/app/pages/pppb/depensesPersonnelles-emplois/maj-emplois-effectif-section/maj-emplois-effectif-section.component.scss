@@ -28,11 +28,14 @@ tr.example-detail-row {
     border-bottom-width: 0;
 }
 
-.headerTablePrincipale th {
+.headerTablePrincipale th, input[mat-footer-cell] {
     background-color: #1D4991;
     color: #f8f8f8 !important;
 }
 
+.mat-mdc-footer-cell {
+  background-color: #bdd3f7;
+}
 
 .rowTablePrincipale:hover {
   background: #f5f7fa;

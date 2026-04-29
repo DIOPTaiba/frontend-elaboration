@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from 'src/app/material.module';
 import {
   animate,
@@ -18,8 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { HighlightAuto } from 'ngx-highlightjs';
-import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -72,62 +71,162 @@ const CHAPITRE_DATA: objetChapitre[] = [
     ecart: 100,
     dotation: 100
   },
-  {
-    code: '25025330',
-    libelle: 'Direction de la programmation budgétaire',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025331',
-    libelle: 'Direction de la Solde',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025332',
-    libelle: 'Direction des Systèmes d’information',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025333',
-    libelle: 'Direction du Contrôle budgétaire',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '2502533',
-    libelle: 'Direction des Pensions',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
+  // {
+  //   code: '25025330',
+  //   libelle: 'Direction de la programmation budgétaire',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025331',
+  //   libelle: 'Direction de la Solde',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025332',
+  //   libelle: 'Direction des Systèmes d’information',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025333',
+  //   libelle: 'Direction du Contrôle budgétaire',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '2502533',
+  //   libelle: 'Direction des Pensions',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025330',
+  //   libelle: 'Direction de la programmation budgétaire',
+  //   effectifs0: 200,
+  //   agentsSolde: 250,
+  //   contractuels: 100,
+  //   total: 350,
+  //   ecart: 150,
+  //   dotation: 525000550
+  // },
+  // {
+  //   code: '25025331',
+  //   libelle: 'Direction de la Solde',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025332',
+  //   libelle: 'Direction des Systèmes d’information',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025333',
+  //   libelle: 'Direction du Contrôle budgétaire',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '2502533',
+  //   libelle: 'Direction des Pensions',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025330',
+  //   libelle: 'Direction de la programmation budgétaire',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025331',
+  //   libelle: 'Direction de la Solde',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025332',
+  //   libelle: 'Direction des Systèmes d’information',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025333',
+  //   libelle: 'Direction du Contrôle budgétaire',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '2502533',
+  //   libelle: 'Direction des Pensions',
+  //   effectifs0: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
 ];
 const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123450',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -139,7 +238,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123451',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -151,7 +250,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123452',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -163,7 +262,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123453',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -175,7 +274,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123454',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -187,7 +286,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123455',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -199,7 +298,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123456',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -211,7 +310,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '1234567',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -223,7 +322,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123458',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -235,7 +334,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123459',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -588,19 +687,10 @@ const ACTIVITE_DATA: objetType[] = [
   imports: [
     MaterialModule,
     DecimalPipe,
-    MatCardModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    CommonModule,
-    MatDividerModule,
     FormsModule,
-    MatTabsModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
+    MatPaginatorModule,
     TablerIconsModule
-],
+  ],
   templateUrl: './maj-emplois-effectif-section.component.html',
   styleUrl: './maj-emplois-effectif-section.component.scss',
   animations: [
@@ -614,29 +704,33 @@ const ACTIVITE_DATA: objetType[] = [
     ]),
   ],
 })
-export class MajEmploisEffectifSectionComponent implements OnInit {
+export class MajEmploisEffectifSectionComponent {
 
-  listeChapitre = new MatTableDataSource(CHAPITRE_DATA);
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.listeChapitre.filter = filterValue.trim().toLowerCase();
+  ngAfterViewInit(): void {
+    this.listeChapitre.paginator = this.paginator;
   }
 
-  choix: string = "1"; // valeur par défaut
+  listeChapitre = new MatTableDataSource(CHAPITRE_DATA);
+  listeEmplois = new MatTableDataSource(EMPLOI_DATA);
+  listeActions = new MatTableDataSource(ACTION_DATA);
+  listeActivites = new MatTableDataSource(ACTIVITE_DATA);
+  listeAgent = new MatTableDataSource(AGENT_DATA);
+
+  choix: string = "chapitre"; // valeur par défaut
+  textRechercher: string = '';
 
   // listeChapitre = CHAPITRE_DATA;
-  listeAgent = AGENT_DATA;
-  listeEmplois = EMPLOI_DATA;
-  listeActions = ACTION_DATA;
-  listeActivites = ACTIVITE_DATA;
+  // listeAgent = AGENT_DATA;
+  // listeEmplois = EMPLOI_DATA;
+  // listeActions = ACTION_DATA;
+  // listeActivites = ACTIVITE_DATA;
 
   columnsChapitreToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
   columnsEmploiToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
   columnsActionToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
   columnsActiviteToDisplay = ['action', 'code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
-
-
 
   columnsChapitreToDisplayWithExpand = [...this.columnsChapitreToDisplay, 'expand'];
   columnsEmploiToDisplayWithExpand = [...this.columnsEmploiToDisplay, 'expand'];
@@ -648,9 +742,40 @@ export class MajEmploisEffectifSectionComponent implements OnInit {
   expandedElementAction: objetType | null = null;
   expandedElementActivite: objetType | null = null;
 
+  filtreListe(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    switch (this.choix) {
+      case "chapitre":
+        this.listeChapitre.filter = filterValue.trim().toLowerCase();
+        break;
+
+      case "emploi":
+        this.listeEmplois.filter = filterValue.trim().toLowerCase();
+        break;
+
+      case "action":
+        this.listeActions.filter = filterValue.trim().toLowerCase();
+        break;
+
+      default:
+        this.listeActivites.filter = filterValue.trim().toLowerCase();
+        break;
+    }
+
+  }
+
+  onChoixChange() {
+    // vider l'input
+    this.textRechercher = '';
+    // vider le filtre MatTable
+    this.listeChapitre.filter = '';
+    this.listeEmplois.filter = '';
+    this.listeActions.filter = '';
+    this.listeActivites.filter = '';
+  }
+
   constructor() { }
 
-  ngOnInit(): void { }
 }
 
 
