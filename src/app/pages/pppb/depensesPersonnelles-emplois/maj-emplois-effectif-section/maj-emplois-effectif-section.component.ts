@@ -16,17 +16,21 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { HighlightAuto } from 'ngx-highlightjs';
+import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025330',
     libelle: 'Direction de la programmation budgétaire',
-    effectifs0: 100,
-    agentsSolde: 100,
+    effectifs0: 200,
+    agentsSolde: 250,
     contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
+    total: 350,
+    ecart: 150,
+    dotation: 525000550
   },
   {
     code: '25025331',
@@ -176,18 +180,6 @@ const AGENT_DATA: objetAgent[] = [
     age: 0,
     statut: 'agent',
     action: 'action',
-    activite: 'activité', 
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '12345678',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
     activite: 'activité',
     effectifs: 25,
     budgetPrevu: 25000000,
@@ -236,7 +228,19 @@ const AGENT_DATA: objetAgent[] = [
     age: 0,
     statut: 'agent',
     action: 'action',
-    activite: 'activité', 
+    activite: 'activité',
+    effectifs: 25,
+    budgetPrevu: 25000000,
+  },
+  {
+    chapitre: 'Direction SI DGB',
+    emploi: 'Ing. Informaticien',
+    matricule: '12345678',
+    nom: 'xxxxx yyy',
+    age: 0,
+    statut: 'agent',
+    action: 'action',
+    activite: 'activité',
     effectifs: 25,
     budgetPrevu: 25000000,
   },
@@ -592,9 +596,11 @@ const ACTIVITE_DATA: objetType[] = [
     MatDividerModule,
     FormsModule,
     MatTabsModule,
-    TablerIconsModule,
-    
-  ],
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    TablerIconsModule
+],
   templateUrl: './maj-emplois-effectif-section.component.html',
   styleUrl: './maj-emplois-effectif-section.component.scss',
   animations: [
@@ -610,18 +616,16 @@ const ACTIVITE_DATA: objetType[] = [
 })
 export class MajEmploisEffectifSectionComponent implements OnInit {
 
-  dataSourceChapitre = new MatTableDataSource(CHAPITRE_DATA);
-  
-  	applyFilter(event: Event) {
-const filterValue = (event.target as HTMLInputElement).value;
-this.dataSourceChapitre.filter = filterValue.trim().toLowerCase();
-}
+  listeChapitre = new MatTableDataSource(CHAPITRE_DATA);
 
-  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.listeChapitre.filter = filterValue.trim().toLowerCase();
+  }
+
   choix: string = "1"; // valeur par défaut
 
-
-  listeChapitre = CHAPITRE_DATA;
+  // listeChapitre = CHAPITRE_DATA;
   listeAgent = AGENT_DATA;
   listeEmplois = EMPLOI_DATA;
   listeActions = ACTION_DATA;
@@ -632,7 +636,7 @@ this.dataSourceChapitre.filter = filterValue.trim().toLowerCase();
   columnsActionToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
   columnsActiviteToDisplay = ['action', 'code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
 
-  
+
 
   columnsChapitreToDisplayWithExpand = [...this.columnsChapitreToDisplay, 'expand'];
   columnsEmploiToDisplayWithExpand = [...this.columnsEmploiToDisplay, 'expand'];
