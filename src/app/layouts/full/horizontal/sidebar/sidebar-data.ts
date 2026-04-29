@@ -169,7 +169,7 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Saisis / Mises à jour AE/CP par chapitre',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'theme-pages/treeview',
+        route: 'fonctionnementInvestissements/saisieMajAeCp',
       },
       {
         displayName: 'Consultation dotations AE/CP',

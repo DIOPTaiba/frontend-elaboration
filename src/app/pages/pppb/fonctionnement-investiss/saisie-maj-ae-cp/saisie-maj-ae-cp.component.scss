@@ -1,0 +1,81 @@
+.padr{padding-right: 5px !important;}
+.padf{padding-left: 3px !important;}
+
+.light-bleu{background-color: #9cbbe6;}
+.background-light-bleu{background-color: #ecf0f7;}
+.table-container {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+/* HEADER */
+
+
+
+
+/* 🔥 BORDURES ENTRE LIGNES */
+.mat-mdc-row {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.mat-mdc-cell {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* ALIGNEMENT */
+.text-end {
+  text-align: right;
+}
+
+/* ROW */
+.data-row {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+  .mdc-data-table__cell,
+  .mdc-data-table__header-cell {
+    padding: 0px !important;
+    padding-left: 12px !important;
+  }
+
+.data-row:hover {
+  background: #f5f7fa;
+}
+
+/* LIGNE OUVERTE */
+.expanded-row {
+  background: #e7f1ff !important;
+}
+
+/* DETAIL */
+.detail-row {
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.detail-container {
+  overflow: hidden;
+}
+
+.detail-content {
+  padding: 15px;
+  background: #f8f9fa;
+  border-left: 4px solid #1d4991
+;
+}
+
+/* ICON */
+.expand-cell {
+  text-align: right;
+}
+
+mat-icon {
+  color: #013481;
+  transition: transform 0.2s ease;
+}
+
+/* 🔥 PAS DE ROTATION CSS ICI (sinon conflit visuel) */

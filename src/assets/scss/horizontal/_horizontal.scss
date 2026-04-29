@@ -37,6 +37,10 @@
     overflow-y: hidden;
     white-space: nowrap;
     // position: relative;
+    position: relative;
+    overflow-x: hidden;
+    white-space: nowrap;
+    //gap: 3px !important;
 
     .parentBox {
       position: inherit;
@@ -113,8 +117,8 @@
       .childBox {
         border-radius: $border-radius;
         box-shadow: var(--mat-sys-level1);
-        position: absolute;
-        // width: 250px;
+        position: fixed;
+        width: max-content;
         width: 400px;
         background-color: var(--mat-sys-surface);
 
