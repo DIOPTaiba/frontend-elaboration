@@ -1,22 +1,14 @@
 @use "../variables" as *;
 
-.horizontal-navbar::-webkit-scrollbar {
-  height: 6px;
-}
-
-.horizontal-navbar::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
-}
 .sidebarNav-horizontal {
   .childBox {
     background: var(--mat-sys-surface);
   }
 
-  // header
   .horizontal-topbar {
+    overflow-x: clip !important;
+    overflow-y: visible !important;
     box-shadow: var(--mat-sys-level1);
-
     .branding {
       padding-left: 0;
     }
@@ -26,83 +18,41 @@
       display: flex;
       align-items: center;
       width: 100%;
+
     }
   }
 
-  // sidebar
   .horizontal-navbar {
-    display: flex;
-    flex-wrap: nowrap;        // ❌ empêche retour à la ligne
-    overflow-x: auto;         // ✅ scroll horizontal
-    overflow-y: hidden;
-    white-space: nowrap;
-    // position: relative;
     position: relative;
-    overflow-x: hidden;
-    white-space: nowrap;
     //gap: 3px !important;
+    flex-wrap: nowrap !important;
 
     .parentBox {
-      position: inherit;
+      position: relative;
       z-index: 5;
-      // margin: 5px 0;
-      flex: 0 0 auto;
-
-      &.mega-menu {
-        position: static;
-
-        &:hover {
-          >.childBox>.ddmenu {
-            display: inline-block;
-          }
-        }
-
-        >.childBox {
-          width: 100%;
-          left: 0;
-
-          >.ddmenu {
-            width: 23%;
-          }
-        }
-      }
-
-      &.two-column {
-        &:hover {
-          >.childBox>.ddmenu {
-            display: inline-block;
-          }
-        }
-
-        >.childBox {
-          width: 600px;
-
-          >.ddmenu {
-            width: 46%;
-            border-radius: $border-radius;
-          }
-        }
-      }
+      margin: 5px 0;
 
       .menuLink {
         padding: 10px;
         border-radius: $border-radius;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         height: 40px;
         gap: 10px;
         font-size: 14px;
-
+        white-space: nowrap;
+        width: 100%;
+        box-sizing: border-box;
         .routeIcon {
           font-size: 20px;
         }
       }
 
-      &:hover>.menuLink {
+      &:hover > .menuLink {
         background-color: var(--mat-sys-surface-bright);
       }
 
-      &:hover>.activeMenu,
+      &:hover > .activeMenu,
       .activeMenu {
         color: $white !important;
         background-color: $primary;
@@ -114,57 +64,64 @@
         font-size: 18px;
       }
 
-      .childBox {
-        border-radius: $border-radius;
-        box-shadow: var(--mat-sys-level1);
-        position: fixed;
-        width: max-content;
-        width: 400px;
-        background-color: var(--mat-sys-surface);
+    .childBox {
+  position: fixed;
+  z-index: 9999;
+  border-radius: $border-radius;
+  box-shadow: var(--mat-sys-level1);
+  width: max-content;
+  min-width: 200px;
+  max-width: 450px;
+  background-color: var(--mat-sys-surface);
+  display: flex;
+  flex-direction: column; 
+  padding: 6px 0;
+  overflow: visible;
 
-        .ddmenu {
-          display: none;
-          padding: 10px;
-          margin: 6px;
-          position: relative;
-          border-radius: $border-radius;
-        }
-      }
+  .ddmenu {
+    display: block;
+    padding: 0;
+    position: relative;
+    border-radius: $border-radius;
+    width: 100%;
+    overflow: visible;
 
-      &:hover>.childBox>.ddmenu:hover {
+    app-horizontal-nav-item {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+      &:hover > .childBox > .ddmenu:hover {
         background-color: var(--mat-sys-surface-bright);
-
-        &:hover>.childBox>.ddmenu:hover {
-          background-color: var(--mat-sys-surface-bright);
-        }
       }
 
-      &:hover>.childBox>.ddmenu:hover>.childBox {
-        // left: 230px;
-        left: 380px;
-        top: 0px;
-        z-index: 9;
-        // ajout
-        width: 300px;
+      &:hover > .childBox > .ddmenu:hover > .childBox > .ddmenu:hover {
+        background-color: var(--mat-sys-surface-bright);
+      }
 
-        >.ddmenu:hover>.childBox {
-          // left: 235px;
+      &:hover > .childBox > .ddmenu:hover > .childBox {
+        left: 280px;
+        top: 0;
+        z-index: 9;
+        width: 280px;
+
+        > .ddmenu:hover > .childBox {
           left: 280px;
           top: 0;
-          // ajout
-          width: 290px;
+          width: 270px;
         }
       }
 
-      &:hover>.childBox>.ddmenu {
+      &:hover > .childBox > .ddmenu {
         display: block;
         padding: 0;
 
-        &:hover>.childBox>.ddmenu {
+        &:hover > .childBox > .ddmenu {
           display: block;
           padding: 0;
 
-          &:hover>.childBox>.ddmenu {
+          &:hover > .childBox > .ddmenu {
             display: block;
             padding: 0;
           }
@@ -181,12 +138,34 @@
     width: 100%;
   }
 
+.horizontal-navbar-wrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+  width: 100%;
+  max-width: 100%;
+  flex: 1;
+  min-width: 0;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--mat-sys-outline);
+    border-radius: 4px;
+  }
+}
+
   .horizontal-navbar {
     .parentBox {
 
-      &.pactive>a,
-      &.pactive>a:hover,
-      &.pactive:hover>a {
+      &.pactive > a,
+      &.pactive > a:hover,
+      &.pactive:hover > a {
         background-color: var(--mat-sys-primary);
         color: $white !important;
         border-radius: $border-radius;
@@ -199,13 +178,13 @@
   .sidebarNav-horizontal {
     .horizontal-navbar {
       .parentBox {
-        &:last-child:hover>.childBox>.ddmenu {
-          &:hover>.childBox {
-            right: 250px;
+        &:last-child:hover > .childBox > .ddmenu {
+          &:hover > .childBox {
+            right: 280px;
             left: unset;
 
-            >.ddmenu:hover>.childBox {
-              right: 250px;
+            > .ddmenu:hover > .childBox {
+              right: 280px;
               left: unset;
             }
           }
@@ -219,13 +198,13 @@
   .sidebarNav-horizontal {
     .horizontal-navbar {
       .parentBox {
-        &:last-child:hover>.childBox>.ddmenu {
-          &:hover>.childBox {
-            left: 250px;
+        &:last-child:hover > .childBox > .ddmenu {
+          &:hover > .childBox {
+            left: 280px;
             right: unset;
 
-            >.ddmenu:hover>.childBox {
-              left: 250px;
+            > .ddmenu:hover > .childBox {
+              left: 280px;
               right: unset;
             }
           }
