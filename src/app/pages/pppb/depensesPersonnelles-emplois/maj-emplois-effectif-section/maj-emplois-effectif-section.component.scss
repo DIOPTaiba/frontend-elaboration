@@ -41,6 +41,10 @@ tr.example-detail-row {
   background: #f5f7fa;
 }
 
+.expanded-row {
+  background: #e7f1ff !important;
+}
+
 .rowTablePrincipale {
   cursor: pointer;
   transition: background 0.2s;

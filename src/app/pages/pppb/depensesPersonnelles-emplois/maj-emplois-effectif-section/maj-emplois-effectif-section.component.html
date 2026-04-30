@@ -383,7 +383,7 @@ $event.stopPropagation()
 
         <tr mat-header-row *matHeaderRowDef="columnsChapitreToDisplayWithExpand"></tr>
         <tr mat-row *matRowDef="let element; columns: columnsChapitreToDisplayWithExpand" class="rowTablePrincipale"
-          [class.example-expanded-row]="expandedElementChapitre === element" (click)="
+          [class.expanded-row]="expandedElementChapitre === element" (click)="
 expandedElementChapitre = expandedElementChapitre === element ? null : element
 "></tr>
         	
@@ -690,7 +690,7 @@ $event.stopPropagation()
 
         <tr mat-header-row *matHeaderRowDef="columnsEmploiToDisplayWithExpand"></tr>
         <tr mat-row *matRowDef="let element; columns: columnsEmploiToDisplayWithExpand" class="rowTablePrincipale"
-          [class.example-expanded-row]="expandedElementEmploi === element" (click)="
+          [class.expanded-row]="expandedElementEmploi === element" (click)="
 expandedElementEmploi = expandedElementEmploi === element ? null : element
 "></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
@@ -990,7 +990,7 @@ $event.stopPropagation()
 
         <tr mat-header-row *matHeaderRowDef="columnsActionToDisplayWithExpand"></tr>
         <tr mat-row *matRowDef="let element; columns: columnsActionToDisplayWithExpand" class="rowTablePrincipale"
-          [class.example-expanded-row]="expandedElementAction === element" (click)="
+          [class.expanded-row]="expandedElementAction === element" (click)="
 expandedElementAction = expandedElementAction === element ? null : element
 "></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
@@ -1294,7 +1294,7 @@ $event.stopPropagation()
 
         <tr mat-header-row *matHeaderRowDef="columnsActiviteToDisplayWithExpand"></tr>
         <tr mat-row *matRowDef="let element; columns: columnsActiviteToDisplayWithExpand" class="rowTablePrincipale"
-          [class.example-expanded-row]="expandedElementActivite === element" (click)="
+          [class.expanded-row]="expandedElementActivite === element" (click)="
 expandedElementActivite = expandedElementActivite === element ? null : element
 "></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
