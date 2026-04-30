@@ -51,6 +51,25 @@
 @use "rtl/rtl";
 
 // Ajout
+// Pour mettre la bordure des tables
+.mat-mdc-table {
+  border: 1px solid #dee2e6 !important;
+    border-collapse: collapse;
+}
+
 .codeEmploi .mdc-text-field {
     padding: 0 !important;
+}
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+// Pour enlever les fleches verticales des inputs de type number
+.no-spinner {
+  -moz-appearance: textfield;
+  appearance: none;
 }
