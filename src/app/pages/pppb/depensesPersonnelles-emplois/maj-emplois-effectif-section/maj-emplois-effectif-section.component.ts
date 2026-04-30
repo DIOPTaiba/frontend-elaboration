@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MaterialModule } from 'src/app/material.module';
 import {
   animate,
@@ -7,18 +7,11 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { CommonModule, DecimalPipe } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { TablerIconsModule } from 'angular-tabler-icons';
+import { DecimalPipe } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { IconModule } from 'src/app/icon/icon.module';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -689,7 +682,7 @@ const ACTIVITE_DATA: objetType[] = [
     DecimalPipe,
     FormsModule,
     MatPaginatorModule,
-    TablerIconsModule
+    IconModule
   ],
   templateUrl: './maj-emplois-effectif-section.component.html',
   styleUrl: './maj-emplois-effectif-section.component.scss',

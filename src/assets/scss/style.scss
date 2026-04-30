@@ -49,3 +49,8 @@
 
 // RTL Theme
 @use "rtl/rtl";
+
+// Ajout
+.codeEmploi .mdc-text-field {
+    padding: 0 !important;
+}
