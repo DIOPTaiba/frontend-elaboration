@@ -3,8 +3,6 @@
 //   color: #000;
 // }
 
-
-
 .table-container {
   background: white;
   border-radius: 10px;
@@ -20,10 +18,14 @@ tr.example-detail-row {
     height: 0;
 }
 
-.mdc-data-table__cell,
+.mdc-data-table__cell{
+    padding: 0 ;
+    padding-right: 3px ;
+}
+
 .mdc-data-table__header-cell {
-    padding: 0 !important;
-    padding-left: 12px !important;
+    text-align: center;
+    padding-right: unset !important;
 }
 
 .rowTablePrincipale td {

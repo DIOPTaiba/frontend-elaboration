@@ -53,20 +53,16 @@
 // ============= Ajout ==========
 
 // Pour mettre la bordure des tables
-.mat-mdc-table tbody, .mat-mdc-table tfoot, .mat-mdc-footer-cell, .mat-mdc-table .mat-mdc-header-cell {
-     border: 1px solid #e00808 !important;
-    // border-collapse: collapse;
-}
-
-.mat-mdc-cell {
-    border: 1px solid #e00808 !important;
-    border-collapse: separate;
-    padding: 0 !important;
-    padding-left: 12px !important;
+.mat-mdc-table .mat-mdc-header-cell, .mat-mdc-cell, 
+.mat-mdc-table tfoot,
+.mat-mdc-footer-cell {
+  border: 0.5px solid #dee2e6 !important;
+  border-collapse: collapse;
+  border-bottom: unset !important;
 }
 
 .codeEmploi .mdc-text-field {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .no-spinner::-webkit-outer-spin-button,

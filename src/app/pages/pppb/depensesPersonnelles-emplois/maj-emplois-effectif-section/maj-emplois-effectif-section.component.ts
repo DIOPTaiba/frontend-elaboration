@@ -564,7 +564,7 @@ const ACTION_DATA: objetType[] = [
 
 const ACTIVITE_DATA: objetType[] = [
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action01',
     code: 'Activite01',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -575,7 +575,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action02',
     code: 'Activite02',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -586,7 +586,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action03',
     code: 'Activite03',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -597,7 +597,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action04',
     code: 'Activite04',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -608,7 +608,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action05',
     code: 'Activite05',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -619,7 +619,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action06',
     code: 'Activite01',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -630,7 +630,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action07',
     code: 'Activite02',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -641,7 +641,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action08',
     code: 'Activite03',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -652,7 +652,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action09',
     code: 'Activite04',
     libelle: 'Appui informatique',
     effectifs0: 100,
@@ -663,7 +663,7 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action010',
     code: 'Activite05',
     libelle: 'Appui informatique',
     effectifs0: 100,
