@@ -62,24 +62,36 @@
   </div>
   <div class="filter-body" *ngIf="showFilter">
     <div class="search-params-row">
-      <div class="search-field">
-        <label class="search-label">Emploi</label>
-        <div class="search-select-wrapper">
-          <select [(ngModel)]="filterEmploi" class="search-select" (ngModelChange)="onFilterChange()">
-            <option value="">-- Tous --</option>
-            <option *ngFor="let e of emplois" [value]="e.code">{{ e.libelle }}</option>
-          </select>
-          <span class="select-arrow">&#9660;</span>
-        </div>
-      </div>
-      <div class="search-field">
-        <label class="search-label">Chapitre</label>
-        <div class="search-input-wrapper">
-          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" [(ngModel)]="filterChapitre" class="search-input" placeholder="Rechercher un chapitre..." (ngModelChange)="onFilterChange()" />
-          <button class="input-clear" *ngIf="filterChapitre" (click)="clearField('chapitre')">&#x2715;</button>
-        </div>
-      </div>
+      <!-- Emploi -->
+<div class="search-field search-field-emploi">
+  <label class="search-label">Emploi</label>
+  <div class="search-select-wrapper">
+    <select [(ngModel)]="filterEmploi" class="search-select" (ngModelChange)="onFilterChange()">
+      <option value="">-- Tous --</option>
+      <option *ngFor="let e of emplois" [value]="e.code">{{ e.libelle }}</option>
+    </select>
+    <span class="select-arrow">&#9660;</span>
+  </div>
+</div>
+
+<!-- Chapitre -->
+<div class="search-field search-field-chapitre">
+  <label class="search-label">Chapitre</label>
+  <div class="search-input-wrapper">
+    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input
+      type="text"
+      [(ngModel)]="filterChapitre"
+      class="search-input"
+      placeholder="Rechercher un chapitre..."
+      (ngModelChange)="onFilterChange()" />
+    <button class="input-clear" *ngIf="filterChapitre" (click)="clearField('chapitre')">&#x2715;</button>
+  </div>
+</div>
+
       <div class="search-field search-field--wide">
         <label class="search-label">Action</label>
         <div class="search-input-wrapper">
@@ -90,7 +102,7 @@
       </div>
     </div>
     <div class="search-params-row">
-      <div class="search-field search-field--wide">
+      <div class="search-field search-field-activite search-field--wide">
         <label class="search-label">Activité</label>
         <div class="search-input-wrapper">
           <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -131,45 +143,45 @@
 </div>
 
 <!-- Carte principale -->
-<div class="table-card">
+<div class="table-card" style="text-align: center;" !important>
   <div class="section-header">
     <h2 class="section-title">Traitements des agents par lignes de dépenses</h2>
     <button class="btn-ajouter" (click)="ouvrirModalAjout()">+ Ajouter Paragraphe</button>
   </div>
 
   <div class="table-wrapper">
-    <table class="agents-table">
+    <table class="agents-table" >
       <thead>
         <tr class="header-main">
-          <th class="col-emploi" rowspan="2">Emploi</th>
-          <th class="col-matricule" rowspan="2">Matricule</th>
+          <th class="col-emploi" rowspan="2" style="text-align: center;">Emploi</th>
+          <th class="col-matricule" rowspan="2" >Matricule</th>
           <th class="col-nom" rowspan="2">Prénoms et nom</th>
           <th [attr.colspan]="paragraphes.length" class="col-paragraphes-header">Paragraphes</th>
           <th class="col-cumul" rowspan="2">Cumul<br />(budget<br />prévu)</th>
           <th class="col-actions" rowspan="2">Actions</th>
         </tr>
         <tr class="header-sub" style="text-align: center";>
-          <th *ngFor="let para of paragraphes" class="col-para">
-            <div class="para-code">{{ para.code }}</div>
-            <div class="para-label">{{ para.label }}</div>
-        <div class="para-unit" style="width:32px; height:20px; justify-content: center;">
-      <button class="btn-para-modifier" style="border: transparent;" 
-              (click)="ouvrirModalIndividuel(para)"
-              title="Traitement individuel">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             width="12" height="12"
-             viewBox="0 0 24 24"
-             fill="none"
-             stroke="currentColor"
-             stroke-width="2"
-             stroke-linecap="round"
-             stroke-linejoin="round">
-          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-        </svg>
-      </button>
-    </div>
-          </th>
+         <th *ngFor="let para of paragraphes" class="col-para">
+  <div class="para-code">{{ para.code }}</div>
+  <div class="para-label">{{ para.label }}</div>
+  <div class="para-unit" >
+    <button class="btn-para-modifier"
+            (click)="ouvrirModalIndividuel(para)"
+            title="Traitement individuel">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="12" height="12"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+    </button>
+  </div>
+</th>
         </tr>
       </thead>
       <tbody>
@@ -178,7 +190,7 @@
             [class.row-odd]="i % 2 !== 0">
           <td>{{ agent.emploi }}</td>
           <td class="col-mat-val">{{ agent.matricule }}</td>
-          <td class="col-nom-val">{{ agent.nom }}</td>
+          <td class="col-nom-val" style="text-align: center;">{{ agent.nom }}</td>
           <td *ngFor="let para of paragraphes" class="col-val">
             <span *ngIf="agent.valeurs[para.code] !== null && agent.valeurs[para.code] !== undefined">
               {{ agent.valeurs[para.code] | number:'1.0-0' }}
@@ -215,16 +227,16 @@
   </div>
 
   <div class="table-footer">
-    <div class="footer-row">
-      <div class="footer-item"><span class="footer-label">Action :</span><span class="footer-value">{{ action }}</span></div>
-      <div class="footer-item"><span class="footer-label">Chapitre :</span><span class="footer-value">{{ chapitre }}</span></div>
-      <div class="footer-item"><span class="footer-label">Âge :</span><span class="footer-value">{{ age }}</span></div>
-    </div>
-    <div class="footer-row">
-      <div class="footer-item"><span class="footer-label">Activité :</span><span class="footer-value">{{ activite }}</span></div>
-      <div class="footer-item"><span class="footer-label">Statut :</span><span class="footer-value">{{ statut }}</span></div>
-    </div>
+  <div class="footer-row">
+    <div class="footer-item"><span class="footer-label">Action :</span><span class="footer-value">{{ action }}</span></div>
+    <div class="footer-item" style="margin-left: -120px;"><span class="footer-label">Activité :</span><span class="footer-value">{{ activite }}</span></div>
   </div>
+  <div class="footer-row">
+    <div class="footer-item"><span class="footer-label">Chapitre :</span><span class="footer-value">{{ chapitre }}</span></div>
+    <div class="footer-item" style="margin-left: -110px;"><span class="footer-label">Statut :</span><span class="footer-value">{{ statut }}</span></div>
+  </div>
+    <div class="footer-item" style="margin-left: 1500px;" ><span class="footer-label">Âge :</span><span class="footer-value">{{ age }}</span></div>
+ 
 </div>
 
 <!-- ===== MODALE AJOUT / MODIFICATION ===== -->
@@ -337,7 +349,7 @@
               <input type="text" [(ngModel)]="ligne.matricule" class="modal-cell-input" placeholder="Matricule" />
             </td>
             <td class="mtd-nom">
-              <input type="text" [(ngModel)]="ligne.nom" class="modal-cell-input" placeholder="Prénoms et nom" />
+              <input style="text-align: center;" type="text" [(ngModel)]="ligne.nom" class="modal-cell-input" placeholder="Prénoms et nom" />
             </td>
             <td *ngFor="let para of paragraphes" class="mtd-val">
               <input type="number" [(ngModel)]="ligne.valeurs[para.code]"
@@ -372,13 +384,11 @@
     <span class="modal-footer-value">{{ activite }}</span>
 
     <span class="modal-footer-sep"></span>
-
-    <span class="modal-footer-label">Âge :</span>
-    <span class="modal-footer-value">{{ age }}</span>
-  </div>
+   </div>
+ 
 
   <!-- Statut aligné juste sous Activité -->
-  <div class="modal-footer-row">
+  <div class="modal-footer-row" style="margin-left:70px;">
     <span style="margin-left: 515px;"></span>
     <span class="modal-footer-label">Statut :</span>
     <span class="modal-footer-value">{{ statut }}</span>
@@ -387,6 +397,10 @@
   <div class="modal-footer-row" style="margin-top:-20px;">
     <span class="modal-footer-label">Chapitre :</span>
     <span class="modal-footer-value">{{ chapitre }}</span>
+  </div>
+    <div  style="margin-left: 1099px; margin-top:-30px;" class="modal-footer-row">
+    <span class="modal-footer-label">Âge :</span>
+    <span class="modal-footer-value">{{ age }}</span>
   </div>
     </div>
   </div>
@@ -441,34 +455,37 @@
 <!-- INFOS AU-DESSUS DU TABLEAU -->
 <div class="modal-top-infos">
 
-  <div class="modal-top-infos-row">
-    <div class="info-item">
-      <span class="info-label">Action :</span>
-      <span class="info-value">{{ action }}</span>
-    </div>
-
-    <div class="info-item">
-      <span class="info-label">Activité :</span>
-      <span class="info-value">{{ activite }}</span>
-    </div>
-  </div>
+  
 
   <div class="modal-top-infos-row">
     <div class="info-item">
       <span class="info-label">Chapitre :</span>
       <span class="info-value">{{ chapitre }}</span>
     </div>
-
+   
     <div class="info-item">
       <span class="info-label">Statut :</span>
       <span class="info-value">{{ statut }}</span>
     </div>
+  
 
     <!-- ✅ AJOUT AGE -->
     <div class="info-item">
       <span class="info-label">Âge :</span>
       <span class="info-value">{{ age }}</span>
     </div>
+  </div>
+  <div class="modal-top-infos-row">
+    <div class="info-item" >
+      <span class="info-label">Action :</span>
+      <span class="info-value">{{ action }}</span>
+    </div>
+
+      <div class="info-item"  style="margin-right:420px;">
+        <span class="info-label">Activité :</span>
+        <span class="info-value">{{ activite }}</span>
+    </div>
+    
   </div>
 
 </div>
@@ -492,19 +509,22 @@
       <button class="modal-close-x" (click)="fermerModalIndividuel()">✕</button>
     </div>
 
-    <!-- TABLEAU IDENTIQUE STYLE -->
+    <!-- TABLEAU du bouton modifier horizontale -->
     <div class="modal-table-wrapper">
       <table class="modal-table">
 
         <thead>
-          <tr class="modal-header-main">
-            <th class="mth-emploi">Paragraphe</th>
-            <th class="mth-nom">Ligne de dépense</th>
-            <th class="mth-nom">Texte de référence</th>
-            <th class="mth-nom">Observation</th>
-            <th class="mth-cumul">Montant</th>
-          </tr>
-        </thead>
+  <tr class="modal-header-main">
+    <th class="mth-emploi" rowspan="2">Paragraphe</th>
+    <th class="mth-nom" rowspan="2">Ligne de dépense</th>
+    <th class="mth-nom" rowspan="2">Texte de référence</th>
+    <th class="mth-nom">Observation</th>
+    <th class="mth-cumul" rowspan="2">Montant</th>
+  </tr>
+  <tr class="modal-header-sub">
+    <th class="mth-nom">&nbsp;</th>
+  </tr>
+</thead>
 
         <tbody>
           <tr *ngFor="let ligne of lignesIndividuelles; let i = index"
@@ -538,7 +558,7 @@
 
           <!-- Récap -->
           <tr class="modal-recap-row">
-            <td colspan="4" class="modal-recap-label">Total</td>
+            <td colspan="4" class="modal-recap-label">Récapitulatif</td>
             <td class="modal-recap-cumul">
               {{ getTotalIndividuel() | number:'1.0-0' }}
             </td>

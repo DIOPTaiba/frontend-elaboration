@@ -138,7 +138,21 @@ $btn-secondary:     #546e7a;
   button { background: none; border: none; color: $text-muted; font-size: 10px; cursor: pointer; padding: 0 1px;
     &:hover { color: #c0392b; } }
 }
+/* augmenter uniquement Emploi et Chapitre */
 
+.search-field-emploi {
+  min-width: 450px;
+  flex: 0 0 280px;
+}
+
+.search-field-chapitre {
+  min-width: 450px;
+  flex: 0 0 320px;
+ 
+}
+.search-field-activite {
+  min-width: 920px;
+}
 // =============================================
 // Boutons globaux
 // =============================================
@@ -198,6 +212,7 @@ $btn-secondary:     #546e7a;
   overflow-x: auto; border: 1px solid $border-color;
   border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
+
 .agents-table {
   width: 100%; border-collapse: collapse; font-size: 12.5px; background: #fff; min-width: 920px;
 
@@ -250,14 +265,25 @@ $btn-secondary:     #546e7a;
   }
 }
 
+
 // =============================================
 // Footer
 // =============================================
 .table-footer {
   background: $footer-bg; border: 1px solid $border-color; border-top: none;
   border-radius: 0 0 4px 4px; padding: 8px 14px;
-  .footer-row { display: flex; flex-wrap: wrap; gap: 32px; margin-bottom: 4px; &:last-child { margin-bottom: 0; } }
-  .footer-item { display: flex; align-items: baseline; gap: 4px; }
+
+  .footer-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    margin-bottom: 4px;
+    &:last-child { margin-bottom: 0; }
+  }
+  .footer-item {
+    flex: 1;
+    display: flex; align-items: baseline; gap: 4px;
+  }
   .footer-label { font-weight: 600; color: $text-mid; text-decoration: underline; font-size: 12px; white-space: nowrap; }
   .footer-value { font-size: 12px; color: $text-dark; font-weight: 500; }
 }
@@ -543,15 +569,30 @@ $btn-secondary:     #546e7a;
     }
   }
 }
-.para-unit{
-  width: 22px; height: 22px;
-    border-radius: 4px;
-  cursor: pointer; white-space: nowrap; transition: all 0.10s;
-align-items: center;
- 
- &:hover  { background: #ffffff; color: #1D4991; }
-  &:active { transform: translateY(1px); }
+.para-unit {
+  height: 20px;
+  padding: 0 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.10s;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto; // centre dans la cellule
+
+  &:hover {
+    background: #ffffff;
+    color: #1D4991;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
 }
+
 .btn-para-modifier {
   width: 22px;
   height: 22px;
