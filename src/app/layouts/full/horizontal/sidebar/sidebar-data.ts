@@ -111,14 +111,9 @@ export const navItems: NavItem[] = [
         route: 'ui-components/chips',
         children: [
           {
-            displayName: 'Traitements collectifs',
+            displayName: 'Traitements agents',
             iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'widgets/cards',
-          },
-          {
-            displayName: 'Traitement individuel',
-            iconName: 'solar:round-alt-arrow-right-line-duotone',
-            route: 'widgets/banners',
+            route: 'depensePersonnellesEmplois/dotation-traitements-agents',
           },
           {
             displayName: 'Nouveaux traitements',

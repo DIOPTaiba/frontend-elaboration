@@ -1,0 +1,554 @@
+<!-- Paramètres de recherche -->
+<div class="search-params-panel">
+  <h3 class="search-params-title">Paramètres de recherche</h3>
+  <div class="search-params-row">
+    <div class="search-field">
+      <label class="search-label">Gestion</label>
+      <div class="search-select-wrapper">
+        <select [(ngModel)]="gestion" class="search-select">
+          <option value="">-- Sélectionner --</option>
+          <option *ngFor="let g of gestionOptions" [value]="g.value">{{ g.label }}</option>
+        </select>
+        <span class="select-arrow">▼</span>
+      </div>
+    </div>
+    <div class="search-field search-field--wide">
+      <label class="search-label">Projet de Budget</label>
+      <div class="search-select-wrapper">
+        <select [(ngModel)]="budget" class="search-select">
+          <option value="">-- Sélectionner --</option>
+          <option *ngFor="let b of budgetOptions" [value]="b.value">{{ b.label }}</option>
+        </select>
+        <span class="select-arrow">▼</span>
+      </div>
+    </div>
+    <div class="search-field search-field--wide">
+      <label class="search-label">Section</label>
+      <div class="search-select-wrapper">
+        <select [(ngModel)]="section" class="search-select">
+          <option value="">-- Sélectionner --</option>
+          <option *ngFor="let s of sectionOptions" [value]="s.value">{{ s.label }}</option>
+        </select>
+        <span class="select-arrow">▼</span>
+      </div>
+    </div>
+  </div>
+  <div class="search-params-row">
+    <div class="search-field search-field--full">
+      <label class="search-label">Programme</label>
+      <div class="search-select-wrapper">
+        <select [(ngModel)]="programme" class="search-select">
+          <option value="">-- Sélectionner --</option>
+          <option *ngFor="let p of programmeOptions" [value]="p.value">{{ p.label }}</option>
+        </select>
+        <span class="select-arrow">▼</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filtres -->
+<div class="filter-params-panel">
+  <div class="filter-params-header" (click)="toggleFilter($event)">
+    <h3 class="filter-params-title">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+      </svg>
+      Filtres
+      <span class="filter-badge" *ngIf="activeFilterCount > 0">{{ activeFilterCount }}</span>
+    </h3>
+    <span class="filter-toggle-icon" [class.open]="showFilter">&#9660;</span>
+  </div>
+  <div class="filter-body" *ngIf="showFilter">
+    <div class="search-params-row">
+      <div class="search-field">
+        <label class="search-label">Emploi</label>
+        <div class="search-select-wrapper">
+          <select [(ngModel)]="filterEmploi" class="search-select" (ngModelChange)="onFilterChange()">
+            <option value="">-- Tous --</option>
+            <option *ngFor="let e of emplois" [value]="e.code">{{ e.libelle }}</option>
+          </select>
+          <span class="select-arrow">&#9660;</span>
+        </div>
+      </div>
+      <div class="search-field">
+        <label class="search-label">Chapitre</label>
+        <div class="search-input-wrapper">
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" [(ngModel)]="filterChapitre" class="search-input" placeholder="Rechercher un chapitre..." (ngModelChange)="onFilterChange()" />
+          <button class="input-clear" *ngIf="filterChapitre" (click)="clearField('chapitre')">&#x2715;</button>
+        </div>
+      </div>
+      <div class="search-field search-field--wide">
+        <label class="search-label">Action</label>
+        <div class="search-input-wrapper">
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" [(ngModel)]="filterAction" class="search-input" placeholder="Rechercher une action..." (ngModelChange)="onFilterChange()" />
+          <button class="input-clear" *ngIf="filterAction" (click)="clearField('action')">&#x2715;</button>
+        </div>
+      </div>
+    </div>
+    <div class="search-params-row">
+      <div class="search-field search-field--wide">
+        <label class="search-label">Activité</label>
+        <div class="search-input-wrapper">
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" [(ngModel)]="filterActivite" class="search-input" placeholder="Rechercher une activité..." (ngModelChange)="onFilterChange()" />
+          <button class="input-clear" *ngIf="filterActivite" (click)="clearField('activite')">&#x2715;</button>
+        </div>
+      </div>
+      <div class="search-field">
+        <label class="search-label">Matricule</label>
+        <div class="search-input-wrapper">
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" [(ngModel)]="filterMatricule" class="search-input" placeholder="Rechercher un matricule..." (ngModelChange)="onFilterChange()" />
+          <button class="input-clear" *ngIf="filterMatricule" (click)="clearField('matricule')">&#x2715;</button>
+        </div>
+      </div>
+      <div class="search-field filter-actions-field">
+        <label class="search-label">&nbsp;</label>
+        <div class="filter-action-btns">
+          <button class="btn-apply" (click)="applyFilter()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Appliquer
+          </button>
+          <button class="btn-reset" (click)="resetFilter()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+            Réinitialiser
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="filter-tags" *ngIf="activeFilterCount > 0">
+      <span class="filter-tag" *ngIf="filterEmploi">Emploi : {{ filterEmploi }}<button (click)="clearField('emploi')">&#x2715;</button></span>
+      <span class="filter-tag" *ngIf="filterChapitre">Chapitre : {{ filterChapitre }}<button (click)="clearField('chapitre')">&#x2715;</button></span>
+      <span class="filter-tag" *ngIf="filterMatricule">Matricule : {{ filterMatricule }}<button (click)="clearField('matricule')">&#x2715;</button></span>
+      <span class="filter-tag" *ngIf="filterAction">Action : {{ filterAction }}<button (click)="clearField('action')">&#x2715;</button></span>
+      <span class="filter-tag" *ngIf="filterActivite">Activité : {{ filterActivite }}<button (click)="clearField('activite')">&#x2715;</button></span>
+    </div>
+  </div>
+</div>
+
+<!-- Carte principale -->
+<div class="table-card">
+  <div class="section-header">
+    <h2 class="section-title">Traitements des agents par lignes de dépenses</h2>
+    <button class="btn-ajouter" (click)="ouvrirModalAjout()">+ Ajouter Paragraphe</button>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="agents-table">
+      <thead>
+        <tr class="header-main">
+          <th class="col-emploi" rowspan="2">Emploi</th>
+          <th class="col-matricule" rowspan="2">Matricule</th>
+          <th class="col-nom" rowspan="2">Prénoms et nom</th>
+          <th [attr.colspan]="paragraphes.length" class="col-paragraphes-header">Paragraphes</th>
+          <th class="col-cumul" rowspan="2">Cumul<br />(budget<br />prévu)</th>
+          <th class="col-actions" rowspan="2">Actions</th>
+        </tr>
+        <tr class="header-sub" style="text-align: center";>
+          <th *ngFor="let para of paragraphes" class="col-para">
+            <div class="para-code">{{ para.code }}</div>
+            <div class="para-label">{{ para.label }}</div>
+        <div class="para-unit" style="width:32px; height:20px; justify-content: center;">
+      <button class="btn-para-modifier" style="border: transparent;" 
+              (click)="ouvrirModalIndividuel(para)"
+              title="Traitement individuel">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="12" height="12"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </button>
+    </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agent of agentsFiltres; let i = index"
+            [class.row-even]="i % 2 === 0"
+            [class.row-odd]="i % 2 !== 0">
+          <td>{{ agent.emploi }}</td>
+          <td class="col-mat-val">{{ agent.matricule }}</td>
+          <td class="col-nom-val">{{ agent.nom }}</td>
+          <td *ngFor="let para of paragraphes" class="col-val">
+            <span *ngIf="agent.valeurs[para.code] !== null && agent.valeurs[para.code] !== undefined">
+              {{ agent.valeurs[para.code] | number:'1.0-0' }}
+            </span>
+            <span *ngIf="agent.valeurs[para.code] === null || agent.valeurs[para.code] === undefined" class="empty-m">—</span>
+          </td>
+          <td class="col-cumul-val">
+            <span *ngIf="agent.cumul !== null && agent.cumul !== undefined">{{ agent.cumul | number:'1.0-0' }}</span>
+            <span *ngIf="agent.cumul === null || agent.cumul === undefined" class="empty-m">—</span>
+          </td>
+          <td class="col-actions-val">
+            <button class="btn-modifier" (click)="ouvrirModalModifier(agent, i)" title="Modifier" style="border: transparent;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="agentsFiltres.length === 0">
+          <td [attr.colspan]="3 + paragraphes.length + 2" class="empty-row">Aucune donnée disponible</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="recapitulatif-row">
+          <td colspan="3" class="recap-label">Récapitulatif</td>
+          <td *ngFor="let para of paragraphes" class="recap-val">{{ getRecapitulatif(para.code) | number:'1.0-0' }}</td>
+          <td class="recap-cumul">{{ getTotalCumul() | number:'1.0-0' }}</td>
+          <td class="recap-actions"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="table-footer">
+    <div class="footer-row">
+      <div class="footer-item"><span class="footer-label">Action :</span><span class="footer-value">{{ action }}</span></div>
+      <div class="footer-item"><span class="footer-label">Chapitre :</span><span class="footer-value">{{ chapitre }}</span></div>
+      <div class="footer-item"><span class="footer-label">Âge :</span><span class="footer-value">{{ age }}</span></div>
+    </div>
+    <div class="footer-row">
+      <div class="footer-item"><span class="footer-label">Activité :</span><span class="footer-value">{{ activite }}</span></div>
+      <div class="footer-item"><span class="footer-label">Statut :</span><span class="footer-value">{{ statut }}</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODALE AJOUT / MODIFICATION ===== -->
+<div class="modal-overlay" *ngIf="showModal" (click)="fermerModal()">
+  <div class="modal-container-table" (click)="$event.stopPropagation()">
+
+    <!-- En-tête modale -->
+    <div class="modal-top-bar">
+
+      <!-- Paramètres utilisés (lecture seule) -->
+      <div class="modal-params-bar">
+        <div class="modal-params-row">
+          <div class="modal-param-item" *ngIf="gestion">
+            <span class="modal-param-label">Gestion :</span>
+            <span class="modal-param-value">{{ gestion }}</span>
+          </div>
+          <div class="modal-param-item" *ngIf="budget">
+            <span class="modal-param-label">Budget :</span>
+            <span class="modal-param-value">{{ budget }}</span>
+          </div>
+          <div class="modal-param-item modal-param-item--wide" *ngIf="section">
+            <span class="modal-param-label">Section :</span>
+            <span class="modal-param-value">{{ section }}</span>
+          </div>
+        </div>
+        <div class="modal-params-row" *ngIf="programme">
+          <div class="modal-param-item modal-param-item--full">
+            <span class="modal-param-label">Programme :</span>
+            <span class="modal-param-value">{{ programme }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtres actifs -->
+      <div class="modal-filters-bar" *ngIf="activeFilterCount > 0">
+        <span class="modal-filters-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filtres actifs :
+        </span>
+        <span class="modal-filter-tag" *ngIf="filterEmploi">Emploi : {{ filterEmploi }}</span>
+        <span class="modal-filter-tag" *ngIf="filterChapitre">Chapitre : {{ filterChapitre }}</span>
+        <span class="modal-filter-tag" *ngIf="filterMatricule">Matricule : {{ filterMatricule }}</span>
+        <span class="modal-filter-tag" *ngIf="filterAction">Action : {{ filterAction }}</span>
+        <span class="modal-filter-tag" *ngIf="filterActivite">Activité : {{ filterActivite }}</span>
+      </div>
+      <div class="modal-filters-bar modal-filters-none" *ngIf="activeFilterCount === 0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        Aucun filtre appliqué
+      </div>
+
+      <!-- Titre + boutons -->
+      <div class="modal-title-actions">
+        <h2 class="modal-top-title">
+          Traitements collectifs sur le paragraphe
+          <span class="modal-para-highlight" *ngIf="paragraphes.length > 0">
+            {{ paragraphes[0].code }} – {{ paragraphes[0].label }}
+          </span>
+        </h2>
+        <div class="modal-top-actions">
+          <button class="btn-modal-action btn-modal-add-agent" (click)="ajouterLigneModal()">Ajouter agent</button>
+          <button class="btn-modal-action btn-modal-add-line"  (click)="ajouterLigneModal()">Ajouter ligne</button>
+          <button class="btn-modal-action btn-modal-save"      (click)="sauvegarderAgent()">Enregistrer</button>
+        </div>
+      </div>
+
+      <button class="modal-close-x" (click)="fermerModal()" title="Fermer">&#x2715;</button>
+    </div>
+
+    <!-- Tableau de saisie -->
+    <div class="modal-table-wrapper">
+      <table class="modal-table">
+        <thead>
+          <tr class="modal-header-main">
+            <th rowspan="2" class="mth-emploi">Emploi</th>
+            <th rowspan="2" class="mth-matricule">Matricule</th>
+            <th rowspan="2" class="mth-nom">Prénoms et nom</th>
+            <th [attr.colspan]="paragraphes.length" class="mth-para-group">
+              Lignes de dépenses du paragraphe {{ paragraphes.length > 0 ? paragraphes[0].code : '' }}
+            </th>
+            <th rowspan="2" class="mth-cumul">Cumul (budget prévu)</th>
+          </tr>
+          <tr class="modal-header-sub">
+            <th *ngFor="let para of paragraphes" class="mth-para">
+              <div class="mth-code">{{ para.code }}</div>
+              <div class="mth-label">{{ para.label }}</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ligne of modalLignes; let i = index"
+              [class.modal-row-even]="i % 2 === 0"
+              [class.modal-row-odd]="i % 2 !== 0"
+              [class.modal-row-highlight]="i === 5">
+            <td class="mtd-emploi">
+              <div class="search-select-wrapper">
+                <select [(ngModel)]="ligne.emploi" class="modal-cell-select">
+                  <option value=""></option>
+                  <option *ngFor="let e of emplois" [value]="e.code">{{ e.libelle }}</option>
+                </select>
+                <span class="select-arrow">&#9660;</span>
+              </div>
+            </td>
+            <td class="mtd-matricule">
+              <input type="text" [(ngModel)]="ligne.matricule" class="modal-cell-input" placeholder="Matricule" />
+            </td>
+            <td class="mtd-nom">
+              <input type="text" [(ngModel)]="ligne.nom" class="modal-cell-input" placeholder="Prénoms et nom" />
+            </td>
+            <td *ngFor="let para of paragraphes" class="mtd-val">
+              <input type="number" [(ngModel)]="ligne.valeurs[para.code]"
+                     class="modal-cell-input modal-cell-number"
+                     (ngModelChange)="recalculerCumulLigne(i)"
+                     placeholder="" />
+            </td>
+            <td class="mtd-cumul">{{ ligne.cumul | number:'1.0-0' }}</td>
+          </tr>
+
+          <!-- Récapitulatif -->
+          <tr class="modal-recap-row">
+            <td colspan="3" class="modal-recap-label">Récapitulatif</td>
+            <td *ngFor="let para of paragraphes" class="modal-recap-val">
+              {{ getModalRecap(para.code) | number:'1.0-0' }}
+            </td>
+            <td class="modal-recap-cumul">{{ getModalTotalCumul() | number:'1.0-0' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer modale -->
+   <div class="modal-bottom-footer">
+  <div class="modal-footer-row">
+    <span class="modal-footer-label">Action :</span>
+    <span class="modal-footer-value">{{ action }}</span>
+
+    <span class="modal-footer-sep"></span>
+
+    <span class="modal-footer-label">Activité :</span>
+    <span class="modal-footer-value">{{ activite }}</span>
+
+    <span class="modal-footer-sep"></span>
+
+    <span class="modal-footer-label">Âge :</span>
+    <span class="modal-footer-value">{{ age }}</span>
+  </div>
+
+  <!-- Statut aligné juste sous Activité -->
+  <div class="modal-footer-row">
+    <span style="margin-left: 515px;"></span>
+    <span class="modal-footer-label">Statut :</span>
+    <span class="modal-footer-value">{{ statut }}</span>
+  </div>
+
+  <div class="modal-footer-row" style="margin-top:-20px;">
+    <span class="modal-footer-label">Chapitre :</span>
+    <span class="modal-footer-value">{{ chapitre }}</span>
+  </div>
+    </div>
+  </div>
+</div>
+<!-- ========================================= -->
+<!-- MODALE TRAITEMENT INDIVIDUEL (STYLE IDENTIQUE) -->
+<!-- ========================================= -->
+<div class="modal-overlay" *ngIf="showModalIndividuel" (click)="fermerModalIndividuel()">
+  <div class="modal-container-table" (click)="$event.stopPropagation()">
+
+    <!-- HEADER IDENTIQUE -->
+    <div class="modal-top-bar">
+
+      <!-- Paramètres -->
+      <div class="modal-params-bar">
+        <div class="modal-params-row">
+          <div class="modal-param-item" *ngIf="gestion">
+            <span class="modal-param-label">Gestion :</span>
+            <span class="modal-param-value">{{ gestion }}</span>
+          </div>
+          <div class="modal-param-item" *ngIf="budget">
+            <span class="modal-param-label">Budget :</span>
+            <span class="modal-param-value">{{ budget }}</span>
+          </div>
+          <div class="modal-param-item modal-param-item--wide" *ngIf="section">
+            <span class="modal-param-label">Section :</span>
+            <span class="modal-param-value">{{ section }}</span>
+          </div>
+        </div>
+
+        <div class="modal-params-row" *ngIf="programme">
+          <div class="modal-param-item modal-param-item--full">
+            <span class="modal-param-label">Programme :</span>
+            <span class="modal-param-value">{{ programme }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtres -->
+      <div class="modal-filters-bar" *ngIf="activeFilterCount > 0">
+        <span class="modal-filters-title">Filtres actifs :</span>
+        <span class="modal-filter-tag" *ngIf="filterEmploi">Emploi : {{ filterEmploi }}</span>
+        <span class="modal-filter-tag" *ngIf="filterChapitre">Chapitre : {{ filterChapitre }}</span>
+        <span class="modal-filter-tag" *ngIf="filterMatricule">Matricule : {{ filterMatricule }}</span>
+      </div>
+        <h2 class="modal-top-title">
+          Traitements individuel –
+          <span class="modal-para-highlight">
+            {{ paragrapheSelectionne?.code }} – {{ paragrapheSelectionne?.label }}
+          </span>
+        </h2>
+<!-- INFOS AU-DESSUS DU TABLEAU -->
+<div class="modal-top-infos">
+
+  <div class="modal-top-infos-row">
+    <div class="info-item">
+      <span class="info-label">Action :</span>
+      <span class="info-value">{{ action }}</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-label">Activité :</span>
+      <span class="info-value">{{ activite }}</span>
+    </div>
+  </div>
+
+  <div class="modal-top-infos-row">
+    <div class="info-item">
+      <span class="info-label">Chapitre :</span>
+      <span class="info-value">{{ chapitre }}</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-label">Statut :</span>
+      <span class="info-value">{{ statut }}</span>
+    </div>
+
+    <!-- ✅ AJOUT AGE -->
+    <div class="info-item">
+      <span class="info-label">Âge :</span>
+      <span class="info-value">{{ age }}</span>
+    </div>
+  </div>
+
+</div>
+      <!-- Titre -->
+     
+      
+
+        <div class="modal-top-actions" style="margin-left: 1009px;">
+          <button class="btn-modal-action btn-modal-add-line"
+                  (click)="ajouterLigneIndividuelle()">
+            Ajouter ligne
+          </button>
+
+          <button class="btn-modal-action btn-modal-save"
+                  (click)="enregistrerIndividuel()">
+            Enregistrer
+          </button>
+        </div>
+      
+
+      <button class="modal-close-x" (click)="fermerModalIndividuel()">✕</button>
+    </div>
+
+    <!-- TABLEAU IDENTIQUE STYLE -->
+    <div class="modal-table-wrapper">
+      <table class="modal-table">
+
+        <thead>
+          <tr class="modal-header-main">
+            <th class="mth-emploi">Paragraphe</th>
+            <th class="mth-nom">Ligne de dépense</th>
+            <th class="mth-nom">Texte de référence</th>
+            <th class="mth-nom">Observation</th>
+            <th class="mth-cumul">Montant</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let ligne of lignesIndividuelles; let i = index"
+              [class.modal-row-even]="i % 2 === 0"
+              [class.modal-row-odd]="i % 2 !== 0">
+
+            <td>{{ paragrapheSelectionne?.code }}</td>
+
+            <td>
+              <input [(ngModel)]="ligne.depense"
+                     class="modal-cell-input" />
+            </td>
+
+            <td>
+              <input [(ngModel)]="ligne.texte"
+                     class="modal-cell-input" />
+            </td>
+
+            <td>
+              <input [(ngModel)]="ligne.observation"
+                     class="modal-cell-input" />
+            </td>
+
+            <td>
+              <input type="number"
+                     [(ngModel)]="ligne.montant"
+                     class="modal-cell-input modal-cell-number" />
+            </td>
+
+          </tr>
+
+          <!-- Récap -->
+          <tr class="modal-recap-row">
+            <td colspan="4" class="modal-recap-label">Total</td>
+            <td class="modal-recap-cumul">
+              {{ getTotalIndividuel() | number:'1.0-0' }}
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  
+
+  </div>
+</div>
