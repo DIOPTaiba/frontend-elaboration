@@ -3,6 +3,14 @@
 //   color: #000;
 // }
 
+.custom-tooltip {
+  background-color: #1976d2 !important;
+  color: white !important;
+  font-size: 13px;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
 .table-container {
   background: white;
   border-radius: 10px;
@@ -13,6 +21,14 @@
 table {
     width: 100%;
 }
+
+.border-top-0{
+    border-top: unset !important;
+}
+
+.bg2{
+    background-color: #4675c1;
+}    
 
 tr.example-detail-row {
     height: 0;
@@ -37,8 +53,16 @@ tr.example-detail-row {
     color: #f8f8f8 !important;
 }
 
+.bg2{
+    background-color: #4675c1 !important;
+}
+
 .mat-mdc-footer-cell {
   background-color: #bdd3f7;
+}
+
+.h-5 {
+  height: 5px;
 }
 
 .rowTablePrincipale:hover {
