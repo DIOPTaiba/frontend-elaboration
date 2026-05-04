@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LigneIndividuelle, Paragraphe } from '../../models/traitement-agent.models';
@@ -9,13 +9,13 @@ import { LigneIndividuelle, Paragraphe } from '../../models/traitement-agent.mod
   imports: [CommonModule, FormsModule],
   templateUrl: './modal-individuel.component.html',
   styleUrls: ['./modal-individuel.component.scss'],
+  encapsulation: ViewEncapsulation.None,   // ← styles globaux, pas d'encapsulation
 })
 export class ModalIndividuelComponent {
 
   @Input() visible = false;
   @Input() paragrapheSelectionne: Paragraphe | null = null;
 
-  // Paramètres affichés en lecture seule
   @Input() gestion   = '';
   @Input() budget    = '';
   @Input() section   = '';

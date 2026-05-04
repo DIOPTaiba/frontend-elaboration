@@ -37,11 +37,11 @@
           </svg>
           Filtres actifs :
         </span>
-        <span class="modal-filter-tag" *ngIf="filtreState?.emploi">Emploi : {{ filtreState.emploi }}</span>
-        <span class="modal-filter-tag" *ngIf="filtreState?.chapitre">Chapitre : {{ filtreState.chapitre }}</span>
-        <span class="modal-filter-tag" *ngIf="filtreState?.matricule">Matricule : {{ filtreState.matricule }}</span>
-        <span class="modal-filter-tag" *ngIf="filtreState?.action">Action : {{ filtreState.action }}</span>
-        <span class="modal-filter-tag" *ngIf="filtreState?.activite">Activité : {{ filtreState.activite }}</span>
+      <span class="modal-filter-tag" *ngIf="filtreState.emploi">Emploi : {{ filtreState.emploi }}</span>
+<span class="modal-filter-tag" *ngIf="filtreState.chapitre">Chapitre : {{ filtreState.chapitre }}</span>
+<span class="modal-filter-tag" *ngIf="filtreState.matricule">Matricule : {{ filtreState.matricule }}</span>
+<span class="modal-filter-tag" *ngIf="filtreState.action">Action : {{ filtreState.action }}</span>
+<span class="modal-filter-tag" *ngIf="filtreState.activite">Activité : {{ filtreState.activite }}</span>
       </div>
       <div class="modal-filters-bar modal-filters-none" *ngIf="activeFilterCount === 0">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -134,20 +134,25 @@
         <span class="modal-footer-label">Action :</span>
         <span class="modal-footer-value">{{ action }}</span>
         <span class="modal-footer-sep"></span>
+        <div class="modal-footer-row" style="margin-right:450px;">
         <span class="modal-footer-label">Activité :</span>
         <span class="modal-footer-value">{{ activite }}</span>
+        </div>
       </div>
       <div class="modal-footer-row">
         <span class="modal-footer-label">Chapitre :</span>
         <span class="modal-footer-value">{{ chapitre }}</span>
         <span class="modal-footer-sep"></span>
+         <div class="modal-footer-row" style="margin-right:480px;"> 
         <span class="modal-footer-label">Statut :</span>
         <span class="modal-footer-value">{{ statut }}</span>
-      </div>
-      <div class="modal-footer-row">
+        </div>
+        <div class="modal-footer-row" >
         <span class="modal-footer-label">Âge :</span>
         <span class="modal-footer-value">{{ age }}</span>
       </div>
+      </div>
+      
     </div>
 
   </div>
