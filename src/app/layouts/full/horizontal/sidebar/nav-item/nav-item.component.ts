@@ -45,7 +45,7 @@ onMouseEnter() {
     this.dropdownTop = -9999;
     this.dropdownLeft = -9999;
     this.isHovered = true;
-
+ 
     setTimeout(() => {
       const childBox = this.el.nativeElement.querySelector('.childBox');
       const realWidth = childBox ? childBox.offsetWidth : 300;
@@ -57,7 +57,7 @@ onMouseEnter() {
         this.dropdownLeft = anchorRect.left - realWidth - 10;
       } else {
         this.dropdownLeft = anchorRect.right - 9;
-      }
+      } 
 
       // S'assure que le dropdown ne dépasse jamais le bord droit
       if (this.dropdownLeft + realWidth > windowWidth) {

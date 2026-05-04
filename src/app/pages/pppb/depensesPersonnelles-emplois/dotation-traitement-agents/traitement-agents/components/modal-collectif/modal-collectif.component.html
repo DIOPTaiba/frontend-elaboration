@@ -1,0 +1,154 @@
+<div class="modal-overlay" *ngIf="visible" (click)="onFermer()">
+  <div class="modal-container-table" (click)="$event.stopPropagation()">
+
+    <!-- En-tête -->
+    <div class="modal-top-bar">
+
+      <!-- Paramètres -->
+      <div class="modal-params-bar">
+        <div class="modal-params-row">
+          <div class="modal-param-item" *ngIf="gestion">
+            <span class="modal-param-label">Gestion :</span>
+            <span class="modal-param-value">{{ gestion }}</span>
+          </div>
+          <div class="modal-param-item" *ngIf="budget">
+            <span class="modal-param-label">Budget :</span>
+            <span class="modal-param-value">{{ budget }}</span>
+          </div>
+          <div class="modal-param-item modal-param-item--wide" *ngIf="section">
+            <span class="modal-param-label">Section :</span>
+            <span class="modal-param-value">{{ section }}</span>
+          </div>
+        </div>
+        <div class="modal-params-row" *ngIf="programme">
+          <div class="modal-param-item modal-param-item--full">
+            <span class="modal-param-label">Programme :</span>
+            <span class="modal-param-value">{{ programme }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtres actifs -->
+      <div class="modal-filters-bar" *ngIf="activeFilterCount > 0">
+        <span class="modal-filters-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filtres actifs :
+        </span>
+        <span class="modal-filter-tag" *ngIf="filtreState?.emploi">Emploi : {{ filtreState.emploi }}</span>
+        <span class="modal-filter-tag" *ngIf="filtreState?.chapitre">Chapitre : {{ filtreState.chapitre }}</span>
+        <span class="modal-filter-tag" *ngIf="filtreState?.matricule">Matricule : {{ filtreState.matricule }}</span>
+        <span class="modal-filter-tag" *ngIf="filtreState?.action">Action : {{ filtreState.action }}</span>
+        <span class="modal-filter-tag" *ngIf="filtreState?.activite">Activité : {{ filtreState.activite }}</span>
+      </div>
+      <div class="modal-filters-bar modal-filters-none" *ngIf="activeFilterCount === 0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        Aucun filtre appliqué
+      </div>
+
+      <!-- Titre + boutons -->
+      <div class="modal-title-actions">
+        <h2 class="modal-top-title">
+          Traitements collectifs sur le paragraphe
+          <span class="modal-para-highlight" *ngIf="paragraphes.length > 0">
+            {{ paragraphes[0].code }} – {{ paragraphes[0].label }}
+          </span>
+        </h2>
+        <div class="modal-top-actions">
+          <button class="btn-modal-action btn-modal-add-agent" (click)="ajouterLigne()">Ajouter agent</button>
+          <button class="btn-modal-action btn-modal-add-line"  (click)="ajouterLigne()">Ajouter ligne</button>
+          <button class="btn-modal-action btn-modal-save"      (click)="onSauvegarder()">Enregistrer</button>
+        </div>
+      </div>
+
+      <button class="modal-close-x" (click)="onFermer()" title="Fermer">&#x2715;</button>
+    </div>
+
+    <!-- Tableau de saisie -->
+    <div class="modal-table-wrapper">
+      <table class="modal-table">
+        <thead>
+          <tr class="modal-header-main">
+            <th rowspan="2" class="mth-emploi">Emploi</th>
+            <th rowspan="2" class="mth-matricule">Matricule</th>
+            <th rowspan="2" class="mth-nom">Prénoms et nom</th>
+            <th [attr.colspan]="paragraphes.length" class="mth-para-group">
+              Lignes de dépenses du paragraphe {{ paragraphes.length > 0 ? paragraphes[0].code : '' }}
+            </th>
+            <th rowspan="2" class="mth-cumul">Cumul (budget prévu)</th>
+          </tr>
+          <tr class="modal-header-sub">
+            <th *ngFor="let para of paragraphes" class="mth-para">
+              <div class="mth-code">{{ para.code }}</div>
+              <div class="mth-label">{{ para.label }}</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ligne of modalLignes; let i = index"
+              [class.modal-row-even]="i % 2 === 0"
+              [class.modal-row-odd]="i % 2 !== 0">
+            <td class="mtd-emploi">
+              <div class="search-select-wrapper">
+                <select [(ngModel)]="ligne.emploi" class="modal-cell-select">
+                  <option value=""></option>
+                  <option *ngFor="let e of emplois" [value]="e.code">{{ e.libelle }}</option>
+                </select>
+                <span class="select-arrow">&#9660;</span>
+              </div>
+            </td>
+            <td class="mtd-matricule">
+              <input type="text" [(ngModel)]="ligne.matricule" class="modal-cell-input" placeholder="Matricule" />
+            </td>
+            <td class="mtd-nom">
+              <input type="text" [(ngModel)]="ligne.nom" class="modal-cell-input" placeholder="Prénoms et nom" style="text-align:center;" />
+            </td>
+            <td *ngFor="let para of paragraphes" class="mtd-val">
+              <input type="number" [(ngModel)]="ligne.valeurs[para.code]"
+                     class="modal-cell-input modal-cell-number"
+                     (ngModelChange)="recalculerCumulLigne(i)" />
+            </td>
+            <td class="mtd-cumul">{{ ligne.cumul | number:'1.0-0' }}</td>
+          </tr>
+
+          <!-- Récapitulatif -->
+          <tr class="modal-recap-row">
+            <td colspan="3" class="modal-recap-label">Récapitulatif</td>
+            <td *ngFor="let para of paragraphes" class="modal-recap-val">
+              {{ getModalRecap(para.code) | number:'1.0-0' }}
+            </td>
+            <td class="modal-recap-cumul">{{ getModalTotalCumul() | number:'1.0-0' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-bottom-footer">
+      <div class="modal-footer-row">
+        <span class="modal-footer-label">Action :</span>
+        <span class="modal-footer-value">{{ action }}</span>
+        <span class="modal-footer-sep"></span>
+        <span class="modal-footer-label">Activité :</span>
+        <span class="modal-footer-value">{{ activite }}</span>
+      </div>
+      <div class="modal-footer-row">
+        <span class="modal-footer-label">Chapitre :</span>
+        <span class="modal-footer-value">{{ chapitre }}</span>
+        <span class="modal-footer-sep"></span>
+        <span class="modal-footer-label">Statut :</span>
+        <span class="modal-footer-value">{{ statut }}</span>
+      </div>
+      <div class="modal-footer-row">
+        <span class="modal-footer-label">Âge :</span>
+        <span class="modal-footer-value">{{ age }}</span>
+      </div>
+    </div>
+
+  </div>
+</div>
