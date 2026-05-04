@@ -13,7 +13,10 @@ export const DepensesPersonnellesEmploisRoutes: Routes = [
         component: MajEmploisEffectifSectionComponent,
         data: {
           title: 'Maj Emplois et Effectif Section',
-          breadcrumb: false,
+          urls: [
+            { title: 'Dashboard ccc', url: '/dashboards/dashboard1' },
+            { title: 'Badge dddd' },
+          ],
         },
       },
       {
@@ -21,7 +24,10 @@ export const DepensesPersonnellesEmploisRoutes: Routes = [
         component: MajEmploisEffectifProgrammeComponent,
         data: {
           title: 'Maj Emplois et Effectif Programme',
-          breadcrumb: false,
+          urls: [
+            { title: 'Dashboard', url: '/dashboards/dashboard1' },
+            { title: 'Badge' },
+          ],
         },
       },
     ],

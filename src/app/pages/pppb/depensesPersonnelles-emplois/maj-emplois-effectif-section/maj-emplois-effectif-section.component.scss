@@ -1,0 +1,91 @@
+// input[disabled] {
+//   background-color: #777575;
+//   color: #000;
+// }
+
+.table-container {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+table {
+    width: 100%;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
+    padding: 0 !important;
+    padding-left: 12px !important;
+}
+
+.rowTablePrincipale td {
+    border-bottom-width: 0;
+}
+
+.headerTablePrincipale th, input[mat-footer-cell] {
+    background-color: #1D4991;
+    color: #f8f8f8 !important;
+}
+
+.mat-mdc-footer-cell {
+  background-color: #bdd3f7;
+}
+
+.rowTablePrincipale:hover {
+  background: #f5f7fa;
+}
+
+.expanded-row {
+  background: #e7f1ff !important;
+}
+
+.rowTablePrincipale {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.trHeaderTableAgent th, .trFooterTableAgent {
+    background-color: #4972b6;
+    color: #f8f8f8 !important;
+}
+
+
+.contentTabAgent {
+    background-color: #f4f4f4;
+    border-left: #1D4991 3px solid !important;
+}
+
+.tableAgent,
+.tableAgent th,
+.tableAgent td,
+.tableNouvellesSaises,
+.tableNouvellesSaises th,
+.tableNouvellesSaises td {
+    border: 1px solid #dee2e6 !important;
+    border-collapse: collapse;
+}
+
+.tbodytableAgent {
+    background-color: #DEEAF6;
+}
+
+
+.trFooterTableAgent {
+    padding: 2px;
+}
+
+.trFooterTableAgent td {
+    padding: 0;
+    padding-left: 20px;
+    padding-right: 12px;
+}
+
+
+
+
