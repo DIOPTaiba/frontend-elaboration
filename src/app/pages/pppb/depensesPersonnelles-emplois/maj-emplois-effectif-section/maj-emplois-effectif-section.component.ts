@@ -17,7 +17,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025330',
     libelle: 'Direction de la programmation budgétaire',
-    effectifs0: 200,
+    effectifsN: 200,
     agentsSolde: 250,
     contractuels: 100,
     total: 350,
@@ -27,7 +27,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025331',
     libelle: 'Direction de la Solde',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -37,7 +37,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025332',
     libelle: 'Direction des Systèmes d’information',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -47,7 +47,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025333',
     libelle: 'Direction du Contrôle budgétaire',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -57,7 +57,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '2502533',
     libelle: 'Direction des Pensions',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -67,7 +67,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025330',
   //   libelle: 'Direction de la programmation budgétaire',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -77,7 +77,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025331',
   //   libelle: 'Direction de la Solde',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -87,7 +87,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025332',
   //   libelle: 'Direction des Systèmes d’information',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -97,7 +97,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025333',
   //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -107,7 +107,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '2502533',
   //   libelle: 'Direction des Pensions',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -117,7 +117,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025330',
   //   libelle: 'Direction de la programmation budgétaire',
-  //   effectifs0: 200,
+  //   effectifsN: 200,
   //   agentsSolde: 250,
   //   contractuels: 100,
   //   total: 350,
@@ -127,7 +127,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025331',
   //   libelle: 'Direction de la Solde',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -137,7 +137,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025332',
   //   libelle: 'Direction des Systèmes d’information',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -147,7 +147,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025333',
   //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -157,7 +157,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '2502533',
   //   libelle: 'Direction des Pensions',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -167,7 +167,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025330',
   //   libelle: 'Direction de la programmation budgétaire',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -177,7 +177,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025331',
   //   libelle: 'Direction de la Solde',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -187,7 +187,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025332',
   //   libelle: 'Direction des Systèmes d’information',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -197,7 +197,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '25025333',
   //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -207,7 +207,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   // {
   //   code: '2502533',
   //   libelle: 'Direction des Pensions',
-  //   effectifs0: 100,
+  //   effectifsN: 100,
   //   agentsSolde: 100,
   //   contractuels: 100,
   //   total: 100,
@@ -342,7 +342,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp01',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -353,7 +353,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp02',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -364,7 +364,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp03',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -375,7 +375,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp04',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -386,7 +386,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp05',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -397,7 +397,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp01',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -408,7 +408,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp02',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -419,7 +419,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp03',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -430,7 +430,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp04',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -441,7 +441,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp05',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -454,7 +454,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action01',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -465,7 +465,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action02',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -476,7 +476,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action03',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -487,7 +487,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action04',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -498,7 +498,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action05',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -509,7 +509,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action01',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -520,7 +520,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action02',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -531,7 +531,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action03',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -542,7 +542,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action04',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -553,7 +553,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action05',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -567,7 +567,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action01',
     code: 'Activite01',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -578,7 +578,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action02',
     code: 'Activite02',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -589,7 +589,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action03',
     code: 'Activite03',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -600,7 +600,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action04',
     code: 'Activite04',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -611,7 +611,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action05',
     code: 'Activite05',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -622,7 +622,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action06',
     code: 'Activite01',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -633,7 +633,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action07',
     code: 'Activite02',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -644,7 +644,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action08',
     code: 'Activite03',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -655,7 +655,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action09',
     code: 'Activite04',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -666,7 +666,7 @@ const ACTIVITE_DATA: objetType[] = [
     action: 'Action010',
     code: 'Activite05',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -720,10 +720,10 @@ export class MajEmploisEffectifSectionComponent {
   // listeActions = ACTION_DATA;
   // listeActivites = ACTIVITE_DATA;
 
-  columnsChapitreToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
-  columnsEmploiToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
-  columnsActionToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
-  columnsActiviteToDisplay = ['action', 'code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
+  columnsChapitreToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
+  columnsEmploiToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
+  columnsActionToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
+  columnsActiviteToDisplay = ['action', 'code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
 
   columnsChapitreToDisplayWithExpand = [...this.columnsChapitreToDisplay, 'expand'];
   columnsEmploiToDisplayWithExpand = [...this.columnsEmploiToDisplay, 'expand'];
@@ -775,7 +775,7 @@ export class MajEmploisEffectifSectionComponent {
 export interface objetChapitre {
   code: string;
   libelle: string;
-  effectifs0: number;
+  effectifsN: number;
   agentsSolde: number;
   contractuels: number;
   total: number;
@@ -800,7 +800,7 @@ export interface objetType {
   action: string;
   code: string;
   libelle: string;
-  effectifs0: number;
+  effectifsN: number;
   agentsSolde: number;
   contractuels: number;
   total: number;

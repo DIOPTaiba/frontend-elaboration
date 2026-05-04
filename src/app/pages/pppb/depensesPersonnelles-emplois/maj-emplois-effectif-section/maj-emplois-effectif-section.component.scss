@@ -53,6 +53,11 @@ tr.example-detail-row {
     color: #f8f8f8 !important;
 }
 
+.headerTablePrincipale th {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
 .bg2{
     background-color: #4675c1 !important;
 }
@@ -61,8 +66,16 @@ tr.example-detail-row {
   background-color: #bdd3f7;
 }
 
-.h-5 {
-  height: 5px;
+.paddingHeaderRow1 {
+  padding-top: 15px;
+}
+
+.widthEffectifs {
+  width: 70px;
+}
+
+.hRowHeader {
+  height: 25px;
 }
 
 .rowTablePrincipale:hover {
