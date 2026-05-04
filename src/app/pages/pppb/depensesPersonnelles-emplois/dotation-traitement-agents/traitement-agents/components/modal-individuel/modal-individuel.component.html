@@ -1,0 +1,113 @@
+<div class="modal-overlay" *ngIf="visible" (click)="onFermer()">
+  <div class="modal-container-table" (click)="$event.stopPropagation()">
+
+    <div class="modal-top-bar">
+
+      <!-- Paramètres -->
+      <div class="modal-params-bar">
+        <div class="modal-params-row">
+          <div class="modal-param-item" *ngIf="gestion">
+            <span class="modal-param-label">Gestion :</span>
+            <span class="modal-param-value">{{ gestion }}</span>
+          </div>
+          <div class="modal-param-item" *ngIf="budget">
+            <span class="modal-param-label">Budget :</span>
+            <span class="modal-param-value">{{ budget }}</span>
+          </div>
+          <div class="modal-param-item modal-param-item--wide" *ngIf="section">
+            <span class="modal-param-label">Section :</span>
+            <span class="modal-param-value">{{ section }}</span>
+          </div>
+        </div>
+        <div class="modal-params-row" *ngIf="programme">
+          <div class="modal-param-item modal-param-item--full">
+            <span class="modal-param-label">Programme :</span>
+            <span class="modal-param-value">{{ programme }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Titre -->
+      <h2 class="modal-top-title">
+        Traitement individuel –
+        <span class="modal-para-highlight">
+          {{ paragrapheSelectionne?.code }} – {{ paragrapheSelectionne?.label }}
+        </span>
+      </h2>
+
+      <!-- Infos contextuelles -->
+      <div class="modal-top-infos">
+        <div class="modal-top-infos-row">
+          <div class="info-item">
+            <span class="info-label">Chapitre :</span>
+            <span class="info-value">{{ chapitre }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Statut :</span>
+            <span class="info-value">{{ statut }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Âge :</span>
+            <span class="info-value">{{ age }}</span>
+          </div>
+        </div>
+        <div class="modal-top-infos-row">
+          <div class="info-item">
+            <span class="info-label">Action :</span>
+            <span class="info-value">{{ action }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Activité :</span>
+            <span class="info-value">{{ activite }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Boutons -->
+      <div class="modal-top-actions">
+        <button class="btn-modal-action btn-modal-add-line" (click)="ajouterLigne()">Ajouter ligne</button>
+        <button class="btn-modal-action btn-modal-save"     (click)="onEnregistrer()">Enregistrer</button>
+      </div>
+
+      <button class="modal-close-x" (click)="onFermer()">✕</button>
+    </div>
+
+    <!-- Tableau -->
+    <div class="modal-table-wrapper">
+      <table class="modal-table">
+        <thead>
+          <tr class="modal-header-main">
+            <th class="mth-emploi"  rowspan="2">Paragraphe</th>
+            <th class="mth-nom"     rowspan="2">Ligne de dépense</th>
+            <th class="mth-nom"     rowspan="2">Texte de référence</th>
+            <th class="mth-nom">Observation</th>
+            <th class="mth-cumul"   rowspan="2">Montant</th>
+          </tr>
+          <tr class="modal-header-sub">
+            <th class="mth-nom">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ligne of lignes; let i = index"
+              [class.modal-row-even]="i % 2 === 0"
+              [class.modal-row-odd]="i % 2 !== 0">
+            <td>{{ paragrapheSelectionne?.code }}</td>
+            <td><input [(ngModel)]="ligne.depense"     class="modal-cell-input" /></td>
+            <td><input [(ngModel)]="ligne.texte"       class="modal-cell-input" /></td>
+            <td><input [(ngModel)]="ligne.observation" class="modal-cell-input" /></td>
+            <td>
+              <input type="number" [(ngModel)]="ligne.montant"
+                     class="modal-cell-input modal-cell-number" />
+            </td>
+          </tr>
+          <!-- Récapitulatif -->
+          <tr class="modal-recap-row">
+            <td colspan="4" class="modal-recap-label">Récapitulatif</td>
+            <td class="modal-recap-cumul">{{ getTotal() | number:'1.0-0' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
