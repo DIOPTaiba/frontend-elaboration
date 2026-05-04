@@ -155,7 +155,7 @@
         <tr class="header-main">
           <th class="col-emploi" rowspan="2" style="text-align: center;">Emploi</th>
           <th class="col-matricule" rowspan="2" >Matricule</th>
-          <th class="col-nom" rowspan="2">Prénoms et nom</th>
+          <th class="col-nom" rowspan="2" style="text-align:center;">Prénoms et nom</th>
           <th [attr.colspan]="paragraphes.length" class="col-paragraphes-header">Paragraphes</th>
           <th class="col-cumul" rowspan="2">Cumul<br />(budget<br />prévu)</th>
           <th class="col-actions" rowspan="2">Actions</th>
@@ -349,7 +349,7 @@
               <input type="text" [(ngModel)]="ligne.matricule" class="modal-cell-input" placeholder="Matricule" />
             </td>
             <td class="mtd-nom">
-              <input style="text-align: center;" type="text" [(ngModel)]="ligne.nom" class="modal-cell-input" placeholder="Prénoms et nom" />
+              <input style="text-align: center;"type="text" [(ngModel)]="ligne.nom" class="modal-cell-input" placeholder="Prénoms et nom" />
             </td>
             <td *ngFor="let para of paragraphes" class="mtd-val">
               <input type="number" [(ngModel)]="ligne.valeurs[para.code]"
