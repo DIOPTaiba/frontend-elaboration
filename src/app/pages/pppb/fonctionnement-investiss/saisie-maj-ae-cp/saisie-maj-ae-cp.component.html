@@ -263,9 +263,10 @@
                         <div class="row align-items-center p-7 ">
                             <div class="row align-items-center  col-12 col-lg-11 col-md-11">
                                 <div class="row col-12 col-lg-3 col-md-3">
-                                    <button mat-stroked-button class="bg-light" color="primary">➕ Ajouter une
-                                        ligne</button>
-                                </div>
+                                    <button mat-stroked-button class="bg-light" color="primary" (click)="showModal = true">
+                                        ➕ Ajouter une ligne
+                                    </button>
+                                    </div>
                                 <div class="row align-items-center  col-12 col-lg-9 col-md-9">
                                     <label
                                         class="f-s-17 f-w-600  col-12 col-lg-2 col-md-2 text-primary ">Activité</label>
@@ -436,5 +437,11 @@
 
 <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
 </mat-paginator>
+<!-- Modal ajouter ligne -->
+<app-natures-economiques-modal
+  [isVisible]="showModal"
+  (ajouter)="onNaturesAjoutees($event)"
+  (fermer)="showModal = false">
+</app-natures-economiques-modal>
 
 </mat-card>

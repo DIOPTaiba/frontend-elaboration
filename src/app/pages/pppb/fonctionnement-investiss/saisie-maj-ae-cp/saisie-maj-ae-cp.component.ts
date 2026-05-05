@@ -11,6 +11,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
+import { NaturesEconomiquesModalComponent,ModalResult} from './natures-economiques-modal/natures-economiques-modal.component';
+
 
 
 
@@ -87,7 +89,9 @@ export const ELEMENT_DATA = [
     MatTableModule,
     MatIconModule,
     CommonModule,
-    MatDividerModule],
+    MatDividerModule,
+   NaturesEconomiquesModalComponent,
+  ],
   templateUrl: './saisie-maj-ae-cp.component.html',
   styleUrl: './saisie-maj-ae-cp.component.scss',
   animations: [
@@ -286,5 +290,10 @@ getTotal2(field: string): number {
     return sum + (typeof val === 'number' ? val : 0);
   }, 0);
 }
+showModal = false;
 
+onNaturesAjoutees(result: ModalResult): void {
+  console.log('Natures ajoutées :', result.selectedNatures);
+  this.showModal = false;
+}
 }

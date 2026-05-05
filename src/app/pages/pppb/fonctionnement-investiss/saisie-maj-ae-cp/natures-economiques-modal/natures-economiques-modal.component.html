@@ -1,0 +1,160 @@
+<div class="modal-overlay" *ngIf="isVisible" (click)="onOverlayClick($event)">
+  <div class="modal-container" role="dialog" aria-labelledby="modal-title">
+
+    <!-- Title Bar -->
+    <div class="modal-titlebar">
+      <span class="titlebar-icon">📋</span>
+      <span id="modal-title" class="titlebar-text">Natures économiques à budgétiser</span>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- Section: Ajout de lignes budgétaires -->
+      <fieldset class="section-fieldset">
+        <legend class="section-legend">Ajout de lignes budgétaires</legend>
+
+        <div class="form-grid">
+
+          <div class="form-row">
+            <label class="form-label">Section :</label>
+            <div class="form-value-group">
+              <span class="value-code">{{ section.code }}</span>
+              <span class="value-text">{{ section.libelle }}</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Programme :</label>
+            <div class="form-value-group">
+              <span class="value-code">{{ programme.code }}</span>
+              <span class="value-text">{{ programme.libelle }}</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label form-label--category">Catégorie de dépense :</label>
+            <span class="value-text">{{ categorieDepense }}</span>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Chapitre :</label>
+            <div class="form-value-group">
+              <span class="value-code">{{ chapitre.code }}</span>
+              <span class="value-text chapitre-text" [title]="chapitre.libelle">{{ chapitre.libelle }}</span>
+            </div>
+          </div>
+
+         <!-- Action -->
+<div class="form-row">
+  <label class="form-label">Action :</label>
+  <mat-form-field style="width: 40px;" appearance="outline" class="form-field">
+    <mat-select [(ngModel)]="action">
+      <mat-option value=""></mat-option>
+      <mat-option *ngFor="let a of actions" [value]="a.code">
+        {{ a.code }} - {{ a.libelle }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 517px;" appearance="outline" class="form-field-action">
+    <input  matInput [(ngModel)]="action" placeholder="" />
+  </mat-form-field>
+</div>
+
+<!-- Activité -->
+<div class="form-row">
+  <label class="form-label">Activité :</label>
+  <mat-form-field style="width: 40px;" appearance="outline" class="form-field">
+    <mat-select [(ngModel)]="activite">
+      <mat-option value=""></mat-option>
+      <mat-option *ngFor="let a of activites" [value]="a.code">
+        {{ a.code }} - {{ a.libelle }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+   <mat-form-field style="width: 517px;;" appearance="outline" class="form-field">
+    <input matInput [(ngModel)]="action" placeholder="" />
+  </mat-form-field>
+          </div>
+
+        </div>
+      </fieldset>
+
+      <!-- Section: Recherche de nature économique -->
+     <!-- Recherche de nature économique -->
+<fieldset class="search-fieldset">
+  <legend class="search-legend">Recherche de nature économique</legend>
+  <div class="search-row">
+
+    <label class="search-label">Code :</label>
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-select [(ngModel)]="selectedCode" (ngModelChange)="onCodeChange()">
+        <mat-option value="">-- Tous --</mat-option>
+        <mat-option *ngFor="let item of filteredNatures" [value]="item.code">
+          {{ item.code }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <label class="search-label">Libellé :</label>
+    <mat-form-field style="width: 400px; " appearance="outline" class="search-field search-field--wide">
+      <mat-select [(ngModel)]="selectedLibelle" (ngModelChange)="onLibelleChange()">
+        <mat-option value="">-- Tous --</mat-option>
+        <mat-option *ngFor="let item of filteredNatures" [value]="item.libelle">
+          {{ item.libelle }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+</fieldset>
+
+      <!-- Table -->
+      <div class="table-wrapper">
+        <table class="nature-table">
+          <thead>
+            <tr>
+              <th class="col-check"></th>
+              <th class="col-code">Code</th>
+              <th class="col-libelle">Libellé</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of filteredNatures; let i = index"
+              [class.row-selected]="item.selected"
+              [class.row-highlighted]="i === 0"
+              (click)="toggleSelection(item)"
+            >
+              <td class="col-check">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="item.selected"
+                  (click)="$event.stopPropagation()"
+                  (change)="onCheckChange(item)"
+                />
+              </td>
+              <td class="col-code">{{ item.code }}</td>
+              <td class="col-libelle">{{ item.libelle }}</td>
+            </tr>
+            <tr *ngIf="filteredNatures.length === 0">
+              <td colspan="3" class="empty-row">Aucun résultat trouvé.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- Footer Buttons -->
+    <div class="modal-footer">
+      <button class="btn-action btn-ajouter" (click)="onAjouter()" [disabled]="selectedItems.length === 0">
+        Ajouter
+      </button>
+      <button class="btn-action btn-fermer" (click)="onFermer()">
+        Fermer
+      </button>
+    </div>
+
+  </div>
+</div>
