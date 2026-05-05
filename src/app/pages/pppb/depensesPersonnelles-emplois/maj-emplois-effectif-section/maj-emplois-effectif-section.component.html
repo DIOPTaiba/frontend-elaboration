@@ -19,7 +19,9 @@
     <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
       <label class="f-s-14 f-w-600  ">Section</label>
       <mat-form-field appearance="outline" class="w-100   ">
-        <input matInput type="text" value="Ministère des Finances et du Budget" disabled />
+        <input #tooltip="matTooltip"
+          matTooltip="Ministère des Finances et du Budget Ministère des Finances et du Budget Ministère des Finances et du Budget"
+          matTooltipPosition="above" matInput  type="text" value="Ministère des Finances et du Budget" disabled />
       </mat-form-field>
     </div>
   </div>
@@ -28,8 +30,8 @@
     <div class="col-12 col-md-6 col-lg-6 m-0 p-0 p-r-5">
       <label class="f-s-14 f-w-600  ">Programme</label>
       <mat-form-field appearance="outline" class="w-100  ">
-        <mat-select >
-          <mat-option value="0">Effacer le filtre</mat-option>
+        <mat-select>
+          <mat-option value="0">X</mat-option>
           <mat-option value="1">111111 - Elaboration du budget et suivi de l’exécution des dépenses</mat-option>
           <mat-option value="2">222222 _ Prog 2</mat-option>
           <mat-option value="3">333333 _ Prog 3</mat-option>
@@ -37,7 +39,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-12 col-md-6 col-lg-3 m-0 p-0 p-r-5">
+    <div class="col-12 col-md-6 col-lg-6 m-0 p-0 p-r-5">
       <label class="f-s-14 f-w-600  ">Emploi </label>
       <mat-form-field appearance="outline" class="w-100  ">
         <mat-select value="in">
@@ -49,50 +51,34 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-12 col-md-6 col-lg-3 m-0 p-0 p-r-5">
-      <mat-label class="f-s-14 f-w-600 d-block">Emplois et Effectifs par</mat-label>
-      <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-select [(ngModel)]=choix>
-          <mat-option value="1">Chapitre</mat-option>
-          <mat-option value="2">Emploi</mat-option>
-          <mat-option value="3">Action</mat-option>
-          <mat-option value="4">Activité</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
 
-  <!-- <div class="row m-0 p-0  ">
-    <div class="col-12 col-md-6 col-lg-4 m-0 p-0 p-r-5">
-      <mat-label class="f-s-14 f-w-600 d-block">Emplois et Effectifs par</mat-label>
-      <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-select [(ngModel)]=choix>
-          <mat-option value="1">Chapitre</mat-option>
-          <mat-option value="2">Emploi</mat-option>
-          <mat-option value="3">Action</mat-option>
-          <mat-option value="4">Activité</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div> -->
+  </div>
 </mat-card>
 
 
-<!-- Table Chapitres -->
-@if (choix == "1") {
+
 <mat-card class="b-1 shadow-none">
   <div class="p-16 p-b-0 b-b-1">
     <mat-card-title>
       <div class="row m-0 p-0 justify-content-between align-items-center ">
         <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
           <h4 class="">
-            Liste Chapitres <span class="f-s-16 bg-light-primary f-w-500">120</span>
+            <mat-label class="f-s-14 f-w-600  ">Liste</mat-label>
+            <mat-form-field appearance="outline" class="w-100 col-3 " color="primary">
+              <mat-select class="f-s-14 f-w-600" [(ngModel)]=choix (selectionChange)="onChoixChange()">
+                <mat-option value="chapitre">Chapitres</mat-option>
+                <mat-option value="emploi">Emplois</mat-option>
+                <mat-option value="action">Actions</mat-option>
+                <mat-option value="activite">Activités</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span class="f-s-16 bg-light-primary f-w-500">120</span>
           </h4>
         </div>
         <div class="col-12 col-md-6 col-lg-6 m-0 p-0 text-right ">
           <!-- <mat-label class="f-s-14 f-w-600 col-2 ">Filtrer</mat-label> -->
           <mat-form-field appearance="outline" class="w-100 col-10 p-r-0 ">
-            <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher" #input>
+            <input matInput [(ngModel)]="textRechercher" (keyup)="filtreListe($event)" placeholder="Rechercher" #input>
           </mat-form-field>
         </div>
 
@@ -100,1233 +86,1101 @@
 
     </mat-card-title>
   </div>
-  <div class="p-16 p-t-0 ">
-
-    <div class="table-responsive-sm">
-      <table class="headerTablePrincipale" mat-table [dataSource]="listeChapitre" multiTemplateDataRows>
-        <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Code </th>
-          <td mat-cell *matCellDef="let element"> {{element.code}} </td>
-        </ng-container>
-        <ng-container matColumnDef="libelle">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Libellé </th>
-          <td mat-cell *matCellDef="let element"> {{element.libelle}} </td>
-        </ng-container>
-        <ng-container matColumnDef="effectifs0">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Effectifs2026 </th>
-          <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{element.effectifs0}} </td>
-        </ng-container>
-        <ng-container matColumnDef="agentsSolde">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
-          <td mat-cell class="text-right" *matCellDef="let element"> {{element.agentsSolde}} </td>
-        </ng-container>
-        <ng-container matColumnDef="contractuels">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
-          <td mat-cell class="text-right" *matCellDef="let element"> {{element.contractuels}} </td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
-          <td mat-cell class="text-right" *matCellDef="let element"> {{element.total}} </td>
-        </ng-container>
-        <ng-container matColumnDef="ecart">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Ecart </th>
-          <td mat-cell class="text-right" *matCellDef="let element"> {{element.ecart}} </td>
-        </ng-container>
-        <ng-container matColumnDef="dotation">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Dotation </th>
-          <td mat-cell class="text-right" *matCellDef="let element"> {{element.dotation}} </td>
-        </ng-container>
-        <ng-container matColumnDef="expand">
-          <th mat-header-cell *matHeaderCellDef aria-label="row actions">
-            &nbsp;
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button aria-label="expand row" (click)="
+  <!-- <div class="p-16 p-t-0 "> -->
+  <!-- <div class="table-responsive-sm"> -->
+  <!-- Liste Chapitres -->
+  @if (choix == "chapitre") {
+  <table mat-table class="headerTablePrincipale " [dataSource]="listeChapitre" multiTemplateDataRows>
+    <!-- Header 1 -->
+    <ng-container matColumnDef="code0">
+      <th mat-header-cell *matHeaderCellDef class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Code</th>
+    </ng-container>
+    <ng-container matColumnDef="libelle0">
+      <th mat-header-cell *matHeaderCellDef class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Libellé</th>
+    </ng-container>
+    <ng-container matColumnDef="effectifsN1">
+      <th mat-header-cell *matHeaderCellDef class="paddingHeaderRow1 f-w-600 f-s-14 p-t-0 p-x-24 p-l-0">Effectifs 2026</th>
+    </ng-container>
+    <ng-container matColumnDef="previonsN1">
+      <th mat-header-cell *matHeaderCellDef colspan="3" class="f-w-600 f-s-14 p-x-24 p-l-0"> Previons effectifs 2027 </th>
+      <!-- <td mat-footer-cell *matFooterCellDef></td> -->
+    </ng-container>
+    <ng-container matColumnDef="ecart0">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Ecart</th>
+    </ng-container>
+    <ng-container matColumnDef="dotation0">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Dotation</th>
+    </ng-container>
+    <ng-container matColumnDef="1">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0"></th>
+    </ng-container>
+    <!-- Header 2 -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef   class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.code}} </td>
+      <td mat-footer-cell *matFooterCellDef  class="text-center f-w-900">Total</td>
+    </ng-container>
+    <ng-container matColumnDef="libelle">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="p-l-5"> {{element.libelle}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <ng-container matColumnDef="effectifsN">
+      <th mat-header-cell *matHeaderCellDef  class="widthEffectifs border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{123500 | number}} </td>
+      <td mat-footer-cell *matFooterCellDef class=" text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+     <ng-container matColumnDef="agentsSolde">
+      <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.agentsSolde}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{111 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="contractuels">
+      <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.contractuels}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{222 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.total}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{333 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ecart">
+      <th mat-header-cell *matHeaderCellDef  class="widthEffectifs border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.ecart}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="dotation">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.dotation | number}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef class="border-top-0 p-l-0" aria-label="row actions">
+        &nbsp;
+      </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <button mat-icon-button aria-label="expand row" (click)="
 expandedElementChapitre = expandedElementChapitre === element ? null : element;
 $event.stopPropagation()
 ">
-              @if(expandedElementChapitre !== element) {
-              <mat-icon>add</mat-icon>
-              } @if(expandedElementChapitre === element) {
-              <mat-icon>remove</mat-icon>
-              }
-            </button>
-          </td>
-        </ng-container>
-        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-        <ng-container matColumnDef="expandedDetail">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
-            <div [@detailExpand]="element === expandedElementChapitre ? 'expanded' : 'collapsed'">
-              <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
+          @if(expandedElementChapitre !== element) {
+          <mat-icon>add</mat-icon>
+          } @if(expandedElementChapitre === element) {
+          <mat-icon>remove</mat-icon>
+          }
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
+        <div [@detailExpand]="element === expandedElementChapitre ? 'expanded' : 'collapsed'">
+          <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
 
-                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-                  <!-- TABS AGENTS -->
-                  <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
-                    <div class=" f-s-14 p-16 rounded m-t-12">
-                      <!-- Debut Table 2 -->
-                      <div class=" b-b-1">
-                        <mat-card-title>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+              <!-- TABS AGENTS -->
+              <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
+                <div class=" f-s-14 p-16 rounded m-t-12">
+                  <!-- Debut Table 2 -->
+                  <div class=" b-b-1">
+                    <mat-card-title>
 
-                          <div class="row justify-content-end align-items-center">
-                            <div class="col-6">
-                              <h4>
-                                Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
-                              </h4>
-                              <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
-                            </div>
-                            <div class="col-6 text-right">
-                              <button mat-flat-button><mat-icon class="m-r-0" >add</mat-icon>Ajouter agent</button>
-                            </div>
-                          </div>
-                        </mat-card-title>
+                      <div class="row justify-content-end align-items-center">
+                        <div class="col-6">
+                          <h4>
+                            Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
+                          </h4>
+                          <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
+                        </div>
+                        <div class="col-6 text-right">
+                          <button mat-flat-button><mat-icon class="m-r-0">add</mat-icon>Ajouter agent</button>
+                        </div>
                       </div>
-                      <div class="table-responsive">
-                        <table class="tableAgent">
-                          <thead class="text-center">
-                            <tr class="trHeaderTableAgent text-white ">
-                              <th class=" text-center ">Emploi</th>
-                              <th class="">Matricule</th>
-                              <th class="">Nom</th>
-                              <th class="">Age</th>
-                              <th class="">Statut</th>
-                              <th class="">Action</th>
-                              <th class="">Activité</th>
-                              <th class="">Effectifs</th>
-                              <th class="">Budget Prévu</th>
-                              <th class="">Opérations</th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbodytableAgent">
-                            <tr *ngFor="let agent of listeAgent; let indexEngComptable = index">
-                              <td class="text-end">{{agent.emploi}}</td>
-                              <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
-                              <td class="">{{agent.nom }}</td>
-                              <td class="text-end">{{agent.age }}</td>
-                              <td class="">{{agent.statut }}</td>
-                              <td class="">{{agent.action }}</td>
-                              <td class="">{{agent.activite }}</td>
-                              <td class="text-right">{{agent.effectifs }}</td>
-                              <td class="text-right">{{agent.budgetPrevu | number}}</td>
-                              <td class="action-link text-center">
-                                <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
-                                  matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
-                                    class="icon-18"></i-tabler></a>
-                                <a class="cursor-pointer" color="primary" #tooltip="matTooltip"
-                                  matTooltip="Retirer l'agent" matTooltipPosition="above">
-                                  <i-tabler name="trash" class="icon-18"></i-tabler>
-                                </a>
-                              </td>
-                            </tr>
-                          </tbody>
-                          <tfoot>
-                            <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
-                              <td class="  fw-bold " colspan="7">
-                                Total
-                              </td>
-                              <td class=" col-2 text-right fw-bold">{{50000 | number}}
-                              </td>
-                              <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
-                              </td>
-                              <td></td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                        <!-- <div class="mt-1 d-flex justify-content-end">
-            <ngb-pagination [collectionSize]="totalPropositionEng" [(page)]="currentPage" [maxSize]="5" [pageSize]="pageSize"  [rotate]="true" [boundaryLinks]="true" (pageChange)="pageChange()" size="sm"></ngb-pagination>
-          </div> -->
+                    </mat-card-title>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="tableAgent">
+                      <thead class="text-center">
+                        <tr class="trHeaderTableAgent text-white ">
+                          <th class=" text-center ">Emploi</th>
+                          <th class="">Matricule</th>
+                          <th class="">Prénoms et nom</th>
+                          <th class="">Age</th>
+                          <th class="">Statut</th>
+                          <th class="">Action</th>
+                          <th class="">Activité</th>
+                          <th class="">Effectifs</th>
+                          <th class="">Budget Prévu</th>
+                          <th class="">Opérations</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbodytableAgent">
+                        @for (agent of listeAgent.data; track agent.matricule) {
+                        <tr>
+                          <td class="text-end">{{agent.emploi}}</td>
+                          <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
+                          <td class="">{{agent.nom }}</td>
+                          <td class="text-end">{{agent.age }}</td>
+                          <td class="">{{agent.statut }}</td>
+                          <td class="">{{agent.action }}</td>
+                          <td class="">{{agent.activite }}</td>
+                          <td class="text-right">{{agent.effectifs }}</td>
+                          <td class="text-right">{{agent.budgetPrevu | number}}</td>
+                          <td class="action-link text-center">
+                            <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Modifier"
+                              matTooltipPosition="above"><i-tabler name="edit" class="icon-18"></i-tabler></a>
+                            <a class="cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Retirer l'agent"
+                              matTooltipPosition="above">
+                              <i-tabler name="trash" class="icon-18"></i-tabler>
+                            </a>
+                          </td>
+                          }
+                      </tbody>
+                      <tfoot>
+                        <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
+                          <td class="  fw-bold " colspan="7">
+                            Total
+                          </td>
+                          <td class=" col-2 text-right fw-bold">{{50000 | number}}
+                          </td>
+                          <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
+                          </td>
+                          <td></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
+                  <!-- Fin Table 2 -->
+                </div>
+              </mat-tab>
+
+              <!-- TABS NOUVELLES DEMANDES -->
+              <mat-tab label="Nouvelles demandes">
+                <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
+                  <mat-card-title>
+                    <h4 class="text-muted  f-s-18 f-w-900">Mesures nouvelles saises <span class="text-primary" >25</span> </h4>
+                  </mat-card-title>
+
+                  <div class="table-responsive m-b-10">
+                    <table class="tableNouvellesSaises">
+                      <thead class="text-center">
+                        <tr class="trHeaderTableNouvellesSaises text-white ">
+                          <th class="col-2">Code emploi</th>
+                          <th class="">Libellé emploi</th>
+                          <th class="col-1">Effectif</th>
+                          <th class="">Observations</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbodytableNouvellesSaises">
+                        @for (agent of listeAgent.data; track agent.matricule) {
+                        <tr>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center">5</td>
+                          <td class="text-center"></td>
+                        </tr>
+                        }
+                      </tbody>
+                      <!-- <tfoot>
+                        <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
+                          <td class="  fw-bold " colspan="2">
+                            Total
+                          </td>
+                          <td class=" col-2 text-right fw-bold">{{25 | number}}
+                          </td>
+                          <td></td>
+                        </tr>
+                      </tfoot> -->
+                    </table>
+                  </div>
+
+                  <mat-card class="cardWithShadow b-1  rounded p-20 p-b-10 m-b-6">
+                    <div class="row m-0 p-5 p-b-0 justify-content-between align-items-center ">
+                      <div class="col-12 col-md-6 col-lg-10 m-0 p-0">
+                        <label class="f-s-14 f-w-600  ">Emploi</label>
+                        <div class="row m-0 p-0  ">
+                          <mat-form-field appearance="outline" class="w-100 codeEmploi col-2 p-l-0 p-r-0 ">
+                            <input matInput type="text" class="text-center" value="123456" readonly />
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="w-100 col-10 p-l-1 p-r-1">
+                            <mat-select value="1">
+                              <mat-option value="1">Emploi 1</mat-option>
+                              <mat-option value="2">Emploi 2</mat-option>
+                              <mat-option value="3">Emploi 3</mat-option>
+                              <mat-option value="4">Emploi 4</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5">
+                        <label class="f-s-14 f-w-600 ">Effectif</label>
+                        <mat-form-field appearance="outline" class="w-100 ">
+                          <input matInput type="number" min="1" class="text-center no-spinner" value="" />
+                        </mat-form-field>
                       </div>
 
-                      <!-- Fin Table 2 -->
                     </div>
-                  </mat-tab>
-
-                  <!-- TABS NOUVELLES DEMANDES -->
-                  <mat-tab label="Nouvelles demandes">
-                    <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
-                      <mat-card-title>
-                        <h4 class="text-muted m-b-20 f-s-18 f-w-900">Budget</h4>
-                      </mat-card-title>
-
-                      <div class="row m-0 p-0 justify-content-between">
-                        <div class="col-12 col-md-6 col-lg-1 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600  ">Exercice</label>
-                          <mat-form-field appearance="outline" class="w-100 ">
-                            <input matInput type="text" class="text-center" value="2027" readonly />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-3 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600 p-l-15 ">Version Budget</label>
-                          <mat-form-field appearance="outline" class="w-100 col-6 d-block">
-                            <input matInput type="text" class="text-center" value="1" readonly />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Type de budget</label>
-                          <mat-form-field appearance="outline" class="w-100   ">
-                            <input matInput type="text" value="Projet de Loi de Finances Initiale 2027" readonly />
-                          </mat-form-field>
-                        </div>
+                    <div class="row m-0 p-5 p-b-0 justify-content-between align-items-center ">
+                      <div class="col-12 col-md-6 col-lg-10 m-0 p-0">
+                        <label class="f-s-14 f-w-600  ">Observations</label>
+                        <mat-form-field appearance="outline" class="w-100 col-12 p-l-0 " color="primary">
+                          <textarea matInput rows="1"></textarea>
+                        </mat-form-field>
                       </div>
-
-                      <div class="row m-0 p-0  ">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Section</label>
-                          <mat-form-field appearance="outline" class="w-100  ">
-                            <input matInput type="text" value="Ministère des Finances et du Budget" readonly />
-                          </mat-form-field>
-                        </div>
+                      <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5 ">
+                        <button mat-flat-button class="w-100"><mat-icon>add</mat-icon> Ajouter</button>
                       </div>
+                    </div>
 
-                      <div class="row m-0 p-0 justify-content-between">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Catégorie de dépenses</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-1 p-l-0 ">
-                              <input matInput type="text" class="text-center" value="2" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-11 p-r-0">
-                              <input matInput type="text" value="Dépenses de personnel" readonly />
-                            </mat-form-field>
-                          </div>
+                  </mat-card>
+                </mat-card>
 
-                        </div>
-                      </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </td>
+    </ng-container>
 
-                      <div class="row m-0 p-0  ">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0 ">
-                          <label class="f-s-14 f-w-600 ">Chapitre</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-2 p-l-0 ">
-                              <input matInput type="text" class="text-center" value="12206220110" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-10 p-r-0">
-                              <mat-select [(ngModel)]=choix>
-                                <mat-option value=1>Direction des Systèmes d’information</mat-option>
-                                <mat-option value=2>Chap2</mat-option>
-                                <mat-option value=3>Chap3</mat-option>
-                                <mat-option value=4>Chap4</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
-                    </mat-card>
-
-                    <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
-                      <mat-card-title>
-                        <h4 class="text-muted m-b-20 f-s-18 f-w-900">Mesures nouvelles</h4>
-                      </mat-card-title>
-
-                      <div class="row m-0 p-5 justify-content-between bg-light m-b-10 rounded align-items-center ">
-                        <div class="col-12 col-md-6 col-lg-9 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Emploi</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-2 p-l-0 p-r-0 ">
-                              <input matInput type="text" class="text-center" value="4312300" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-10 p-l-1 p-r-1">
-                              <mat-select value="1">
-                                <mat-option value="1">Emploi 1</mat-option>
-                                <mat-option value="2">Emploi 2</mat-option>
-                                <mat-option value="3">Emploi 3</mat-option>
-                                <mat-option value="4">Emploi 4</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-1 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600  ">Effectif</label>
-                          <mat-form-field appearance="outline" class="w-100 ">
-                            <input matInput type="text" class="text-center" value="" />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-2 col-md-6 text-center col-lg-2 m-0 p-0 ">
-                          <button mat-flat-button>Ajouter</button>
-                        </div>
-                      </div>
-
-                      <h4>Mesures nouvelles saisies</h4>
-                      <div class="table-responsive">
-                        <table class="tableNouvellesSaises">
-                          <thead class="text-center">
-                            <tr class="trHeaderTableNouvellesSaises text-white ">
-                              <th class="col-1"></th>
-                              <th class=""></th>
-                              <th class=""></th>
-                              <th class="">Effectif</th>
-                              <th class="">Observations</th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbodytableNouvellesSaises">
-                            <tr *ngFor="let agent of listeAgent; ">
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="row m-0 p-0 justify-content-end m-t-10 ">
-                        <button mat-button class="b-1 border-warning text-warning m-r-10">Modifier</button>
-                        <button mat-button class="b-1 border-error text-error">Supprimer</button>
-                      </div>
-                    </mat-card>
-
-                  </mat-tab>
-                </mat-tab-group>
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="columnsChapitreToDisplayWithExpand"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsChapitreToDisplayWithExpand" class="rowTablePrincipale"
-          [class.example-expanded-row]="expandedElementChapitre === element" (click)="
+    <tr mat-header-row class="hRowHeader" *matHeaderRowDef="['code0','libelle0','effectifsN1','previonsN1','ecart0','dotation0','expand']"></tr>
+    <tr mat-header-row class="hRowHeader" *matHeaderRowDef="columnsChapitreToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsChapitreToDisplayWithExpand" class="rowTablePrincipale"
+      [class.expanded-row]="expandedElementChapitre === element" (click)="
 expandedElementChapitre = expandedElementChapitre === element ? null : element
 "></tr>
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">
-            Ancune données pour votre filtre "{{ input.value }}"
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
 
-</mat-card>
-}
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnsChapitreToDisplayWithExpand"></tr>
+    <!-- Pas de données -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        Ancune donnée trouvée pour votre filtre "{{ input.value }}"
+      </td>
+    </tr>
 
-
-<!-- Table Emplois -->
-@if (choix == "2") {
-<mat-card class="b-1 shadow-none">
-  <div class="p-16 b-b-1">
-    <mat-card-title>
-      <h4>
-        Emplois <span class="f-s-16 bg-light-primary f-w-500">120</span>
-      </h4>
-    </mat-card-title>
-  </div>
-  <div class="p-16 p-t-0">
-    <div class="table-responsive-sm">
-      <table class="headerTablePrincipale" mat-table [dataSource]="listeEmplois" multiTemplateDataRows>
-        <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Code </th>
-          <td mat-cell *matCellDef="let element"> {{element.code}} </td>
-        </ng-container>
-        <ng-container matColumnDef="libelle">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Libellé </th>
-          <td mat-cell *matCellDef="let element"> {{element.libelle}} </td>
-        </ng-container>
-        <ng-container matColumnDef="effectifs0">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Effectifs2026 </th>
-          <td mat-cell *matCellDef="let element"> {{element.effectifs0}} </td>
-        </ng-container>
-        <ng-container matColumnDef="agentsSolde">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
-          <td mat-cell *matCellDef="let element"> {{element.agentsSolde}} </td>
-        </ng-container>
-        <ng-container matColumnDef="contractuels">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
-          <td mat-cell *matCellDef="let element"> {{element.contractuels}} </td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
-          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
-        </ng-container>
-        <ng-container matColumnDef="ecart">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Ecart </th>
-          <td mat-cell *matCellDef="let element"> {{element.ecart}} </td>
-        </ng-container>
-        <ng-container matColumnDef="dotation">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Dotation </th>
-          <td mat-cell *matCellDef="let element"> {{element.dotation}} </td>
-        </ng-container>
-        <ng-container matColumnDef="expand">
-          <th mat-header-cell *matHeaderCellDef aria-label="row actions">
-            &nbsp;
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button aria-label="expand row" (click)="
+  </table>
+  <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+  }
+  <!-- Liste Emplois -->
+  @if (choix == "emploi") {
+  <table class="headerTablePrincipale" mat-table [dataSource]="listeEmplois" multiTemplateDataRows>
+    <!-- Header 1 -->
+    <ng-container matColumnDef="code0">
+      <th mat-header-cell *matHeaderCellDef colspan="" class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Code</th>
+    </ng-container>
+    <ng-container matColumnDef="libelle0">
+      <th mat-header-cell *matHeaderCellDef colspan="" class="paddingHeaderRow1  f-w-600 f-s-14 p-x-24 p-l-0">Libellé</th>
+    </ng-container>
+    <ng-container matColumnDef="effectifsN1">
+      <th mat-header-cell *matHeaderCellDef colspan="" class="paddingHeaderRow1  f-w-600 f-s-14 p-x-24 p-l-0">Effectifs 2026</th>
+    </ng-container>
+    <ng-container matColumnDef="previonsN1">
+      <th mat-header-cell *matHeaderCellDef colspan="3" class="f-w-600 f-s-14 p-x-24 p-l-0"> Previons effectifs 2027 </th>
+      <!-- <td mat-footer-cell *matFooterCellDef></td> -->
+    </ng-container>
+    <ng-container matColumnDef="ecart0">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Ecart</th>
+    </ng-container>
+    <ng-container matColumnDef="dotation0">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Dotation</th>
+    </ng-container>
+    <ng-container matColumnDef="1">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0"></th>
+    </ng-container>
+    <!-- Header 2 -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef   class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.code}} </td>
+      <td mat-footer-cell *matFooterCellDef  class="text-center f-w-900">Total</td>
+    </ng-container>
+    <ng-container matColumnDef="libelle">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="p-l-5"> {{element.libelle}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <ng-container matColumnDef="effectifsN">
+      <th mat-header-cell *matHeaderCellDef  class="widthEffectifs border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{element.effectifsN}} </td>
+      <td mat-footer-cell *matFooterCellDef class=" text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+     <ng-container matColumnDef="agentsSolde">
+      <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.agentsSolde}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{111 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="contractuels">
+      <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.contractuels}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{222 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.total}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{333 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ecart">
+      <th mat-header-cell *matHeaderCellDef  class="widthEffectifs border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.ecart}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="dotation">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.dotation | number}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef class="border-top-0 p-l-0" aria-label="row actions">
+        &nbsp;
+      </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <button mat-icon-button aria-label="expand row" (click)="
 expandedElementEmploi = expandedElementEmploi === element ? null : element;
 $event.stopPropagation()
 ">
-              @if(expandedElementEmploi !== element) {
-              <mat-icon>add</mat-icon>
-              } @if(expandedElementEmploi === element) {
-              <mat-icon>remove</mat-icon>
-              }
-            </button>
-          </td>
-        </ng-container>
-        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-        <ng-container matColumnDef="expandedDetail">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
-            <div [@detailExpand]="element === expandedElementEmploi ? 'expanded' : 'collapsed'">
+          @if(expandedElementEmploi !== element) {
+          <mat-icon>add</mat-icon>
+          } @if(expandedElementEmploi === element) {
+          <mat-icon>remove</mat-icon>
+          }
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
+        <div [@detailExpand]="element === expandedElementEmploi ? 'expanded' : 'collapsed'">
 
-              <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
+          <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
 
-                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-                  <!-- TABS AGENTS -->
-                  <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
-                    <div class=" f-s-14 p-16 rounded m-t-12">
-                      <!-- Debut Table 2 -->
-                      <div class=" b-b-1">
-                        <mat-card-title>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+              <!-- TABS AGENTS -->
+              <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
+                <div class=" f-s-14 p-16 rounded m-t-12">
+                  <!-- Debut Table 2 -->
+                  <div class=" b-b-1">
+                    <mat-card-title>
 
-                          <div class="row justify-content-end align-items-center">
-                            <div class="col-6">
-                              <h4>
-                                Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
-                              </h4>
-                              <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
-                            </div>
-                            <div class="col-6 text-right">
-                              <button mat-flat-button>Ajouter agent</button>
-                            </div>
-                          </div>
-                        </mat-card-title>
+                      <div class="row justify-content-end align-items-center">
+                        <div class="col-6">
+                          <h4>
+                            Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
+                          </h4>
+                          <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
+                        </div>
+                        <div class="col-6 text-right">
+                          <button mat-flat-button>Ajouter agent</button>
+                        </div>
                       </div>
-                      <div class="table-responsive">
-                        <table class="tableAgent">
-                          <thead class="text-center">
-                            <tr class="trHeaderTableAgent text-white ">
-                              <th class=" text-center ">Chapitre</th>
-                              <th class="">Matricule</th>
-                              <th class="">Nom</th>
-                              <th class="">Age</th>
-                              <th class="">Statut</th>
-                              <th class="">Action</th>
-                              <th class="">Activité</th>
-                              <th class="">Effectifs</th>
-                              <th class="">Budget Prévu</th>
-                              <th class="">Opérations</th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbodytableAgent">
-                            <tr *ngFor="let agent of listeAgent; let indexEngComptable = index">
-                              <td class="text-end">{{agent.chapitre}}</td>
-                              <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
-                              <td class="">{{agent.nom }}</td>
-                              <td class="text-end">{{agent.age }}</td>
-                              <td class="">{{agent.statut }}</td>
-                              <td class="">{{agent.action }}</td>
-                              <td class="">{{agent.activite }}</td>
-                              <td class="text-right">{{agent.effectifs }}</td>
-                              <td class="text-right">{{agent.budgetPrevu | number}}</td>
-                              <td class="action-link text-center">
-                                <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
-                                  matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
-                                    class="icon-18"></i-tabler></a>
-                                <a class="cursor-pointer" color="primary" #tooltip="matTooltip"
-                                  matTooltip="Retirer l'agent" matTooltipPosition="above">
-                                  <i-tabler name="trash" class="icon-18"></i-tabler>
-                                </a>
-                              </td>
-                            </tr>
-                          </tbody>
-                          <tfoot>
-                            <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
-                              <td class="  fw-bold " colspan="7">
-                                Total
-                              </td>
-                              <td class=" col-2 text-right fw-bold">{{50000 | number}}
-                              </td>
-                              <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
-                              </td>
-                              <td></td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                        <!-- <div class="mt-1 d-flex justify-content-end">
+                    </mat-card-title>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="tableAgent">
+                      <thead class="text-center">
+                        <tr class="trHeaderTableAgent text-white ">
+                          <th class=" text-center ">Chapitre</th>
+                          <th class="">Matricule</th>
+                          <th class="">Prénoms et nom</th>
+                          <th class="">Age</th>
+                          <th class="">Statut</th>
+                          <th class="">Action</th>
+                          <th class="">Activité</th>
+                          <th class="">Effectifs</th>
+                          <th class="">Budget Prévu</th>
+                          <th class="">Opérations</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbodytableAgent">
+                        @for (agent of listeAgent.data; track agent.matricule) {
+                        <tr>
+                          <td class="text-end">{{agent.chapitre}}</td>
+                          <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
+                          <td class="">{{agent.nom }}</td>
+                          <td class="text-end">{{agent.age }}</td>
+                          <td class="">{{agent.statut }}</td>
+                          <td class="">{{agent.action }}</td>
+                          <td class="">{{agent.activite }}</td>
+                          <td class="text-right">{{agent.effectifs }}</td>
+                          <td class="text-right">{{agent.budgetPrevu | number}}</td>
+                          <td class="action-link text-center">
+                            <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
+                              matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
+                                class="icon-18"></i-tabler></a>
+                            <a class="cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Retirer l'agent"
+                              matTooltipPosition="above">
+                              <i-tabler name="trash" class="icon-18"></i-tabler>
+                            </a>
+                          </td>
+                        </tr>
+                        }
+                      </tbody>
+                      <tfoot>
+                        <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
+                          <td class="  fw-bold " colspan="7">
+                            Total
+                          </td>
+                          <td class=" col-2 text-right fw-bold">{{50000 | number}}
+                          </td>
+                          <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
+                          </td>
+                          <td></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    <!-- <div class="mt-1 d-flex justify-content-end">
             <ngb-pagination [collectionSize]="totalPropositionEng" [(page)]="currentPage" [maxSize]="5" [pageSize]="pageSize"  [rotate]="true" [boundaryLinks]="true" (pageChange)="pageChange()" size="sm"></ngb-pagination>
           </div> -->
+                  </div>
+
+                  <!-- Fin Table 2 -->
+                </div>
+              </mat-tab>
+
+              <!-- TABS NOUVELLES DEMANDES -->
+              <mat-tab label="Nouvelles demandes">
+                <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
+                  <mat-card-title>
+                    <h4 class="text-muted  f-s-18 f-w-900">Mesures nouvelles saises</h4>
+                  </mat-card-title>
+
+                  <div class="table-responsive m-b-10">
+                    <table class="tableNouvellesSaises">
+                      <thead class="text-center">
+                        <tr class="trHeaderTableNouvellesSaises text-white ">
+                          <th class="col-2">Code emploi</th>
+                          <th class="">Libellé emploi</th>
+                          <th class="col-1">Effectif</th>
+                          <th class="">Observations</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbodytableNouvellesSaises">
+                        @for (agent of listeAgent.data; track agent.matricule) {
+                        <tr>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center">555</td>
+                          <td class="text-center"></td>
+                        </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <mat-card class="cardWithShadow b-1  rounded p-20 p-b-10 m-b-6">
+                    <div class="row m-0 p-5 p-b-0 justify-content-between align-items-center ">
+                      <div class="col-12 col-md-6 col-lg-10 m-0 p-0">
+                        <label class="f-s-14 f-w-600  ">Emploi</label>
+                        <div class="row m-0 p-0  ">
+                          <mat-form-field appearance="outline" class="w-100 codeEmploi col-2 p-l-0 p-r-0 ">
+                            <input matInput type="text" class="text-center" value="123456" readonly />
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="w-100 col-10 p-l-1 p-r-1">
+                            <mat-select value="1">
+                              <mat-option value="1">Emploi 1</mat-option>
+                              <mat-option value="2">Emploi 2</mat-option>
+                              <mat-option value="3">Emploi 3</mat-option>
+                              <mat-option value="4">Emploi 4</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5">
+                        <label class="f-s-14 f-w-600 ">Effectif</label>
+                        <mat-form-field appearance="outline" class="w-100 ">
+                          <input matInput type="number" min="1" class="text-center no-spinner" value="" />
+                        </mat-form-field>
                       </div>
 
-                      <!-- Fin Table 2 -->
                     </div>
-                  </mat-tab>
-
-                  <!-- TABS NOUVELLES DEMANDES -->
-                  <mat-tab label="Nouvelles demandes">
-                    <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
-                      <mat-card-title>
-                        <h4 class="text-muted m-b-20 f-s-18 f-w-900">Budget</h4>
-                      </mat-card-title>
-
-                      <div class="row m-0 p-0 justify-content-between">
-                        <div class="col-12 col-md-6 col-lg-1 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600  ">Exercice</label>
-                          <mat-form-field appearance="outline" class="w-100 ">
-                            <input matInput type="text" class="text-center" value="2027" readonly />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-3 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600 p-l-15 ">Version Budget</label>
-                          <mat-form-field appearance="outline" class="w-100 col-6 d-block">
-                            <input matInput type="text" class="text-center" value="1" readonly />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Type de budget</label>
-                          <mat-form-field appearance="outline" class="w-100   ">
-                            <input matInput type="text" value="Projet de Loi de Finances Initiale 2027" readonly />
-                          </mat-form-field>
-                        </div>
+                    <div class="row m-0 p-5 p-b-0 justify-content-between align-items-center ">
+                      <div class="col-12 col-md-6 col-lg-10 m-0 p-0">
+                        <label class="f-s-14 f-w-600  ">Observations</label>
+                        <mat-form-field appearance="outline" class="w-100 col-12 p-l-0 " color="primary">
+                          <textarea matInput rows="1"></textarea>
+                        </mat-form-field>
                       </div>
-
-                      <div class="row m-0 p-0  ">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Section</label>
-                          <mat-form-field appearance="outline" class="w-100  ">
-                            <input matInput type="text" value="Ministère des Finances et du Budget" readonly />
-                          </mat-form-field>
-                        </div>
+                      <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5 ">
+                        <button mat-flat-button class="w-100"><mat-icon>add</mat-icon> Ajouter</button>
                       </div>
+                    </div>
 
-                      <div class="row m-0 p-0 justify-content-between">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Catégorie de dépenses</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-1 p-l-0 ">
-                              <input matInput type="text" class="text-center" value="2" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-11 p-r-0">
-                              <input matInput type="text" value="Dépenses de personnel" readonly />
-                            </mat-form-field>
-                          </div>
+                  </mat-card>
+                </mat-card>
 
-                        </div>
-                      </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </td>
+    </ng-container>
 
-                      <div class="row m-0 p-0  ">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0 ">
-                          <label class="f-s-14 f-w-600 ">Chapitre</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-2 p-l-0 ">
-                              <input matInput type="text" class="text-center" value="12206220110" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-10 p-r-0">
-                              <mat-select [(ngModel)]=choix>
-                                <mat-option value=1>Direction des Systèmes d’information</mat-option>
-                                <mat-option value=2>Chap2</mat-option>
-                                <mat-option value=3>Chap3</mat-option>
-                                <mat-option value=4>Chap4</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
-                    </mat-card>
-
-                    <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
-                      <mat-card-title>
-                        <h4 class="text-muted m-b-20 f-s-18 f-w-900">Mesures nouvelles</h4>
-                      </mat-card-title>
-
-                      <div class="row m-0 p-5 justify-content-between bg-light m-b-10 rounded align-items-center ">
-                        <div class="col-12 col-md-6 col-lg-9 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Emploi</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-2 p-l-0 p-r-0 ">
-                              <input matInput type="text" class="text-center" value="4312300" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-10 p-l-1 p-r-1">
-                              <mat-select value="1">
-                                <mat-option value="1">Emploi 1</mat-option>
-                                <mat-option value="2">Emploi 2</mat-option>
-                                <mat-option value="3">Emploi 3</mat-option>
-                                <mat-option value="4">Emploi 4</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-1 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600  ">Effectif</label>
-                          <mat-form-field appearance="outline" class="w-100 ">
-                            <input matInput type="text" class="text-center" value="" />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-2 col-md-6 text-center col-lg-2 m-0 p-0 ">
-                          <button mat-flat-button>Ajouter</button>
-                        </div>
-                      </div>
-
-                      <h4>Mesures nouvelles saisies</h4>
-                      <div class="table-responsive">
-                        <table class="tableNouvellesSaises">
-                          <thead class="text-center">
-                            <tr class="trHeaderTableNouvellesSaises text-white ">
-                              <th class="col-1"></th>
-                              <th class=""></th>
-                              <th class=""></th>
-                              <th class="">Effectif</th>
-                              <th class="">Observations</th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbodytableNouvellesSaises">
-                            <tr *ngFor="let agent of listeAgent; ">
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="row m-0 p-0 justify-content-end m-t-10 ">
-                        <button mat-button class="b-1 border-warning text-warning m-r-10">Modifier</button>
-                        <button mat-button class="b-1 border-error text-error">Supprimer</button>
-                      </div>
-                    </mat-card>
-
-                  </mat-tab>
-                </mat-tab-group>
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="columnsEmploiToDisplayWithExpand"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsEmploiToDisplayWithExpand" class="rowTablePrincipale"
-          [class.example-expanded-row]="expandedElementEmploi === element" (click)="
+    <tr mat-header-row class="hRowHeader" *matHeaderRowDef="['code0','libelle0','effectifsN1','previonsN1','ecart0','dotation0','expand']"></tr>
+    <tr mat-header-row class="hRowHeader" *matHeaderRowDef="columnsEmploiToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsEmploiToDisplayWithExpand" class="rowTablePrincipale"
+      [class.expanded-row]="expandedElementEmploi === element" (click)="
 expandedElementEmploi = expandedElementEmploi === element ? null : element
 "></tr>
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-      </table>
-    </div>
-  </div>
 
-</mat-card>
-}
-
-
-<!-- Table Actions -->
-@if (choix == "3") {
-<mat-card class="b-1 shadow-none">
-  <div class="p-16 b-b-1">
-    <mat-card-title>
-      <h4>
-        Actions <span class="f-s-16 bg-light-primary f-w-500">120</span>
-      </h4>
-    </mat-card-title>
-  </div>
-  <div class="p-16 p-t-0">
-
-    <div class="table-responsive-sm">
-      <table class="headerTablePrincipale" mat-table [dataSource]="listeActions" multiTemplateDataRows>
-        <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Code </th>
-          <td mat-cell *matCellDef="let element"> {{element.code}} </td>
-        </ng-container>
-        <ng-container matColumnDef="libelle">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Libellé </th>
-          <td mat-cell *matCellDef="let element"> {{element.libelle}} </td>
-        </ng-container>
-        <ng-container matColumnDef="effectifs0">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Effectifs2026 </th>
-          <td mat-cell *matCellDef="let element"> {{element.effectifs0}} </td>
-        </ng-container>
-        <ng-container matColumnDef="agentsSolde">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
-          <td mat-cell *matCellDef="let element"> {{element.agentsSolde}} </td>
-        </ng-container>
-        <ng-container matColumnDef="contractuels">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
-          <td mat-cell *matCellDef="let element"> {{element.contractuels}} </td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
-          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
-        </ng-container>
-        <ng-container matColumnDef="ecart">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Ecart </th>
-          <td mat-cell *matCellDef="let element"> {{element.ecart}} </td>
-        </ng-container>
-        <ng-container matColumnDef="dotation">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Dotation </th>
-          <td mat-cell *matCellDef="let element"> {{element.dotation}} </td>
-        </ng-container>
-        <ng-container matColumnDef="expand">
-          <th mat-header-cell *matHeaderCellDef aria-label="row actions">
-            &nbsp;
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button aria-label="expand row" (click)="
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnsEmploiToDisplayWithExpand"></tr>
+    <!-- Pas de données -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        Ancune donnée trouvée pour votre filtre "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+  }
+  <!-- Liste Actions -->
+  @if (choix == "action") {
+  <table class="headerTablePrincipale" mat-table [dataSource]="listeActions" multiTemplateDataRows>
+    <!-- Header 1 -->
+    <ng-container matColumnDef="code0">
+      <th mat-header-cell *matHeaderCellDef colspan="" class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Code</th>
+    </ng-container>
+    <ng-container matColumnDef="libelle0">
+      <th mat-header-cell *matHeaderCellDef colspan="" class="paddingHeaderRow1  f-w-600 f-s-14 p-x-24 p-l-0">Libellé</th>
+    </ng-container>
+    <ng-container matColumnDef="effectifsN1">
+      <th mat-header-cell *matHeaderCellDef colspan="" class="paddingHeaderRow1  f-w-600 f-s-14 p-x-24 p-l-0">Effectifs 2026</th>
+    </ng-container>
+    <ng-container matColumnDef="previonsN1">
+      <th mat-header-cell *matHeaderCellDef colspan="3" class="f-w-600 f-s-14 p-x-24 p-l-0"> Previons effectifs 2027 </th>
+      <!-- <td mat-footer-cell *matFooterCellDef></td> -->
+    </ng-container>
+    <ng-container matColumnDef="ecart0">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Ecart</th>
+    </ng-container>
+    <ng-container matColumnDef="dotation0">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Dotation</th>
+    </ng-container>
+    <ng-container matColumnDef="1">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0"></th>
+    </ng-container>
+    <!-- Header 2 -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef   class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.code}} </td>
+      <td mat-footer-cell *matFooterCellDef  class="text-center f-w-900">Total</td>
+    </ng-container>
+    <ng-container matColumnDef="libelle">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="p-l-5"> {{element.libelle}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <ng-container matColumnDef="effectifsN">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{element.effectifsN}} </td>
+      <td mat-footer-cell *matFooterCellDef class=" text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+     <ng-container matColumnDef="agentsSolde">
+      <th mat-header-cell *matHeaderCellDef class="bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.agentsSolde}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{111 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="contractuels">
+      <th mat-header-cell *matHeaderCellDef class="bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.contractuels}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{222 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef class="bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.total}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{333 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ecart">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.ecart}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="dotation">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.dotation | number}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef class="border-top-0 p-l-0" aria-label="row actions">
+        &nbsp;
+      </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <button mat-icon-button aria-label="expand row" (click)="
 expandedElementAction = expandedElementAction === element ? null : element;
 $event.stopPropagation()
 ">
-              @if(expandedElementAction !== element) {
-              <mat-icon>add</mat-icon>
-              } @if(expandedElementAction === element) {
-              <mat-icon>remove</mat-icon>
-              }
-            </button>
-          </td>
-        </ng-container>
-        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-        <ng-container matColumnDef="expandedDetail">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
-            <div [@detailExpand]="element === expandedElementAction ? 'expanded' : 'collapsed'">
-              <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
+          @if(expandedElementAction !== element) {
+          <mat-icon>add</mat-icon>
+          } @if(expandedElementAction === element) {
+          <mat-icon>remove</mat-icon>
+          }
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
+        <div [@detailExpand]="element === expandedElementAction ? 'expanded' : 'collapsed'">
+          <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
 
-                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-                  <!-- TABS AGENTS -->
-                  <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
-                    <div class=" f-s-14 p-16 rounded m-t-12">
-                      <!-- Debut Table 2 -->
-                      <div class=" b-b-1">
-                        <mat-card-title>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+              <!-- TABS AGENTS -->
+              <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
+                <div class=" f-s-14 p-16 rounded m-t-12">
+                  <!-- Debut Table 2 -->
+                  <div class=" b-b-1">
+                    <mat-card-title>
 
-                          <div class="row justify-content-end align-items-center">
-                            <div class="col-6">
-                              <h4>
-                                Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
-                              </h4>
-                              <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
-                            </div>
-                            <div class="col-6 text-right">
-                              <button mat-flat-button>Ajouter agent</button>
-                            </div>
-                          </div>
-                        </mat-card-title>
+                      <div class="row justify-content-end align-items-center">
+                        <div class="col-6">
+                          <h4>
+                            Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
+                          </h4>
+                          <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
+                        </div>
+                        <div class="col-6 text-right">
+                          <button mat-flat-button>Ajouter agent</button>
+                        </div>
                       </div>
-                      <div class="table-responsive">
-                        <table class="tableAgent">
-                          <thead class="text-center">
-                            <tr class="trHeaderTableAgent text-white ">
-                              <th class=" text-center ">Emploi</th>
-                              <th class="">Matricule</th>
-                              <th class="">Nom</th>
-                              <th class="">Age</th>
-                              <th class="">Statut</th>
-                              <th class="">Activité</th>
-                              <th class="">Chapitre</th>
-                              <th class="">Effectifs</th>
-                              <th class="">Budget Prévu</th>
-                              <th class="">Opérations</th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbodytableAgent">
-                            <tr *ngFor="let agent of listeAgent; let indexEngComptable = index">
-                              <td class="text-end">{{agent.emploi}}</td>
-                              <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
-                              <td class="">{{agent.nom }}</td>
-                              <td class="text-end">{{agent.age }}</td>
-                              <td class="">{{agent.statut }}</td>
-                              <td class="">{{agent.activite }}</td>
-                              <td class="">{{agent.chapitre }}</td>
-                              <td class="text-right">{{agent.effectifs }}</td>
-                              <td class="text-right">{{agent.budgetPrevu | number}}</td>
-                              <td class="action-link text-center">
-                                <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
-                                  matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
-                                    class="icon-18"></i-tabler></a>
-                                <a class="cursor-pointer" color="primary" #tooltip="matTooltip"
-                                  matTooltip="Retirer l'agent" matTooltipPosition="above">
-                                  <i-tabler name="trash" class="icon-18"></i-tabler>
-                                </a>
-                              </td>
-                            </tr>
-                          </tbody>
-                          <tfoot>
-                            <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
-                              <td class="  fw-bold " colspan="7">
-                                Total
-                              </td>
-                              <td class=" col-2 text-right fw-bold">{{50000 | number}}
-                              </td>
-                              <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
-                              </td>
-                              <td></td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                        <!-- <div class="mt-1 d-flex justify-content-end">
+                    </mat-card-title>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="tableAgent">
+                      <thead class="text-center">
+                        <tr class="trHeaderTableAgent text-white ">
+                          <th class=" text-center ">Emploi</th>
+                          <th class="">Matricule</th>
+                          <th class="">Prénoms et nom</th>
+                          <th class="">Age</th>
+                          <th class="">Statut</th>
+                          <th class="">Activité</th>
+                          <th class="">Chapitre</th>
+                          <th class="">Effectifs</th>
+                          <th class="">Budget Prévu</th>
+                          <th class="">Opérations</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbodytableAgent">
+                        @for (agent of listeAgent.data; track agent.matricule) {
+                        <tr>
+                          <td class="text-end">{{agent.emploi}}</td>
+                          <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
+                          <td class="">{{agent.nom }}</td>
+                          <td class="text-end">{{agent.age }}</td>
+                          <td class="">{{agent.statut }}</td>
+                          <td class="">{{agent.activite }}</td>
+                          <td class="">{{agent.chapitre }}</td>
+                          <td class="text-right">{{agent.effectifs }}</td>
+                          <td class="text-right">{{agent.budgetPrevu | number}}</td>
+                          <td class="action-link text-center">
+                            <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
+                              matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
+                                class="icon-18"></i-tabler></a>
+                            <a class="cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Retirer l'agent"
+                              matTooltipPosition="above">
+                              <i-tabler name="trash" class="icon-18"></i-tabler>
+                            </a>
+                          </td>
+                        </tr>
+                        }
+                      </tbody>
+                      <tfoot>
+                        <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
+                          <td class="  fw-bold " colspan="7">
+                            Total
+                          </td>
+                          <td class=" col-2 text-right fw-bold">{{50000 | number}}
+                          </td>
+                          <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
+                          </td>
+                          <td></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    <!-- <div class="mt-1 d-flex justify-content-end">
                         <ngb-pagination [collectionSize]="totalPropositionEng" [(page)]="currentPage" [maxSize]="5" [pageSize]="pageSize"  [rotate]="true" [boundaryLinks]="true" (pageChange)="pageChange()" size="sm"></ngb-pagination>
                       </div> -->
+                  </div>
+
+                  <!-- Fin Table 2 -->
+                </div>
+              </mat-tab>
+
+              <!-- TABS NOUVELLES DEMANDES -->
+              <mat-tab label="Nouvelles demandes">
+                <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
+                  <mat-card-title>
+                    <h4 class="text-muted  f-s-18 f-w-900">Mesures nouvelles saises</h4>
+                  </mat-card-title>
+
+                  <div class="table-responsive m-b-10">
+                    <table class="tableNouvellesSaises">
+                      <thead class="text-center">
+                        <tr class="trHeaderTableNouvellesSaises text-white ">
+                          <th class="col-2">Code emploi</th>
+                          <th class="">Libellé emploi</th>
+                          <th class="col-1">Effectif</th>
+                          <th class="">Observations</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbodytableNouvellesSaises">
+                        @for (agent of listeAgent.data; track agent.matricule) {
+                        <tr>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center">555</td>
+                          <td class="text-center"></td>
+                        </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <mat-card class="cardWithShadow b-1  rounded p-20 p-b-10 m-b-6">
+                    <div class="row m-0 p-5 p-b-0 justify-content-between align-items-center ">
+                      <div class="col-12 col-md-6 col-lg-10 m-0 p-0">
+                        <label class="f-s-14 f-w-600  ">Emploi</label>
+                        <div class="row m-0 p-0  ">
+                          <mat-form-field appearance="outline" class="w-100 codeEmploi col-2 p-l-0 p-r-0 ">
+                            <input matInput type="text" class="text-center" value="123456" readonly />
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="w-100 col-10 p-l-1 p-r-1">
+                            <mat-select value="1">
+                              <mat-option value="1">Emploi 1</mat-option>
+                              <mat-option value="2">Emploi 2</mat-option>
+                              <mat-option value="3">Emploi 3</mat-option>
+                              <mat-option value="4">Emploi 4</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5">
+                        <label class="f-s-14 f-w-600 ">Effectif</label>
+                        <mat-form-field appearance="outline" class="w-100 ">
+                          <input matInput type="number" min="1" class="text-center no-spinner" value="" />
+                        </mat-form-field>
                       </div>
 
-                      <!-- Fin Table 2 -->
                     </div>
-                  </mat-tab>
-
-                  <!-- TABS NOUVELLES DEMANDES -->
-                  <mat-tab label="Nouvelles demandes">
-                    <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
-                      <mat-card-title>
-                        <h4 class="text-muted m-b-20 f-s-18 f-w-900">Budget</h4>
-                      </mat-card-title>
-
-                      <div class="row m-0 p-0 justify-content-between">
-                        <div class="col-12 col-md-6 col-lg-1 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600  ">Exercice</label>
-                          <mat-form-field appearance="outline" class="w-100 ">
-                            <input matInput type="text" class="text-center" value="2027" readonly />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-3 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600 p-l-15 ">Version Budget</label>
-                          <mat-form-field appearance="outline" class="w-100 col-6 d-block">
-                            <input matInput type="text" class="text-center" value="1" readonly />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Type de budget</label>
-                          <mat-form-field appearance="outline" class="w-100   ">
-                            <input matInput type="text" value="Projet de Loi de Finances Initiale 2027" readonly />
-                          </mat-form-field>
-                        </div>
+                    <div class="row m-0 p-5 p-b-0 justify-content-between align-items-center ">
+                      <div class="col-12 col-md-6 col-lg-10 m-0 p-0">
+                        <label class="f-s-14 f-w-600  ">Observations</label>
+                        <mat-form-field appearance="outline" class="w-100 col-12 p-l-0 " color="primary">
+                          <textarea matInput rows="1"></textarea>
+                        </mat-form-field>
                       </div>
-
-                      <div class="row m-0 p-0  ">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Section</label>
-                          <mat-form-field appearance="outline" class="w-100  ">
-                            <input matInput type="text" value="Ministère des Finances et du Budget" readonly />
-                          </mat-form-field>
-                        </div>
+                      <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5 ">
+                        <button mat-flat-button class="w-100"><mat-icon>add</mat-icon> Ajouter</button>
                       </div>
+                    </div>
 
-                      <div class="row m-0 p-0 justify-content-between">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Catégorie de dépenses</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-1 p-l-0 ">
-                              <input matInput type="text" class="text-center" value="2" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-11 p-r-0">
-                              <input matInput type="text" value="Dépenses de personnel" readonly />
-                            </mat-form-field>
-                          </div>
+                  </mat-card>
+                </mat-card>
 
-                        </div>
-                      </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </td>
+    </ng-container>
 
-                      <div class="row m-0 p-0  ">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0 ">
-                          <label class="f-s-14 f-w-600 ">Chapitre</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-2 p-l-0 ">
-                              <input matInput type="text" class="text-center" value="12206220110" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-10 p-r-0">
-                              <mat-select [(ngModel)]=choix>
-                                <mat-option value=1>Direction des Systèmes d’information</mat-option>
-                                <mat-option value=2>Chap2</mat-option>
-                                <mat-option value=3>Chap3</mat-option>
-                                <mat-option value=4>Chap4</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
-                    </mat-card>
-
-                    <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
-                      <mat-card-title>
-                        <h4 class="text-muted m-b-20 f-s-18 f-w-900">Mesures nouvelles</h4>
-                      </mat-card-title>
-
-                      <div class="row m-0 p-5 justify-content-between bg-light m-b-10 rounded align-items-center ">
-                        <div class="col-12 col-md-6 col-lg-9 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Emploi</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-2 p-l-0 p-r-0 ">
-                              <input matInput type="text" class="text-center" value="4312300" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-10 p-l-1 p-r-1">
-                              <mat-select value="1">
-                                <mat-option value="1">Emploi 1</mat-option>
-                                <mat-option value="2">Emploi 2</mat-option>
-                                <mat-option value="3">Emploi 3</mat-option>
-                                <mat-option value="4">Emploi 4</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-1 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600  ">Effectif</label>
-                          <mat-form-field appearance="outline" class="w-100 ">
-                            <input matInput type="text" class="text-center" value="" />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-2 col-md-6 text-center col-lg-2 m-0 p-0 ">
-                          <button mat-flat-button>Ajouter</button>
-                        </div>
-                      </div>
-
-                      <h4>Mesures nouvelles saisies</h4>
-                      <div class="table-responsive">
-                        <table class="tableNouvellesSaises">
-                          <thead class="text-center">
-                            <tr class="trHeaderTableNouvellesSaises text-white ">
-                              <th class="col-1"></th>
-                              <th class=""></th>
-                              <th class=""></th>
-                              <th class="">Effectif</th>
-                              <th class="">Observations</th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbodytableNouvellesSaises">
-                            <tr *ngFor="let agent of listeAgent; ">
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="row m-0 p-0 justify-content-end m-t-10 ">
-                        <button mat-button class="b-1 border-warning text-warning m-r-10">Modifier</button>
-                        <button mat-button class="b-1 border-error text-error">Supprimer</button>
-                      </div>
-                    </mat-card>
-
-                  </mat-tab>
-                </mat-tab-group>
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="columnsActionToDisplayWithExpand"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsActionToDisplayWithExpand" class="rowTablePrincipale"
-          [class.example-expanded-row]="expandedElementAction === element" (click)="
+    <tr mat-header-row class="hRowHeader" *matHeaderRowDef="['code0','libelle0','effectifsN1','previonsN1','ecart0','dotation0','expand']"></tr>
+    <tr mat-header-row class="hRowHeader" *matHeaderRowDef="columnsActionToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsActionToDisplayWithExpand" class="rowTablePrincipale"
+      [class.expanded-row]="expandedElementAction === element" (click)="
 expandedElementAction = expandedElementAction === element ? null : element
 "></tr>
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-      </table>
-    </div>
-  </div>
 
-</mat-card>
-}
-
-
-<!-- Table Activités -->
-@if (choix == "4") {
-<mat-card class="b-1 shadow-none">
-  <div class="p-16 b-b-1">
-    <mat-card-title>
-      <h4>
-        Activités <span class="f-s-16 bg-light-primary f-w-500">120</span>
-      </h4>
-    </mat-card-title>
-  </div>
-  <div class="p-16 p-t-0">
-
-    <div class="table-responsive-sm">
-      <table class="headerTablePrincipale" mat-table [dataSource]="listeActivites" multiTemplateDataRows>
-        <!-- Row 2 -->
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Action </th>
-          <td mat-cell *matCellDef="let element"> {{element.action}} </td>
-        </ng-container>
-        <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Code activité </th>
-          <td mat-cell *matCellDef="let element"> {{element.code}} </td>
-        </ng-container>
-        <ng-container matColumnDef="libelle">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Libellé activité </th>
-          <td mat-cell *matCellDef="let element"> {{element.libelle}} </td>
-        </ng-container>
-        <ng-container matColumnDef="effectifs0">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Effectifs2026 </th>
-          <td mat-cell *matCellDef="let element"> {{element.effectifs0}} </td>
-        </ng-container>
-        <ng-container matColumnDef="agentsSolde">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
-          <td mat-cell *matCellDef="let element"> {{element.agentsSolde}} </td>
-        </ng-container>
-        <ng-container matColumnDef="contractuels">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
-          <td mat-cell *matCellDef="let element"> {{element.contractuels}} </td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
-          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
-        </ng-container>
-        <ng-container matColumnDef="ecart">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Ecart </th>
-          <td mat-cell *matCellDef="let element"> {{element.ecart}} </td>
-        </ng-container>
-        <ng-container matColumnDef="dotation">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-x-24 p-l-0"> Dotation </th>
-          <td mat-cell *matCellDef="let element"> {{element.dotation}} </td>
-        </ng-container>
-        <ng-container matColumnDef="expand">
-          <th mat-header-cell *matHeaderCellDef aria-label="row actions">
-            &nbsp;
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button aria-label="expand row" (click)="
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnsActionToDisplayWithExpand"></tr>
+    <!-- Pas de données -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        Ancune donnée trouvée pour votre filtre "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+  }
+  <!-- Liste Activités -->
+  @if (choix == "activite") {
+  <table class="headerTablePrincipale" mat-table [dataSource]="listeActivites" multiTemplateDataRows>
+      <!-- Header 1 -->
+    <ng-container matColumnDef="action0">
+      <th mat-header-cell *matHeaderCellDef class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Action</th>
+    </ng-container>
+    <ng-container matColumnDef="code0">
+      <th mat-header-cell *matHeaderCellDef class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Code Activité</th>
+    </ng-container>
+    <ng-container matColumnDef="libelle0">
+      <th mat-header-cell *matHeaderCellDef class="paddingHeaderRow1  f-w-600 f-s-14 p-x-24 p-l-0">Libellé Activité</th>
+    </ng-container>
+    <ng-container matColumnDef="effectifsN1">
+      <th mat-header-cell *matHeaderCellDef class="paddingHeaderRow1  f-w-600 f-s-14 p-x-24 p-l-0">Effectifs 2026</th>
+    </ng-container>
+    <ng-container matColumnDef="previonsN1">
+      <th mat-header-cell *matHeaderCellDef colspan="3" class="f-w-600 f-s-14 p-x-24 p-l-0"> Previons effectifs 2027 </th>
+    </ng-container>
+    <ng-container matColumnDef="ecart0">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Ecart</th>
+    </ng-container>
+    <ng-container matColumnDef="dotation0">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0">Dotation</th>
+    </ng-container>
+    <ng-container matColumnDef="1">
+      <th mat-header-cell *matHeaderCellDef  class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0"></th>
+    </ng-container>
+    <!-- Header 2 -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef   class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.action}} </td>
+      <td mat-footer-cell *matFooterCellDef  class="text-center f-w-900">Total</td>
+    </ng-container>
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef   class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.code}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <ng-container matColumnDef="libelle">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell *matCellDef="let element" class="p-l-5"> {{element.libelle}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <ng-container matColumnDef="effectifsN">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{element.effectifsN}} </td>
+      <td mat-footer-cell *matFooterCellDef class=" text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+     <ng-container matColumnDef="agentsSolde">
+      <th mat-header-cell *matHeaderCellDef class="bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.agentsSolde}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{111 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="contractuels">
+      <th mat-header-cell *matHeaderCellDef class="bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.contractuels}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{222 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef class="bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.total}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{333 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ecart">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.ecart}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="dotation">
+      <th mat-header-cell *matHeaderCellDef  class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0">  </th>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.dotation | number}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{123500 | number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef class="border-top-0 p-l-0" aria-label="row actions">
+        &nbsp;
+      </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <button mat-icon-button aria-label="expand row" (click)="
 expandedElementActivite = expandedElementActivite === element ? null : element;
 $event.stopPropagation()
 ">
-              @if(expandedElementActivite !== element) {
-              <mat-icon>add</mat-icon>
-              } @if(expandedElementActivite === element) {
-              <mat-icon>remove</mat-icon>
-              }
-            </button>
-          </td>
-        </ng-container>
-        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-        <ng-container matColumnDef="expandedDetail">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
-            <div [@detailExpand]="element === expandedElementActivite ? 'expanded' : 'collapsed'">
+          @if(expandedElementActivite !== element) {
+          <mat-icon>add</mat-icon>
+          } @if(expandedElementActivite === element) {
+          <mat-icon>remove</mat-icon>
+          }
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <!-- Expanded Content Column -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsChapitreToDisplay.length">
+        <div [@detailExpand]="element === expandedElementActivite ? 'expanded' : 'collapsed'">
 
-              <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
+          <div class="p-15 contentTabAgent rounded b-1 m-b-16 m-x-18">
 
-                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-                  <!-- TABS AGENTS -->
-                  <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
-                    <div class=" f-s-14 p-16 rounded m-t-12">
-                      <!-- Debut Table 2 -->
-                      <div class=" b-b-1">
-                        <mat-card-title>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+              <!-- TABS AGENTS -->
+              <mat-tab class="bg-warning-subtle fs-5 fw-bold" tabsListeAgent label="Liste des Agents">
+                <div class=" f-s-14 p-16 rounded m-t-12">
+                  <!-- Debut Table 2 -->
+                  <div class=" b-b-1">
+                    <mat-card-title>
 
-                          <div class="row justify-content-end align-items-center">
-                            <div class="col-6">
-                              <h4>
-                                Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
-                              </h4>
-                              <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
-                            </div>
-                            <div class="col-6 text-right">
-                              <button mat-flat-button>Ajouter agent</button>
-                            </div>
-                          </div>
-                        </mat-card-title>
+                      <div class="row justify-content-end align-items-center">
+                        <div class="col-6">
+                          <h4>
+                            Agents : <span class="f-s-16 bg-light-primary f-w-500">220</span>
+                          </h4>
+                          <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
+                        </div>
+                        <div class="col-6 text-right">
+                          <button mat-flat-button>Ajouter agent</button>
+                        </div>
                       </div>
-                      <div class="table-responsive">
-                        <table class="tableAgent">
-                          <thead class="text-center">
-                            <tr class="trHeaderTableAgent text-white ">
-                              <th class=" text-center ">Emploi</th>
-                              <th class="">Matricule</th>
-                              <th class="">Nom</th>
-                              <th class="">Age</th>
-                              <th class="">Statut</th>
-                              <th class="">Chapitre</th>
-                              <th class="">Effectifs</th>
-                              <th class="">Budget Prévu</th>
-                              <th class="">Opérations</th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbodytableAgent">
-                            <tr *ngFor="let agent of listeAgent; let indexEngComptable = index">
-                              <td class="text-end">{{agent.emploi}}</td>
-                              <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
-                              <td class="">{{agent.nom }}</td>
-                              <td class="text-end">{{agent.age }}</td>
-                              <td class="">{{agent.statut }}</td>
-                              <td class="">{{agent.chapitre }}</td>
-                              <td class="text-right">{{agent.effectifs }}</td>
-                              <td class="text-right">{{agent.budgetPrevu | number}}</td>
-                              <td class="action-link text-center">
-                                <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
-                                  matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
-                                    class="icon-18 text-warning"></i-tabler></a>
-                                <a class="cursor-pointer" color="primary" #tooltip="matTooltip"
-                                  matTooltip="Retirer l'agent" matTooltipPosition="above">
-                                  <i-tabler name="trash" class="icon-18 text-error "></i-tabler>
-                                </a>
-                              </td>
-                            </tr>
-                          </tbody>
-                          <tfoot>
-                            <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
-                              <td class="  fw-bold " colspan="6">
-                                Total
-                              </td>
-                              <td class=" col-2 text-right fw-bold">{{50000 | number}}
-                              </td>
-                              <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
-                              </td>
-                              <td></td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                        <!-- <div class="mt-1 d-flex justify-content-end">
+                    </mat-card-title>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="tableAgent">
+                      <thead class="text-center">
+                        <tr class="trHeaderTableAgent text-white ">
+                          <th class=" text-center ">Emploi</th>
+                          <th class="">Matricule</th>
+                          <th class="">Prénoms et nom</th>
+                          <th class="">Age</th>
+                          <th class="">Statut</th>
+                          <th class="">Chapitre</th>
+                          <th class="">Effectifs</th>
+                          <th class="">Budget Prévu</th>
+                          <th class="">Opérations</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbodytableAgent">
+                        @for (agent of listeAgent.data; track agent.matricule) {
+                        <tr>
+                          <td class="text-end">{{agent.emploi}}</td>
+                          <td class="width_td_table text_lowercase">{{agent.matricule}}</td>
+                          <td class="">{{agent.nom }}</td>
+                          <td class="text-end">{{agent.age }}</td>
+                          <td class="">{{agent.statut }}</td>
+                          <td class="">{{agent.chapitre }}</td>
+                          <td class="text-right">{{agent.effectifs }}</td>
+                          <td class="text-right">{{agent.budgetPrevu | number}}</td>
+                          <td class="action-link text-center">
+                            <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
+                              matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
+                                class="icon-18 text-warning"></i-tabler></a>
+                            <a class="cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Retirer l'agent"
+                              matTooltipPosition="above">
+                              <i-tabler name="trash" class="icon-18 text-error "></i-tabler>
+                            </a>
+                          </td>
+                        </tr>
+                        }
+                      </tbody>
+                      <tfoot>
+                        <tr class=" trFooterTableAgent p-2 f-w-800 fw-bold ">
+                          <td class="  fw-bold " colspan="6">
+                            Total
+                          </td>
+                          <td class=" col-2 text-right fw-bold">{{50000 | number}}
+                          </td>
+                          <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
+                          </td>
+                          <td></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    <!-- <div class="mt-1 d-flex justify-content-end">
                         <ngb-pagination [collectionSize]="totalPropositionEng" [(page)]="currentPage" [maxSize]="5" [pageSize]="pageSize"  [rotate]="true" [boundaryLinks]="true" (pageChange)="pageChange()" size="sm"></ngb-pagination>
                       </div> -->
+                  </div>
+
+                  <!-- Fin Table 2 -->
+                </div>
+              </mat-tab>
+
+              <!-- TABS NOUVELLES DEMANDES -->
+              <mat-tab label="Nouvelles demandes">
+                <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
+                  <mat-card-title>
+                    <h4 class="text-muted  f-s-18 f-w-900">Mesures nouvelles saises</h4>
+                  </mat-card-title>
+
+                  <div class="table-responsive m-b-10">
+                    <table class="tableNouvellesSaises">
+                      <thead class="text-center">
+                        <tr class="trHeaderTableNouvellesSaises text-white ">
+                          <th class="col-2">Code emploi</th>
+                          <th class="">Libellé emploi</th>
+                          <th class="col-1">Effectif</th>
+                          <th class="">Observations</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbodytableNouvellesSaises">
+                        @for (agent of listeAgent.data; track agent.matricule) {
+                        <tr>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center">555</td>
+                          <td class="text-center"></td>
+                        </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <mat-card class="cardWithShadow b-1  rounded p-20 p-b-10 m-b-6">
+                    <div class="row m-0 p-5 p-b-0 justify-content-between align-items-center ">
+                      <div class="col-12 col-md-6 col-lg-10 m-0 p-0">
+                        <label class="f-s-14 f-w-600  ">Emploi</label>
+                        <div class="row m-0 p-0  ">
+                          <mat-form-field appearance="outline" class="w-100 codeEmploi col-2 p-l-0 p-r-0 ">
+                            <input matInput type="text" class="text-center" value="123456" readonly />
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="w-100 col-10 p-l-1 p-r-1">
+                            <mat-select value="1">
+                              <mat-option value="1">Emploi 1</mat-option>
+                              <mat-option value="2">Emploi 2</mat-option>
+                              <mat-option value="3">Emploi 3</mat-option>
+                              <mat-option value="4">Emploi 4</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5">
+                        <label class="f-s-14 f-w-600 ">Effectif</label>
+                        <mat-form-field appearance="outline" class="w-100 ">
+                          <input matInput type="number" min="1" class="text-center no-spinner" value="" />
+                        </mat-form-field>
                       </div>
 
-                      <!-- Fin Table 2 -->
                     </div>
-                  </mat-tab>
-
-                  <!-- TABS NOUVELLES DEMANDES -->
-                  <mat-tab label="Nouvelles demandes">
-                    <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
-                      <mat-card-title>
-                        <h4 class="text-muted m-b-20 f-s-18 f-w-900">Budget</h4>
-                      </mat-card-title>
-
-                      <div class="row m-0 p-0 justify-content-between">
-                        <div class="col-12 col-md-6 col-lg-1 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600  ">Exercice</label>
-                          <mat-form-field appearance="outline" class="w-100 ">
-                            <input matInput type="text" class="text-center" value="2027" readonly />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-3 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600 p-l-15 ">Version Budget</label>
-                          <mat-form-field appearance="outline" class="w-100 col-6 d-block">
-                            <input matInput type="text" class="text-center" value="1" readonly />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Type de budget</label>
-                          <mat-form-field appearance="outline" class="w-100   ">
-                            <input matInput type="text" value="Projet de Loi de Finances Initiale 2027" readonly />
-                          </mat-form-field>
-                        </div>
+                    <div class="row m-0 p-5 p-b-0 justify-content-between align-items-center ">
+                      <div class="col-12 col-md-6 col-lg-10 m-0 p-0">
+                        <label class="f-s-14 f-w-600  ">Observations</label>
+                        <mat-form-field appearance="outline" class="w-100 col-12 p-l-0 " color="primary">
+                          <textarea matInput rows="1"></textarea>
+                        </mat-form-field>
                       </div>
-
-                      <div class="row m-0 p-0  ">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Section</label>
-                          <mat-form-field appearance="outline" class="w-100  ">
-                            <input matInput type="text" value="Ministère des Finances et du Budget" readonly />
-                          </mat-form-field>
-                        </div>
+                      <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5 ">
+                        <button mat-flat-button class="w-100"><mat-icon>add</mat-icon> Ajouter</button>
                       </div>
+                    </div>
 
-                      <div class="row m-0 p-0 justify-content-between">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Catégorie de dépenses</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-1 p-l-0 ">
-                              <input matInput type="text" class="text-center" value="2" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-11 p-r-0">
-                              <input matInput type="text" value="Dépenses de personnel" readonly />
-                            </mat-form-field>
-                          </div>
+                  </mat-card>
+                </mat-card>
 
-                        </div>
-                      </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </td>
+    </ng-container>
 
-                      <div class="row m-0 p-0  ">
-                        <div class="col-12 col-md-6 col-lg-12 m-0 p-0 ">
-                          <label class="f-s-14 f-w-600 ">Chapitre</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-2 p-l-0 ">
-                              <input matInput type="text" class="text-center" value="12206220110" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-10 p-r-0">
-                              <mat-select [(ngModel)]=choix>
-                                <mat-option value=1>Direction des Systèmes d’information</mat-option>
-                                <mat-option value=2>Chap2</mat-option>
-                                <mat-option value=3>Chap3</mat-option>
-                                <mat-option value=4>Chap4</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
-                    </mat-card>
-
-                    <mat-card class="cardWithShadow b-1 rounded p-20 p-b-10 m-b-6">
-                      <mat-card-title>
-                        <h4 class="text-muted m-b-20 f-s-18 f-w-900">Mesures nouvelles</h4>
-                      </mat-card-title>
-
-                      <div class="row m-0 p-5 justify-content-between bg-light m-b-10 rounded align-items-center ">
-                        <div class="col-12 col-md-6 col-lg-9 m-0 p-0">
-                          <label class="f-s-14 f-w-600  ">Emploi</label>
-                          <div class="row m-0 p-0  ">
-                            <mat-form-field appearance="outline" class="w-100 col-2 p-l-0 p-r-0 ">
-                              <input matInput type="text" class="text-center" value="4312300" readonly />
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100 col-10 p-l-1 p-r-1">
-                              <mat-select value="1">
-                                <mat-option value="1">Emploi 1</mat-option>
-                                <mat-option value="2">Emploi 2</mat-option>
-                                <mat-option value="3">Emploi 3</mat-option>
-                                <mat-option value="4">Emploi 4</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-1 m-0 p-0 p-r-5">
-                          <label class="f-s-14 f-w-600  ">Effectif</label>
-                          <mat-form-field appearance="outline" class="w-100 ">
-                            <input matInput type="text" class="text-center" value="" />
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-2 col-md-6 text-center col-lg-2 m-0 p-0 ">
-                          <button mat-flat-button>Ajouter</button>
-                        </div>
-                      </div>
-
-                      <h4>Mesures nouvelles saisies</h4>
-                      <div class="table-responsive">
-                        <table class="tableNouvellesSaises">
-                          <thead class="text-center">
-                            <tr class="trHeaderTableNouvellesSaises text-white ">
-                              <th class="col-1"></th>
-                              <th class=""></th>
-                              <th class=""></th>
-                              <th class="">Effectif</th>
-                              <th class="">Observations</th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbodytableNouvellesSaises">
-                            <tr *ngFor="let agent of listeAgent; ">
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                              <td class=""></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="row m-0 p-0 justify-content-end m-t-10 ">
-                        <button mat-button class="b-1 border-warning text-warning m-r-10">Modifier</button>
-                        <button mat-button class="b-1 border-error text-error">Supprimer</button>
-                      </div>
-                    </mat-card>
-
-                  </mat-tab>
-                </mat-tab-group>
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="columnsActiviteToDisplayWithExpand"></tr>
-        <tr mat-row *matRowDef="let element; columns: columnsActiviteToDisplayWithExpand" class="rowTablePrincipale"
-          [class.example-expanded-row]="expandedElementActivite === element" (click)="
+    <tr mat-header-row class="hRowHeader" *matHeaderRowDef="['action0','code0','libelle0','effectifsN1','previonsN1','ecart0','dotation0','expand']"></tr>
+    <tr mat-header-row class="hRowHeader" *matHeaderRowDef="columnsActiviteToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsActiviteToDisplayWithExpand" class="rowTablePrincipale"
+      [class.expanded-row]="expandedElementActivite === element" (click)="
 expandedElementActivite = expandedElementActivite === element ? null : element
 "></tr>
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-      </table>
-    </div>
-  </div>
+
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnsActiviteToDisplayWithExpand"></tr>
+    <!-- Pas de données -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        Ancune donnée trouvée pour votre filtre "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+  }
+  <!-- </div> -->
+  <!-- </div> -->
 
 </mat-card>
-}

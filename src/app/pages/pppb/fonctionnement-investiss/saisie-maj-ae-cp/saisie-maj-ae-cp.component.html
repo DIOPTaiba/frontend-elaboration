@@ -5,19 +5,32 @@
         <div class="col-12 col-md-6 col-lg-2 m-0 p-0 padr">
             <label class="f-s-14 f-w-600  ">Exercice</label>
             <mat-form-field appearance="outline" class="w-100    ">
-                <mat-select formControlName="default_template" disableOptionCentering placeholder="">
-                    @for (template of templates; track template) {
-                    <mat-option [value]="template">
-                        {{ template }}
-                    </mat-option>
-                    }
-                </mat-select>
+                <input matInput readonly />
 
             </mat-form-field>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4 m-0 p-0 padr">
             <label class="f-s-14 f-w-600  ">Projet de Budget</label>
+            <mat-form-field appearance="outline" class="w-100  ">
+                <input matInput readonly />
+
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
+            <label class="f-s-14 f-w-600  ">Section</label>
+            <mat-form-field appearance="outline" class="w-100   ">
+                <input matInput readonly />
+
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row m-0 p-0  ">
+        <div class="col-12 col-md-6 col-lg-6 m-0 p-0 padr ">
+            <label class="f-s-14 f-w-600  ">Programme</label>
             <mat-form-field appearance="outline" class="w-100  ">
                 <mat-select formControlName="default_template" disableOptionCentering placeholder="">
                     @for (template of templates; track template) {
@@ -29,25 +42,7 @@
 
             </mat-form-field>
         </div>
-
-
-        <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
-            <label class="f-s-14 f-w-600  ">Section</label>
-            <mat-form-field appearance="outline" class="w-100   ">
-                <mat-select formControlName="default_template" disableOptionCentering placeholder="">
-                    @for (template of templates; track template) {
-                    <mat-option [value]="template">
-                        {{ template }}
-                    </mat-option>
-                    }
-                </mat-select>
-
-            </mat-form-field>
-        </div>
-    </div>
-
-    <div class="row m-0 p-0  ">
-        <div class="col-12 col-md-6 col-lg-2 m-0 p-0 padr">
+        <div class="col-12 col-md-3 col-lg-3 m-0 p-0 padr">
             <label class="f-s-14 f-w-600  ">Type de financement</label>
             <mat-form-field appearance="outline" class="w-100   ">
                 <mat-select formControlName="default_template" disableOptionCentering placeholder="">
@@ -61,7 +56,7 @@
             </mat-form-field>
         </div>
 
-        <div class="col-12 col-md-6 col-lg-4 m-0 p-0 padr">
+        <div class="col-12 col-md-3 col-lg-3 m-0 p-0 ">
             <label class="f-s-14 f-w-600  ">Catégorie de dépenses </label>
             <mat-form-field appearance="outline" class="w-100  ">
                 <mat-select formControlName="default_template" disableOptionCentering placeholder="">
@@ -76,10 +71,60 @@
         </div>
 
 
-        <div class="col-12 col-md-6 col-lg-6 m-0 p-0">
-            <label class="f-s-14 f-w-600  ">Programme</label>
-            <mat-form-field appearance="outline" class="w-100  ">
-                <mat-select formControlName="default_template" disableOptionCentering placeholder="">
+
+    </div>
+
+    <div class="row m-0 p-0  ">
+
+        <mat-accordion class="col-12 col-md-6 col-lg-6 m-0 p-0 padr m-t-16 rounded  ">
+            <mat-expansion-panel class="background-light-bleu cardWithShadow b-1 rounded">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="f-w-600 f-s-14 gap-4">
+                        <i class="iconify f-s-15 d-flex  " data-icon="solar:inbox-linear"></i>
+
+                        <h4 class=""> Enveloppes</h4>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="table-responsive    ">
+                    <table class="table   align-middle">
+
+                        <!-- HEADER -->
+                        <thead class="light-bleu text-center">
+                            <tr>
+                                <th class=" p-b-5">Enveloppe</th>
+                                <th>Total</th>
+                                <th>Réparti</th>
+                                <th>Disponible</th>
+                            </tr>
+                        </thead>
+
+                        <!-- BODY -->
+                        <tbody>
+
+                            <tr class="bb bg-white">
+                                <td class="fw-bold text-primary text-center">AE</td>
+                                <td class="text-end">999 100 000 000</td>
+                                <td class="text-end">999 603 000 000</td>
+                                <td class="text-end">999 403 000 000</td>
+                            </tr>
+
+                            <tr class="bg-white">
+                                <td class="fw-bold text-success text-center">CP</td>
+                                <td class="text-end">999 830 000 000</td>
+                                <td class="text-end">999 530 000 000</td>
+                                <td class="text-end">999 330 000 000</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <div class="col-12 col-md-6 col-lg-6 m-0 p-0 ">
+            <label class="f-s-14 f-w-600 marge  ">Source de financement</label>
+            <mat-form-field appearance="outline" class="w-100    ">
+                <mat-select formControlName="default_template" disableOptionCentering>
                     @for (template of templates; track template) {
                     <mat-option [value]="template">
                         {{ template }}
@@ -91,119 +136,48 @@
         </div>
     </div>
 
-
-    <mat-accordion class="b-1 rounded  m-b-10 ">
-        <mat-expansion-panel class="background-light-bleu">
-            <mat-expansion-panel-header>
-                <mat-panel-title class="f-w-600 f-s-14 gap-4">
-                    <i class="iconify f-s-15 d-flex  " data-icon="solar:inbox-linear"></i>
-
-                    <h4 class=" "> Enveloppes</h4>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="row ">
-                <div class="col-lg-6 col-md-6 col-12 ">
-                    <div class="p-6 light-bleu rounded w-100">
-                        <h4 class="text-muted  f-s-14 text-primary "> Enveloppe AE</h4>
-
-                        <div class="row m-0 p-t-15  ">
-                            <div class="col-12 col-md-12 col-lg-4 m-0 p-0 padr">
-                                <label class="f-s-14 f-w-600  ">Total</label>
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="100 000 000" />
-                                </mat-form-field>
-                            </div>
-
-                            <div class="col-12 col-md-12 col-lg-4 m-0 p-0 padr">
-                                <label class="f-s-14 f-w-600  ">Reparti</label>
-                                <mat-form-field appearance="fill" class="w-100">
-                                    <input matInput class="text-end" placeholder="100 000 000" />
-                                </mat-form-field>
-                            </div>
-
-
-                            <div class="col-12 col-md-12 col-lg-4 m-0 p-0">
-                                <label class="f-s-14 f-w-600  ">Disponible</label>
-                                <mat-form-field appearance="fill" class="w-100">
-                                    <input matInput placeholder="100 000 000" />
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 col-12 ">
-                    <div class="p-6 bg-light-success rounded w-100">
-                        <h4 class="text-muted  f-s-14 text-success "> Enveloppe Cp</h4>
-
-                        <div class="row m-0 p-t-15  ">
-                            <div class="col-12 col-md-12 col-lg-4 m-0 p-0 padr">
-                                <label class="f-s-14 f-w-600  ">Total</label>
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="100 000 000" />
-                                </mat-form-field>
-                            </div>
-
-                            <div class="col-12 col-md-12 col-lg-4 m-0 p-0 padr">
-                                <label class="f-s-14 f-w-600  ">Reparti</label>
-                                <mat-form-field appearance="fill" class="w-100">
-                                    <input matInput class="text-end" placeholder="100 000 000" />
-                                </mat-form-field>
-                            </div>
-
-
-                            <div class="col-12 col-md-12 col-lg-4 m-0 p-0">
-                                <label class="f-s-14 f-w-600  ">Disponible</label>
-                                <mat-form-field appearance="fill" class="w-100">
-                                    <input matInput placeholder="100 000 000" />
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <label class="f-s-14 f-w-600  ">Source de financement</label>
-    <mat-form-field appearance="outline" class="w-100    ">
-        <mat-select formControlName="default_template" disableOptionCentering placeholder="Select template">
-            @for (template of templates; track template) {
-            <mat-option [value]="template">
-                {{ template }}
-            </mat-option>
-            }
-        </mat-select>
-
-    </mat-form-field>
-
-
 </mat-card>
 
 <mat-card class="cardWithShadow b-1 rounded p-20 p-b-20">
     <div class="row align-items-center justify-content-between">
-     <h4 class="text-muted p-b-20 col-12 col-lg-2 col-md-2">Saisie / Mise à jour </h4>
-   <!--  <div class="col-12 col-lg-10 col-md-10 row align-items-center "> -->
-       <!--  <label class="col-12 col-lg-4 col-md-4 f-s-14 f-w-600  ">Rechercher un chapitre </label> -->
+        <div class="align-items-center justify-content-around row p-b-20 col-12 col-lg-3 col-md-3">
+            <h4 class="text-muted col-auto"> Chapitres et Dotations</h4>
+            <span class=" col-auto bg-light-secondary text-secondary rounded f-w-700 p-6 p-y-4 f-s-12 ">120 </span>
+        </div>
         <mat-form-field appearance="outline" class="col-12 col-lg-8 col-md-8 w-100">
             <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher  un  chapitre ..." #input>
         </mat-form-field>
-   <!--  </div> -->
-   </div>
+    </div>
 
 
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="custom-table">
+        <ng-container matColumnDef="group-header">
+            <th mat-header-cell *matHeaderCellDef colspan="2"></th>
+            <th mat-header-cell *matHeaderCellDef colspan="2" class="text-center bg-primary text-white fw-bold">
+                Crédits ouverts globaux
+            </th>
+            <th mat-header-cell *matHeaderCellDef colspan="2" class="text-center bg-primary text-white fw-bold">
+                Crédits ouverts SRC
+            </th>
+            <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
 
         <!-- CODE -->
         <ng-container matColumnDef="code">
             <th mat-header-cell *matHeaderCellDef class="bg-primary text-white fw-bold"> Code </th>
             <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+            <!-- Footer vide -->
+            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <!-- LIBELLE -->
         <ng-container matColumnDef="libelle">
             <th mat-header-cell *matHeaderCellDef class="bg-primary text-white fw-bold"> Libellé </th>
             <td mat-cell *matCellDef="let element"> {{element.libelle}} </td>
+            <!-- Label TOTAL -->
+            <td mat-footer-cell *matFooterCellDef class="total-label">
+                TOTAL ( CHAPITRES )
+            </td>
         </ng-container>
 
         <!-- AE -->
@@ -211,6 +185,10 @@
             <th mat-header-cell *matHeaderCellDef class="text-end bg-primary text-white fw-bold"> Montant AE </th>
             <td mat-cell *matCellDef="let element" class="text-end">
                 {{element.ae | number}}
+            </td>
+            <!-- TOTAL AE -->
+            <td mat-footer-cell *matFooterCellDef class="text-end total-cell">
+                {{getTotal('ae') | number}}
             </td>
         </ng-container>
 
@@ -220,6 +198,10 @@
             <td mat-cell *matCellDef="let element" class="text-end">
                 {{element.srcAe | number}}
             </td>
+            <!-- TOTAL SRC AE -->
+            <td mat-footer-cell *matFooterCellDef class="text-end total-cell">
+                {{getTotal('srcAe') | number}}
+            </td>
         </ng-container>
 
         <!-- CP -->
@@ -227,6 +209,10 @@
             <th mat-header-cell *matHeaderCellDef class="text-end bg-primary text-white fw-bold"> Montant CP </th>
             <td mat-cell *matCellDef="let element" class="text-end">
                 {{element.cp | number}}
+            </td>
+            <!-- TOTAL CP -->
+            <td mat-footer-cell *matFooterCellDef class="text-end total-cell">
+                {{getTotal('cp') | number}}
             </td>
         </ng-container>
 
@@ -236,26 +222,28 @@
             <td mat-cell *matCellDef="let element" class="text-end">
                 {{element.srcCp | number}}
             </td>
+            <!-- TOTAL SRC CP -->
+            <td mat-footer-cell *matFooterCellDef class="text-end total-cell">
+                {{getTotal('srcCp') | number}}
+            </td>
         </ng-container>
 
         <!-- EXPAND ICON -->
         <ng-container matColumnDef="expand">
             <th mat-header-cell *matHeaderCellDef class="bg-primary text-white fw-bold"></th>
             <td mat-cell *matCellDef="let element" class="expand-cell">
-
                 <button mat-icon-button (click)="toggle(element); $event.stopPropagation()">
-
                     <mat-icon>
                         {{expandedElement === element ? 'expand_less' : 'expand_more'}}
                     </mat-icon>
-
                 </button>
-
             </td>
-            
+            <!-- Footer vide -->
+            <td mat-footer-cell *matFooterCellDef></td>
+
         </ng-container>
-        
-	
+
+
         <!-- HEADER -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
@@ -263,27 +251,190 @@
         <tr mat-row *matRowDef="let element; columns: displayedColumns" class="data-row"
             [class.expanded-row]="expandedElement === element" (click)="toggle(element)">
         </tr>
+        <!-- ===================== FOOTER (TOTAL) ===================== -->
+        <tr mat-footer-row *matFooterRowDef="displayedColumns" class="total-row"></tr>
 
         <!-- DETAIL -->
         <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="detail-row"></tr>
-
         <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-
                 <div class="detail-container" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
-
                     <div class="detail-content">
-                        <button mat-raised-button color="primary">➕ Ajouter</button>
+                        <div class="row align-items-center p-7 ">
+                            <div class="row align-items-center  col-12 col-lg-11 col-md-11">
+                                <div class="row col-12 col-lg-3 col-md-3">
+                                    <button mat-stroked-button class="bg-light" color="primary">➕ Ajouter une
+                                        ligne</button>
+                                </div>
+                                <div class="row align-items-center  col-12 col-lg-9 col-md-9">
+                                    <label
+                                        class="f-s-17 f-w-600  col-12 col-lg-2 col-md-2 text-primary ">Activité</label>
+                                    <mat-form-field appearance="outline"
+                                        class=" m-t-20 col-12 col-lg-10 col-md-10 w-100  ">
+                                        <mat-select class="" formControlName="default_template" disableOptionCentering
+                                            placeholder="">
+                                            @for (template of templates; track template) {
+                                            <mat-option [value]="template">
+                                                {{ template }}
+                                            </mat-option>
+                                            }
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-1 col-md-1">
+                                <button mat-flat-button class="bg-p" color="warn">Enregistrer </button>
+                            </div>
+                        </div>
+                        <mat-card class="cardWithShadow b-1 rounded m-b-10  p-10  ">
+
+
+                            <div class="table-budget">
+                                <div class="table-scroll">
+                                <table>
+
+                                    <thead>
+                                        <tr class="th2">
+                                            <th rowspan="2">Action</th>
+                                            <th rowspan="2">Activité</th>
+                                            <th rowspan="2">Ligne de dépense</th>
+                                            <th rowspan="2">EJ antérieurs<br>non dénoués</th>
+
+                                            <th colspan="5">Échéancier CP sur EJ</th>
+                                            <th colspan="4">Dotations AE 2027</th>
+                                            <th colspan="5">Échéancier CP sur AE</th>
+                                            <th colspan="4">Dotations CP 2027</th>
+                                        </tr>
+
+                                        <tr class="bg-light">
+                                            <th>2027</th>
+                                            <th>2028</th>
+                                            <th>2029</th>
+                                            <th>Autres</th>
+                                            <th class="danger">Restes</th>
+
+                                            <th>Rappel</th>
+                                            <th>Montant</th>
+                                            <th>Ecart</th>
+                                            <th>%</th>
+
+                                            <th>2027</th>
+                                            <th>2028</th>
+                                            <th>2029</th>
+                                            <th>Autres</th>
+                                            <th class="danger">Restes</th>
+
+                                            <th>Rappel</th>
+                                            <th>Montant</th>
+                                            <th>Ecart</th>
+                                            <th>%</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let el of dataSource2">
+
+                                            <td>{{ el.action }}</td>
+                                            <td>{{ el.activite }}</td>
+                                            <td>{{ el.ligne }}</td>
+
+                                            <td>{{ el.ej | number }}</td>
+
+                                            <td>{{ el.cp2027_ej | number }}</td>
+                                            <td>{{ el.cp2028_ej | number }}</td>
+                                            <td>{{ el.cp2029_ej | number }}</td>
+                                            <td>{{ el.cpAutres_ej | number }}</td>
+                                            <td class="danger">{{ el.restes_ej }}</td>
+
+                                            <td>{{ el.rappelAE | number }}</td>
+                                            <td>{{ el.montantAE | number }}</td>
+                                            <td>{{ el.ecartAE | number }}</td>
+                                            <td>{{ el.ecartAEpct }}%</td>
+
+                                            <td>{{ el.cp2027_ae | number }}</td>
+                                            <td>{{ el.cp2028_ae | number }}</td>
+                                            <td>{{ el.cp2029_ae | number }}</td>
+                                            <td>{{ el.cpAutres_ae | number }}</td>
+                                            <td class="danger">{{ el.restes_ae }}</td>
+
+                                            <td>{{ el.rappelCP | number }}</td>
+                                            <td>{{ el.montantCP | number }}</td>
+                                            <td>{{ el.ecartCP | number }}</td>
+                                            <td>{{ el.ecartCPpct }}%</td>
+
+                                        </tr>
+                                    </tbody>
+
+                                    <tfoot>
+                                        <tr class="total-row">
+
+                                            <td colspan="3">Récapitulatif</td>
+
+                                            <td>{{ getTotal2('ej') | number }}</td>
+
+                                            <td>{{ getTotal2('cp2027_ej') | number }}</td>
+                                            <td>{{ getTotal2('cp2028_ej') | number }}</td>
+                                            <td>{{ getTotal2('cp2029_ej') | number }}</td>
+                                            <td>{{ getTotal2('cpAutres_ej') | number }}</td>
+                                            <td class="danger">{{ getTotal2('restes_ej') }}</td>
+
+                                            <td>{{ getTotal2('rappelAE') | number }}</td>
+                                            <td>{{ getTotal2('montantAE') | number }}</td>
+                                            <td>{{ getTotal2('ecartAE') | number }}</td>
+                                            <td>{{ getTotal2('ecartAEpct') }}%</td>
+
+                                            <td>{{ getTotal2('cp2027_ae') | number }}</td>
+                                            <td>{{ getTotal2('cp2028_ae') | number }}</td>
+                                            <td>{{ getTotal2('cp2029_ae') | number }}</td>
+                                            <td>{{ getTotal2('cpAutres_ae') | number }}</td>
+                                            <td class="danger">{{ getTotal2('restes_ae') }}</td>
+
+                                            <td>{{ getTotal2('rappelCP') | number }}</td>
+                                            <td>{{ getTotal2('montantCP') | number }}</td>
+                                            <td>{{ getTotal2('ecartCP') | number }}</td>
+                                            <td>{{ getTotal2('ecartCPpct') }}%</td>
+
+                                        </tr>
+                                    </tfoot>
+
+                                </table>
+                            </div>
                     </div>
 
-                </div>
 
-            </td>
-        </ng-container>
+                    <mat-card class="cardWithShadow b-1 rounded m-t-10 m-b-10  p-20 p-b-10 ">
+                        <div class="row align-items-center">
+                            <label class="marge col-12 col-lg-1 col-md-1 f-s-14 f-w-600  ">Action </label>
+                            <mat-form-field appearance="outline" class=" col-12 col-lg-11 col-md-11 w-100">
+                                <input readonly [value]="suSselectedRow?.action" matInput>
+                            </mat-form-field>
+                        </div>
 
-    </table>
+                        <div class="row align-items-center">
+                            <label class="marge col-12 col-lg-1 col-md-1 f-s-14 f-w-600  ">Activité </label>
+                            <mat-form-field appearance="outline" class="  col-12 col-lg-11 col-md-11 w-100">
+                                <input [value]="suSselectedRow?.activite" readonly matInput>
+                            </mat-form-field>
+                        </div>
 
-    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
-    </mat-paginator>
+
+                        <!--      <div class="row align-items-center">
+                                    <label class="marge col-12 col-lg-1 col-md-1 f-s-14 f-w-600   ">Ligne </label>
+                                    <mat-form-field appearance="outline" class=" col-12 col-lg-11 col-md-11 w-100">
+                                        <input readonly [value]="suSselectedRow?.ligne" matInput>
+                                    </mat-form-field>
+                                </div> -->
+                    </mat-card>
+
+</mat-card>
+</div>
+</div>
+</td>
+</ng-container>
+</table>
+
+<mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>
 
 </mat-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MaterialModule } from 'src/app/material.module';
 import {
   animate,
@@ -7,25 +7,17 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { CommonModule, DecimalPipe } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { TablerIconsModule } from 'angular-tabler-icons';
+import { DecimalPipe } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { HighlightAuto } from 'ngx-highlightjs';
-import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { IconModule } from 'src/app/icon/icon.module';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025330',
     libelle: 'Direction de la programmation budgétaire',
-    effectifs0: 200,
+    effectifsN: 200,
     agentsSolde: 250,
     contractuels: 100,
     total: 350,
@@ -35,7 +27,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025331',
     libelle: 'Direction de la Solde',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -45,7 +37,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025332',
     libelle: 'Direction des Systèmes d’information',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -55,7 +47,7 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '25025333',
     libelle: 'Direction du Contrôle budgétaire',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -65,69 +57,169 @@ const CHAPITRE_DATA: objetChapitre[] = [
   {
     code: '2502533',
     libelle: 'Direction des Pensions',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
     ecart: 100,
     dotation: 100
   },
-  {
-    code: '25025330',
-    libelle: 'Direction de la programmation budgétaire',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025331',
-    libelle: 'Direction de la Solde',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025332',
-    libelle: 'Direction des Systèmes d’information',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025333',
-    libelle: 'Direction du Contrôle budgétaire',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '2502533',
-    libelle: 'Direction des Pensions',
-    effectifs0: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
+  // {
+  //   code: '25025330',
+  //   libelle: 'Direction de la programmation budgétaire',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025331',
+  //   libelle: 'Direction de la Solde',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025332',
+  //   libelle: 'Direction des Systèmes d’information',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025333',
+  //   libelle: 'Direction du Contrôle budgétaire',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '2502533',
+  //   libelle: 'Direction des Pensions',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025330',
+  //   libelle: 'Direction de la programmation budgétaire',
+  //   effectifsN: 200,
+  //   agentsSolde: 250,
+  //   contractuels: 100,
+  //   total: 350,
+  //   ecart: 150,
+  //   dotation: 525000550
+  // },
+  // {
+  //   code: '25025331',
+  //   libelle: 'Direction de la Solde',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025332',
+  //   libelle: 'Direction des Systèmes d’information',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025333',
+  //   libelle: 'Direction du Contrôle budgétaire',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '2502533',
+  //   libelle: 'Direction des Pensions',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025330',
+  //   libelle: 'Direction de la programmation budgétaire',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025331',
+  //   libelle: 'Direction de la Solde',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025332',
+  //   libelle: 'Direction des Systèmes d’information',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '25025333',
+  //   libelle: 'Direction du Contrôle budgétaire',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
+  // {
+  //   code: '2502533',
+  //   libelle: 'Direction des Pensions',
+  //   effectifsN: 100,
+  //   agentsSolde: 100,
+  //   contractuels: 100,
+  //   total: 100,
+  //   ecart: 100,
+  //   dotation: 100
+  // },
 ];
 const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123450',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -139,7 +231,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123451',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -151,7 +243,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123452',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -163,7 +255,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123453',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -175,7 +267,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123454',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -187,7 +279,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123455',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -199,7 +291,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123456',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -211,7 +303,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '1234567',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -223,7 +315,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123458',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -235,7 +327,7 @@ const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
     emploi: 'Ing. Informaticien',
-    matricule: '12345678',
+    matricule: '123459',
     nom: 'xxxxx yyy',
     age: 0,
     statut: 'agent',
@@ -250,7 +342,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp01',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -261,7 +353,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp02',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -272,7 +364,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp03',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -283,7 +375,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp04',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -294,7 +386,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp05',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -305,7 +397,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp01',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -316,7 +408,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp02',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -327,7 +419,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp03',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -338,7 +430,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp04',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -349,7 +441,7 @@ const EMPLOI_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Emp05',
     libelle: 'Ingénieurs informaticiens',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -362,7 +454,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action01',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -373,7 +465,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action02',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -384,7 +476,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action03',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -395,7 +487,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action04',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -406,7 +498,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action05',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -417,7 +509,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action01',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -428,7 +520,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action02',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -439,7 +531,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action03',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -450,7 +542,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action04',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -461,7 +553,7 @@ const ACTION_DATA: objetType[] = [
     action: 'Élaboration des lois de finances',
     code: 'Action05',
     libelle: 'Élaboration des lois de finances',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -472,10 +564,10 @@ const ACTION_DATA: objetType[] = [
 
 const ACTIVITE_DATA: objetType[] = [
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action01',
     code: 'Activite01',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -483,10 +575,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action02',
     code: 'Activite02',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -494,10 +586,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action03',
     code: 'Activite03',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -505,10 +597,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action04',
     code: 'Activite04',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -516,10 +608,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action05',
     code: 'Activite05',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -527,10 +619,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action06',
     code: 'Activite01',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -538,10 +630,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action07',
     code: 'Activite02',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -549,10 +641,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action08',
     code: 'Activite03',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -560,10 +652,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action09',
     code: 'Activite04',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -571,10 +663,10 @@ const ACTIVITE_DATA: objetType[] = [
     dotation: 100
   },
   {
-    action: 'Élaboration des lois de finances',
+    action: 'Action010',
     code: 'Activite05',
     libelle: 'Appui informatique',
-    effectifs0: 100,
+    effectifsN: 100,
     agentsSolde: 100,
     contractuels: 100,
     total: 100,
@@ -588,19 +680,10 @@ const ACTIVITE_DATA: objetType[] = [
   imports: [
     MaterialModule,
     DecimalPipe,
-    MatCardModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    CommonModule,
-    MatDividerModule,
     FormsModule,
-    MatTabsModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    TablerIconsModule
-],
+    MatPaginatorModule,
+    IconModule
+  ],
   templateUrl: './maj-emplois-effectif-section.component.html',
   styleUrl: './maj-emplois-effectif-section.component.scss',
   animations: [
@@ -614,29 +697,33 @@ const ACTIVITE_DATA: objetType[] = [
     ]),
   ],
 })
-export class MajEmploisEffectifSectionComponent implements OnInit {
+export class MajEmploisEffectifSectionComponent {
 
-  listeChapitre = new MatTableDataSource(CHAPITRE_DATA);
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.listeChapitre.filter = filterValue.trim().toLowerCase();
+  ngAfterViewInit(): void {
+    this.listeChapitre.paginator = this.paginator;
   }
 
-  choix: string = "1"; // valeur par défaut
+  listeChapitre = new MatTableDataSource(CHAPITRE_DATA);
+  listeEmplois = new MatTableDataSource(EMPLOI_DATA);
+  listeActions = new MatTableDataSource(ACTION_DATA);
+  listeActivites = new MatTableDataSource(ACTIVITE_DATA);
+  listeAgent = new MatTableDataSource(AGENT_DATA);
+
+  choix: string = "chapitre"; // valeur par défaut
+  textRechercher: string = '';
 
   // listeChapitre = CHAPITRE_DATA;
-  listeAgent = AGENT_DATA;
-  listeEmplois = EMPLOI_DATA;
-  listeActions = ACTION_DATA;
-  listeActivites = ACTIVITE_DATA;
+  // listeAgent = AGENT_DATA;
+  // listeEmplois = EMPLOI_DATA;
+  // listeActions = ACTION_DATA;
+  // listeActivites = ACTIVITE_DATA;
 
-  columnsChapitreToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
-  columnsEmploiToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
-  columnsActionToDisplay = ['code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
-  columnsActiviteToDisplay = ['action', 'code', 'libelle', 'effectifs0', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
-
-
+  columnsChapitreToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
+  columnsEmploiToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
+  columnsActionToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
+  columnsActiviteToDisplay = ['action', 'code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
 
   columnsChapitreToDisplayWithExpand = [...this.columnsChapitreToDisplay, 'expand'];
   columnsEmploiToDisplayWithExpand = [...this.columnsEmploiToDisplay, 'expand'];
@@ -648,16 +735,47 @@ export class MajEmploisEffectifSectionComponent implements OnInit {
   expandedElementAction: objetType | null = null;
   expandedElementActivite: objetType | null = null;
 
+  filtreListe(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    switch (this.choix) {
+      case "chapitre":
+        this.listeChapitre.filter = filterValue.trim().toLowerCase();
+        break;
+
+      case "emploi":
+        this.listeEmplois.filter = filterValue.trim().toLowerCase();
+        break;
+
+      case "action":
+        this.listeActions.filter = filterValue.trim().toLowerCase();
+        break;
+
+      default:
+        this.listeActivites.filter = filterValue.trim().toLowerCase();
+        break;
+    }
+
+  }
+
+  onChoixChange() {
+    // vider l'input
+    this.textRechercher = '';
+    // vider le filtre MatTable
+    this.listeChapitre.filter = '';
+    this.listeEmplois.filter = '';
+    this.listeActions.filter = '';
+    this.listeActivites.filter = '';
+  }
+
   constructor() { }
 
-  ngOnInit(): void { }
 }
 
 
 export interface objetChapitre {
   code: string;
   libelle: string;
-  effectifs0: number;
+  effectifsN: number;
   agentsSolde: number;
   contractuels: number;
   total: number;
@@ -682,7 +800,7 @@ export interface objetType {
   action: string;
   code: string;
   libelle: string;
-  effectifs0: number;
+  effectifsN: number;
   agentsSolde: number;
   contractuels: number;
   total: number;

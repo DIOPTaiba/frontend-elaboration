@@ -1,12 +1,23 @@
-.padr{padding-right: 5px !important;}
-.padf{padding-left: 3px !important;}
+.padr {
+    padding-right: 5px !important;
+}
 
-.light-bleu{background-color: #9cbbe6;}
-.background-light-bleu{background-color: #ecf0f7;}
+.padf {
+    padding-left: 3px !important;
+}
+
+.light-bleu {
+    background-color: #9cbbe6;
+}
+
+.background-light-bleu {
+    background-color: #f7f7f9;
+}
+
 .table-container {
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 
@@ -17,65 +28,200 @@
 
 /* 🔥 BORDURES ENTRE LIGNES */
 .mat-mdc-row {
-  border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.bb {
+    border-bottom: 1px solid #d63333;
 }
 
 .mat-mdc-cell {
-  border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 /* ALIGNEMENT */
 .text-end {
-  text-align: right;
+    text-align: right;
 }
 
 /* ROW */
 .data-row {
-  cursor: pointer;
-  transition: background 0.2s;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-  .mdc-data-table__cell,
-  .mdc-data-table__header-cell {
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
     padding: 0px !important;
     padding-left: 12px !important;
-  }
+}
 
 .data-row:hover {
-  background: #f5f7fa;
+    background: #f5f7fa;
 }
 
 /* LIGNE OUVERTE */
 .expanded-row {
-  background: #e7f1ff !important;
+    background: #e7f1ff !important;
 }
 
 /* DETAIL */
 .detail-row {
-  height: 0;
-  margin: 0;
-  padding: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .detail-container {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .detail-content {
-  padding: 15px;
-  background: #f8f9fa;
-  border-left: 4px solid #1d4991
-;
+    padding-left: 25px;
+    padding-right: 25px;
+    background: #f8f9fa;
+    border-left: 4px solid #1d4991;
 }
 
 /* ICON */
 .expand-cell {
-  text-align: right;
+    text-align: right;
 }
 
 mat-icon {
-  color: #013481;
-  transition: transform 0.2s ease;
+    color: #013481;
+    transition: transform 0.2s ease;
 }
 
-/* 🔥 PAS DE ROTATION CSS ICI (sinon conflit visuel) */
+/* ===================== LIGNE TOTAL ===================== */
+.total-row {
+    background-color: #e3f2fd;
+    border-top: 2px solid #1976d2;
+    font-weight: 600;
+    //background: linear-gradient(to right, #e3f2fd, #ffffff);
+}
+.total-sous-row {
+    background-color: #f4f8fa;
+    padding: 0;
+    border-top: 2px solid #1976d2;
+    color: #2f577d;
+    font-weight: 600;
+    //background: linear-gradient(to right, #e3f2fd, #ffffff);
+}
+.bordure_td{ border: 0.5px solid #cbd3dc;}
+.border-botop {
+  border-bottom: 0.5px solid #cbd3dc;
+  border-top: 0.5px solid #cbd3dc;
+}
+.no-border-left {
+ border-bottom: 0.5px solid #cbd3dc;
+  border-top: 0.5px solid #cbd3dc;
+  border-right: 0.5px solid #cbd3dc;;
+}
+.no-border-right {
+ border-bottom: 0.5px solid #cbd3dc;
+  border-top: 0.5px solid #cbd3dc;
+  border-left: 0.5px solid #cbd3dc;;
+}
+/* ===================== CELLULES TOTAL ===================== */
+.total-cell {
+    color: #1976d2;
+    font-size: 14px;
+}
+
+/* ===================== TEXTE TOTAL ===================== */
+.total-label {
+    font-weight: bold;
+    color: #1976d2;
+}
+
+.marge {
+    margin-top: -20px;
+}
+
+.subselected-row {
+    background-color: #f7f7f8 !important;
+}
+
+tr.mat-mdc-row:hover {
+    cursor: pointer;
+    // background-color: #f5f5f5;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper,
+::ng-deep .mat-mdc-form-field-bottom-align::before {
+    height: 7px !important;
+}
+
+::ng-deep .mat-expansion-panel-header.mat-expanded {
+    height: 44px !important;
+}
+
+/* CONTENEUR GLOBAL */
+.table-budget {
+  width: 1045px;
+  max-width: 100%;
+  overflow: hidden; /* bloque le débordement vers le parent */
+}
+
+/* SCROLL UNIQUEMENT ICI */
+.table-budget .table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* TABLE */
+.table-budget .table-scroll table {
+  border-collapse: collapse;
+  width: max-content; /* clé principale */
+  min-width: 1100px;  /* adapte selon ton tableau */
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* HEADER */
+.table-budget th {
+  //background:rgb(248, 249, 250) ;
+  color: #000;
+  border: 1px solid #c1c0c0;
+  padding: 6px;
+  text-align: center;
+}
+
+.th2 {
+  background:#e3f3fb ;
+}
+
+/* CELLULES */
+.table-budget td {
+  border: 1px solid #a9a8a8;
+  padding: 10px;
+  text-align: right;
+}
+
+/* ALIGNEMENT */
+.table-budget td:nth-child(1),
+.table-budget td:nth-child(2),
+.table-budget td:nth-child(3) {
+  text-align: left;
+}
+
+/* ROUGE */
+.table-budget .danger {
+  color: rgb(240, 61, 61);
+  font-weight: bold;
+}
+
+/* TOTAL */
+.table-budget .total-row {
+  background-color: #f4f8fa;
+    padding: 0;
+    border-top: 1px solid #1976d2;
+    color: #2f577d;
+    font-weight: 600;
+}
+
+.mat-row, .mat-cell {
+  overflow: hidden  !important;;
+}
