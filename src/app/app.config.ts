@@ -30,9 +30,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 // code view
 import { provideHighlightOptions } from 'ngx-highlightjs';
-import 'highlight.js/styles/atom-one-dark.min.css';
+// import 'highlight.js/styles/atom-one-dark.min.css';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { FrenchMatPaginatorIntl } from './paginator-intl';
 
 export class CustomLoader implements TranslateLoader {
   constructor(private http: HttpClient, private prefix: string, private suffix: string) { }
@@ -63,6 +65,7 @@ export const appConfig: ApplicationConfig = {
         xml: () => import('highlight.js/lib/languages/xml'),
       },
     }),
+    { provide: MatPaginatorIntl, useClass: FrenchMatPaginatorIntl },
     provideRouter(
       routes,
       withInMemoryScrolling({

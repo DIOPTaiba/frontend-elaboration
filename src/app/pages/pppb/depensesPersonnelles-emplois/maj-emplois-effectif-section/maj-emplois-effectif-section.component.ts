@@ -75,146 +75,146 @@ const CHAPITRE_DATA: objetChapitre[] = [
     ecart: 100,
     dotation: 100
   },
-  // {
-  //   code: '25025331',
-  //   libelle: 'Direction de la Solde',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025332',
-  //   libelle: 'Direction des Systèmes d’information',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025333',
-  //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '2502533',
-  //   libelle: 'Direction des Pensions',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025330',
-  //   libelle: 'Direction de la programmation budgétaire',
-  //   effectifsN: 200,
-  //   agentsSolde: 250,
-  //   contractuels: 100,
-  //   total: 350,
-  //   ecart: 150,
-  //   dotation: 525000550
-  // },
-  // {
-  //   code: '25025331',
-  //   libelle: 'Direction de la Solde',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025332',
-  //   libelle: 'Direction des Systèmes d’information',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025333',
-  //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '2502533',
-  //   libelle: 'Direction des Pensions',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025330',
-  //   libelle: 'Direction de la programmation budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025331',
-  //   libelle: 'Direction de la Solde',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025332',
-  //   libelle: 'Direction des Systèmes d’information',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025333',
-  //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '2502533',
-  //   libelle: 'Direction des Pensions',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
+  {
+    code: '25025331',
+    libelle: 'Direction de la Solde',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025332',
+    libelle: 'Direction des Systèmes d’information',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025333',
+    libelle: 'Direction du Contrôle budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '2502533',
+    libelle: 'Direction des Pensions',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025330',
+    libelle: 'Direction de la programmation budgétaire',
+    effectifsN: 200,
+    agentsSolde: 250,
+    contractuels: 100,
+    total: 350,
+    ecart: 150,
+    dotation: 525000550
+  },
+  {
+    code: '25025331',
+    libelle: 'Direction de la Solde',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025332',
+    libelle: 'Direction des Systèmes d’information',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025333',
+    libelle: 'Direction du Contrôle budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '2502533',
+    libelle: 'Direction des Pensions',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025330',
+    libelle: 'Direction de la programmation budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025331',
+    libelle: 'Direction de la Solde',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025332',
+    libelle: 'Direction des Systèmes d’information',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025333',
+    libelle: 'Direction du Contrôle budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '2502533',
+    libelle: 'Direction des Pensions',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
 ];
 const AGENT_DATA: objetAgent[] = [
   {
