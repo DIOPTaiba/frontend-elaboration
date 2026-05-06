@@ -1,0 +1,216 @@
+// Variables
+$primary-dark:  #1D4991;
+$primary-mid:   #2a5bae;
+$accent-blue:   #1D4991;
+$border-color:  #c8d8ea;
+$border-light:  #e2ecf5;
+$text-dark:     #1a2a3a;
+$text-mid:      #2c4a6a;
+$text-muted:    #6b8aab;
+$recap-bg:      #b0c4d8;
+
+// ── Overlay ──
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; animation: fadeIn 0.18s ease; padding: 12px;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+// ── Conteneur ──
+.modal-container-table {
+  background: #ffffff; border-radius: 6px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+  width: 96vw; max-width: 1280px; max-height: 94vh;
+  display: flex; flex-direction: column;
+  animation: slideUp 0.2s ease; overflow: hidden;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ── Barre du haut ──
+.modal-top-bar {
+  display: flex; flex-direction: column; align-items: stretch;
+  padding: 12px 16px; gap: 0;
+  border-bottom: 1px solid $border-light;
+  background: #fff; position: relative;
+}
+
+// ── Paramètres ──
+.modal-params-bar {
+  width: 100%; background: #f5f8fc;
+  border: 1px solid $border-color; border-radius: 6px;
+  padding: 10px 14px 8px; margin-bottom: 8px; margin-top: 20px;
+}
+.modal-params-row {
+  display: flex; flex-wrap: wrap; gap: 6px 28px; margin-bottom: 5px;
+  &:last-child { margin-bottom: 0; }
+}
+.modal-param-item {
+  display: flex; align-items: baseline; gap: 5px;
+  &--wide { flex: 1; }
+  &--full { flex: 1 1 100%; }
+}
+.modal-param-label {
+  font-size: 12px; font-weight: 700; color: $text-mid;
+  text-decoration: underline; white-space: nowrap;
+}
+.modal-param-value {
+  font-size: 12px; font-weight: 600; color: $primary-dark;
+}
+
+// ── Filtres actifs ──
+.modal-filters-bar {
+  width: 100%; display: flex; flex-wrap: wrap; align-items: center;
+  gap: 6px; padding: 6px 14px;
+  background: #eaf2fb; border: 1px solid #b8d0e8;
+  border-radius: 6px; margin-bottom: 8px; font-size: 12px;
+  &.modal-filters-none {
+    background: #f5f8fc; border-color: $border-light;
+    color: $text-muted; font-style: italic;
+    svg { color: $text-muted; }
+  }
+}
+.modal-filters-title {
+  display: flex; align-items: center; gap: 5px;
+  font-weight: 700; color: $primary-mid; white-space: nowrap;
+  svg { color: $accent-blue; }
+}
+.modal-filter-tag {
+  display: inline-flex; align-items: center;
+  background: #fff; color: $primary-dark;
+  border: 1px solid #a8c4e0; border-radius: 20px;
+  padding: 2px 10px; font-size: 11.5px; font-weight: 500;
+}
+
+// ── Titre + boutons ──
+.modal-title-actions {
+  width: 100%; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.modal-top-title {
+  font-size: 15px; font-weight: 700; color: $text-dark; margin: 0;
+}
+.modal-para-highlight { color: #2e8b57; font-weight: 700; }
+
+.modal-top-actions {
+  display: flex; align-items: center; gap: 10px;
+}
+.btn-modal-action {
+  border: none; border-radius: 5px; padding: 7px 20px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  background: #1D4991; color: #fff;
+  &:hover  { opacity: 0.88; }
+  &:active { transform: translateY(1px); }
+}
+.btn-modal-add-agent { background: #1D4991; color: #fff; }
+.btn-modal-add-line  { background: #1D4991; color: #fff; }
+.btn-modal-save      { background: #1D4991; color: #fff; }
+
+.modal-close-x {
+  position: absolute; top: 10px; right: 12px;
+  background: none; border: none; font-size: 17px; color: $text-muted;
+  cursor: pointer; padding: 3px 7px; border-radius: 5px; line-height: 1;
+  &:hover { background: #f0f4f8; color: $text-dark; }
+}
+
+// ── Tableau ──
+.modal-table-wrapper { overflow: auto; flex: 1; }
+
+.modal-table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+  min-width: 800px; text-align: center;
+
+  thead tr.modal-header-main th {
+    background: #1D4991; color: #fff; font-weight: 700; font-size: 12px;
+    text-align: center; vertical-align: middle;
+    padding: 8px 6px; border: 1px solid #163d7a; white-space: nowrap;
+    &.mth-emploi    { min-width: 110px; width: 130px; }
+    &.mth-matricule { min-width: 90px;  width: 100px; }
+    &.mth-nom       { min-width: 160px; width: 200px; }
+    &.mth-para-group { font-weight: 700; }
+    &.mth-cumul     { min-width: 90px; width: 110px; font-size: 11px; line-height: 1.3; }
+  }
+
+  thead tr.modal-header-sub th {
+    background: #2e63b8; color: #fff; font-size: 10.5px; font-weight: 600;
+    text-align: center; vertical-align: top;
+    padding: 4px 5px; border: 1px solid #245299; min-width: 80px;
+    .mth-code  { font-size: 11px; font-weight: 700; margin-bottom: 2px; }
+    .mth-label { font-size: 10px; font-weight: 400; line-height: 1.2; word-break: break-word; }
+  }
+
+  tbody tr {
+    &.modal-row-even { background: #ffffff; }
+    &.modal-row-odd  { background: #f5f8fc; }
+    &:hover          { background: #eef4fb !important; }
+    td {
+      border: 1px solid #d0daea; vertical-align: middle; padding: 2px 3px;
+      &.mtd-emploi, &.mtd-matricule, &.mtd-nom { padding: 2px 4px; }
+      &.mtd-val  { padding: 1px 2px; }
+      &.mtd-cumul {
+        text-align: right; padding-right: 8px;
+        font-weight: 700; font-variant-numeric: tabular-nums;
+        color: $primary-mid; font-size: 12px;
+      }
+    }
+  }
+
+  .modal-recap-row {
+    background: $recap-bg;
+    td {
+      // remplacé darken() par une couleur fixe équivalente
+      border: 1px solid #8faec8; padding: 6px 8px;
+      font-weight: 700; font-size: 12px; color: #1a2a3a;
+      &.modal-recap-label { text-align: left; padding-left: 10px; }
+      &.modal-recap-val   { text-align: right; padding-right: 8px; font-variant-numeric: tabular-nums; }
+      &.modal-recap-cumul { text-align: right; padding-right: 8px; font-variant-numeric: tabular-nums; }
+    }
+  }
+}
+
+// ── Select dans cellule ──
+.search-select-wrapper {
+  position: relative; display: flex; align-items: center;
+  .select-arrow {
+    position: absolute; right: 4px; font-size: 8px;
+    color: $text-muted; pointer-events: none;
+  }
+}
+.modal-cell-select {
+  width: 100%; appearance: none; border: none; background: transparent;
+  font-size: 12px; color: $text-dark; padding: 4px 18px 4px 4px; cursor: pointer;
+  &:focus { outline: 1px solid $accent-blue; border-radius: 2px; }
+}
+
+// ── Inputs dans cellules ──
+.modal-cell-input {
+  width: 100%; border: none; background: transparent;
+  font-size: 12px; color: $text-dark; padding: 4px 6px;
+  &:focus { outline: 1px solid $accent-blue; border-radius: 2px; background: #f0f6ff; }
+  &::placeholder { color: #bbb; }
+}
+.modal-cell-number {
+  text-align: right; -moz-appearance: textfield;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+}
+
+// ── Footer ──
+.modal-bottom-footer {
+  background: #f0f5fb; border-top: 1px solid $border-light; padding: 7px 14px;
+}
+.modal-footer-row {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 6px 24px; margin-bottom: 3px;
+  &:last-child { margin-bottom: 0; }
+}
+.modal-footer-label {
+  font-weight: 600; color: $text-mid; text-decoration: underline;
+  font-size: 12px; white-space: nowrap;
+}
+.modal-footer-value { font-size: 12px; color: $text-dark; }
+.modal-footer-sep   { flex: 1; }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Agent, EmploiRef, FiltreState, Paragraphe } from '../../models/traitement-agent.models';
@@ -10,6 +10,7 @@ import { TraitementAgentService } from '../../services/traitement-agent.service'
   imports: [CommonModule, FormsModule],
   templateUrl: './modal-collectif.component.html',
   styleUrls: ['./modal-collectif.component.scss'],
+  encapsulation: ViewEncapsulation.None,   // ← styles globaux, pas d'encapsulation
 })
 export class ModalCollectifComponent implements OnChanges {
 
@@ -21,7 +22,6 @@ export class ModalCollectifComponent implements OnChanges {
   @Input() filtreState!: FiltreState;
   @Input() activeFilterCount = 0;
 
-  // Paramètres affichés en lecture seule
   @Input() gestion   = '';
   @Input() budget    = '';
   @Input() section   = '';
@@ -32,7 +32,7 @@ export class ModalCollectifComponent implements OnChanges {
   @Input() statut    = '';
   @Input() age       = '';
 
-  @Output() fermer    = new EventEmitter<void>();
+  @Output() fermer      = new EventEmitter<void>();
   @Output() sauvegarder = new EventEmitter<Agent[]>();
 
   modalLignes: Agent[] = [];
