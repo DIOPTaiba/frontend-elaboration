@@ -100,6 +100,7 @@ mat-icon {
     font-weight: 600;
     //background: linear-gradient(to right, #e3f2fd, #ffffff);
 }
+
 .total-sous-row {
     background-color: #f4f8fa;
     padding: 0;
@@ -108,21 +109,30 @@ mat-icon {
     font-weight: 600;
     //background: linear-gradient(to right, #e3f2fd, #ffffff);
 }
-.bordure_td{ border: 0.5px solid #cbd3dc;}
+
+.bordure_td {
+    border: 0.5px solid #cbd3dc;
+}
+
 .border-botop {
-  border-bottom: 0.5px solid #cbd3dc;
-  border-top: 0.5px solid #cbd3dc;
+    border-bottom: 0.5px solid #cbd3dc;
+    border-top: 0.5px solid #cbd3dc;
 }
+
 .no-border-left {
- border-bottom: 0.5px solid #cbd3dc;
-  border-top: 0.5px solid #cbd3dc;
-  border-right: 0.5px solid #cbd3dc;;
+    border-bottom: 0.5px solid #cbd3dc;
+    border-top: 0.5px solid #cbd3dc;
+    border-right: 0.5px solid #cbd3dc;
+    ;
 }
+
 .no-border-right {
- border-bottom: 0.5px solid #cbd3dc;
-  border-top: 0.5px solid #cbd3dc;
-  border-left: 0.5px solid #cbd3dc;;
+    border-bottom: 0.5px solid #cbd3dc;
+    border-top: 0.5px solid #cbd3dc;
+    border-left: 0.5px solid #cbd3dc;
+    ;
 }
+
 /* ===================== CELLULES TOTAL ===================== */
 .total-cell {
     color: #1976d2;
@@ -139,9 +149,6 @@ mat-icon {
     margin-top: -20px;
 }
 
-.subselected-row {
-    background-color: #f7f7f8 !important;
-}
 
 tr.mat-mdc-row:hover {
     cursor: pointer;
@@ -159,69 +166,120 @@ tr.mat-mdc-row:hover {
 
 /* CONTENEUR GLOBAL */
 .table-budget {
-  width: 1045px;
-  max-width: 100%;
-  overflow: hidden; /* bloque le débordement vers le parent */
+    width: 1045px;
+    max-width: 100%;
+    overflow: hidden;
+    /* bloque le débordement vers le parent */
 }
 
 /* SCROLL UNIQUEMENT ICI */
 .table-budget .table-scroll {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 /* TABLE */
 .table-budget .table-scroll table {
-  border-collapse: collapse;
-  width: max-content; /* clé principale */
-  min-width: 1100px;  /* adapte selon ton tableau */
-  font-size: 12px;
-  white-space: nowrap;
+    border-collapse: collapse;
+    width: max-content;
+    /* clé principale */
+    min-width: 1100px;
+    /* adapte selon ton tableau */
+    font-size: 12px;
+    white-space: nowrap;
 }
 
 /* HEADER */
 .table-budget th {
-  //background:rgb(248, 249, 250) ;
-  color: #000;
-  border: 1px solid #c1c0c0;
-  padding: 6px;
-  text-align: center;
+    //background:rgb(248, 249, 250) ;
+    color: #000;
+    border: 1px solid #c1c0c0;
+    padding: 6px;
+    text-align: center;
 }
 
 .th2 {
-  background:#e3f3fb ;
+    background: #e3f3fb;
 }
 
 /* CELLULES */
 .table-budget td {
-  border: 1px solid #a9a8a8;
-  padding: 10px;
-  text-align: right;
+    border: 1px solid #a9a8a8;
+    padding: 10px;
+    text-align: right;
 }
 
 /* ALIGNEMENT */
 .table-budget td:nth-child(1),
 .table-budget td:nth-child(2),
 .table-budget td:nth-child(3) {
-  text-align: left;
+    text-align: left;
 }
 
 /* ROUGE */
 .table-budget .danger {
-  color: rgb(240, 61, 61);
-  font-weight: bold;
+    color: rgb(240, 61, 61);
+    font-weight: bold;
 }
 
 /* TOTAL */
 .table-budget .total-row {
-  background-color: #f4f8fa;
+    background-color: #f4f8fa;
     padding: 0;
     border-top: 1px solid #1976d2;
     color: #2f577d;
     font-weight: 600;
 }
 
-.mat-row, .mat-cell {
-  overflow: hidden  !important;;
+.mat-row,
+.mat-cell {
+    overflow: hidden !important;
+    ;
+}
+
+// Pour mettre la bordure des tables
+.td_th {
+    border: 1px solid #dee2e6 !important;
+    border-top: unset !important;
+    border-left: unset !important;
+}
+
+.no_border_top {
+    border-top: unset !important; border-right: 1px solid #dee2e6 !important;
+}
+.no_border_bottom {
+    border-bottom: unset !important;border-right: 1px solid #dee2e6 !important;
+}
+
+.height_tr {
+    height: 40px;
+}
+.border_left{border-left: 1px solid #dee2e6 !important;}
+.border_left_right{border-left: 1px solid #dee2e6 !important;border-right: 1px solid #dee2e6 !important;}
+.bg_bleu {background-color: #4490dc !important;}
+.subselected-row {
+    background-color: #e7e7ec !important;
+}
+.bg_gris{
+    background-color: #f7f7f8 ;
+}
+.full-input {
+     appearance: textfield;
+ width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+max-width: 100%; 
+  border: none;
+  padding: 11px;
+}
+
+.full-input::-webkit-inner-spin-button,
+.full-input::-webkit-outer-spin-button {
+  display: none;
+}
+.col-number {
+  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
 }

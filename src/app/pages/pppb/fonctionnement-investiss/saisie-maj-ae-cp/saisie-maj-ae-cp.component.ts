@@ -23,64 +23,7 @@ interface BudgetRow {
   cp: number;
   srcCp: number;
 }
-export const ELEMENT_DATA = [
-  {
-    action: 'Infrastructure',
-    activite: 'Assainissement urbain',
-    ligne: 'L4',
-    aeLfi: 180000,
-    aeAnd: 175000,
-   
-    aePlf: 185000,
-   
-    cpLfi: 120000,
-    cpPlf: 125000,
-    ecartAe: 5000,
-    ecartCp: 5000
-  },
-  {
-    action: 'Infrastructure',
-    activite: 'Construction école',
-    ligne: 'code - libelle de la ligne ',
-    aeLfi: 120000,
-    aeAnd: 150000,
-    
-    aePlf: 130000,
-   
-    cpLfi: 80000,
-    cpPlf: 90000,
-    ecartAe: 10000,
-    ecartCp: 5000
-  },
-  {
-    action: 'Transport',
-    activite: 'Route nationale',
-    ligne: 'L2',
-    aeLfi: 300000,
-    aeAnd: 280000,
-   
-    aePlf: 310000,
-   
-    cpLfi: 200000,
-    cpPlf: 195000,
-    ecartAe: -20000,
-    ecartCp: -5000
-  },
-  {
-    action: 'Santé',
-    activite: ' Hôpital régional',
-    ligne: 'L3',
-    aeLfi: 500000,
-    aeAnd: 520000,
-   
-    aePlf: 510000,
-   
-    cpLfi: 350000,
-    cpPlf: 360000,
-    ecartAe: -10000,
-    ecartCp: 10000
-  }
-];
+
 @Component({
   selector: 'app-saisie-maj-ae-cp',
   imports: [MaterialModule, DecimalPipe, MatPaginatorModule, MatCardModule,
@@ -111,6 +54,14 @@ export class SaisieMajAeCpComponent {
     'Dons Exterieurs',
     'Electronics',
   ];
+cat_deps = [
+  { code: 1, libelle: "Charges financières de la dette" },
+  { code: 2, libelle: "Dépenses de personnel" },
+  { code: 3, libelle: "Acquisition de biens et services" },
+  { code: 4, libelle: "Transferts courants" },
+  { code: 5, libelle: "Investissements exécutés par l'Etat" },
+  { code: 6, libelle: "Transferts en capital" }
+];
 
   displayedColumns: string[] = [
     'code',
@@ -121,9 +72,6 @@ export class SaisieMajAeCpComponent {
     'srcCp',
     'expand'
   ];
-
- subdataSource = new MatTableDataSource(ELEMENT_DATA);
-
   dataSource = new MatTableDataSource<BudgetRow>([
     { code: '001', libelle: 'Projet A Projet A Projet A Projet AProjet AProjet ', ae: 100000, srcAe: 20000, cp: 80000, srcCp: 15000 },
     { code: '002', libelle: 'Projet B', ae: 200000, srcAe: 50000, cp: 150000, srcCp: 30000 },
@@ -148,29 +96,13 @@ export class SaisieMajAeCpComponent {
 
   ]);
 
-  // ===================== COLONNES =====================
-  subDisplayedColumns: string[] = [
-    'action',
-    'activite',
-    'ligne',
-    'aeLfi',
-    'aeAnd',
-   
-    'aePlf',
-   
-    'cpLfi',
-    'cpPlf',
-    'ecartAe',
-    'ecartCp'
-  ];
+ 
 
-  // ===================== DATA =====================
-// ===================== DATA TABLE MULTI-HEADERS =====================
 dataSource2: any[] = [
   {
-    action: '123456',
-    activite: '12345678',
-    ligne: '',
+    action: '333333',
+    activite: '4444444',
+    ligne: ' 2389 - Soldes et accessoires',
 
     ej: 3500000000,
 
@@ -199,7 +131,7 @@ dataSource2: any[] = [
    {
     action: '123456',
     activite: '12345678',
-    ligne: '',
+    ligne: ' 1010 - Autres prestations de service',
 
     ej: 3500000000,
 
@@ -224,12 +156,43 @@ dataSource2: any[] = [
     montantCP: 102500000,
     ecartCP: -17500000,
     ecartCPpct: -14.58
+  },
+  {
+    action: '6666666',
+    activite: '3333666',
+    ligne: '2029 - Fournitures de Bureau',
+
+    ej: 3500000000,
+
+    cp2027_ej: 250000,
+    cp2028_ej: 1000000000,
+    cp2029_ej: 0,
+    cpAutres_ej: 0,
+    restes_ej: 0,
+
+    rappelAE: 98000000000,
+    montantAE: 99900000000,
+    ecartAE: 1900000000,
+    ecartAEpct: 1.94,
+
+    cp2027_ae: 100000000,
+    cp2028_ae: 400000000,
+    cp2029_ae: 300000000,
+    cpAutres_ae: 800000000,
+    restes_ae: 0,
+
+    rappelCP: 120000000,
+    montantCP: 102500000,
+    ecartCP: -17500000,
+    ecartCPpct: -14.58
   }
 ];
+groupHeaderColumns: string[] = ['1','2','cr1','cr2','exp'];
 
   expandedElement: any | null = null;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
+  @ViewChild('catSelect') catSelect: any;
   
   suSselectedRow: any = null;
 
@@ -237,6 +200,12 @@ dataSource2: any[] = [
     this.suSselectedRow = row;
   }
 
+get selectedCategoryCode(): number {
+  return this.catSelect?.value?.code;
+}
+isFullTable(): boolean {
+  return this.selectedCategoryCode === 5 || this.selectedCategoryCode === 6;
+}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -257,27 +226,12 @@ dataSource2: any[] = [
     }, 0);
   }
 
-  openEcheancier1(element: any) {
-    console.log('Échéancier 1 :', element);
-    // ouvrir modal, drawer ou navigation
-  }
 
-  openEcheancier2(element: any) {
-    console.log('Échéancier 2 :', element);
-    // ouvrir modal, drawer ou navigation
-  }
   ngOnInit() {
- if (this.subdataSource.data && this.subdataSource.data.length > 0) {
-  this.suSselectedRow = this.subdataSource.data[0];
+ if (this.dataSource2 && this.dataSource2.length > 0) {
+  this.suSselectedRow = this.dataSource2[0];
 }
 }
-getSubTotal(field: string): number {
-  return this.subdataSource.data.reduce((total, element: any) => {
-    return total + (element[field] || 0);
-  }, 0);
-}
-
-
 
 // ===================== TOTAL TABLE HTML =====================
 getTotal2(field: string): number {
