@@ -28,21 +28,25 @@
       </div>
 
       <!-- Titre -->
-      <h2 class="modal-top-title">
-        Traitement individuel –
-        <span class="modal-para-highlight">
-          {{ paragrapheSelectionne?.code }} – {{ paragrapheSelectionne?.label }}
-        </span>
-      </h2>
+     <div class="modal-title-actions">
+<h2 class="modal-top-title">
+  Traitement individuel –
+  <span class="modal-agent-highlight" *ngIf="agentEdite">
+    {{ agentEdite.nom }} – {{ agentEdite.emploi }} 
+  </span>
+  <span class="modal-para-highlight">
+    {{ paragrapheSelectionne?.code }} {{ paragrapheSelectionne?.label }}
+  </span>
+</h2>
 
       <!-- Infos contextuelles -->
-      <div class="modal-top-infos">
+      <div class="modal-top-infos" style="width:3000px">
         <div class="modal-top-infos-row">
           <div class="info-item">
             <span class="info-label">Chapitre :</span>
             <span class="info-value">{{ chapitre }}</span>
           </div>
-          <div class="info-item">
+          <div class="info-item" style="margin-left:-233px">
             <span class="info-label">Statut :</span>
             <span class="info-value">{{ statut }}</span>
           </div>
@@ -73,7 +77,7 @@
     </div>
 
     <!-- Tableau -->
-    <div class="modal-table-wrapper">
+    <div style ="margin-top: 18px" class="modal-table-wrapper">
       <table class="modal-table">
         <thead>
           <tr class="modal-header-main">

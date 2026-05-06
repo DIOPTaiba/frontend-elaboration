@@ -12,122 +12,111 @@
   </div>
 
   <div class="filter-body" *ngIf="showFilter">
-    <div class="search-params-row">
+    <div class="filter-row">
 
       <!-- Emploi -->
-      <div class="search-field search-field-emploi">
-        <label class="search-label">Emploi</label>
-        <div class="search-select-wrapper">
-          <select [(ngModel)]="filterEmploi" class="search-select" (ngModelChange)="onFilterChange()">
-            <option value="">-- Tous --</option>
-            <option *ngFor="let e of emplois" [value]="e.code">{{ e.libelle }}</option>
-          </select>
-          <span class="select-arrow">&#9660;</span>
-        </div>
+      <div class="filter-field custom-field filter-field-emploi">
+        <label class="custom-label">Emploi</label>
+        <mat-select [(ngModel)]="filterEmploi" (ngModelChange)="onFilterChange()" class="custom-select">
+          <mat-option value="">-- Tous --</mat-option>
+          <mat-option *ngFor="let e of emplois" [value]="e.code">{{ e.libelle }}</mat-option>
+        </mat-select>
       </div>
 
       <!-- Chapitre -->
-      <div class="search-field search-field-chapitre">
-        <label class="search-label">Chapitre</label>
-        <div class="search-input-wrapper">
-          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input type="text" [(ngModel)]="filterChapitre" class="search-input"
-                 placeholder="Rechercher un chapitre..." (ngModelChange)="onFilterChange()" />
-          <button class="input-clear" *ngIf="filterChapitre" (click)="clearField('chapitre')">&#x2715;</button>
+      <div class="filter-field custom-field filter-field-chapitre" style="flex: 0 0 800px;">
+        <label class="custom-label">Chapitre</label>
+        <div class="custom-input-wrapper">
+          <input class="custom-input" [(ngModel)]="filterChapitre"
+                 placeholder="Rechercher un chapitre..."
+                 (ngModelChange)="onFilterChange()" />
+          <button *ngIf="filterChapitre" class="clear-btn" (click)="clearField('chapitre')">
+            <mat-icon>close</mat-icon>
+          </button>
         </div>
       </div>
 
       <!-- Action -->
-      <div class="search-field search-field--wide">
-        <label class="search-label">Action</label>
-        <div class="search-input-wrapper">
-          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input type="text" [(ngModel)]="filterAction" class="search-input"
-                 placeholder="Rechercher une action..." (ngModelChange)="onFilterChange()" />
-          <button class="input-clear" *ngIf="filterAction" (click)="clearField('action')">&#x2715;</button>
+      <div class="filter-field custom-field filter-field--wide">
+        <label class="custom-label">Action</label>
+        <div class="custom-input-wrapper">
+          <input class="custom-input" [(ngModel)]="filterAction"
+                 placeholder="Rechercher une action..."
+                 (ngModelChange)="onFilterChange()" />
+          <button *ngIf="filterAction" class="clear-btn" (click)="clearField('action')">
+            <mat-icon>close</mat-icon>
+          </button>
         </div>
       </div>
+
     </div>
 
-    <div class="search-params-row">
+    <div class="filter-row">
 
       <!-- Activité -->
-      <div class="search-field search-field-activite search-field--wide">
-        <label class="search-label">Activité</label>
-        <div class="search-input-wrapper">
-          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input type="text" [(ngModel)]="filterActivite" class="search-input"
-                 placeholder="Rechercher une activité..." (ngModelChange)="onFilterChange()" />
-          <button class="input-clear" *ngIf="filterActivite" (click)="clearField('activite')">&#x2715;</button>
+      <div class="filter-field custom-field filter-field--wide">
+        <label class="custom-label">Activité</label>
+        <div class="custom-input-wrapper">
+          <input class="custom-input" [(ngModel)]="filterActivite"
+                 placeholder="Rechercher une activité..."
+                 (ngModelChange)="onFilterChange()" />
+          <button *ngIf="filterActivite" class="clear-btn" (click)="clearField('activite')">
+            <mat-icon>close</mat-icon>
+          </button>
         </div>
       </div>
 
       <!-- Matricule -->
-      <div class="search-field">
-        <label class="search-label">Matricule</label>
-        <div class="search-input-wrapper">
-          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input type="text" [(ngModel)]="filterMatricule" class="search-input"
-                 placeholder="Rechercher un matricule..." (ngModelChange)="onFilterChange()" />
-          <button class="input-clear" *ngIf="filterMatricule" (click)="clearField('matricule')">&#x2715;</button>
+      <div class="filter-field custom-field">
+        <label class="custom-label">Matricule</label>
+        <div class="custom-input-wrapper">
+          <input class="custom-input" [(ngModel)]="filterMatricule"
+                 placeholder="Rechercher un matricule..."
+                 (ngModelChange)="onFilterChange()" />
+          <button *ngIf="filterMatricule" class="clear-btn" (click)="clearField('matricule')">
+            <mat-icon>close</mat-icon>
+          </button>
         </div>
       </div>
 
       <!-- Boutons -->
-      <div class="search-field filter-actions-field">
-        <label class="search-label">&nbsp;</label>
-        <div class="filter-action-btns">
-          <button class="btn-apply" (click)="applyFilter()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
-                 fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
+      <div class="filter-actions-field">
+        <label class="custom-label" style="visibility: hidden;">_</label>
+        <div class="filter-actions-buttons">
+          <button mat-raised-button color="primary" (click)="applyFilter()" class="btn-appliquer">
+            <mat-icon>check</mat-icon>
             Appliquer
           </button>
-          <button class="btn-reset" (click)="resetFilter()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
-                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="1 4 1 10 7 10"/>
-              <path d="M3.51 15a9 9 0 1 0 .49-3.51"/>
-            </svg>
+          <button mat-stroked-button (click)="resetFilter()" class="btn-reinitialiser">
+            <mat-icon>refresh</mat-icon>
             Réinitialiser
           </button>
         </div>
       </div>
+
     </div>
 
     <!-- Tags filtres actifs -->
     <div class="filter-tags" *ngIf="activeFilterCount > 0">
       <span class="filter-tag" *ngIf="filterEmploi">
-        Emploi : {{ filterEmploi }}<button (click)="clearField('emploi')">&#x2715;</button>
+        Emploi : {{ filterEmploi }}
+        <button (click)="clearField('emploi')">&#x2715;</button>
       </span>
       <span class="filter-tag" *ngIf="filterChapitre">
-        Chapitre : {{ filterChapitre }}<button (click)="clearField('chapitre')">&#x2715;</button>
+        Chapitre : {{ filterChapitre }}
+        <button (click)="clearField('chapitre')">&#x2715;</button>
       </span>
       <span class="filter-tag" *ngIf="filterMatricule">
-        Matricule : {{ filterMatricule }}<button (click)="clearField('matricule')">&#x2715;</button>
+        Matricule : {{ filterMatricule }}
+        <button (click)="clearField('matricule')">&#x2715;</button>
       </span>
       <span class="filter-tag" *ngIf="filterAction">
-        Action : {{ filterAction }}<button (click)="clearField('action')">&#x2715;</button>
+        Action : {{ filterAction }}
+        <button (click)="clearField('action')">&#x2715;</button>
       </span>
       <span class="filter-tag" *ngIf="filterActivite">
-        Activité : {{ filterActivite }}<button (click)="clearField('activite')">&#x2715;</button>
+        Activité : {{ filterActivite }}
+        <button (click)="clearField('activite')">&#x2715;</button>
       </span>
     </div>
   </div>

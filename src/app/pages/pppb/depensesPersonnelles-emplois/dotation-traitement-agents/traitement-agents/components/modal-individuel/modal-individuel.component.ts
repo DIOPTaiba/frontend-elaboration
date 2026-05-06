@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LigneIndividuelle, Paragraphe } from '../../models/traitement-agent.models';
+import { LigneIndividuelle, Paragraphe, Agent } from '../../models/traitement-agent.models';
 
 @Component({
   selector: 'app-modal-individuel',
@@ -9,12 +9,13 @@ import { LigneIndividuelle, Paragraphe } from '../../models/traitement-agent.mod
   imports: [CommonModule, FormsModule],
   templateUrl: './modal-individuel.component.html',
   styleUrls: ['./modal-individuel.component.scss'],
-  encapsulation: ViewEncapsulation.None,   // ← styles globaux, pas d'encapsulation
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModalIndividuelComponent {
 
   @Input() visible = false;
   @Input() paragrapheSelectionne: Paragraphe | null = null;
+  @Input() agentEdite: Agent | null = null;   // ← NOUVEAU
 
   @Input() gestion   = '';
   @Input() budget    = '';
@@ -25,7 +26,6 @@ export class ModalIndividuelComponent {
   @Input() chapitre  = '';
   @Input() statut    = '';
   @Input() age       = '';
-
   @Output() fermer      = new EventEmitter<void>();
   @Output() enregistrer = new EventEmitter<LigneIndividuelle[]>();
 

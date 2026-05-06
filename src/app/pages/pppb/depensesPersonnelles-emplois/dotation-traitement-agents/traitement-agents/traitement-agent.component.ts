@@ -1,6 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit,ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 import {
   Agent, EmploiRef, FiltreState, Paragraphe,
@@ -10,7 +13,8 @@ import { TraitementAgentService } from './services/traitement-agent.service';
 import { FiltreComponent } from './components/filtre/filtre.component';
 import { ModalCollectifComponent } from './components/modal-collectif/modal-collectif.component';
 import { ModalIndividuelComponent } from './components/modal-individuel/modal-individuel.component';
-
+import { ModalAjoutParagrapheComponent } from 
+  './components/modal-ajout-paragraphe/modal-ajout-paragraphe.component';
 @Component({
   selector: 'app-traitement-agent',
   standalone: true,
@@ -19,7 +23,9 @@ import { ModalIndividuelComponent } from './components/modal-individuel/modal-in
     FormsModule,
     FiltreComponent,
     ModalCollectifComponent,
-    ModalIndividuelComponent,  
+    ModalIndividuelComponent, 
+    MatInputModule,
+    MatSelectModule,MatIconModule 
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './traitement-agent.component.html',
@@ -34,9 +40,9 @@ export class TraitementAgentComponent implements OnInit {
   programme = "Elaboration du budget et suivi de l'exécution des dépenses";
   action    = 'Pilotage et coordination';
   activite  = 'Gestion administrative du personnel';
-  chapitre  = '660';
-  statut    = 'En cours';
-  age       = 'Tout âge';
+  chapitre  = 'Direction des Systèmes d’information';
+  statut    = 'agent';
+  age       = '0';
 
   @Input() agents: Agent[] = [];
   @Output() modifierAgentEvent = new EventEmitter<{ agent: Agent; index: number }>();
@@ -107,11 +113,11 @@ export class TraitementAgentComponent implements OnInit {
     this.showModalCollectif = true;
   }
 
-  ouvrirModalModifier(agent: Agent): void {
-    this.isNewAgent  = false;
-    this.agentEdite  = agent;
-    this.showModalCollectif = true;
-  }
+ouvrirModalModifier(para: Paragraphe): void {
+  this.isNewAgent              = false;
+  this.paragrapheSelectionne   = para;
+  this.showModalCollectif      = true;
+}
 
   fermerModalCollectif(): void {
     this.showModalCollectif = false;
@@ -139,11 +145,11 @@ export class TraitementAgentComponent implements OnInit {
   }
 
   // ── Modale individuel ─────────────────────────────
-  ouvrirModalIndividuel(para: Paragraphe): void {
-    this.paragrapheSelectionne = para;
-    this.showModalIndividuel   = true;
-  }
-
+ouvrirModalIndividuel(agent: Agent, para: Paragraphe | null): void {
+  this.agentEdite            = agent;
+  this.paragrapheSelectionne = para;
+  this.showModalIndividuel   = true;
+}
   fermerModalIndividuel(): void {
     this.showModalIndividuel = false;
   }
@@ -151,4 +157,27 @@ export class TraitementAgentComponent implements OnInit {
   onEnregistrerIndividuel(lignes: any[]): void {
     console.log('Lignes individuelles enregistrées :', lignes);
   }
+  // ── État modale ajout paragraphe ─────────────
+showModalAjoutParagraphe = false;
+
+// Ouvre la modale dédiée aux paragraphes (plus ouvrirModalAjout qui gérait les agents)
+ouvrirModalAjoutParagraphe(): void {
+  this.showModalAjoutParagraphe = true;
+}
+
+fermerModalAjoutParagraphe(): void {
+  this.showModalAjoutParagraphe = false;
+}
+
+onSauvegarderNouveauParagraphe(nouveau: Paragraphe): void {
+  this.paragraphes = this.svc.ajouterParagraphe(this.paragraphes, nouveau);
+  // Initialiser la valeur du nouveau para à null pour chaque agent existant
+  this.agents.forEach(agent => {
+    if (agent.valeurs[nouveau.code] === undefined) {
+      agent.valeurs[nouveau.code] = null;
+    }
+  });
+  this.agentsFiltres = this.svc.filtrer(this.agents, this.filtreState);
+  this.fermerModalAjoutParagraphe();
+}
 }

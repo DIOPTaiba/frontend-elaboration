@@ -65,4 +65,9 @@ export class TraitementAgentService {
   getModalTotalCumul(lignes: Agent[]): number {
     return lignes.reduce((s, l) => s + (l.cumul ?? 0), 0);
   }
+  ajouterParagraphe(paragraphes: Paragraphe[], nouveau: Paragraphe): Paragraphe[] {
+  // Éviter les doublons de code
+  if (paragraphes.find(p => p.code === nouveau.code)) return paragraphes;
+  return [...paragraphes, nouveau];
+}
 }
