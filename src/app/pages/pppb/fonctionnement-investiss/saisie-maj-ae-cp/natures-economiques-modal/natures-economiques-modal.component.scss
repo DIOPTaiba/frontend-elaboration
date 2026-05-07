@@ -1,3 +1,5 @@
+
+
 /* ===== Modal Overlay ===== */
 .modal-overlay {
   position: fixed;
@@ -9,6 +11,7 @@
   z-index: 1000;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 13px;
+  
 }
 
 /* ===== Modal Container ===== */
@@ -16,7 +19,7 @@
   background: #dce6f0;
   border: 2px solid #4a6fa5;
   border-radius: 4px;
-  width: 780px;
+ width: 810px;
   max-width: 96vw;
   max-height: 90vh;
   display: flex;
@@ -60,11 +63,15 @@
 
 /* ===== Fieldset: Ajout de lignes budgétaires ===== */
 .section-fieldset {
-  border: 1px solid #7a9cbf;
+  border: 1px solid #3a6ea5;
   border-radius: 4px;
-  padding: 10px 14px 12px;
+  padding: 10px 14px 14px;
   background: #ffffff;
   margin: 0;
+  flex: 1;          /* ← s'étire pour couvrir tout l'espace */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .section-legend {
@@ -122,21 +129,22 @@
 }
 
 .value-text {
+  flex: 1;           /* ← prend tout l'espace restant */
+  text-align: right; /* ← texte aligné à droite */
   color: #0d1f3c;
   background: #DEDEDE;
-   border: 1px solid #8aaed0;
+  border: 1px solid #8aaed0;
   border-radius: 2px;
   padding: 2px 8px;
   font-weight: 700;
   font-size: 12.5px;
-  white-space: nowrap;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .chapitre-text {
-  max-width: 460px;
+  max-width: 490px;
 }
 
 .btn-browse {
@@ -182,9 +190,10 @@
 /* ===== Fieldset: Recherche de nature économique ===== */
 
 .search-fieldset {
-  border: 1px solid #7a9cbf;
+   border-color: #3a6ea5;
+   border: 1px solid;
   border-radius: 4px;
-  padding: 8px 14px 10px;
+  padding: 8px;
   background: #ffffff;
   margin: 0;
 }
