@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { IconModule } from 'src/app/icon/icon.module';
 import { MatSort } from '@angular/material/sort';
+import { majEmploisEffectifSectionService } from 'src/app/services/depensesPersonnel/majEmploisEffectifSection.service';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -677,7 +678,6 @@ const ACTIVITE_DATA: objetType[] = [
 ];
 
 
-
 @Component({
   selector: 'app-maj-emplois-effectif-section',
   imports: [
@@ -701,6 +701,8 @@ const ACTIVITE_DATA: objetType[] = [
   ],
 })
 export class MajEmploisEffectifSectionComponent {
+
+  constructor(private majEmploisEffectifSectionService: majEmploisEffectifSectionService) { }
 
   @ViewChild(MatPaginator)
   set paginator(paginator: MatPaginator) {
@@ -769,6 +771,7 @@ export class MajEmploisEffectifSectionComponent {
   expandedElementAction: objetType | null = null;
   expandedElementActivite: objetType | null = null;
 
+
   filtreListe(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     switch (this.choix) {
@@ -801,7 +804,18 @@ export class MajEmploisEffectifSectionComponent {
     this.listeActivites.filter = '';
   }
 
-  constructor() { }
+  tests: any[] = [];
+
+  getTests() {
+    this.majEmploisEffectifSectionService.getTest().subscribe({
+      next: (data) => {
+        console.log('TEST:', data);
+      },
+      error: (error) => {
+        console.error('Erreur getTest:', error);
+      }
+    });
+  }
 
 }
 
