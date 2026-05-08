@@ -72,4 +72,17 @@
   font-size: 13px;
   border-radius: 6px;
   padding: 6px 10px;
+}
+
+.widthColNumber {
+  width: 120px !important;
+}
+
+// Pour fleches de tri dans les tables
+.mat-sort-header .mat-sort-header-sorted .mat-sort-header-arrow {
+    color: white;
+}
+
+.mat-sort-header:hover .mat-sort-header-arrow {
+    color: white;
 } */
