@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 export interface NatureEconomique {
   code: string;
   libelle: string;
@@ -23,11 +26,14 @@ export interface ModalResult {
   selector: 'app-natures-economiques-modal',
   standalone: true,
   imports: [
-    CommonModule,   // ← pour *ngIf, *ngFor
-    FormsModule,    // ← pour [(ngModel)]
-  MatSelectModule,
-  MatInputModule,
-  MatFormFieldModule,
+    CommonModule,
+    FormsModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './natures-economiques-modal.component.html',
   styleUrls: ['./natures-economiques-modal.component.scss']
@@ -58,17 +64,28 @@ export class NaturesEconomiquesModalComponent implements OnInit {
 
   action: string = '';
   activite: string = '';
-actions: SectionInfo[] = [
-  { code: 'ACT001', libelle: 'Action exemple 1' },
-  { code: 'ACT002', libelle: 'Action exemple 2' },
-  // ... vos vraies données
-];
+  selectedActionLibelle: string = '';
+  selectedActiviteLibelle: string = '';
 
-activites: SectionInfo[] = [
-  { code: 'ACV001', libelle: 'Activité exemple 1' },
-  { code: 'ACV002', libelle: 'Activité exemple 2' },
-  // ... vos vraies données
-];
+  actions: SectionInfo[] = [
+    { code: 'ACT001', libelle: 'Action exemple 1' },
+    { code: 'ACT002', libelle: 'Action exemple 2' },
+  ];
+
+  activites: SectionInfo[] = [
+    { code: 'ACV001', libelle: 'Activité exemple 1' },
+    { code: 'ACV002', libelle: 'Activité exemple 2' },
+  ];
+
+  onActionSelect(): void {
+    const found = this.actions.find(a => a.libelle === this.selectedActionLibelle);
+    this.action = found ? found.code : '';
+  }
+
+  onActiviteSelect(): void {
+    const found = this.activites.find(a => a.libelle === this.selectedActiviteLibelle);
+    this.activite = found ? found.code : '';
+  }
   // Search filters
   selectedCode: string = '';
   selectedLibelle: string = '';

@@ -10,6 +10,25 @@
     background-color: #9cbbe6;
 }
 
+.env-table {
+    width: 100%;
+    table-layout: fixed;
+
+    th,
+    td {
+        width: 25%;
+    }
+
+    ;
+
+    td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        font-size: 13px;
+    }
+}
+
+
 .background-light-bleu {
     background-color: #f7f7f9;
 }
@@ -56,6 +75,15 @@
     padding-left: 12px !important;
 }
 
+/* STRIPED */
+.data-row:nth-child(4n+1) {
+    background-color: #f8f9fa;
+}
+
+.data-row:nth-child(4n+3) {
+    background-color: #ffffff;
+}
+
 .data-row:hover {
     background: #f5f7fa;
 }
@@ -72,8 +100,15 @@
     padding: 0;
 }
 
+// Empêche la td expandée d'influencer la largeur du tableau parent
+.cdk-column-expandedDetail {
+    overflow: hidden;
+    max-width: 0;
+}
+
 .detail-container {
     overflow: hidden;
+    width: 100%;
 }
 
 .detail-content {
@@ -166,10 +201,8 @@ tr.mat-mdc-row:hover {
 
 /* CONTENEUR GLOBAL */
 .table-budget {
-    width: 1045px;
-    max-width: 100%;
+    width: 100%;
     overflow: hidden;
-    /* bloque le débordement vers le parent */
 }
 
 /* SCROLL UNIQUEMENT ICI */
@@ -181,33 +214,46 @@ tr.mat-mdc-row:hover {
 
 /* TABLE */
 .table-budget .table-scroll table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     width: max-content;
-    /* clé principale */
     min-width: 1100px;
-    /* adapte selon ton tableau */
     font-size: 12px;
     white-space: nowrap;
 }
 
-/* HEADER */
+/* HEADER — bordure droite + bas sur tous les th, gauche + haut uniquement sur le coin supérieur-gauche */
 .table-budget th {
-    //background:rgb(248, 249, 250) ;
     color: #000;
-    border: 1px solid #c1c0c0;
+    border-right: 0.5px solid #c1c0c0;
+    border-bottom: 0.5px solid #c1c0c0;
     padding: 6px;
     text-align: center;
+}
+
+.table-budget thead tr:first-child th {
+    border-top: 0.5px solid #c1c0c0;
+}
+
+.table-budget thead tr:first-child th:first-child {
+    border-left: 0.5px solid #c1c0c0;
 }
 
 .th2 {
     background: #e3f3fb;
 }
 
-/* CELLULES */
+/* CELLULES — bordure droite + bas sur tous les td, gauche uniquement en première colonne */
 .table-budget td {
-    border: 1px solid #a9a8a8;
+    border-right: 0.5px solid #a9a8a8;
+    border-bottom: 0.5px solid #a9a8a8;
     padding: 10px;
     text-align: right;
+}
+
+.table-budget tbody tr td:first-child,
+.table-budget tfoot tr td:first-child {
+    border-left: 0.5px solid #a9a8a8;
 }
 
 /* ALIGNEMENT */
@@ -245,41 +291,216 @@ tr.mat-mdc-row:hover {
     border-left: unset !important;
 }
 
+
+
 .no_border_top {
-    border-top: unset !important; border-right: 1px solid #dee2e6 !important;
+    border-top: unset !important;
+    border-right: 1px solid #dee2e6 !important;
 }
+
 .no_border_bottom {
-    border-bottom: unset !important;border-right: 1px solid #dee2e6 !important;
+    border-bottom: unset !important;
+    border-right: 1px solid #dee2e6 !important;
 }
 
 .height_tr {
     height: 40px;
 }
-.border_left{border-left: 1px solid #dee2e6 !important;}
-.border_left_right{border-left: 1px solid #dee2e6 !important;border-right: 1px solid #dee2e6 !important;}
-.bg_bleu {background-color: #4490dc !important;}
+
+.border_left {
+    border-left: 1px solid #dee2e6 !important;
+}
+
+.border_left_right {
+    border-left: 1px solid #dee2e6 !important;
+    border-right: 1px solid #dee2e6 !important;
+}
+
+.bg_bleu {
+    background-color: #4490dc !important;
+}
+
 .subselected-row {
     background-color: #e7e7ec !important;
 }
-.bg_gris{
-    background-color: #f7f7f8 ;
+
+.bg_gris {
+    background-color: #f7f7f8;
 }
+
 .full-input {
-     appearance: textfield;
- width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-max-width: 100%; 
-  border: none;
-  padding: 11px;
+    appearance: textfield;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    border: none;
+    padding: 11px;
 }
 
 .full-input::-webkit-inner-spin-button,
 .full-input::-webkit-outer-spin-button {
-  display: none;
+    display: none;
 }
+
 .col-number {
-  width: 110px;
-  min-width: 110px;
-  max-width: 110px;
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+/* ===================== TOOLBAR DETAIL ===================== */
+.detail-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    margin-bottom: 10px;
+
+    .toolbar-activite {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        label {
+            white-space: nowrap;
+            margin: 0;
+            line-height: 1;
+        }
+
+        mat-form-field {
+            flex: 1;
+            margin-top: 0;
+
+            ::ng-deep {
+                .mat-mdc-form-field-subscript-wrapper { display: none; }
+                .mat-mdc-text-field-wrapper { padding: 0 8px; background-color: #fff !important; }
+                .mat-mdc-form-field-infix { padding: 6px 0 !important; min-height: unset; }
+            }
+        }
+    }
+}
+
+.btn-ajouter {
+    background-color: #1d4991 !important;
+    color: #fff !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    white-space: nowrap;
+    gap: 4px;
+
+    mat-icon { font-size: 18px; height: 18px; width: 18px; color: #fff !important; }
+
+    &:hover { background-color: #163a76 !important; }
+}
+
+.btn-enregistrer {
+    background-color: #16a34a !important;
+    color: #fff !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    white-space: nowrap;
+    gap: 4px;
+
+    mat-icon { font-size: 18px; height: 18px; width: 18px; color: #fff !important; }
+
+    &:hover { background-color: #15803d !important; }
+}
+
+.toggle-col {
+    width: 22px !important;
+    min-width: 22px !important;
+    max-width: 22px !important;
+    text-align: center !important;
+    cursor: pointer;
+    background-color: #dce8f8;
+    color: #1d4991;
+    font-size: 9px;
+    font-weight: bold;
+    user-select: none;
+    padding: 4px 2px !important;
+    writing-mode: vertical-lr;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: #bdd4f0;
+    }
+}
+
+/* ===================== COLONNES FIXES (sticky) ===================== */
+// Largeurs min des 3 premières colonnes (servent de base pour les offsets)
+.table-budget thead tr:first-child th:nth-child(1),
+.table-budget tbody td:nth-child(1) {
+    min-width: 80px;
+}
+
+.table-budget thead tr:first-child th:nth-child(2),
+.table-budget tbody td:nth-child(2) {
+    min-width: 100px;
+}
+
+.table-budget thead tr:first-child th:nth-child(3),
+.table-budget tbody td:nth-child(3) {
+    min-width: 180px;
+}
+
+// Sticky thead (les 3 premiers th ont rowspan=2, donc uniquement sur tr:first-child)
+.table-budget thead tr:first-child th:nth-child(1),
+.table-budget thead tr:first-child th:nth-child(2),
+.table-budget thead tr:first-child th:nth-child(3) {
+    position: sticky;
+    z-index: 3;
+    background: #e3f3fb;
+}
+
+.table-budget thead tr:first-child th:nth-child(1) {
+    left: 0;
+}
+
+.table-budget thead tr:first-child th:nth-child(2) {
+    left: 80px;
+}
+
+.table-budget thead tr:first-child th:nth-child(3) {
+    left: 180px;
+}
+
+// Sticky tbody
+.table-budget tbody td:nth-child(1),
+.table-budget tbody td:nth-child(2),
+.table-budget tbody td:nth-child(3) {
+    position: sticky;
+    z-index: 1;
+    background: #f7f7f8;
+}
+
+.table-budget tbody td:nth-child(1) {
+    left: 0;
+}
+
+.table-budget tbody td:nth-child(2) {
+    left: 80px;
+}
+
+.table-budget tbody td:nth-child(3) {
+    left: 180px;
+}
+
+// Maintien de la couleur de sélection sur les colonnes sticky
+.table-budget tbody tr.subselected-row td:nth-child(1),
+.table-budget tbody tr.subselected-row td:nth-child(2),
+.table-budget tbody tr.subselected-row td:nth-child(3) {
+    background: #e7e7ec;
+}
+
+// Sticky tfoot (colspan=3 sur la 1ère td, un seul sticky suffit)
+.table-budget tfoot td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: #f4f8fa;
+    text-align: left !important;
 }

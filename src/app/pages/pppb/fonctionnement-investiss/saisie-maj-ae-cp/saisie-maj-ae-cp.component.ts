@@ -59,8 +59,8 @@ export class SaisieMajAeCpComponent {
     'Electronics',
   ];
 cat_deps = [
-  { code: 1, libelle: "Charges financières de la dette" },
-  { code: 2, libelle: "Dépenses de personnel" },
+  /* { code: 1, libelle: "Charges financières de la dette" },
+  { code: 2, libelle: "Dépenses de personnel" }, */
   { code: 3, libelle: "Acquisition de biens et services" },
   { code: 4, libelle: "Transferts courants" },
   { code: 5, libelle: "Investissements exécutés par l'Etat" },
@@ -245,6 +245,8 @@ getTotal2(field: string): number {
   }, 0);
 }
 showModal = false;
+showEchEJ = false;
+showEchAE = false;
 
 onNaturesAjoutees(result: ModalResult): void {
   console.log('Natures ajoutées :', result.selectedNatures);

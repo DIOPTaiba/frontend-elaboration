@@ -84,39 +84,32 @@
                         <h4 class=""> Enveloppes</h4>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div class="table-responsive    ">
-                    <table class="table   align-middle">
-
-                        <!-- HEADER -->
-                        <thead class="light-bleu text-center">
-                            <tr>
-                                <th class=" p-b-5">Enveloppe</th>
-                                <th>Total</th>
-                                <th>Réparti</th>
-                                <th>Disponible</th>
-                            </tr>
-                        </thead>
-
-                        <!-- BODY -->
-                        <tbody>
-
-                            <tr class="bb bg-white">
-                                <td class="fw-bold text-primary text-center">AE</td>
-                                <td class="text-end">999 100 000 000</td>
-                                <td class="text-end">999 603 000 000</td>
-                                <td class="text-end">999 403 000 000</td>
-                            </tr>
-
-                            <tr class="bg-white">
-                                <td class="fw-bold text-success text-center">CP</td>
-                                <td class="text-end">999 830 000 000</td>
-                                <td class="text-end">999 530 000 000</td>
-                                <td class="text-end">999 330 000 000</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
+                <table class="table align-middle env-table">
+                    <!-- HEADER -->
+                    <thead class="light-bleu text-center">
+                        <tr>
+                            <th class="p-b-5">Enveloppe</th>
+                            <th>Total</th>
+                            <th>Réparti</th>
+                            <th>Disponible</th>
+                        </tr>
+                    </thead>
+                    <!-- BODY -->
+                    <tbody>
+                        <tr class="bb bg-white">
+                            <td class="fw-bold text-primary text-center">AE</td>
+                            <td class="text-end">999 100 000 000</td>
+                            <td class="text-end">999 603 000 000</td>
+                            <td class="text-end">999 403 000 000</td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="fw-bold text-success text-center">CP</td>
+                            <td class="text-end">999 830 000 000</td>
+                            <td class="text-end">999 530 000 000</td>
+                            <td class="text-end">999 330 000 000</td>
+                        </tr>
+                    </tbody>
+                </table>
             </mat-expansion-panel>
         </mat-accordion>
 
@@ -141,7 +134,8 @@
     <div class="row align-items-center justify-content-between">
         <div class="align-items-center justify-content-around row p-b-20 col-12 col-lg-3 col-md-3">
             <h4 class="text-muted col-auto"> Chapitres et Dotations</h4>
-            <span class=" col-auto bg-light-secondary text-secondary rounded f-w-700 p-6 p-y-4 f-s-14 ">120 </span>
+            <span class=" col-auto bg-light-secondary text-secondary rounded f-w-700 p-6 p-y-4 f-s-14 ">{{
+                dataSource.data.length }}</span>
         </div>
         <mat-form-field appearance="outline" class="col-12 col-lg-8 col-md-8 w-100">
             <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher  un  chapitre ..." #input>
@@ -152,16 +146,18 @@
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="custom-table">
         <!-- Header 1-->
         <ng-container matColumnDef="1">
-            <th mat-header-cell *matHeaderCellDef class="bg-primary no_border_bottom"></th>
+            <th mat-header-cell *matHeaderCellDef class="bg-primary text-white fw-bold text-center no_border_bottom">
+                Code</th>
         </ng-container>
         <ng-container matColumnDef="2">
-            <th mat-header-cell *matHeaderCellDef class="bg-primary no_border_bottom"></th>
+            <th mat-header-cell *matHeaderCellDef class="bg-primary text-white fw-bold text-center no_border_bottom">
+                Libellé</th>
         </ng-container>
 
 
         <ng-container matColumnDef="cr1">
             <th mat-header-cell *matHeaderCellDef colspan="2" class="text-white bg-primary text-center fw-bold td_th">
-                Crédits ouverts globaux
+                Crédits ouverts pour <br> toutes sources de financement
             </th>
         </ng-container>
         <ng-container matColumnDef="cr2">
@@ -178,8 +174,7 @@
 
         <!-- CODE -->
         <ng-container matColumnDef="code">
-            <th mat-header-cell *matHeaderCellDef class="bg-primary text-white fw-bold  no_border_top text-center ">
-                Code </th>
+            <th mat-header-cell *matHeaderCellDef class="bg-primary no_border_top"></th>
             <td mat-cell *matCellDef="let element" class="td_t border_left_right "> {{element.code}} </td>
             <!-- Footer vide -->
             <td mat-footer-cell *matFooterCellDef class="border_left"></td>
@@ -187,8 +182,7 @@
 
         <!-- LIBELLE -->
         <ng-container matColumnDef="libelle">
-            <th mat-header-cell *matHeaderCellDef class="bg-primary text-white fw-bold  no_border_top text-center">
-                Libellé </th>
+            <th mat-header-cell *matHeaderCellDef class="bg-primary no_border_top"></th>
             <td mat-cell *matCellDef="let element" class="td_th"> {{element.libelle}} </td>
             <!-- Label TOTAL -->
             <td mat-footer-cell *matFooterCellDef class="total-label">
@@ -279,33 +273,27 @@
             <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
                 <div class="detail-container" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
                     <div class="detail-content">
-                        <div class="row align-items-center p-7 ">
-                            <div class="row align-items-center  col-12 col-lg-11 col-md-11">
-                                <div class="row col-12 col-lg-3 col-md-3">
-                                    <button mat-stroked-button class="bg-light" color="primary" (click)="showModal = true">
-                                        ➕ Ajouter une ligne
-                                    </button>
-                                    </div>
-                                <div class="row align-items-center  col-12 col-lg-9 col-md-9">
-                                    <label
-                                        class="f-s-17 f-w-600  col-12 col-lg-2 col-md-2 text-primary ">Activité</label>
-                                    <mat-form-field appearance="outline"
-                                        class=" m-t-20 col-12 col-lg-10 col-md-10 w-100  ">
-                                        <mat-select class="" formControlName="default_template" disableOptionCentering
-                                            placeholder="">
-                                            @for (template of templates; track template) {
-                                            <mat-option [value]="template">
-                                                {{ template }}
-                                            </mat-option>
-                                            }
-                                        </mat-select>
+                        <div class="detail-toolbar">
+                            <button mat-flat-button class="btn-ajouter" (click)="showModal = true">
+                                <mat-icon>add</mat-icon>
+                                Ajouter une ligne
+                            </button>
 
-                                    </mat-form-field>
-                                </div>
+                            <div class="toolbar-activite">
+                                <label class="f-s-13 f-w-600 text-primary">Activité</label>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-select formControlName="default_template" disableOptionCentering placeholder="">
+                                        @for (template of templates; track template) {
+                                        <mat-option [value]="template">{{ template }}</mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
-                            <div class="col-12 col-lg-1 col-md-1">
-                                <button mat-flat-button class="bg-p" color="warn">Enregistrer </button>
-                            </div>
+
+                            <button mat-flat-button class="btn-enregistrer">
+                                <mat-icon>save</mat-icon>
+                                Enregistrer
+                            </button>
                         </div>
                         <mat-card class="cardWithShadow b-1 rounded m-b-10  p-10  ">
 
@@ -321,35 +309,49 @@
                                                 <th rowspan="2">Ligne de dépense</th>
                                                 <th rowspan="2">EJ antérieurs<br>non dénoués</th>
 
-                                                <th colspan="5">Echéanciers des CP associés aux EJ antérieurs non
-                                                    dénoués</th>
+                                                <th [attr.colspan]="showEchEJ ? 5 : 1">
+                                                    <span *ngIf="showEchEJ">Echéanciers des CP associés aux EJ
+                                                        antérieurs non dénoués</span>
+                                                </th>
                                                 <th colspan="4">Dotations AE 2027</th>
-                                                <th colspan="5">Echéanciers des CP associés aux AE de 2027</th>
+                                                <th [attr.colspan]="showEchAE ? 5 : 1">
+                                                    <span *ngIf="showEchAE">Echéanciers des CP associés aux AE de
+                                                        2027</span>
+                                                </th>
                                                 <th colspan="4">Dotations CP 2027</th>
                                             </tr>
 
                                             <tr class="bg-light">
-                                                <th>CP 2027</th>
-                                                <th>CP 2028</th>
-                                                <th> CP 2029</th>
-                                                <th>CP Autres</th>
-                                                <th class="danger">Restes sur EJ</th>
+                                                <th class="toggle-col" (click)="showEchEJ = !showEchEJ"
+                                                    title="Afficher / Masquer les échéanciers EJ">
+                                                    {{ showEchEJ ? '◀' : '▶' }} Ech. CP
+                                                </th>
+                                                <ng-container *ngIf="showEchEJ">
+                                                    <th>CP 2027</th>
+                                                    <th>CP 2028</th>
+                                                    <th>CP 2029</th>
+                                                    <th class="danger">CP Autres</th>
+                                                </ng-container>
 
                                                 <th>Rappel LFI 2026</th>
                                                 <th>Motant AE 2027</th>
-                                                <th>Ecart</th>
-                                                <th>Ecart %</th>
+                                                <th colspan="2">Ecart</th>
 
-                                                <th>CP 2027</th>
-                                                <th>CP 2028</th>
-                                                <th>CP 2029</th>
-                                                <th>CP Autres</th>
-                                                <th class="danger">Restes sur AE</th>
+                                                <th class="toggle-col" (click)="showEchAE = !showEchAE"
+                                                    title="Afficher / Masquer les échéanciers AE">
+                                                    {{ showEchAE ? '◀' : '▶' }} Ech. CP
+                                                </th>
+                                                <ng-container *ngIf="showEchAE">
+                                                    <th>CP 2027</th>
+                                                    <th>CP 2028</th>
+                                                    <th>CP 2029</th>
+                                                    <th class="danger">CP Autres</th>
+                                                </ng-container>
 
-                                                <th>E Rappel LFI 2026</th>
+                                                <th>Rappel LFI 2026</th>
                                                 <th>Montant CP 2027</th>
-                                                <th>Ecart</th>
-                                                <th>Ecart %</th>
+                                                <th colspan="2">Ecart</th>
+
                                             </tr>
                                         </thead>
 
@@ -362,16 +364,18 @@
                                                 <td>{{ el.activite }}</td>
                                                 <td>{{ el.ligne }}</td>
                                                 <td>{{ el.ej | number }}</td>
-                                                <td class="p-0 col-number"><input type="number"
-                                                        [(value)]="el.cp2027_ej " class="full-input text-end"></td>
-                                                <td class="p-0 col-number"><input type="number" [(value)]="el.cp2028_ej"
-                                                        class="full-input text-end"></td>
-                                                <td class="p-0 col-number"><input type="number"
-                                                        [(value)]=" el.cp2029_ej " class="full-input text-end"></td>
-                                                <td class="p-0 col-number"><input type="number"
-                                                        [(value)]="el.cpAutres_ej " class="full-input text-end"></td>
-
-                                                <td class="danger">{{ el.restes_ej }}</td>
+                                                <td class="toggle-col"></td>
+                                                <ng-container *ngIf="showEchEJ">
+                                                    <td class="p-0 col-number"><input type="number"
+                                                            [(value)]="el.cp2027_ej" class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number"
+                                                            [(value)]="el.cp2028_ej" class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number"
+                                                            [(value)]="el.cp2029_ej" class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number"
+                                                            [(value)]="el.cpAutres_ej"
+                                                            class="danger full-input text-end"></td>
+                                                </ng-container>
 
                                                 <td>{{ el.rappelAE | number }}</td>
                                                 <td class="p-0 col-number"><input type="number" [(value)]="el.montantAE"
@@ -379,15 +383,18 @@
                                                 <td>{{ el.ecartAE | number }}</td>
                                                 <td>{{ el.ecartAEpct }}%</td>
 
-                                                <td class="p-0 col-number"><input type="number"
-                                                        [(value)]="el.cp2027_ae " class="full-input text-end"></td>
-                                                <td class="p-0 col-number"><input type="number" [(value)]="el.cp2028_ae"
-                                                        class="full-input text-end"></td>
-                                                <td class="p-0 col-number"><input type="number"
-                                                        [(value)]=" el.cp2029_ae " class="full-input text-end"></td>
-                                                <td class="p-0 col-number"><input type="number"
-                                                        [(value)]="el.cpAutres_ae" class="full-input text-end"></td>
-                                                <td class="danger">{{ el.restes_ae }}</td>
+                                                <td class="toggle-col"></td>
+                                                <ng-container *ngIf="showEchAE">
+                                                    <td class="p-0 col-number"><input type="number"
+                                                            [(value)]="el.cp2027_ae" class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number"
+                                                            [(value)]="el.cp2028_ae" class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number"
+                                                            [(value)]="el.cp2029_ae" class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number"
+                                                            [(value)]="el.cpAutres_ae"
+                                                            class="danger full-input text-end"></td>
+                                                </ng-container>
 
                                                 <td>{{ el.rappelCP | number }}</td>
                                                 <td>{{ el.montantCP | number }}</td>
@@ -403,24 +410,27 @@
                                                 <td colspan="3">Récapitulatif</td>
 
                                                 <td class="text-end">{{ getTotal2('ej') | number }}</td>
-
-
-                                                <td class="text-end">{{ getTotal2('cp2027_ej') | number }}</td>
-                                                <td class="text-end">{{ getTotal2('cp2028_ej') | number }}</td>
-                                                <td class="text-end">{{ getTotal2('cp2029_ej') | number }}</td>
-                                                <td class="text-end">{{ getTotal2('cpAutres_ej') | number }}</td>
-                                                <td class="danger">{{ getTotal2('restes_ej') }}</td>
+                                                <td class="toggle-col"></td>
+                                                <ng-container *ngIf="showEchEJ">
+                                                    <td class="text-end">{{ getTotal2('cp2027_ej') | number }}</td>
+                                                    <td class="text-end">{{ getTotal2('cp2028_ej') | number }}</td>
+                                                    <td class="text-end">{{ getTotal2('cp2029_ej') | number }}</td>
+                                                    <td class="danger text-end">{{ getTotal2('cpAutres_ej') | number }}
+                                                    </td>
+                                                </ng-container>
 
                                                 <td>{{ getTotal2('rappelAE') | number }}</td>
                                                 <td>{{ getTotal2('montantAE') | number }}</td>
                                                 <td>{{ getTotal2('ecartAE') | number }}</td>
                                                 <td>{{ getTotal2('ecartAEpct') }}%</td>
 
-                                                <td>{{ getTotal2('cp2027_ae') | number }}</td>
-                                                <td>{{ getTotal2('cp2028_ae') | number }}</td>
-                                                <td>{{ getTotal2('cp2029_ae') | number }}</td>
-                                                <td>{{ getTotal2('cpAutres_ae') | number }}</td>
-                                                <td class="danger">{{ getTotal2('restes_ae') }}</td>
+                                                <td class="toggle-col"></td>
+                                                <ng-container *ngIf="showEchAE">
+                                                    <td>{{ getTotal2('cp2027_ae') | number }}</td>
+                                                    <td>{{ getTotal2('cp2028_ae') | number }}</td>
+                                                    <td>{{ getTotal2('cp2029_ae') | number }}</td>
+                                                    <td class="danger">{{ getTotal2('cpAutres_ae') | number }}</td>
+                                                </ng-container>
 
                                                 <td>{{ getTotal2('rappelCP') | number }}</td>
                                                 <td>{{ getTotal2('montantCP') | number }}</td>
@@ -447,9 +457,7 @@
                                                     <th rowspan="2">Action</th>
                                                     <th rowspan="2">Activité</th>
                                                     <th rowspan="2">Ligne de dépense</th>
-                                                    <th rowspan="2">EJ antérieurs<br>non dénoués</th>
                                                     <th colspan="4">Dotations AE 2027</th>
-
                                                     <th colspan="4">Dotations CP 2027</th>
                                                 </tr>
 
@@ -457,16 +465,14 @@
 
 
                                                     <th>Rappel LFI 2026</th>
-                                                    <th>Motant AE 2027</th>
-                                                    <th>Ecart</th>
-                                                    <th>Ecart %</th>
+                                                    <th>Motant 2027</th>
+                                                    <th colspan="2" class="text-center">Ecart</th>
 
 
 
-                                                    <th>E Rappel LFI 2026</th>
-                                                    <th>Montant CP 2027</th>
-                                                    <th>Ecart</th>
-                                                    <th>Ecart %</th>
+                                                    <th>Rappel LFI 2026</th>
+                                                    <th>Montant 2027</th>
+                                                    <th colspan="2" class="text-center">Ecart</th>
                                                 </tr>
                                             </thead>
 
@@ -478,7 +484,6 @@
                                                     <td>{{ el.action }}</td>
                                                     <td>{{ el.activite }}</td>
                                                     <td>{{ el.ligne }}</td>
-                                                    <td>{{ el.ej | number }}</td>
 
 
                                                     <td>{{ el.rappelAE | number }}</td>
@@ -502,7 +507,6 @@
 
                                                     <td colspan="3">Récapitulatif</td>
 
-                                                    <td class="text-end">{{ getTotal2('ej') | number }}</td>
 
                                                     <td>{{ getTotal2('rappelAE') | number }}</td>
                                                     <td>{{ getTotal2('montantAE') | number }}</td>
@@ -556,11 +560,9 @@
 
     <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
     </mat-paginator>
-<!-- Modal ajouter ligne -->
-<app-natures-economiques-modal
-  [isVisible]="showModal"
-  (ajouter)="onNaturesAjoutees($event)"
-  (fermer)="showModal = false">
-</app-natures-economiques-modal>
+    <!-- Modal ajouter ligne -->
+    <app-natures-economiques-modal [isVisible]="showModal" (ajouter)="onNaturesAjoutees($event)"
+        (fermer)="showModal = false">
+    </app-natures-economiques-modal>
 
 </mat-card>

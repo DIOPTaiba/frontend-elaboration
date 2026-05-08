@@ -3,155 +3,159 @@
 
     <!-- Title Bar -->
     <div class="modal-titlebar">
-      <span class="titlebar-icon">📋</span>
+      <mat-icon class="titlebar-icon">assignment</mat-icon>
       <span id="modal-title" class="titlebar-text">Natures économiques à budgétiser</span>
     </div>
 
-    <!-- Body -->
+    <!-- Body (scrollable) -->
     <div class="modal-body">
 
-      <!-- Section: Ajout de lignes budgétaires -->
-      <fieldset class="section-fieldset">
-        <legend class="section-legend">Ajout de lignes budgétaires</legend>
+      <!-- Card 1 : Ajout de lignes budgétaires -->
+      <mat-card class="cardWithShadow b-1 rounded">
+        <h5 class="text-muted m-b-12">Ajout de lignes budgétaires</h5>
 
-        <div class="form-grid">
-
-          <div class="form-row">
-            <label class="form-label">Section :</label>
-            <div class="form-value-group">
-              <span class="value-code">{{ section.code }}</span>
-              <span class="value-text">{{ section.libelle }}</span>
-            </div>
+        <div class="modal-form-row">
+          <label class="f-s-14 f-w-600">Section</label>
+          <div class="modal-form-fields">
+            <mat-form-field appearance="outline" class="field-code">
+              <input matInput readonly [value]="section.code" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="field-flex">
+              <input matInput readonly [value]="section.libelle" />
+            </mat-form-field>
           </div>
-
-          <div class="form-row">
-            <label class="form-label">Programme :</label>
-            <div class="form-value-group">
-              <span class="value-code">{{ programme.code }}</span>
-              <span class="value-text">{{ programme.libelle }}</span>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <label class="form-label form-label--category">Catégorie de dépense :</label>
-            <span class="value-text">{{ categorieDepense }}</span>
-          </div>
-
-          <div class="form-row">
-            <label class="form-label">Chapitre :</label>
-            <div class="form-value-group">
-              <span class="value-code">{{ chapitre.code }}</span>
-              <span class="value-text chapitre-text" [title]="chapitre.libelle">{{ chapitre.libelle }}</span>
-            </div>
-          </div>
-
-         <!-- Action -->
-<div class="form-row">
-  <label class="form-label">Action :</label>
-  <mat-form-field style="width: 40px;" appearance="outline" class="form-field">
-    <mat-select [(ngModel)]="action">
-      <mat-option value=""></mat-option>
-      <mat-option *ngFor="let a of actions" [value]="a.code">
-        {{ a.code }} - {{ a.libelle }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field style="width: 517px;" appearance="outline" class="form-field-action">
-    <input  matInput [(ngModel)]="action" placeholder="" />
-  </mat-form-field>
-</div>
-
-<!-- Activité -->
-<div class="form-row">
-  <label class="form-label">Activité :</label>
-  <mat-form-field style="width: 40px;" appearance="outline" class="form-field">
-    <mat-select [(ngModel)]="activite">
-      <mat-option value=""></mat-option>
-      <mat-option *ngFor="let a of activites" [value]="a.code">
-        {{ a.code }} - {{ a.libelle }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-   <mat-form-field style="width: 517px;;" appearance="outline" class="form-field">
-    <input matInput [(ngModel)]="action" placeholder="" />
-  </mat-form-field>
-          </div>
-
         </div>
-      </fieldset>
 
-      <!-- Section: Recherche de nature économique -->
-     <!-- Recherche de nature économique -->
-<fieldset class="search-fieldset">
-  <legend class="search-legend">Recherche de nature économique</legend>
-  <div class="search-row">
+        <div class="modal-form-row">
+          <label class="f-s-14 f-w-600">Programme</label>
+          <div class="modal-form-fields">
+            <mat-form-field appearance="outline" class="field-code">
+              <input matInput readonly [value]="programme.code" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="field-flex">
+              <input matInput readonly [value]="programme.libelle" />
+            </mat-form-field>
+          </div>
+        </div>
 
-    <label class="search-label">Code :</label>
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-select [(ngModel)]="selectedCode" (ngModelChange)="onCodeChange()">
-        <mat-option value="">-- Tous --</mat-option>
-        <mat-option *ngFor="let item of filteredNatures" [value]="item.code">
-          {{ item.code }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+        <div class="modal-form-row">
+          <label class="f-s-14 f-w-600">Catégorie de dépense</label>
+          <div class="modal-form-fields">
+            <mat-form-field appearance="outline" class="field-flex">
+              <input matInput readonly [value]="categorieDepense" />
+            </mat-form-field>
+          </div>
+        </div>
 
-    <label class="search-label">Libellé :</label>
-    <mat-form-field style="width: 400px; " appearance="outline" class="search-field search-field--wide">
-      <mat-select [(ngModel)]="selectedLibelle" (ngModelChange)="onLibelleChange()">
-        <mat-option value="">-- Tous --</mat-option>
-        <mat-option *ngFor="let item of filteredNatures" [value]="item.libelle">
-          {{ item.libelle }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+        <div class="modal-form-row">
+          <label class="f-s-14 f-w-600">Chapitre</label>
+          <div class="modal-form-fields">
+            <mat-form-field appearance="outline" class="field-code">
+              <input matInput readonly [value]="chapitre.code" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="field-flex">
+              <input matInput readonly [value]="chapitre.libelle" />
+            </mat-form-field>
+          </div>
+        </div>
 
-  </div>
-</fieldset>
+        <div class="modal-form-row">
+          <label class="f-s-14 f-w-600">Action</label>
+          <div class="modal-form-fields">
+            <mat-form-field appearance="outline" class="field-code">
+              <input matInput readonly [value]="action" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="field-flex">
+              <mat-select [(ngModel)]="selectedActionLibelle" (ngModelChange)="onActionSelect()">
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let a of actions" [value]="a.libelle">{{ a.libelle }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
 
-      <!-- Table -->
-      <div class="table-wrapper">
-        <table class="nature-table">
-          <thead>
-            <tr>
-              <th class="col-check"></th>
-              <th class="col-code">Code</th>
-              <th class="col-libelle">Libellé</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let item of filteredNatures; let i = index"
-              [class.row-selected]="item.selected"
-              [class.row-highlighted]="i === 0"
-              (click)="toggleSelection(item)"
-            >
-              <td class="col-check">
-                <input
-                  type="checkbox"
-                  [(ngModel)]="item.selected"
-                  (click)="$event.stopPropagation()"
-                  (change)="onCheckChange(item)"
-                />
-              </td>
-              <td class="col-code">{{ item.code }}</td>
-              <td class="col-libelle">{{ item.libelle }}</td>
-            </tr>
-            <tr *ngIf="filteredNatures.length === 0">
-              <td colspan="3" class="empty-row">Aucun résultat trouvé.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="modal-form-row">
+          <label class="f-s-14 f-w-600">Activité</label>
+          <div class="modal-form-fields">
+            <mat-form-field appearance="outline" class="field-code">
+              <input matInput readonly [value]="activite" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="field-flex">
+              <mat-select [(ngModel)]="selectedActiviteLibelle" (ngModelChange)="onActiviteSelect()">
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let a of activites" [value]="a.libelle">{{ a.libelle }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </mat-card>
+
+      <!-- Card 2 : Recherche de nature économique -->
+      <mat-card class="cardWithShadow b-1 rounded">
+        <h5 class="text-muted m-b-12">Recherche de nature économique</h5>
+
+        <div class="search-filter-row m-b-12">
+          <div class="search-filter-group">
+            <label class="f-s-14 f-w-600">Code</label>
+            <mat-form-field appearance="outline" class="field-select">
+              <mat-select [(ngModel)]="selectedCode" (ngModelChange)="onCodeChange()">
+                <mat-option value="">-- Tous --</mat-option>
+                <mat-option *ngFor="let item of filteredNatures" [value]="item.code">{{ item.code }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="search-filter-group search-filter-grow">
+            <label class="f-s-14 f-w-600">Libellé</label>
+            <mat-form-field appearance="outline" class="field-flex">
+              <mat-select [(ngModel)]="selectedLibelle" (ngModelChange)="onLibelleChange()">
+                <mat-option value="">-- Tous --</mat-option>
+                <mat-option *ngFor="let item of filteredNatures" [value]="item.libelle">{{ item.libelle }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+          <table class="nature-table">
+            <thead>
+              <tr>
+                <th class="col-check"></th>
+                <th class="col-code">Code</th>
+                <th class="col-libelle">Libellé</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of filteredNatures; let i = index"
+                  [class.row-selected]="item.selected"
+                  (click)="toggleSelection(item)">
+                <td class="col-check">
+                  <input type="checkbox" [(ngModel)]="item.selected"
+                         (click)="$event.stopPropagation()" (change)="onCheckChange(item)" />
+                </td>
+                <td class="col-code">{{ item.code }}</td>
+                <td class="col-libelle">{{ item.libelle }}</td>
+              </tr>
+              <tr *ngIf="filteredNatures.length === 0">
+                <td colspan="3" class="empty-row">Aucun résultat trouvé.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </mat-card>
 
     </div>
 
-    <!-- Footer Buttons -->
+    <!-- Footer -->
     <div class="modal-footer">
-      <button class="btn-action btn-ajouter" (click)="onAjouter()" [disabled]="selectedItems.length === 0">
+      <button mat-flat-button class="btn-modal-ajouter" (click)="onAjouter()" [disabled]="selectedItems.length === 0">
+        <mat-icon>add</mat-icon>
         Ajouter
       </button>
-      <button class="btn-action btn-fermer" (click)="onFermer()">
+      <button mat-flat-button class="btn-modal-fermer" (click)="onFermer()">
+        <mat-icon>close</mat-icon>
         Fermer
       </button>
     </div>
