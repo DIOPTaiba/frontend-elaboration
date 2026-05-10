@@ -6,7 +6,7 @@ import { ApiService } from '../api.service';
 @Injectable({
   providedIn: 'root',
 })
-export class majEmploisEffectifSectionService {
+export class majEmploisEffectifsService {
 
   private tests = signal<string>('');
 

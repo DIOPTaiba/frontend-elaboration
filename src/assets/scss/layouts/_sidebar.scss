@@ -33,7 +33,7 @@
       }
 
       .menu-list-item {
-        padding: 8px 12px !important;
+        padding: 8px 8px !important;
 
         .mdc-list-item__content {
           display: none;
@@ -69,7 +69,7 @@
         }
 
         &.mdc-list {
-          padding: 0 16px;
+          padding: 0 8px;
           width: $sidenav-desktop;
           .mdc-list-group__subheader {
             text-align: left;
@@ -130,9 +130,9 @@
 
 .sidebar-list {
   &.mdc-list {
-    padding: 0 18px;
-    // width: $sidenav-desktop;
-    width: 295px;
+    padding: 0 8px;
+    width: $sidenav-desktop;
+    // width: 325px;
     .sub-item-icon {
       width: 16px !important;
       height: 16px !important;
@@ -168,7 +168,7 @@
     .menu-list-item {
       border-radius: $border-radius;
       height: 45px;
-      padding: 11px 16px !important;
+      padding: 11px 6px !important;
       margin-bottom: 4px;
       width: 100%;
       &.twoline {
