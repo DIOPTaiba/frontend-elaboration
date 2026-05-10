@@ -131,7 +131,8 @@
 .sidebar-list {
   &.mdc-list {
     padding: 0 18px;
-    width: $sidenav-desktop;
+    // width: $sidenav-desktop;
+    width: 295px;
     .sub-item-icon {
       width: 16px !important;
       height: 16px !important;

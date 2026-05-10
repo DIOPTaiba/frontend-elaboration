@@ -1,325 +1,335 @@
 import { NavItem } from './nav-item/nav-item';
 
 export const navItems: NavItem[] = [
+  // {
+  //   navCap: 'Dashboards',
+  // },
   {
-    navCap: 'Dashboards',
-  },
-  {
-    displayName: 'Dashboard 1',
+    displayName: 'Tableau de bord',
     iconName: 'solar:widget-add-line-duotone',
     route: '/dashboards/dashboard1',
   },
-  {
-    displayName: 'Dashboard 2',
-    iconName: 'solar:chart-line-duotone',
-    route: '/dashboards/dashboard2',
-  },
-  {
-    displayName: 'Dashboard 3',
-    iconName: 'solar:screencast-2-line-duotone',
-    route: '/dashboards/dashboard3',
-  },
-  {
-    displayName: 'Front Pages',
-    iconName: 'solar:home-angle-line-duotone',
-    route: 'front-pages',
-    children: [
-      {
-        displayName: 'Homepage',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'front-pages/homepage',
-      },
-      {
-        displayName: 'About Us',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'front-pages/about',
-      },
-      {
-        displayName: 'Blog',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'front-pages/blog',
-      },
-      {
-        displayName: 'Blog Details',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'front-pages/blog-details',
-      },
-      {
-        displayName: 'Contact Us',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'front-pages/contact',
-      },
-      {
-        displayName: 'Portfolio',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'front-pages/portfolio',
-      },
-      {
-        displayName: 'Pricing',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'front-pages/pricing',
-      }
-    ],
-  },
+  // {
+  //   displayName: 'Dashboard 2',
+  //   iconName: 'solar:chart-line-duotone',
+  //   route: '/dashboards/dashboard2',
+  // },
+  // {
+  //   displayName: 'Dashboard 3',
+  //   iconName: 'solar:screencast-2-line-duotone',
+  //   route: '/dashboards/dashboard3',
+  // },
+  // {
+  //   displayName: 'Front Pages',
+  //   iconName: 'solar:home-angle-line-duotone',
+  //   route: 'front-pages',
+  //   children: [
+  //     {
+  //       displayName: 'Homepage',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'front-pages/homepage',
+  //     },
+  //     {
+  //       displayName: 'About Us',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'front-pages/about',
+  //     },
+  //     {
+  //       displayName: 'Blog',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'front-pages/blog',
+  //     },
+  //     {
+  //       displayName: 'Blog Details',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'front-pages/blog-details',
+  //     },
+  //     {
+  //       displayName: 'Contact Us',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'front-pages/contact',
+  //     },
+  //     {
+  //       displayName: 'Portfolio',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'front-pages/portfolio',
+  //     },
+  //     {
+  //       displayName: 'Pricing',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'front-pages/pricing',
+  //     }
+  //   ],
+  // },
   {
     divider: true,
-    navCap: 'Apps',
+    navCap: 'Paramètres dossiers',
   },
   {
     displayName: 'Chat',
     iconName: 'solar:chat-round-line-line-duotone',
     route: 'apps/chat',
   },
-  {
-    displayName: 'Calendar',
-    iconName: 'solar:calendar-mark-line-duotone',
-    route: 'apps/calendar',
-  },
-  {
-    displayName: 'Email',
-    iconName: 'solar:letter-line-duotone',
-    route: 'apps/email/inbox',
-  },
-  {
-    displayName: 'Kanban',
-    iconName: 'solar:clapperboard-edit-line-duotone',
-    route: 'apps/kanban',
-  },
-  {
-    displayName: 'User Profile',
-    iconName: 'solar:user-circle-line-duotone',
-    route: 'apps/profile-details',
-    chip: true,
-    chipClass: 'b-1 border-primary text-primary',
-    chipContent: 'New',
-    children: [
-      {
-        displayName: 'Profile',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/profile-details/profile',
-      },
-      {
-        displayName: 'Followers',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/profile-details/followers',
-      },
-      {
-        displayName: 'Friends',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/profile-details/friends',
-      },
-      {
-        displayName: 'Gellary',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/profile-details/gallery',
-      },
-    ],
-  },
-  {
-    displayName: 'Ecommerce',
-    iconName: 'solar:cart-5-line-duotone',
-    route: 'apps/product',
-    chip: true,
-    chipClass: 'b-1 border-primary text-primary',
-    chipContent: 'New',
-    children: [
-      {
-        displayName: 'Product List',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'apps/product/product-list',
-      },
-      {
-        displayName: 'Add Product',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'apps/product/add-product',
-      },
-      {
-        displayName: 'Edit Product',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'apps/product/edit-product',
-      },
-      {
-        displayName: 'Shop',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        subItemIcon: true,
-        route: 'apps/product/shop',
-      },
-    ],
-  },
-  {
-    displayName: 'Contacts',
-    iconName: 'solar:phone-line-duotone',
-    route: 'apps/contacts',
-  },
-  {
-    displayName: 'Courses',
-    iconName: 'solar:book-bookmark-line-duotone',
-    route: 'apps/courses',
-  },
-  {
-    displayName: 'Employee',
-    iconName: 'solar:user-id-line-duotone',
-    route: 'apps/employee',
-  },
-  {
-    displayName: 'Notes',
-    iconName: 'solar:document-text-line-duotone',
-    route: 'apps/notes',
-  },
-  {
-    displayName: 'Tickets',
-    iconName: 'solar:ticket-sale-line-duotone',
-    route: 'apps/tickets',
-  },
-  {
-    displayName: 'ContactsApp',
-    iconName: 'solar:phone-line-duotone',
-    route: 'apps/contact-list',
-  },
-  {
-    displayName: 'Invoice',
-    iconName: 'solar:bill-list-line-duotone',
-    route: 'apps/invoice',
-    children: [
-      {
-        displayName: 'List',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/invoice/list',
-      },
-      {
-        displayName: 'Detail',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/invoice/viewInvoice/101',
-      },
-      {
-        displayName: 'Create',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/invoice/addInvoice',
-      },
-      {
-        displayName: 'Edit',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/invoice/editinvoice/101',
-      },
-    ],
-  },
-  {
-    displayName: 'ToDo',
-    iconName: 'solar:airbuds-case-minimalistic-line-duotone',
-    route: 'apps/todo',
-  },
-  {
-    displayName: 'Blog',
-    iconName: 'solar:widget-4-line-duotone',
-    route: 'apps/blog',
-    children: [
-      {
-        displayName: 'Post',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'apps/blog/post',
-      },
-      {
-        displayName: 'Detail',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route:
-          'apps/blog/detail/Early Black Friday Amazon deals: cheap TVs, headphones, laptops',
-      },
-    ],
-  },
+  // {
+  //   displayName: 'Calendar',
+  //   iconName: 'solar:calendar-mark-line-duotone',
+  //   route: 'apps/calendar',
+  // },
+  // {
+  //   displayName: 'Email',
+  //   iconName: 'solar:letter-line-duotone',
+  //   route: 'apps/email/inbox',
+  // },
+  // {
+  //   displayName: 'Kanban',
+  //   iconName: 'solar:clapperboard-edit-line-duotone',
+  //   route: 'apps/kanban',
+  // },
+  // {
+  //   displayName: 'User Profile',
+  //   iconName: 'solar:user-circle-line-duotone',
+  //   route: 'apps/profile-details',
+  //   chip: true,
+  //   chipClass: 'b-1 border-primary text-primary',
+  //   chipContent: 'New',
+  //   children: [
+  //     {
+  //       displayName: 'Profile',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/profile-details/profile',
+  //     },
+  //     {
+  //       displayName: 'Followers',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/profile-details/followers',
+  //     },
+  //     {
+  //       displayName: 'Friends',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/profile-details/friends',
+  //     },
+  //     {
+  //       displayName: 'Gellary',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/profile-details/gallery',
+  //     },
+  //   ],
+  // },
+  // {
+  //   displayName: 'Ecommerce',
+  //   iconName: 'solar:cart-5-line-duotone',
+  //   route: 'apps/product',
+  //   chip: true,
+  //   chipClass: 'b-1 border-primary text-primary',
+  //   chipContent: 'New',
+  //   children: [
+  //     {
+  //       displayName: 'Product List',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'apps/product/product-list',
+  //     },
+  //     {
+  //       displayName: 'Add Product',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'apps/product/add-product',
+  //     },
+  //     {
+  //       displayName: 'Edit Product',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'apps/product/edit-product',
+  //     },
+  //     {
+  //       displayName: 'Shop',
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       subItemIcon: true,
+  //       route: 'apps/product/shop',
+  //     },
+  //   ],
+  // },
+  // {
+  //   displayName: 'Contacts',
+  //   iconName: 'solar:phone-line-duotone',
+  //   route: 'apps/contacts',
+  // },
+  // {
+  //   displayName: 'Courses',
+  //   iconName: 'solar:book-bookmark-line-duotone',
+  //   route: 'apps/courses',
+  // },
+  // {
+  //   displayName: 'Employee',
+  //   iconName: 'solar:user-id-line-duotone',
+  //   route: 'apps/employee',
+  // },
+  // {
+  //   displayName: 'Notes',
+  //   iconName: 'solar:document-text-line-duotone',
+  //   route: 'apps/notes',
+  // },
+  // {
+  //   displayName: 'Tickets',
+  //   iconName: 'solar:ticket-sale-line-duotone',
+  //   route: 'apps/tickets',
+  // },
+  // {
+  //   displayName: 'ContactsApp',
+  //   iconName: 'solar:phone-line-duotone',
+  //   route: 'apps/contact-list',
+  // },
+  // {
+  //   displayName: 'Invoice',
+  //   iconName: 'solar:bill-list-line-duotone',
+  //   route: 'apps/invoice',
+  //   children: [
+  //     {
+  //       displayName: 'List',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/invoice/list',
+  //     },
+  //     {
+  //       displayName: 'Detail',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/invoice/viewInvoice/101',
+  //     },
+  //     {
+  //       displayName: 'Create',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/invoice/addInvoice',
+  //     },
+  //     {
+  //       displayName: 'Edit',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/invoice/editinvoice/101',
+  //     },
+  //   ],
+  // },
+  // {
+  //   displayName: 'ToDo',
+  //   iconName: 'solar:airbuds-case-minimalistic-line-duotone',
+  //   route: 'apps/todo',
+  // },
+  // {
+  //   displayName: 'Blog',
+  //   iconName: 'solar:widget-4-line-duotone',
+  //   route: 'apps/blog',
+  //   children: [
+  //     {
+  //       displayName: 'Post',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'apps/blog/post',
+  //     },
+  //     {
+  //       displayName: 'Detail',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route:
+  //         'apps/blog/detail/Early Black Friday Amazon deals: cheap TVs, headphones, laptops',
+  //     },
+  //   ],
+  // },
   {
     divider: true,
-    navCap: 'Pages',
+    navCap: 'Consultation enveloppes',
   },
   {
-    displayName: 'Roll Base Access',
+    displayName: 'Enveloppe de la section',
     iconName: 'solar:lock-password-unlocked-line-duotone',
     route: 'apps/permission',
   },
   {
-    displayName: 'Treeview',
+    displayName: 'Liste enveloppe programmes',
     iconName: 'solar:bill-line-duotone',
     route: 'theme-pages/treeview',
   },
   {
-    displayName: 'Pricing',
+    displayName: 'Enveloppe d\'un programme',
     iconName: 'solar:dollar-minimalistic-line-duotone',
     route: 'theme-pages/pricing',
   },
   {
-    displayName: 'Account Setting',
+    displayName: 'Suivi répartition enveloppes',
     iconName: 'solar:accessibility-line-duotone',
     route: 'theme-pages/account-setting',
   },
-  {
-    displayName: 'FAQ',
-    iconName: 'solar:question-square-line-duotone',
-    route: 'theme-pages/faq',
-  },
-  {
-    displayName: 'Landingpage',
-    iconName: 'solar:layers-minimalistic-line-duotone',
-    route: 'landingpage',
-  },
-  {
-    displayName: 'Widgets',
-    iconName: 'solar:widget-2-line-duotone',
-    route: 'widgets',
-    children: [
-      {
-        displayName: 'Cards',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'widgets/cards',
-      },
-      {
-        displayName: 'Banners',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'widgets/banners',
-      },
-      {
-        displayName: 'Charts',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'widgets/charts',
-      },
-    ],
-  },
+  // {
+  //   displayName: 'FAQ',
+  //   iconName: 'solar:question-square-line-duotone',
+  //   route: 'theme-pages/faq',
+  // },
+  // {
+  //   displayName: 'Landingpage',
+  //   iconName: 'solar:layers-minimalistic-line-duotone',
+  //   route: 'landingpage',
+  // },
+  // {
+  //   displayName: 'Widgets',
+  //   iconName: 'solar:widget-2-line-duotone',
+  //   route: 'widgets',
+  //   children: [
+  //     {
+  //       displayName: 'Cards',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'widgets/cards',
+  //     },
+  //     {
+  //       displayName: 'Banners',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'widgets/banners',
+  //     },
+  //     {
+  //       displayName: 'Charts',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: 'widgets/charts',
+  //     },
+  //   ],
+  // },
   {
     divider: true,
-    navCap: 'Forms',
+    navCap: 'Dépenses de personnel et Emplois',
+  },
+  {
+    displayName: 'Mise à jour Emplois et effectifs',
+    iconName: 'solar:upload-line-duotone',
+    route: '/forms/file-upload',
+  },
+  {
+    displayName: 'Dotation et traitement agents',
+    iconName: 'solar:upload-line-duotone',
+    route: '/forms/forms-elements/autocomplete',
   },
   {
     displayName: 'Form elements',
     iconName: 'solar:password-minimalistic-input-line-duotone',
     route: 'forms/forms-elements',
     children: [
-      {
-        displayName: 'Autocomplete',
-         subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: 'forms/forms-elements/autocomplete',
-      },
+      // {
+      //   displayName: 'Autocomplete',
+      //    subItemIcon: true,
+      //   iconName: 'solar:round-alt-arrow-right-line-duotone',
+      //   route: 'forms/forms-elements/autocomplete',
+      // },
       {
         displayName: 'Button',
          subItemIcon: true,
@@ -346,11 +356,11 @@ export const navItems: NavItem[] = [
       },
     ],
   },
-  {
-    displayName: 'File Upload',
-    iconName: 'solar:upload-line-duotone',
-    route: '/forms/file-upload',
-  },
+  // {
+  //   displayName: 'File Upload',
+  //   iconName: 'solar:upload-line-duotone',
+  //   route: '/forms/file-upload',
+  // },
   {
     displayName: 'Form Layouts',
     iconName: 'solar:file-text-line-duotone',
