@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { IconModule } from 'src/app/icon/icon.module';
 import { MatSort } from '@angular/material/sort';
-import { majEmploisEffectifSectionService } from 'src/app/services/depensesPersonnel/majEmploisEffectifSection.service';
+import { majEmploisEffectifsService } from 'src/app/services/depensesPersonnel/majEmploisEffectifs.service';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -679,7 +679,7 @@ const ACTIVITE_DATA: objetType[] = [
 
 
 @Component({
-  selector: 'app-maj-emplois-effectif-section',
+  selector: 'app-maj-emplois-effectifs',
   imports: [
     MaterialModule,
     DecimalPipe,
@@ -687,8 +687,8 @@ const ACTIVITE_DATA: objetType[] = [
     MatPaginatorModule,
     IconModule
   ],
-  templateUrl: './maj-emplois-effectif-section.component.html',
-  styleUrl: './maj-emplois-effectif-section.component.scss',
+  templateUrl: './maj-emplois-effectifs.component.html',
+  styleUrl: './maj-emplois-effectifs.component.scss',
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -700,9 +700,9 @@ const ACTIVITE_DATA: objetType[] = [
     ]),
   ],
 })
-export class MajEmploisEffectifSectionComponent {
+export class MajEmploisEffectifsComponent {
 
-  constructor(private majEmploisEffectifSectionService: majEmploisEffectifSectionService) { }
+  constructor(private majEmploisEffectifsService: majEmploisEffectifsService) { }
 
   @ViewChild(MatPaginator)
   set paginator(paginator: MatPaginator) {
@@ -807,7 +807,7 @@ export class MajEmploisEffectifSectionComponent {
   tests: any[] = [];
 
   getTests() {
-    this.majEmploisEffectifSectionService.getTest().subscribe({
+    this.majEmploisEffectifsService.getTest().subscribe({
       next: (data) => {
         console.log('TEST:', data);
       },
