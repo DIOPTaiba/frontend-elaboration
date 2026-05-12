@@ -12,8 +12,110 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { IconModule } from 'src/app/icon/icon.module';
+import { MatSort } from '@angular/material/sort';
+import { majEmploisEffectifsService } from 'src/app/services/depensesPersonnel/majEmploisEffectifs.service';
 
 const CHAPITRE_DATA: objetChapitre[] = [
+  {
+    code: '25025332',
+    libelle: 'Direction de la programmation budgétaire',
+    effectifsN: 200,
+    agentsSolde: 250,
+    contractuels: 100,
+    total: 350,
+    ecart: 150,
+    dotation: 100000
+  },
+  {
+    code: '25025333',
+    libelle: 'Direction de la Solde',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025331',
+    libelle: 'Direction des Systèmes d’information',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025330',
+    libelle: 'Direction du Contrôle budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '2502533',
+    libelle: 'Direction des Pensions',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025330',
+    libelle: 'Direction de la programmation budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025331',
+    libelle: 'Direction de la Solde',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025332',
+    libelle: 'Direction des Systèmes d’information',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025333',
+    libelle: 'Direction du Contrôle budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '2502533',
+    libelle: 'Direction des Pensions',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
   {
     code: '25025330',
     libelle: 'Direction de la programmation budgétaire',
@@ -64,156 +166,56 @@ const CHAPITRE_DATA: objetChapitre[] = [
     ecart: 100,
     dotation: 100
   },
-  // {
-  //   code: '25025330',
-  //   libelle: 'Direction de la programmation budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025331',
-  //   libelle: 'Direction de la Solde',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025332',
-  //   libelle: 'Direction des Systèmes d’information',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025333',
-  //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '2502533',
-  //   libelle: 'Direction des Pensions',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025330',
-  //   libelle: 'Direction de la programmation budgétaire',
-  //   effectifsN: 200,
-  //   agentsSolde: 250,
-  //   contractuels: 100,
-  //   total: 350,
-  //   ecart: 150,
-  //   dotation: 525000550
-  // },
-  // {
-  //   code: '25025331',
-  //   libelle: 'Direction de la Solde',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025332',
-  //   libelle: 'Direction des Systèmes d’information',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025333',
-  //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '2502533',
-  //   libelle: 'Direction des Pensions',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025330',
-  //   libelle: 'Direction de la programmation budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025331',
-  //   libelle: 'Direction de la Solde',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025332',
-  //   libelle: 'Direction des Systèmes d’information',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '25025333',
-  //   libelle: 'Direction du Contrôle budgétaire',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
-  // {
-  //   code: '2502533',
-  //   libelle: 'Direction des Pensions',
-  //   effectifsN: 100,
-  //   agentsSolde: 100,
-  //   contractuels: 100,
-  //   total: 100,
-  //   ecart: 100,
-  //   dotation: 100
-  // },
+  {
+    code: '25025330',
+    libelle: 'Direction de la programmation budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025331',
+    libelle: 'Direction de la Solde',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025332',
+    libelle: 'Direction des Systèmes d’information',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '25025333',
+    libelle: 'Direction du Contrôle budgétaire',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
+  {
+    code: '2502533',
+    libelle: 'Direction des Pensions',
+    effectifsN: 100,
+    agentsSolde: 100,
+    contractuels: 100,
+    total: 100,
+    ecart: 100,
+    dotation: 100
+  },
 ];
 const AGENT_DATA: objetAgent[] = [
   {
@@ -675,8 +677,9 @@ const ACTIVITE_DATA: objetType[] = [
   }
 ];
 
+
 @Component({
-  selector: 'app-maj-emplois-effectif-section',
+  selector: 'app-maj-emplois-effectifs',
   imports: [
     MaterialModule,
     DecimalPipe,
@@ -684,8 +687,8 @@ const ACTIVITE_DATA: objetType[] = [
     MatPaginatorModule,
     IconModule
   ],
-  templateUrl: './maj-emplois-effectif-section.component.html',
-  styleUrl: './maj-emplois-effectif-section.component.scss',
+  templateUrl: './maj-emplois-effectifs.component.html',
+  styleUrl: './maj-emplois-effectifs.component.scss',
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -697,15 +700,48 @@ const ACTIVITE_DATA: objetType[] = [
     ]),
   ],
 })
-export class MajEmploisEffectifSectionComponent {
+export class MajEmploisEffectifsComponent {
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
+  constructor(private majEmploisEffectifsService: majEmploisEffectifsService) { }
 
-  ngAfterViewInit(): void {
-    this.listeChapitre.paginator = this.paginator;
+  @ViewChild(MatPaginator)
+  set paginator(paginator: MatPaginator) {
+    if (paginator) {
+      this.listeChapitre.paginator = paginator;
+    }
   }
 
-  listeChapitre = new MatTableDataSource(CHAPITRE_DATA);
+  @ViewChild('sortChapitre')
+  set sortChapitre(sort: MatSort) {
+    if (sort) {
+      this.listeChapitre.sort = sort;
+
+      this.listeChapitre.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'code':
+            return Number(item.code); // tri numérique correct
+
+          case 'libelle':
+            return item.libelle?.toLowerCase() || ''; // tri texte
+
+          case 'effectifsN':
+          case 'agentsSolde':
+          case 'contractuels':
+          case 'total':
+          case 'ecart':
+          case 'dotation':
+            return Number(item[property as keyof objetChapitre]) || 0;
+
+          default:
+            return '';
+        }
+      };
+
+    }
+  }
+
+
+  listeChapitre = new MatTableDataSource<objetChapitre>(CHAPITRE_DATA);
   listeEmplois = new MatTableDataSource(EMPLOI_DATA);
   listeActions = new MatTableDataSource(ACTION_DATA);
   listeActivites = new MatTableDataSource(ACTIVITE_DATA);
@@ -734,6 +770,7 @@ export class MajEmploisEffectifSectionComponent {
   expandedElementEmploi: objetType | null = null;
   expandedElementAction: objetType | null = null;
   expandedElementActivite: objetType | null = null;
+
 
   filtreListe(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -767,7 +804,18 @@ export class MajEmploisEffectifSectionComponent {
     this.listeActivites.filter = '';
   }
 
-  constructor() { }
+  tests: any[] = [];
+
+  getTests() {
+    this.majEmploisEffectifsService.getTest().subscribe({
+      next: (data) => {
+        console.log('TEST:', data);
+      },
+      error: (error) => {
+        console.error('Erreur getTest:', error);
+      }
+    });
+  }
 
 }
 

@@ -19,3 +19,4 @@ export class BrandingComponent {
   options = this.settings.getOptions();
   constructor(private settings: CoreService) {} 
 }
+
