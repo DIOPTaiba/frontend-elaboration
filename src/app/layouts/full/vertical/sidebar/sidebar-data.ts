@@ -7,7 +7,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Tableau de bord',
     iconName: 'solar:widget-add-line-duotone',
-    route: '/dashboards/dashboard',
+    route: '/dashboards/dashboard1',
   },
   // {
   //   displayName: 'Dashboard 2',
