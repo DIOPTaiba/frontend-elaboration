@@ -15,8 +15,8 @@ export const DepensesPersonnellesEmploisRoutes: Routes = [
         data: {
           title: 'Maj Emplois et Effectifs',
           urls: [
-            { title: 'Dashboard ccc', url: '/dashboards/dashboard1' },
-            { title: 'Badge dddd' },
+            { title: 'Dashboard', url: '/dashboards/dashboard1' },
+            { title: 'Badge' },
           ],
         },
       },

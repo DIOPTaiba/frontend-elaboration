@@ -166,9 +166,9 @@ expandedElementChapitre = expandedElementChapitre === element ? null : element;
 $event.stopPropagation()
 ">
           @if(expandedElementChapitre !== element) {
-          <mat-icon>add</mat-icon>
+          <mat-icon>expand_more</mat-icon>
           } @if(expandedElementChapitre === element) {
-          <mat-icon>remove</mat-icon>
+          <mat-icon>expand_less</mat-icon>
           }
         </button>
       </td>
@@ -197,7 +197,7 @@ $event.stopPropagation()
                           <span class="f-s-14 f-w-500">Direction des Systèmes d’Information</span>
                         </div>
                         <div class="col-6 text-right">
-                          <button mat-flat-button (click)="getTests()" ><mat-icon class="m-r-0">add</mat-icon>Ajouter agent</button>
+                          <button mat-flat-button  ><mat-icon class="m-r-0">add</mat-icon>Ajouter agent</button>
                         </div>
                       </div>
                     </mat-card-title>
@@ -444,9 +444,9 @@ expandedElementEmploi = expandedElementEmploi === element ? null : element;
 $event.stopPropagation()
 ">
           @if(expandedElementEmploi !== element) {
-          <mat-icon>add</mat-icon>
+          <mat-icon>expand_more</mat-icon>
           } @if(expandedElementEmploi === element) {
-          <mat-icon>remove</mat-icon>
+          <mat-icon>expand_less</mat-icon>
           }
         </button>
       </td>
