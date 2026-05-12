@@ -162,7 +162,7 @@ export const navItems: NavItem[] = [
     route: '',
     children: [
       {
-        displayName: 'Saisis / Mises à jour AE/CP par chapitre',
+        displayName: 'Saisis / Mises à jour AE/CP',
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: 'fonctionnementInvestissements/saisieMajAeCp',
       },

@@ -321,7 +321,7 @@ export const navItems: NavItem[] = [
     navCap: 'Fonctionnement et Investissement',
   },
   {
-    displayName: 'Saisis / Mises à jour AE/CP par chapitre',
+    displayName: 'Saisis / Mises à jour AE/CP',
     iconName: 'solar:tablet-line-duotone',
     route: 'fonctionnementInvestissements/saisieMajAeCp',
     // children: [
