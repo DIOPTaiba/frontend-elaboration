@@ -203,12 +203,12 @@ activiteCode: string = '';
 activiteLibelle: string = '';
 
 onActionChange(libelle: string): void {
-  const found = this.actions.find(a => a.libelle === libelle);
-  this.actionCode = found ? found.code : '';
+  const found = this.actions.find(a => a.copLibelle === libelle);
+  this.actionCode = found ? found.copCode : '';
 }
 
 onActiviteChange(libelle: string): void {
-  const found = this.activites.find(a => a.libelle === libelle);
-  this.activiteCode = found ? found.code : '';
+  const found = this.activites.find(a => a.copLibelle === libelle);
+  this.activiteCode = found ? found.copCode : '';
 }
 }

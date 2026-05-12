@@ -13,11 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { IconModule } from 'src/app/icon/icon.module';
 import { MatSort } from '@angular/material/sort';
-<<<<<<< HEAD:src/app/pages/pppb/depensesPersonnelles-emplois/maj-emplois-effectif-section/maj-emplois-effectif-section.component.ts
-import { majEmploisEffectifSectionService } from 'src/app/services/pppb/depensesPersonnel/majEmploisEffectifSection.service';
-=======
-import { majEmploisEffectifsService } from 'src/app/services/depensesPersonnel/majEmploisEffectifs.service';
->>>>>>> 1212d97086eb6c525d78eaecf86540aa2c6b9860:src/app/pages/pppb/depensesPersonnelles-emplois/maj-emplois-effectifs/maj-emplois-effectifs.component.ts
+import { majEmploisEffectifsService } from 'src/app/services/pppb/depensesPersonnel/majEmploisEffectifs.service';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
