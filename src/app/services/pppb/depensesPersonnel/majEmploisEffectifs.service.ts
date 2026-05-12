@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ApiService } from '../api.service';
+import { ApiService } from '../../api.service';
 
 @Injectable({
   providedIn: 'root',
