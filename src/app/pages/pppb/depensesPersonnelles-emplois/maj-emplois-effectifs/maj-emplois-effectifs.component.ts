@@ -642,8 +642,7 @@ const ACTIVITE_DATA: objetType[] = [
 })
 export class MajEmploisEffectifsComponent {
 
-  constructor(private majEmploisEffectifsService: majEmploisEffectifsService,
-  ) { }
+  constructor(private majEmploisEffectifsService: majEmploisEffectifsService) { }
 
   @ViewChild(MatPaginator)
   set paginator(paginator: MatPaginator) {
@@ -740,31 +739,18 @@ export class MajEmploisEffectifsComponent {
     this.listeActivites.filter = '';
   }
 
-  listeProgrammes: any[] = [];
-  loading = false;
+  tests: any[] = [];
 
-  ngOnInit(): void {
-      // this.listeProgrammes = this.majEmploisEffectifsService.getProgrammes();
-      this.loadProgrammes();
-    
-  }
-
-  loadProgrammes() {
-    this.loading = true;
-    this.majEmploisEffectifsService.getProgrammes().subscribe({
+  getTests() {
+    this.majEmploisEffectifsService.getTest().subscribe({
       next: (data) => {
-        this.listeProgrammes = data;
-        console.log('PROGRAMMES:', this.listeProgrammes);
-        // this.toastr.success('Blogs chargés avec succès');
-        this.loading = false;
+        console.log('TEST:', data);
       },
       error: (error) => {
-        // this.toastr.error('Erreur lors du chargement des blogs');
-        this.loading = false;
-      },
+        console.error('Erreur getTest:', error);
+      }
     });
   }
-
 
 }
 
