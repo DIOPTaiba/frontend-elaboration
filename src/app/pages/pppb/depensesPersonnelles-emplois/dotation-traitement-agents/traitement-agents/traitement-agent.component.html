@@ -3,44 +3,52 @@
 <!-- ============================================= -->
 <div class="search-params-panel">
   <h3 class="search-params-title">Paramètres de recherche</h3>
+
   <div class="search-params-row">
 
-    <!-- Gestion : lecture seule -->
-    <div class="search-field">
-      <label class="search-label">Gestion</label>
-      <div class="search-readonly-box">{{ gestion }}</div>
+    <!-- Exercice : lecture seule -->
+    <div class="search-field custom-field" style="flex: 0 0 100px;">
+      <label class="custom-label">Exercice</label>
+      <div class="custom-input-wrapper">
+        <input class="custom-input custom-input--readonly" [value]="exercice" readonly />
+      </div>
     </div>
 
     <!-- Projet de Budget : lecture seule -->
-    <div class="search-field search-field--wide">
-      <label class="search-label">Projet de Budget</label>
-      <div class="search-readonly-box">{{ budget }}</div>
+    <div class="search-field custom-field" style="flex: 0 0 350px;">
+      <label class="custom-label">Projet de Budget</label>
+      <div class="custom-input-wrapper">
+        <input class="custom-input custom-input--readonly" [value]="budget" readonly />
+      </div>
     </div>
 
     <!-- Section : lecture seule -->
-    <div class="search-field search-field--wide">
-      <label class="search-label">Section</label>
-      <div class="search-readonly-box">{{ section }}</div>
+    <div class="search-field search-field--wide custom-field">
+      <label class="custom-label">Section</label>
+      <div class="custom-input-wrapper">
+        <input class="custom-input custom-input--readonly" [value]="section" readonly />
+      </div>
     </div>
 
   </div>
+
   <div class="search-params-row">
 
     <!-- Programme : sélectionnable -->
-    <div class="search-field search-field--full">
-      <label class="search-label">Programme</label>
-      <div class="search-select-wrapper">
-        <select [(ngModel)]="programme" class="search-select">
-          <option value="">-- Sélectionner --</option>
-          <option *ngFor="let p of programmeOptions" [value]="p.value">{{ p.label }}</option>
-        </select>
-        <span class="select-arrow">▼</span>
+    <div class="search-field search-field--full custom-field">
+      <label class="custom-label">Programme</label>
+      <div class="custom-input-wrapper">
+        <mat-select class="custom-input custom-select" [(ngModel)]="programme">
+          <mat-option value="">-- Sélectionner --</mat-option>
+          <mat-option *ngFor="let p of programmeOptions" [value]="p.value">
+            {{ p.label }}
+          </mat-option>
+        </mat-select>
       </div>
     </div>
 
   </div>
 </div>
-
 <!-- ============================================= -->
 <!-- Sous-composant Filtres                         -->
 <!-- ============================================= -->
@@ -56,7 +64,7 @@
 <div class="table-card">
   <div class="section-header">
     <h2 class="section-title">Traitements des agents par lignes de dépenses</h2>
-    <button class="btn-ajouter" (click)="ouvrirModalAjout()">+ Ajouter Paragraphe</button>
+   <button class="btn-ajouter" (click)="ouvrirModalAjoutParagraphe()">+ Ajouter Paragraphe</button>
   </div>
 
   <div class="table-wrapper">
@@ -65,7 +73,7 @@
         <tr class="header-main">
           <th class="col-emploi"    rowspan="2" style="text-align:center;">Emploi</th>
           <th class="col-matricule" rowspan="2">Matricule</th>
-          <th class="col-nom"       rowspan="2">Prénoms et nom</th>
+          <th class="col-nom"    rowspan="2" style="text-align:center;" >Prénoms et nom</th>
           <th [attr.colspan]="paragraphes.length" class="col-paragraphes-header">Paragraphes</th>
           <th class="col-cumul"     rowspan="2">Cumul<br />(budget<br />prévu)</th>
           <th class="col-actions"   rowspan="2">Actions</th>
@@ -75,8 +83,8 @@
             <div class="para-code">{{ para.code }}</div>
             <div class="para-label">{{ para.label }}</div>
             <div class="para-unit">
-              <button class="btn-para-modifier"
-                      (click)="ouvrirModalIndividuel(para)"
+                <button class="btn-para-modifier"
+              (click)="ouvrirModalModifier(para)" 
                       title="Traitement individuel">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -98,34 +106,32 @@
           <td class="col-mat-val">{{ agent.matricule }}</td>
           <td class="col-nom-val" style="text-align:center;">{{ agent.nom }}</td>
 
-          <td *ngFor="let para of paragraphes" class="col-val">
-            <span *ngIf="agent.valeurs[para.code] !== null && agent.valeurs[para.code] !== undefined">
-              {{ agent.valeurs[para.code] | number:'1.0-0' }}
-            </span>
-            <span *ngIf="agent.valeurs[para.code] === null || agent.valeurs[para.code] === undefined"
-                  class="empty-m">—</span>
-          </td>
-
+        <td *ngFor="let para of paragraphes" class="col-val">
+  <span *ngIf="agent.valeurs[para.code] !== null && agent.valeurs[para.code] !== undefined">
+    {{ agent.valeurs[para.code] | number:'1.0-0' }}
+  </span>
+  <span *ngIf="agent.valeurs[para.code] === null || agent.valeurs[para.code] === undefined"
+        class="empty-m">—</span>
+</td>
           <td class="col-cumul-val">
             <span *ngIf="agent.cumul !== null && agent.cumul !== undefined">
               {{ agent.cumul | number:'1.0-0' }}
             </span>
             <span *ngIf="agent.cumul === null || agent.cumul === undefined" class="empty-m">—</span>
           </td>
-
-          <td class="col-actions-val">
-            <button class="btn-modifier"
-                    (click)="ouvrirModalModifier(agent)"
-                    title="Modifier"
-                    style="border:transparent;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-              </svg>
-            </button>
-          </td>
+<td class="col-actions-val">
+  <button class="btn-modifier"
+          (click)="ouvrirModalIndividuel(agent, null)"
+          title="Modifier"
+          style="border:transparent;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+    </svg>
+  </button>
+</td>
         </tr>
 
         <tr *ngIf="agentsFiltres.length === 0">
@@ -163,13 +169,13 @@
     <div class="footer-row">
       <div class="footer-item">
         <span class="footer-label">Chapitre :</span>
-        <span class="footer-value">{{ chapitre }}</span>
+        <span class="footer-value" style="width:250px">{{ chapitre }}</span>
       </div>
-      <div class="footer-item" style="margin-left:660px">
+      <div class="footer-item" style="margin-left:420px">
         <span class="footer-label">Statut :</span>
         <span class="footer-value">{{ statut }}</span>
       </div>
-      <div class="footer-item" style="margin-left:800px">
+      <div class="footer-item" style="margin-left:600px">
         <span class="footer-label">Âge :</span>
         <span class="footer-value">{{ age }}</span>
       </div>
@@ -187,14 +193,16 @@
   [visible]="showModalCollectif"
   [isNewAgent]="isNewAgent"
   [agentEdite]="agentEdite"
+   [paragraphes]="paragrapheSelectionne ? [paragrapheSelectionne] : paragraphes"
   [paragraphes]="paragraphes"
   [emplois]="emplois"
   [filtreState]="filtreState"
   [activeFilterCount]="activeFilterCount"
-  [gestion]="gestion"
+  [exercice]="exercice"
   [budget]="budget"
   [section]="section"
   [programme]="programme"
+  [agents]="agents"
   [action]="action"
   [activite]="activite"
   [chapitre]="chapitre"
@@ -210,7 +218,8 @@
 <app-modal-individuel
   [visible]="showModalIndividuel"
   [paragrapheSelectionne]="paragrapheSelectionne"
-  [gestion]="gestion"
+   [agentEdite]="agentEdite"
+  [exercice]="exercice"
   [budget]="budget"
   [section]="section"
   [programme]="programme"
@@ -222,3 +231,13 @@
   (fermer)="fermerModalIndividuel()"
   (enregistrer)="onEnregistrerIndividuel($event)">
 </app-modal-individuel>
+<!-- ============================================= -->
+<!-- Sous-composant Modale ajouter paragraphe               -->
+<!-- ============================================= -->
+<app-modal-ajout-paragraphe
+  [visible]="showModalAjoutParagraphe"
+  [tousLesParagraphes]="tousLesParagraphes"
+  [paragraphesActifs]="paragraphes"
+  (fermer)="fermerModalAjoutParagraphe()"
+  (sauvegarder)="onSauvegarderNouveauParagraphe($event)">
+</app-modal-ajout-paragraphe>

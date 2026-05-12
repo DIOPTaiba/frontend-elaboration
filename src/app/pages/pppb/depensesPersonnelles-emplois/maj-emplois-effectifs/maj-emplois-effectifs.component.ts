@@ -13,7 +13,11 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { IconModule } from 'src/app/icon/icon.module';
 import { MatSort } from '@angular/material/sort';
+<<<<<<< HEAD:src/app/pages/pppb/depensesPersonnelles-emplois/maj-emplois-effectif-section/maj-emplois-effectif-section.component.ts
 import { majEmploisEffectifSectionService } from 'src/app/services/pppb/depensesPersonnel/majEmploisEffectifSection.service';
+=======
+import { majEmploisEffectifsService } from 'src/app/services/depensesPersonnel/majEmploisEffectifs.service';
+>>>>>>> 1212d97086eb6c525d78eaecf86540aa2c6b9860:src/app/pages/pppb/depensesPersonnelles-emplois/maj-emplois-effectifs/maj-emplois-effectifs.component.ts
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -277,67 +281,7 @@ const AGENT_DATA: objetAgent[] = [
     activite: 'activité',
     effectifs: 25,
     budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '123455',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '123456',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '1234567',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '123458',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '123459',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
+  }
 ];
 const EMPLOI_DATA: objetType[] = [
   {
@@ -679,7 +623,7 @@ const ACTIVITE_DATA: objetType[] = [
 
 
 @Component({
-  selector: 'app-maj-emplois-effectif-section',
+  selector: 'app-maj-emplois-effectifs',
   imports: [
     MaterialModule,
     DecimalPipe,
@@ -687,8 +631,8 @@ const ACTIVITE_DATA: objetType[] = [
     MatPaginatorModule,
     IconModule
   ],
-  templateUrl: './maj-emplois-effectif-section.component.html',
-  styleUrl: './maj-emplois-effectif-section.component.scss',
+  templateUrl: './maj-emplois-effectifs.component.html',
+  styleUrl: './maj-emplois-effectifs.component.scss',
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -700,9 +644,10 @@ const ACTIVITE_DATA: objetType[] = [
     ]),
   ],
 })
-export class MajEmploisEffectifSectionComponent {
+export class MajEmploisEffectifsComponent {
 
-  constructor(private majEmploisEffectifSectionService: majEmploisEffectifSectionService) { }
+  constructor(private majEmploisEffectifsService: majEmploisEffectifsService,
+  ) { }
 
   @ViewChild(MatPaginator)
   set paginator(paginator: MatPaginator) {
@@ -750,11 +695,6 @@ export class MajEmploisEffectifSectionComponent {
   choix: string = "chapitre"; // valeur par défaut
   textRechercher: string = '';
 
-  // listeChapitre = CHAPITRE_DATA;
-  // listeAgent = AGENT_DATA;
-  // listeEmplois = EMPLOI_DATA;
-  // listeActions = ACTION_DATA;
-  // listeActivites = ACTIVITE_DATA;
 
   columnsChapitreToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
   columnsEmploiToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
@@ -804,18 +744,31 @@ export class MajEmploisEffectifSectionComponent {
     this.listeActivites.filter = '';
   }
 
-  tests: any[] = [];
+  listeProgrammes: any[] = [];
+  loading = false;
 
-  getTests() {
-    this.majEmploisEffectifSectionService.getTest().subscribe({
+  ngOnInit(): void {
+      // this.listeProgrammes = this.majEmploisEffectifsService.getProgrammes();
+      this.loadProgrammes();
+    
+  }
+
+  loadProgrammes() {
+    this.loading = true;
+    this.majEmploisEffectifsService.getProgrammes().subscribe({
       next: (data) => {
-        console.log('TEST:', data);
+        this.listeProgrammes = data;
+        console.log('PROGRAMMES:', this.listeProgrammes);
+        // this.toastr.success('Blogs chargés avec succès');
+        this.loading = false;
       },
       error: (error) => {
-        console.error('Erreur getTest:', error);
-      }
+        // this.toastr.error('Erreur lors du chargement des blogs');
+        this.loading = false;
+      },
     });
   }
+
 
 }
 

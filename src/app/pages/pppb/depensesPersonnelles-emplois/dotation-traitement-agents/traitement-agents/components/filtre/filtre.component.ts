@@ -2,11 +2,14 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EmploiRef, FiltreState } from '../../models/traitement-agent.models';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-filtre',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatInputModule,
+    MatSelectModule,MatIconModule],
   templateUrl: './filtre.component.html',
   styleUrls: ['./filtre.component.scss'],
 })

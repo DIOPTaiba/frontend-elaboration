@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Agent, EmploiRef, FiltreState, Paragraphe, DEMO_AGENTS, PARAGRAPHES } from '../models/traitement-agent.models';
-
+import { Agent, EmploiRef, FiltreState, Paragraphe, DEMO_AGENTS, PARAGRAPHES,TOUS_PARAGRAPHES } from '../models/traitement-agent.models';
+const STORAGE_KEY_AGENTS      = 'traitement_agents';
+const STORAGE_KEY_PARAGRAPHES = 'traitement_paragraphes';
 @Injectable({ providedIn: 'root' })
 export class TraitementAgentService {
 
-  readonly paragraphes: Paragraphe[] = PARAGRAPHES;
+    // Paragraphes actifs au départ (sous-ensemble affiché dans le tableau)
+  paragraphes: Paragraphe[] = [...PARAGRAPHES];
 
+  // Liste complète de référence — immuable
+  readonly tousLesParagraphes: Paragraphe[] = TOUS_PARAGRAPHES;
   // ─── Cumul ───────────────────────────────────────
   calculerCumul(agent: Agent): number {
     return this.paragraphes.reduce(
@@ -64,5 +68,29 @@ export class TraitementAgentService {
 
   getModalTotalCumul(lignes: Agent[]): number {
     return lignes.reduce((s, l) => s + (l.cumul ?? 0), 0);
+  }
+  ajouterParagraphe(paragraphes: Paragraphe[], nouveau: Paragraphe): Paragraphe[] {
+  // Éviter les doublons de code
+  if (paragraphes.find(p => p.code === nouveau.code)) return paragraphes;
+  return [...paragraphes, nouveau];
+}
+// ─── Persistance ─────────────────────────────────
+
+  sauvegarderAgents(agents: Agent[]): void {
+    localStorage.setItem(STORAGE_KEY_AGENTS, JSON.stringify(agents));
+  }
+
+  chargerAgents(): Agent[] | null {
+    const data = localStorage.getItem(STORAGE_KEY_AGENTS);
+    return data ? JSON.parse(data) : null;
+  }
+
+  sauvegarderParagraphes(paragraphes: Paragraphe[]): void {
+    localStorage.setItem(STORAGE_KEY_PARAGRAPHES, JSON.stringify(paragraphes));
+  }
+
+  chargerParagraphes(): Paragraphe[] {
+    const data = localStorage.getItem(STORAGE_KEY_PARAGRAPHES);
+    return data ? JSON.parse(data) : [...PARAGRAPHES];
   }
 }

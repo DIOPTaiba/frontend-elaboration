@@ -196,4 +196,19 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
     this.selectedLibelle = '';
     this.filteredNatures = [...this.natures];
   }
+  actionCode: string = '';
+actionLibelle: string = '';
+
+activiteCode: string = '';
+activiteLibelle: string = '';
+
+onActionChange(libelle: string): void {
+  const found = this.actions.find(a => a.libelle === libelle);
+  this.actionCode = found ? found.code : '';
+}
+
+onActiviteChange(libelle: string): void {
+  const found = this.activites.find(a => a.libelle === libelle);
+  this.activiteCode = found ? found.code : '';
+}
 }

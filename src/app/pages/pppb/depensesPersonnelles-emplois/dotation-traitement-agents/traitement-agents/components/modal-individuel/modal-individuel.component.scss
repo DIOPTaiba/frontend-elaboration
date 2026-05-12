@@ -175,3 +175,65 @@ $recap-bg:      #b0c4d8;
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 }
+.modal-agent-highlight {
+  color: #1D4991;
+  font-weight: 700;
+}
+// ── Colonne actions ──
+.mth-actions {
+  min-width: 80px;
+  width: 80px;
+  text-align: center;
+}
+
+.mtd-actions {
+  text-align: center;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+.actions-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.btn-ligne-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  border: 1.5px solid;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.15s;
+  &:active { transform: translateY(1px); }
+}
+
+.btn-ligne-modifier {
+  color: #1D4991;
+  border-color: #1D4991;
+  &:hover, &.active {
+    background: #1D4991;
+    color: #fff;
+  }
+}
+
+.btn-ligne-supprimer {
+  color: #c0392b;
+  border-color: #c0392b;
+  &:hover {
+    background: #c0392b;
+    color: #fff;
+  }
+}
+
+// Highlight ligne en édition
+.ligne-en-edition {
+  background: #eef6ff !important;
+  outline: 2px solid #1D4991;
+  outline-offset: -2px;
+}

@@ -12,6 +12,7 @@ export interface Agent {
   activite?: string;
   valeurs: { [codeParagraphe: string]: number | null };
   cumul: number | null;
+  lignesIndividuelles?: LigneIndividuelle[];
 }
 
 export interface EmploiRef {
@@ -63,6 +64,23 @@ export const PARAGRAPHES: Paragraphe[] = [
   { code: '667', label: 'Prises en charge médicales' },
   { code: '668', label: 'Contractuels' },
   { code: '669', label: 'Autres charges de personnel' },
+];
+export const TOUS_PARAGRAPHES: Paragraphe[] = [
+  { code: '661', label: 'Traitements et salaires' },
+  { code: '662', label: 'Primes' },
+  { code: '663', label: 'Indemnités' },
+  { code: '664', label: 'Heures supplémentaires' },
+  { code: '665', label: 'Cotisations sociales' },
+  { code: '666', label: 'Prestations familiales' },
+  { code: '667', label: 'Prises en charge médicales' },
+  { code: '668', label: 'Contractuels' },
+  { code: '669', label: 'Autres charges de personnel' },
+  { code: '670', label: 'Indemnité de logement' },
+  { code: '671', label: 'Indemnité de transport' },
+  { code: '672', label: 'Prime de rendement' },
+  { code: '673', label: 'Supplément familial' },
+  { code: '674', label: 'Indemnité de représentation' },
+  { code: '675', label: 'Prime d\'ancienneté' },
 ];
 
 export const GESTION_OPTIONS: SelectOption[] = [

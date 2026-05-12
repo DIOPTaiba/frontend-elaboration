@@ -14,20 +14,26 @@
     <i class="iconify icon-20 d-flex" data-icon="solar:hamburger-menu-line-duotone"></i>
   </button>
   }
+
+  <!-- Logo DGB -->
+  <div>
+    <img src="./assets/images/logos/logo.svg" alt="logo DGB" />
+  </div>
+
   <!-- --------------------------------------------------------------- -->
 
   <!-- --------------------------------------------------------------- -->
   <!--  Search -->
   <!-- --------------------------------------------------------------- -->
-  <button mat-icon-button (click)="openDialog()" class="d-flex align-items-center justify-content-center">
+  <!-- <button mat-icon-button (click)="openDialog()" class="d-flex align-items-center justify-content-center">
     <i class="iconify icon-20 d-flex" data-icon="solar:magnifer-outline"></i>
-  </button>
+  </button> -->
 
-  <div class="d-none d-lg-flex">
-    <!-- --------------------------------------------------------------- -->
-    <!--  Links -->
-    <!-- --------------------------------------------------------------- -->
-    <button mat-icon-button [matMenuTriggerFor]="appsmenu" aria-label="links"
+  <!-- <div class="d-none d-lg-flex"> -->
+  <!-- --------------------------------------------------------------- -->
+  <!--  Links -->
+  <!-- --------------------------------------------------------------- -->
+  <!-- <button mat-icon-button [matMenuTriggerFor]="appsmenu" aria-label="links"
       class="d-flex align-items-center justify-content-center">
       <i class="iconify icon-20 d-flex" data-icon="solar:widget-3-line-duotone"></i>
     </button>
@@ -62,11 +68,17 @@
         </div>
       </div>
     </mat-menu>
-  </div>
+  </div> -->
 
   <span class="flex-1-auto"></span>
 
-  @if(options.theme=='light'){
+  <div>
+    <img src="./assets/images/logos/logo_sysbudgep.PNG" alt="logo Sysbudgep"
+      style="height: 46,95px;width: 215px; margin-top: 10px;" />
+  </div>
+  <span class="flex-1-auto"></span>
+
+  <!-- @if(options.theme=='light'){
   <button mat-icon-button aria-label="lightdark" class="d-flex justify-content-center" (click)="setlightDark('dark')">
     <i-tabler class="d-flex icon-20" [name]="'moon'"></i-tabler>
   </button>
@@ -74,52 +86,54 @@
   <button mat-icon-button aria-label="lightdark" class="d-flex justify-content-center" (click)="setlightDark('light')">
     <i-tabler class="d-flex icon-20" [name]="'sun'"></i-tabler>
   </button>
-  }
+  } -->
+
+  
 
   <!-- Mobile Menu -->
-  <button mat-icon-button (click)="toggleMobileFilterNav.emit()"
+  <!-- <button mat-icon-button (click)="toggleMobileFilterNav.emit()"
     class="d-flex d-lg-none justify-content-center align-items-center">
     <i class="iconify icon-20 d-flex" data-icon="solar:menu-dots-outline"></i>
-  </button>
+  </button> -->
 
   <!-- --------------------------------------------------------------- -->
   <!-- Collpase bar -->
   <!-- --------------------------------------------------------------- -->
-  <button mat-icon-button (click)="toggleCollpase()" class="d-flex d-lg-none justify-content-center">
+  <!-- <button mat-icon-button (click)="toggleCollpase()" class="d-flex d-lg-none justify-content-center">
     <i class="iconify icon-20 d-flex" data-icon="solar:sort-outline"></i>
   </button>
   @if(isCollapse){
   <div class="header-collpase p-y-10 p-x-15">
-    <div class="d-flex justify-content-center gap-10">
+    <div class="d-flex justify-content-center gap-10"> -->
       <!-- --------------------------------------------------------------- -->
       <!-- Notification Dropdown -->
       <!-- --------------------------------------------------------------- -->
-      <button class="position-relative d-flex align-items-center justify-content-center" mat-icon-button
+      <!-- <button class="position-relative d-flex align-items-center justify-content-center" mat-icon-button
         [matMenuTriggerFor]="notificationmenu" aria-label="Notifications">
         <i class="iconify icon-20 d-flex" data-icon="solar:bell-line-duotone"></i>
         <div class="notify">
           <span class="heartbit"></span> <span class="point"></span>
         </div>
-      </button>
+      </button> -->
       <!-- --------------------------------------------------------------- -->
       <!-- langugage Dropdown -->
       <!-- --------------------------------------------------------------- -->
-      <button [matMenuTriggerFor]="flags" mat-icon-button class="m-r-5">
+      <!-- <button [matMenuTriggerFor]="flags" mat-icon-button class="m-r-5">
         <img [src]="selectedLanguage.icon" class="rounded-circle object-cover icon-20" />
-      </button>
+      </button> -->
 
       <!-- --------------------------------------------------------------- -->
       <!-- Profile Dropdown -->
       <!-- --------------------------------------------------------------- -->
-      <button mat-icon-button extended [matMenuTriggerFor]="profilemenu" aria-label="Notifications"
+      <!-- <button mat-icon-button extended [matMenuTriggerFor]="profilemenu" aria-label="Notifications"
         class="position-relative d-flex align-items-center justify-content-center profile-btn-dd">
         <img src="/assets/images/profile/user-1.jpg"
           class="rounded-circle icon-30 object-cover profile-dd d-flex align-items-center justify-content-center"
           width="30" height="30" />
-      </button>
-    </div>
+      </button> -->
+    <!-- </div>
   </div>
-  }
+  } -->
 
   <!-- --------------------------------------------------------------- -->
   <!-- Notification Dropdown -->
@@ -170,7 +184,7 @@
   <!-- --------------------------------------------------------------- -->
   <!-- langugage Dropdown -->
   <!-- --------------------------------------------------------------- -->
-  <button [matMenuTriggerFor]="flags" mat-icon-button class="d-none d-lg-flex">
+  <!-- <button [matMenuTriggerFor]="flags" mat-icon-button class="d-none d-lg-flex">
     <img [src]="selectedLanguage.icon" class="rounded-circle object-cover icon-20" />
   </button>
   <mat-menu #flags="matMenu" class="cardWithShadow">
@@ -182,41 +196,62 @@
       </div>
     </button>
     }
-  </mat-menu>
+  </mat-menu> -->
 
+  <!-- Embleme du Sénégal -->
+  <div class="d-flex align-items-center gap-4">
+    <img class="rounded-circle object-cover icon-35 profile-dd" src="/assets/images/logos/embleme_sn.png" alt="profile"
+      title="Exploitation" />
+  </div>
   <!-- --------------------------------------------------------------- -->
   <!-- profile Dropdown -->
   <!-- --------------------------------------------------------------- -->
-  <button mat-button [matMenuTriggerFor]="profilemenu" aria-label="Profile" class="profile-btn  d-none d-lg-flex">
+  <button mat-button [matMenuTriggerFor]="profilemenu" aria-label="Profile" class="profile-btn">
     <div class="d-flex align-items-center gap-4">
-      <img src="/assets/images/profile/user-1.jpg" class="rounded-circle object-cover icon-35 profile-dd" width="35" />
+      <!-- <img
+          src="/assets/images/profile/user-1.jpg"
+          class="rounded-circle object-cover icon-35 profile-dd"
+          width="35"
+
+          src="https://ui-avatars.com/api/?name={{currentUser.actPrenom}} {{currentUser.actNom}}"
+        /> -->
+      <img class="rounded-circle object-cover icon-35 profile-dd" src="https://ui-avatars.com/api/?name=F N"
+        alt="profile" title="Exploitation" />
 
       <i data-icon="solar:alt-arrow-down-bold" class="iconify f-s-8"></i>
     </div>
   </button>
-  <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
-    <div class="p-x-32 p-y-16">
+  <mat-menu #profilemenu="matMenu" xPosition="before" class="topbar-dd cardWithShadow">
+    <div class="p-x-8 p-y-16">
       <div class="d-flex align-items-center p-b-24 b-b-1 m-t-16">
-        <img src="/assets/images/profile/user-1.jpg" class="rounded-circle" width="56" />
+        <!-- <img
+            src="/assets/images/profile/user-1.jpg"
+            class="rounded-circle"
+            width="56"
+          /> -->
         <div class="m-l-16">
           <h6 class="f-s-14 f-w-600 m-0 d-flex align-items-center">
-            David McMichael
-            <span class="f-s-14 d-block text-success m-l-4">Pro</span>
+            FRANCOIS NDONG
           </h6>
-          <span class="text-muted"> david&#64;wrappixel.com </span>
+          <span class="text-muted">Ministère des Finances et du Budget </span>
+          <br>
+          <span class="text-muted">OPSCM43135 - Opérateur de saisie du budget de la DSI </span>
         </div>
       </div>
     </div>
-    <div class="p-x-32 p-b-16">
+    <div class="p-x-8 p-b-16">
       @for(profile of profiledd; track profile.title) {
       <a class="p-8 text-decoration-none d-block text-hover-primary" [routerLink]="[profile.link]">
         <div class="d-flex align-items-center">
           <h5 class="f-s-14 f-w-600 m-0 lh-md hover-text">
             {{ profile.title }}
           </h5>
-          @if(profile.new) {
-          <span class="bg-light-error text-error rounded p-x-8 p-y-2 f-w-500 f-s-12 m-l-4">5</span>
-          }
+          <!-- @if(profile.new) {
+            <span
+              class="bg-light-error text-error rounded p-x-8 p-y-2 f-w-500 f-s-12 m-l-4"
+              >5</span
+            >
+            } -->
         </div>
       </a>
       }
