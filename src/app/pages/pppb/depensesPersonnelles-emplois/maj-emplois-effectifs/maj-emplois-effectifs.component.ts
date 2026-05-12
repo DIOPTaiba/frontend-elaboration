@@ -277,67 +277,7 @@ const AGENT_DATA: objetAgent[] = [
     activite: 'activité',
     effectifs: 25,
     budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '123455',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '123456',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '1234567',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '123458',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
-  {
-    chapitre: 'Direction SI DGB',
-    emploi: 'Ing. Informaticien',
-    matricule: '123459',
-    nom: 'xxxxx yyy',
-    age: 0,
-    statut: 'agent',
-    action: 'action',
-    activite: 'activité',
-    effectifs: 25,
-    budgetPrevu: 25000000,
-  },
+  }
 ];
 const EMPLOI_DATA: objetType[] = [
   {
@@ -702,7 +642,8 @@ const ACTIVITE_DATA: objetType[] = [
 })
 export class MajEmploisEffectifsComponent {
 
-  constructor(private majEmploisEffectifsService: majEmploisEffectifsService) { }
+  constructor(private majEmploisEffectifsService: majEmploisEffectifsService,
+  ) { }
 
   @ViewChild(MatPaginator)
   set paginator(paginator: MatPaginator) {
@@ -750,11 +691,6 @@ export class MajEmploisEffectifsComponent {
   choix: string = "chapitre"; // valeur par défaut
   textRechercher: string = '';
 
-  // listeChapitre = CHAPITRE_DATA;
-  // listeAgent = AGENT_DATA;
-  // listeEmplois = EMPLOI_DATA;
-  // listeActions = ACTION_DATA;
-  // listeActivites = ACTIVITE_DATA;
 
   columnsChapitreToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
   columnsEmploiToDisplay = ['code', 'libelle', 'effectifsN', 'agentsSolde', 'contractuels', 'total', 'ecart', 'dotation'];
@@ -804,18 +740,31 @@ export class MajEmploisEffectifsComponent {
     this.listeActivites.filter = '';
   }
 
-  tests: any[] = [];
+  listeProgrammes: any[] = [];
+  loading = false;
 
-  getTests() {
-    this.majEmploisEffectifsService.getTest().subscribe({
+  ngOnInit(): void {
+      // this.listeProgrammes = this.majEmploisEffectifsService.getProgrammes();
+      this.loadProgrammes();
+    
+  }
+
+  loadProgrammes() {
+    this.loading = true;
+    this.majEmploisEffectifsService.getProgrammes().subscribe({
       next: (data) => {
-        console.log('TEST:', data);
+        this.listeProgrammes = data;
+        console.log('PROGRAMMES:', this.listeProgrammes);
+        // this.toastr.success('Blogs chargés avec succès');
+        this.loading = false;
       },
       error: (error) => {
-        console.error('Erreur getTest:', error);
-      }
+        // this.toastr.error('Erreur lors du chargement des blogs');
+        this.loading = false;
+      },
     });
   }
+
 
 }
 
