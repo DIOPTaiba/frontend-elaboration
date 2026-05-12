@@ -18,10 +18,10 @@
           <label class="f-s-14 f-w-600">Section</label>
           <div class="modal-form-fields">
             <mat-form-field appearance="outline" class="field-code">
-              <input matInput readonly [value]="section.code" />
+              <input matInput readonly [value]="section.sec_code" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="field-flex">
-              <input matInput readonly [value]="section.libelle" />
+              <input matInput readonly [value]="section.sec_libelle" />
             </mat-form-field>
           </div>
         </div>
@@ -30,19 +30,22 @@
           <label class="f-s-14 f-w-600">Programme</label>
           <div class="modal-form-fields">
             <mat-form-field appearance="outline" class="field-code">
-              <input matInput readonly [value]="programme.code" />
+              <input matInput readonly [value]="programme?.proCode ?? ''" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="field-flex">
-              <input matInput readonly [value]="programme.libelle" />
+              <input matInput readonly [value]="programme?.proLibelle ?? ''" />
             </mat-form-field>
           </div>
         </div>
 
         <div class="modal-form-row">
           <label class="f-s-14 f-w-600">Catégorie de dépense</label>
-          <div class="modal-form-fields">
+         <div class="modal-form-fields">
+            <mat-form-field appearance="outline" class="field-code">
+              <input matInput readonly [value]="categorieDepense?.cadeCode ?? ''" />
+            </mat-form-field>
             <mat-form-field appearance="outline" class="field-flex">
-              <input matInput readonly [value]="categorieDepense" />
+              <input matInput readonly [value]="categorieDepense?.cadeLib ?? ''" />
             </mat-form-field>
           </div>
         </div>
@@ -51,10 +54,10 @@
           <label class="f-s-14 f-w-600">Chapitre</label>
           <div class="modal-form-fields">
             <mat-form-field appearance="outline" class="field-code">
-              <input matInput readonly [value]="chapitre.code" />
+              <input matInput readonly [value]="chapitre?.chapCode ?? ''" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="field-flex">
-              <input matInput readonly [value]="chapitre.libelle" />
+              <input matInput readonly [value]="chapitre?.chapLib ?? ''" />
             </mat-form-field>
           </div>
         </div>
@@ -63,12 +66,11 @@
           <label class="f-s-14 f-w-600">Action</label>
           <div class="modal-form-fields">
             <mat-form-field appearance="outline" class="field-code">
-              <input matInput readonly [value]="action" />
+              <input matInput readonly [value]="selectedAction?.copCode ?? ''" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="field-flex">
-              <mat-select [(ngModel)]="selectedActionLibelle" (ngModelChange)="onActionSelect()">
-                <mat-option value=""></mat-option>
-                <mat-option *ngFor="let a of actions" [value]="a.libelle">{{ a.libelle }}</mat-option>
+              <mat-select [(ngModel)]="selectedAction" (ngModelChange)="onActionSelect()">
+                <mat-option *ngFor="let a of actions" [value]="a">{{ a.copLibelle }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -78,12 +80,12 @@
           <label class="f-s-14 f-w-600">Activité</label>
           <div class="modal-form-fields">
             <mat-form-field appearance="outline" class="field-code">
-              <input matInput readonly [value]="activite" />
+              <input matInput readonly [value]="selectedActivite?.copCode ?? ''" />
             </mat-form-field>
             <mat-form-field appearance="outline" class="field-flex">
-              <mat-select [(ngModel)]="selectedActiviteLibelle" (ngModelChange)="onActiviteSelect()">
-                <mat-option value=""></mat-option>
-                <mat-option *ngFor="let a of activites" [value]="a.libelle">{{ a.libelle }}</mat-option>
+              <mat-select [(ngModel)]="selectedActivite" (ngModelChange)="onActiviteSelect()">
+                <!-- <mat-option [value]="null"></mat-option> -->
+                <mat-option *ngFor="let a of activites" [value]="a">{{ a.copLibelle }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

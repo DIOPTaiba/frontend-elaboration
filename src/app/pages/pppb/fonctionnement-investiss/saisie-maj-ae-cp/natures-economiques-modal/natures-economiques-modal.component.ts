@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { SaisieMajProjetBudgetService } from 'src/app/services/pppb/fonctionnementInvestiss/saisie-maj-projet-budget.service';
+import { ActionDto } from 'src/app/dtos/global/action.dto';
+import { ActiviteDto } from 'src/app/dtos/global/activite.dto';
+import { ProgrammeDto } from 'src/app/dtos/global/programme.dto';
+import { CategorieDepenseDto } from 'src/app/dtos/global/categorie-depense.dto';
+import { SectionDto, SECTION_COURANTE } from 'src/app/dtos/global/section.dto';
+import { ChapitreDto } from 'src/app/dtos/global/chapitre.dto';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -38,54 +45,62 @@ export interface ModalResult {
   templateUrl: './natures-economiques-modal.component.html',
   styleUrls: ['./natures-economiques-modal.component.scss']
 })
-export class NaturesEconomiquesModalComponent implements OnInit {
+export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
+
+  constructor(private saisieMajService: SaisieMajProjetBudgetService) { }
 
   @Input() isVisible: boolean = false;
+  @Input() section: SectionDto = SECTION_COURANTE;
+  @Input() programme: ProgrammeDto | null = null;
+  @Input() categorieDepense: CategorieDepenseDto | null = null;
+  @Input() chapitre: ChapitreDto | null = null;
   @Output() ajouter = new EventEmitter<ModalResult>();
   @Output() fermer = new EventEmitter<void>();
 
-  // Header data
-  section: SectionInfo = {
-    code: '43',
-    libelle: 'Ministère des Finances et du Budget'
-  };
+  selectedAction: ActionDto | null = null;
+  selectedActivite: ActiviteDto | null = null;
 
-  programme: SectionInfo = {
-    code: '2032',
-    libelle: "Gestion ressources douanières et protection de l'économie"
-  };
+  actions: ActionDto[] = [];
+  activites: ActiviteDto[] = [];
 
-  categorieDepense: string = "Investissements exécutés par l'Etat";
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isVisible']?.currentValue === true && this.programme && this.chapitre) {
+      this.chargerActions();
+    }
+  }
 
-  chapitre: SectionInfo = {
-    code: '39705440000',
-    libelle: 'PROJET DE RENFORCEMENT DU DISPOSITIF DE CONTROLE NON INTRUISIF DANS LES ZONES FRONTALIÈRES'
-  };
+  private chargerActions(): void {
+    if (!this.programme || !this.chapitre) return;
+    this.saisieMajService.getActionsProjetDeBudget(
+      this.programme.proId,
+      this.programme.pappRef,
+      this.chapitre.chapCode,
+      this.chapitre.chapId
+    ).subscribe({
+      next: (data) => { this.actions = data; },
+      error: (err) => { console.error('Erreur actions:', err); }
+    });
+  }
 
-  action: string = '';
-  activite: string = '';
-  selectedActionLibelle: string = '';
-  selectedActiviteLibelle: string = '';
-
-  actions: SectionInfo[] = [
-    { code: 'ACT001', libelle: 'Action exemple 1' },
-    { code: 'ACT002', libelle: 'Action exemple 2' },
-  ];
-
-  activites: SectionInfo[] = [
-    { code: 'ACV001', libelle: 'Activité exemple 1' },
-    { code: 'ACV002', libelle: 'Activité exemple 2' },
-  ];
+  private chargerActivites(): void {
+    if (!this.selectedAction || !this.programme || !this.chapitre) return;
+    this.saisieMajService.getActivitesProjetDeBudget(
+      this.selectedAction.copId,
+      this.programme.pappRef,
+      this.chapitre.chapCode
+    ).subscribe({
+      next: (data) => { this.activites = data; },
+      error: (err) => { console.error('Erreur activités:', err); }
+    });
+  }
 
   onActionSelect(): void {
-    const found = this.actions.find(a => a.libelle === this.selectedActionLibelle);
-    this.action = found ? found.code : '';
+    this.selectedActivite = null;
+    this.activites = [];
+    this.chargerActivites();
   }
 
-  onActiviteSelect(): void {
-    const found = this.activites.find(a => a.libelle === this.selectedActiviteLibelle);
-    this.activite = found ? found.code : '';
-  }
+  onActiviteSelect(): void { }
   // Search filters
   selectedCode: string = '';
   selectedLibelle: string = '';
@@ -163,6 +178,9 @@ export class NaturesEconomiquesModalComponent implements OnInit {
   onFermer(): void {
     this.resetSelections();
     this.fermer.emit();
+    this.selectedActivite = null;
+    this.selectedAction = null;
+    this.activites = [];
   }
 
   onOverlayClick(event: MouseEvent): void {

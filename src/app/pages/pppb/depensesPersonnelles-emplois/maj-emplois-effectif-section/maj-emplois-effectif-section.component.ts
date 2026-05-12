@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { IconModule } from 'src/app/icon/icon.module';
 import { MatSort } from '@angular/material/sort';
-import { majEmploisEffectifSectionService } from 'src/app/services/depensesPersonnel/majEmploisEffectifSection.service';
+import { majEmploisEffectifSectionService } from 'src/app/services/pppb/depensesPersonnel/majEmploisEffectifSection.service';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
