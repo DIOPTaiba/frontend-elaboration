@@ -10,7 +10,7 @@
     <div class="search-field custom-field" style="flex: 0 0 100px;">
       <label class="custom-label">Exercice</label>
       <div class="custom-input-wrapper">
-        <input class="custom-input custom-input--readonly" [value]="gestion" readonly />
+        <input class="custom-input custom-input--readonly" [value]="exercice" readonly />
       </div>
     </div>
 
@@ -64,7 +64,7 @@
 <div class="table-card">
   <div class="section-header">
     <h2 class="section-title">Traitements des agents par lignes de dépenses</h2>
-    <button class="btn-ajouter" (click)="ouvrirModalAjout()">+ Ajouter Paragraphe</button>
+   <button class="btn-ajouter" (click)="ouvrirModalAjoutParagraphe()">+ Ajouter Paragraphe</button>
   </div>
 
   <div class="table-wrapper">
@@ -73,7 +73,7 @@
         <tr class="header-main">
           <th class="col-emploi"    rowspan="2" style="text-align:center;">Emploi</th>
           <th class="col-matricule" rowspan="2">Matricule</th>
-          <th class="col-nom"       rowspan="2">Prénoms et nom</th>
+          <th class="col-nom"    rowspan="2" style="text-align:center;" >Prénoms et nom</th>
           <th [attr.colspan]="paragraphes.length" class="col-paragraphes-header">Paragraphes</th>
           <th class="col-cumul"     rowspan="2">Cumul<br />(budget<br />prévu)</th>
           <th class="col-actions"   rowspan="2">Actions</th>
@@ -193,14 +193,16 @@
   [visible]="showModalCollectif"
   [isNewAgent]="isNewAgent"
   [agentEdite]="agentEdite"
+   [paragraphes]="paragrapheSelectionne ? [paragrapheSelectionne] : paragraphes"
   [paragraphes]="paragraphes"
   [emplois]="emplois"
   [filtreState]="filtreState"
   [activeFilterCount]="activeFilterCount"
-  [gestion]="gestion"
+  [exercice]="exercice"
   [budget]="budget"
   [section]="section"
   [programme]="programme"
+  [agents]="agents"
   [action]="action"
   [activite]="activite"
   [chapitre]="chapitre"
@@ -217,7 +219,7 @@
   [visible]="showModalIndividuel"
   [paragrapheSelectionne]="paragrapheSelectionne"
    [agentEdite]="agentEdite"
-  [gestion]="gestion"
+  [exercice]="exercice"
   [budget]="budget"
   [section]="section"
   [programme]="programme"
@@ -229,3 +231,13 @@
   (fermer)="fermerModalIndividuel()"
   (enregistrer)="onEnregistrerIndividuel($event)">
 </app-modal-individuel>
+<!-- ============================================= -->
+<!-- Sous-composant Modale ajouter paragraphe               -->
+<!-- ============================================= -->
+<app-modal-ajout-paragraphe
+  [visible]="showModalAjoutParagraphe"
+  [tousLesParagraphes]="tousLesParagraphes"
+  [paragraphesActifs]="paragraphes"
+  (fermer)="fermerModalAjoutParagraphe()"
+  (sauvegarder)="onSauvegarderNouveauParagraphe($event)">
+</app-modal-ajout-paragraphe>

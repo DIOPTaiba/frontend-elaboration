@@ -1,55 +1,49 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 import { Paragraphe } from '../../models/traitement-agent.models';
 
 @Component({
   selector: 'app-modal-ajout-paragraphe',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatSelectModule],
   templateUrl: './modal-ajout-paragraphe.component.html',
+  styleUrls: ['./modal-ajout-paragraphe.component.scss'],
 })
 export class ModalAjoutParagrapheComponent implements OnChanges {
+  @Input()  visible             = false;
+  @Input()  tousLesParagraphes: Paragraphe[] = [];  // tous les paragraphes disponibles
+  @Input()  paragraphesActifs:  Paragraphe[] = [];  // déjà présents dans le tableau
 
-  @Input() visible = false;
-  @Input() paragraphesExistants: Paragraphe[] = [];
-
-  @Output() fermer     = new EventEmitter<void>();
+  @Output() fermer      = new EventEmitter<void>();
   @Output() sauvegarder = new EventEmitter<Paragraphe>();
 
-  code  = '';
-  label = '';
+  paragrapheChoisi: Paragraphe | null = null;
   erreur = '';
 
-  ngOnChanges(): void {
-    if (this.visible) {
-      // Réinitialiser le formulaire à chaque ouverture
-      this.code   = '';
-      this.label  = '';
-      this.erreur = '';
+  // Paragraphes disponibles = tous moins ceux déjà actifs
+  get paragraphesDisponibles(): Paragraphe[] {
+    const codesActifs = new Set(this.paragraphesActifs.map(p => p.code));
+    return this.tousLesParagraphes.filter(p => !codesActifs.has(p.code));
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['visible']?.currentValue === true) {
+      this.paragrapheChoisi = null;
+      this.erreur           = '';
     }
   }
 
-  onSauvegarder(): void {
-    this.erreur = '';
-
-    if (!this.code.trim()) {
-      this.erreur = 'Le code du paragraphe est obligatoire.';
+  confirmer(): void {
+    if (!this.paragrapheChoisi) {
+      this.erreur = 'Veuillez sélectionner un paragraphe.';
       return;
     }
-    if (!this.label.trim()) {
-      this.erreur = 'Le libellé du paragraphe est obligatoire.';
-      return;
-    }
-    if (this.paragraphesExistants.find(p => p.code === this.code.trim())) {
-      this.erreur = `Un paragraphe avec le code "${this.code.trim()}" existe déjà.`;
-      return;
-    }
-
-    this.sauvegarder.emit({ code: this.code.trim(), label: this.label.trim() });
+    this.sauvegarder.emit(this.paragrapheChoisi);
   }
 
-  onFermer(): void {
+  annuler(): void {
     this.fermer.emit();
   }
 }

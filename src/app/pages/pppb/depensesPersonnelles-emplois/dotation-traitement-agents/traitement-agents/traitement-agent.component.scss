@@ -164,6 +164,56 @@ $text-muted:   #6b8aab;
     color: #1a3556;
   }
 }
+// ── Ligne de saisie inline ─────────────────────────
+.nouvelle-ligne-row {
+  background: #eef4ff !important;
+  border-top: 2px dashed #7aa3d4;
+
+  td { padding: 5px 6px; vertical-align: middle; }
+}
+
+.inline-input {
+  width: 100%;
+  padding: 4px 7px;
+  border: 1px solid #7aa3d4;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #1a2a3a;
+  background: #fff;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-dark;
+    box-shadow: 0 0 0 2px rgba(29,73,145,0.12);
+  }
+
+  &--num {
+    text-align: right;
+    width: 80px;
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button { -webkit-appearance: none; }
+  }
+}
+
+.btn-confirmer, .btn-annuler {
+  width: 24px; height: 24px;
+  border-radius: 4px; border: none;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+.btn-confirmer {
+  background: #22c55e; color: #fff;
+  &:hover { background: #16a34a; }
+}
+
+.btn-annuler {
+  background: #ef4444; color: #fff;
+  &:hover { background: #dc2626; }
+}
 // =============================================
 // Carte principale
 // =============================================

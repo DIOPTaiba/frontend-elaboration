@@ -1,49 +1,46 @@
-<div class="modal-overlay" *ngIf="visible" (click)="onFermer()">
-  <div class="modal-container" (click)="$event.stopPropagation()">
+<div class="overlay" *ngIf="visible" (click)="annuler()"></div>
 
-    <div class="modal-header">
-      <h3 class="modal-title">Ajouter un paragraphe</h3>
-      <button class="btn-close" (click)="onFermer()">✕</button>
+<div class="modal" *ngIf="visible">
+  <div class="modal-header">
+    <h3 class="modal-title">Ajouter un paragraphe</h3>
+    <button class="btn-close" (click)="annuler()">✕</button>
+  </div>
+
+  <div class="modal-body">
+
+    <div *ngIf="paragraphesDisponibles.length === 0" class="empty-msg">
+      Tous les paragraphes sont déjà ajoutés au tableau.
     </div>
 
-    <div class="modal-body">
-      <p class="modal-subtitle">
-        Définissez le code et le libellé du nouveau paragraphe budgétaire.
-        Une colonne correspondante sera ajoutée au tableau.
-      </p>
+    <div class="field" *ngIf="paragraphesDisponibles.length > 0">
+      <label class="field-label">Paragraphe <span class="required">*</span></label>
+      <mat-select class="field-select" [(ngModel)]="paragrapheChoisi" placeholder="-- Sélectionner --">
+        <mat-option *ngFor="let p of paragraphesDisponibles" [value]="p">
+          {{ p.code }} — {{ p.label }}
+        </mat-option>
+      </mat-select>
+    </div>
 
-      <!-- Code -->
-      <div class="form-field">
-        <label class="form-label">Code <span class="required">*</span></label>
-        <input
-          type="text"
-          class="form-input"
-          [(ngModel)]="code"
-          placeholder="Ex : P601"
-          maxlength="20" />
+    <!-- Aperçu du paragraphe sélectionné -->
+    <div class="apercu" *ngIf="paragrapheChoisi">
+      <div class="apercu-row">
+        <span class="apercu-key">Code :</span>
+        <span class="apercu-val">{{ paragrapheChoisi.code }}</span>
       </div>
-
-      <!-- Libellé -->
-      <div class="form-field">
-        <label class="form-label">Libellé <span class="required">*</span></label>
-        <input
-          type="text"
-          class="form-input"
-          [(ngModel)]="label"
-          placeholder="Ex : Indemnité de résidence"
-          maxlength="100" />
-      </div>
-
-      <!-- Message d'erreur -->
-      <div class="form-erreur" *ngIf="erreur">
-        ⚠ {{ erreur }}
+      <div class="apercu-row">
+        <span class="apercu-key">Libellé :</span>
+        <span class="apercu-val">{{ paragrapheChoisi.label }}</span>
       </div>
     </div>
 
-    <div class="modal-footer">
-      <button class="btn-annuler" (click)="onFermer()">Annuler</button>
-      <button class="btn-confirmer" (click)="onSauvegarder()">Ajouter la colonne</button>
-    </div>
+    <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+  </div>
 
+  <div class="modal-footer">
+    <button class="btn-annuler"   (click)="annuler()">Annuler</button>
+    <button class="btn-confirmer" (click)="confirmer()"
+            [disabled]="paragraphesDisponibles.length === 0">
+      Ajouter
+    </button>
   </div>
 </div>

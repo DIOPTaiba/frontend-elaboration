@@ -17,13 +17,14 @@ import { ModalAjoutParagrapheComponent } from
   './components/modal-ajout-paragraphe/modal-ajout-paragraphe.component';
 @Component({
   selector: 'app-traitement-agent',
-  standalone: true,
+  standalone: true, 
   imports: [
     CommonModule,
     FormsModule,
     FiltreComponent,
     ModalCollectifComponent,
     ModalIndividuelComponent, 
+    ModalAjoutParagrapheComponent,
     MatInputModule,
     MatSelectModule,MatIconModule 
   ],
@@ -34,7 +35,7 @@ import { ModalAjoutParagrapheComponent } from
 export class TraitementAgentComponent implements OnInit {
 
   // ── Paramètres de recherche ──
-  gestion   = '2027';
+  exercice   = '2027';
   budget    = 'Projet LFI 2027';
   section   = 'Ministère des finances et du Budget';
   programme = "Elaboration du budget et suivi de l'exécution des dépenses";
@@ -58,6 +59,7 @@ export class TraitementAgentComponent implements OnInit {
   paragraphes: Paragraphe[] = [];
   emplois: EmploiRef[] = [];
   agentsFiltres: Agent[] = [];
+  tousLesParagraphes: Paragraphe[] = [];
 
   // ── État filtres ──
   filtreState: FiltreState = { emploi: '', chapitre: '', matricule: '', action: '', activite: '' };
@@ -76,15 +78,21 @@ export class TraitementAgentComponent implements OnInit {
   constructor(private svc: TraitementAgentService) {}
 
   ngOnInit(): void {
-    this.paragraphes = this.svc.paragraphes;
-    if (!this.agents || this.agents.length === 0) {
-      this.agents = this.svc.getDemoAgents();
-    } else {
-      this.agents.forEach(a => { a.cumul = this.svc.calculerCumul(a); });
-    }
-    this.agentsFiltres = [...this.agents];
-    this.emplois = this.svc.buildEmploisRef(this.agents);
+    this.tousLesParagraphes = [...this.svc.tousLesParagraphes]; 
+    this.paragraphes        = [...this.svc.paragraphes];
+     const agentsSauvegardes = this.svc.chargerAgents();
+     if (agentsSauvegardes && agentsSauvegardes.length > 0) {
+    this.agents = agentsSauvegardes;
+    this.agents.forEach(a => { a.cumul = this.svc.calculerCumul(a); });
+  } else if (!this.agents || this.agents.length === 0) {
+    this.agents = this.svc.getDemoAgents();
+  } else {
+    this.agents.forEach(a => { a.cumul = this.svc.calculerCumul(a); });
   }
+
+  this.agentsFiltres = [...this.agents];
+  this.emplois       = this.svc.buildEmploisRef(this.agents);
+}
 
   // ── Filtres ──────────────────────────────────────
   onFiltreChange(state: FiltreState): void {
@@ -123,27 +131,40 @@ ouvrirModalModifier(para: Paragraphe): void {
     this.showModalCollectif = false;
   }
 
-  onSauvegarderCollectif(lignes: Agent[]): void {
-    if (this.isNewAgent) {
-      lignes.forEach(l => {
-        this.agents.push({ ...l });
-        this.ajouterAgentEvent.emit({ ...l });
-      });
-    } else {
-      const idx = this.agentEdite ? this.agents.indexOf(this.agentEdite) : -1;
+onSauvegarderCollectif(lignes: Agent[]): void {
+  if (this.isNewAgent) {
+    // Ajout de nouveaux agents
+    lignes.forEach(l => {
+      this.agents.push({ ...l });
+      this.ajouterAgentEvent.emit({ ...l });
+    });
+  } else {
+    // Modification collective sur un paragraphe :
+    // on met à jour les agents existants par matricule,
+    // ou on les ajoute s'ils ne sont pas encore dans la liste
+    lignes.forEach(ligne => {
+      const idx = this.agents.findIndex(a => a.matricule === ligne.matricule);
       if (idx >= 0) {
-        this.agents[idx] = { ...lignes[0] };
-        this.modifierAgentEvent.emit({ agent: { ...lignes[0] }, index: idx });
-        for (let i = 1; i < lignes.length; i++) {
-          this.agents.push({ ...lignes[i] });
-        }
+        // Mettre à jour uniquement les valeurs du paragraphe concerné
+        this.agents[idx] = { ...this.agents[idx], valeurs: { ...this.agents[idx].valeurs, ...ligne.valeurs } };
+        this.agents[idx].cumul = this.svc.calculerCumul(this.agents[idx]);
+        this.modifierAgentEvent.emit({ agent: { ...this.agents[idx] }, index: idx });
+      } else {
+        // Agent sélectionné non présent → on l'ajoute
+        this.agents.push({ ...ligne });
+        this.ajouterAgentEvent.emit({ ...ligne });
       }
-    }
-    this.emplois       = this.svc.buildEmploisRef(this.agents);
-    this.agentsFiltres = this.svc.filtrer(this.agents, this.filtreState);
-    this.fermerModalCollectif();
+    });
   }
 
+  this.emplois       = this.svc.buildEmploisRef(this.agents);
+  this.agentsFiltres = this.svc.filtrer(this.agents, this.filtreState);
+
+  // Persistance localStorage
+  this.svc.sauvegarderAgents(this.agents);
+
+  this.fermerModalCollectif();
+}
   // ── Modale individuel ─────────────────────────────
 ouvrirModalIndividuel(agent: Agent, para: Paragraphe | null): void {
   this.agentEdite            = agent;
@@ -179,5 +200,34 @@ onSauvegarderNouveauParagraphe(nouveau: Paragraphe): void {
   });
   this.agentsFiltres = this.svc.filtrer(this.agents, this.filtreState);
   this.fermerModalAjoutParagraphe();
+}
+// ── Nouvelle ligne inline ─────────────────────────
+nouvelleLigne: Agent | null = null;
+
+ajouterLigneParagraphe(): void {
+  if (this.nouvelleLigne) return; // déjà en cours
+  const valeurs: Record<string, number | null> = {};
+  this.paragraphes.forEach(p => valeurs[p.code] = null);
+  this.nouvelleLigne = { emploi: '', matricule: '', nom: '', valeurs, cumul: null };
+}
+
+calculerCumulNouvelleLigne(): number {
+  if (!this.nouvelleLigne) return 0;
+  return this.paragraphes.reduce(
+    (sum, p) => sum + (this.nouvelleLigne!.valeurs[p.code] ?? 0), 0
+  );
+}
+
+confirmerNouvelleLigne(): void {
+  if (!this.nouvelleLigne) return;
+  this.nouvelleLigne.cumul = this.calculerCumulNouvelleLigne();
+  this.agents.push({ ...this.nouvelleLigne });
+  this.emplois       = this.svc.buildEmploisRef(this.agents);
+  this.agentsFiltres = this.svc.filtrer(this.agents, this.filtreState);
+  this.nouvelleLigne = null;
+}
+
+annulerNouvelleLigne(): void {
+  this.nouvelleLigne = null;
 }
 }
