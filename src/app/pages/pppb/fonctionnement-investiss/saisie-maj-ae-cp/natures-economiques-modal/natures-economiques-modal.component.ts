@@ -70,16 +70,16 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
   }
 
   private chargerActions(): void {
-    if (!this.programme || !this.chapitre) return;
-    this.saisieMajService.getActionsProjetDeBudget(
-      this.programme.proId,
-      this.programme.pappRef,
-      this.chapitre.chapCode,
-      this.chapitre.chapId
-    ).subscribe({
-      next: (data) => { this.actions = data; },
-      error: (err) => { console.error('Erreur actions:', err); }
-    });
+    // if (!this.programme || !this.chapitre) return;
+    // this.saisieMajService.getActionsProjetDeBudget(
+    //   this.programme.proId,
+    //   this.programme.pappRef,
+    //   this.chapitre.chapCode,
+    //   this.chapitre.chapId
+    // ).subscribe({
+    //   next: (data) => { this.actions = data; },
+    //   error: (err) => { console.error('Erreur actions:', err); }
+    // });
   }
 
   private chargerActivites(): void {

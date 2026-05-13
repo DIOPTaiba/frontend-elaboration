@@ -192,17 +192,17 @@ groupHeaderColumns: string[] = ['1','2','cr1','cr2','exp'];
     this.isLoading = true;
     this.listeChapitres.data = [];
 
-    if (cadeCode === '5' || cadeCode === '6') {
-      this.saisieMajService.getChapitresInvestissement(secId, sfinCode, proId, proCode).subscribe({
-        next: (data) => { this.listeChapitres.data = data; this.isLoading = false; },
-        error: (err) => { console.error('Erreur chapitres investissement:', err); this.isLoading = false; }
-      });
-    } else {
-      this.saisieMajService.getChapitresFonctionnement(secId, sfinCode, proId).subscribe({
-        next: (data) => { this.listeChapitres.data = data; this.isLoading = false; },
-        error: (err) => { console.error('Erreur chapitres fonctionnement:', err); this.isLoading = false; }
-      });
-    }
+    // if (cadeCode === '5' || cadeCode === '6') {
+    //   this.saisieMajService.getChapitresInvestissement(secId, sfinCode, proId, proCode).subscribe({
+    //     next: (data) => { this.listeChapitres.data = data; this.isLoading = false; },
+    //     error: (err) => { console.error('Erreur chapitres investissement:', err); this.isLoading = false; }
+    //   });
+    // } else {
+    //   this.saisieMajService.getChapitresFonctionnement(secId, sfinCode, proId).subscribe({
+    //     next: (data) => { this.listeChapitres.data = data; this.isLoading = false; },
+    //     error: (err) => { console.error('Erreur chapitres fonctionnement:', err); this.isLoading = false; }
+    //   });
+    // }
   }
 
 isFullTable(): boolean {
@@ -259,7 +259,7 @@ isFullTable(): boolean {
 
     this.globalService.getExerciceCourant().subscribe({
       next: (valeur) => {
-        this.exerciceCourant = valeur;
+        // this.exerciceCourant = valeur;
         this.globalService.getProjetBudget(valeur).subscribe({
           next: (projet) => { this.projetBudgetLib = projet.expbLib; this.projetBudgetCode = projet.expbCode; },
           error: (err) => { console.error('Erreur projet budget:', err); }
