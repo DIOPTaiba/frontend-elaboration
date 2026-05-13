@@ -10,7 +10,7 @@
     <div class="search-field custom-field" style="flex: 0 0 100px;">
       <label class="custom-label">Exercice</label>
       <div class="custom-input-wrapper">
-        <input class="custom-input custom-input--readonly" [value]="exercice" readonly />
+        <input class="custom-input custom-input--readonly" [value]="exerciceCourant" readonly />
       </div>
     </div>
 
@@ -18,7 +18,7 @@
     <div class="search-field custom-field" style="flex: 0 0 350px;">
       <label class="custom-label">Projet de Budget</label>
       <div class="custom-input-wrapper">
-        <input class="custom-input custom-input--readonly" [value]="budget" readonly />
+        <input class="custom-input custom-input--readonly" [value]="projetBudgetLib" readonly />
       </div>
     </div>
 
@@ -38,12 +38,15 @@
     <div class="search-field search-field--full custom-field">
       <label class="custom-label">Programme</label>
       <div class="custom-input-wrapper">
-        <mat-select class="custom-input custom-select" [(ngModel)]="programme">
-          <mat-option value="">-- Sélectionner --</mat-option>
-          <mat-option *ngFor="let p of programmeOptions" [value]="p.value">
-            {{ p.label }}
-          </mat-option>
-        </mat-select>
+        <mat-form-field appearance="outline" class="w-100  ">
+          <mat-select disableOptionCentering placeholder="" (selectionChange)="onProgrammeChange($event.value)">
+            @for (prog of listeProgrammes; track prog.proId) {
+            <mat-option [value]="prog">
+              {{ prog.proCode }} - {{ prog.proLibelle }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
 
@@ -52,11 +55,151 @@
 <!-- ============================================= -->
 <!-- Sous-composant Filtres                         -->
 <!-- ============================================= -->
-<app-filtre
-  [emplois]="emplois"
-  (filtreChange)="onFiltreChange($event)"
-  (filtreReset)="onFiltreReset()">
-</app-filtre>
+<div class="filter-params-panel">
+  <div class="filter-params-header" (click)="toggleFilter($event)">
+    <h3 class="filter-params-title">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+      </svg>
+      Filtres
+      <span class="filter-badge" *ngIf="activeFilterCount > 0">{{ activeFilterCount }}</span>
+    </h3>
+    <span class="filter-toggle-icon" [class.open]="showFilter">&#9660;</span>
+  </div>
+
+  <div class="filter-body" *ngIf="showFilter">
+    <div class="filter-row">
+
+      <!-- Emploi -->
+      <div class="filter-field custom-field">
+        <label class="custom-label">Emploi</label>
+        <mat-form-field appearance="outline" class="w-100  ">
+          <mat-select value="in">
+            <mat-option value="0"></mat-option>
+            <mat-option value="1">Emploi 1</mat-option>
+            <mat-option value="2">Emploi 2</mat-option>
+            <mat-option value="3">Emploi 3</mat-option>
+            <mat-option value="4">Emploi 4</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Chapitre -->
+      <div class="filter-field custom-field">
+        <label class="custom-label">Chapitre</label>
+        <div class="custom-input-wrapper">
+          <mat-form-field appearance="outline" class="w-100  ">
+            <mat-select disableOptionCentering placeholder="" (selectionChange)="onChapitreChange($event.value)">
+              @for (chapitre of listeChapitres; track chapitre.chapId) {
+              <mat-option [value]="chapitre">
+                {{ chapitre.chapCode }} - {{ chapitre.chapLib }}
+              </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Action -->
+      <div class="filter-field custom-field">
+        <label class="custom-label">Action</label>
+        <div class="custom-input-wrapper">
+          <mat-form-field appearance="outline" class="w-100  ">
+            <mat-select value="in">
+              <mat-option value="0"></mat-option>
+              <mat-option value="1">Action 1</mat-option>
+              <mat-option value="2">Action 2</mat-option>
+              <mat-option value="3">Action 3</mat-option>
+              <mat-option value="4">Action 4</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="filter-row">
+
+      <!-- Activité -->
+      <div class="filter-field custom-field filter-field--wide">
+        <label class="custom-label">Activité</label>
+        <div class="custom-input-wrapper">
+          <mat-form-field appearance="outline" class="w-100  ">
+            <mat-select value="in">
+              <mat-option value="0"></mat-option>
+              <mat-option value="1">Activité 1</mat-option>
+              <mat-option value="2">Activité 2</mat-option>
+              <mat-option value="3">Activité 3</mat-option>
+              <mat-option value="4">Activité 4</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- Matricule -->
+      <div class="filter-field custom-field">
+        <label class="custom-label">Matricule</label>
+        <div class="custom-input-wrapper">
+          <input class="custom-input" placeholder="Rechercher" />
+          <button class="clear-btn">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Matricule -->
+    <!-- <div class="filter-field custom-field">
+      <label class="custom-label">Matricule</label>
+      <div class="custom-input-wrapper">
+        <input class="custom-input" placeholder="Rechercher" />
+        <button class="clear-btn">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div> -->
+
+    <!-- Boutons -->
+    <!-- <div class="filter-actions-field">
+      <label class="custom-label" style="visibility: hidden;">_</label>
+      <div class="filter-actions-buttons">
+        <button mat-raised-button color="primary" class="btn-appliquer">
+          <mat-icon>check</mat-icon>
+          Appliquer
+        </button>
+        <button mat-stroked-button class="btn-reinitialiser">
+          <mat-icon>refresh</mat-icon>
+          Réinitialiser
+        </button>
+      </div>
+    </div> -->
+
+  </div>
+
+  <!-- Tags filtres actifs -->
+  <!-- <div class="filter-tags" *ngIf="activeFilterCount > 0">
+      <span class="filter-tag" *ngIf="filterEmploi">
+        Emploi : {{ filterEmploi }}
+        <button (click)="clearField('emploi')">&#x2715;</button>
+      </span>
+      <span class="filter-tag" *ngIf="filterChapitre">
+        Chapitre : {{ filterChapitre }}
+        <button (click)="clearField('chapitre')">&#x2715;</button>
+      </span>
+      <span class="filter-tag" *ngIf="filterMatricule">
+        Matricule : {{ filterMatricule }}
+        <button (click)="clearField('matricule')">&#x2715;</button>
+      </span>
+      <span class="filter-tag" *ngIf="filterAction">
+        Action : {{ filterAction }}
+        <button (click)="clearField('action')">&#x2715;</button>
+      </span>
+      <span class="filter-tag" *ngIf="filterActivite">
+        Activité : {{ filterActivite }}
+        <button (click)="clearField('activite')">&#x2715;</button>
+      </span>
+    </div> -->
+</div>
 
 <!-- ============================================= -->
 <!-- Carte principale — tableau des agents          -->
@@ -64,81 +207,98 @@
 <div class="table-card">
   <div class="section-header">
     <h2 class="section-title">Traitements des agents par lignes de dépenses</h2>
-   <button class="btn-ajouter" (click)="ouvrirModalAjoutParagraphe()">+ Ajouter Paragraphe</button>
+    <button class="btn-ajouter" (click)="ouvrirModalAjoutParagraphe()">+ Ajouter Paragraphe</button>
   </div>
 
   <div class="table-wrapper">
     <table class="agents-table">
       <thead>
         <tr class="header-main">
-          <th class="col-emploi"    rowspan="2" style="text-align:center;">Emploi</th>
+          <th class="col-emploi" rowspan="2" style="text-align:center;">Emploi</th>
           <th class="col-matricule" rowspan="2">Matricule</th>
-          <th class="col-nom"    rowspan="2" style="text-align:center;" >Prénoms et nom</th>
+          <th class="col-nom" rowspan="2" style="text-align:center;">Prénoms et nom</th>
           <th [attr.colspan]="paragraphes.length" class="col-paragraphes-header">Paragraphes</th>
-          <th class="col-cumul"     rowspan="2">Cumul<br />(budget<br />prévu)</th>
-          <th class="col-actions"   rowspan="2">Actions</th>
+          <th class="col-cumul" rowspan="2">Cumul<br />(budget<br />prévu)</th>
+          <th class="col-actions" rowspan="2">Actions</th>
         </tr>
         <tr class="header-sub" style="text-align:center;">
-          <th *ngFor="let para of paragraphes" class="col-para">
+          <th class="col-matricule">661
+            Traitements et salaires</th>
+            <th class="col-matricule">662
+Primes</th>
+            <th class="col-matricule">663
+Indemnités</th>
+            <th class="col-matricule">665
+Cotisations sociales</th>
+            <th class="col-matricule">666
+Prestations familiales</th>
+            <th class="col-matricule">667
+Prises en charge médicales</th>
+            <th class="col-matricule">668
+Contractuels</th>
+            <th class="col-matricule">669
+Autres charges de personnel</th>
+          <!-- <th *ngFor="let para of paragraphes" class="col-para">
             <div class="para-code">{{ para.code }}</div>
             <div class="para-label">{{ para.label }}</div>
             <div class="para-unit">
-                <button class="btn-para-modifier"
-              (click)="ouvrirModalModifier(para)" 
-                      title="Traitement individuel">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              <button class="btn-para-modifier" (click)="ouvrirModalModifier(para)" title="Traitement individuel">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
               </button>
             </div>
-          </th>
+          </th> -->
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let agent of agentsFiltres; let i = index"
-            [class.row-even]="i % 2 === 0"
-            [class.row-odd]="i % 2 !== 0">
+        <tr *ngFor="let agent of listeAgents; let i = index" [class.row-even]="i % 2 === 0"
+          [class.row-odd]="i % 2 !== 0">
           <td>{{ agent.emploi }}</td>
           <td class="col-mat-val">{{ agent.matricule }}</td>
-          <td class="col-nom-val" style="text-align:center;">{{ agent.nom }}</td>
+          <td class="col-nom-val">{{ agent.nom }}</td>
+          <td class="col-nom-val">{{ agent.montantTraitementsSalaires }}</td>
+          <td class="col-nom-val">{{ agent.montantPrimes }}</td>
+          <td class="col-nom-val">{{ agent.montantIndemnites }}</td>
+          <td class="col-nom-val">{{ agent.montantCotisationsSociales }}</td>
+          <td class="col-nom-val">{{ agent.montantPrestationsFamiliales }}</td>
+          <td class="col-nom-val">{{ agent.montantPrisesChargeMedicales }}</td>
+          <td class="col-nom-val">{{ agent.montantContractuels }}</td>
+          <td class="col-nom-val">{{ agent.montantAutresChargesPersonnel }}</td>
 
-        <td *ngFor="let para of paragraphes" class="col-val">
-  <span *ngIf="agent.valeurs[para.code] !== null && agent.valeurs[para.code] !== undefined">
-    {{ agent.valeurs[para.code] | number:'1.0-0' }}
-  </span>
-  <span *ngIf="agent.valeurs[para.code] === null || agent.valeurs[para.code] === undefined"
-        class="empty-m">—</span>
-</td>
+          <!-- <td *ngFor="let para of paragraphes" class="col-val">
+            <span *ngIf="agent.valeurs[para.code] !== null && agent.valeurs[para.code] !== undefined">
+              {{ agent.valeurs[para.code] | number:'1.0-0' }}
+            </span>
+            <span *ngIf="agent.valeurs[para.code] === null || agent.valeurs[para.code] === undefined"
+              class="empty-m">—</span>
+          </td> -->
           <td class="col-cumul-val">
-            <span *ngIf="agent.cumul !== null && agent.cumul !== undefined">
+            <!-- <span *ngIf="agent.cumul !== null && agent.cumul !== undefined">
               {{ agent.cumul | number:'1.0-0' }}
             </span>
-            <span *ngIf="agent.cumul === null || agent.cumul === undefined" class="empty-m">—</span>
+            <span *ngIf="agent.cumul === null || agent.cumul === undefined" class="empty-m">—</span> -->
           </td>
-<td class="col-actions-val">
-  <button class="btn-modifier"
-          (click)="ouvrirModalIndividuel(agent, null)"
-          title="Modifier"
-          style="border:transparent;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-         viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-    </svg>
-  </button>
-</td>
+          <td class="col-actions-val">
+            <button class="btn-modifier" (click)="ouvrirModalIndividuel(agent, null)" title="Modifier"
+              style="border:transparent;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </button>
+          </td>
         </tr>
 
-        <tr *ngIf="agentsFiltres.length === 0">
+        <!-- <tr *ngIf="agentsFiltres.length === 0">
           <td [attr.colspan]="3 + paragraphes.length + 2" class="empty-row">
             Aucune donnée disponible
           </td>
-        </tr>
+        </tr> -->
       </tbody>
 
       <tfoot>
@@ -181,7 +341,7 @@
       </div>
     </div>
     <div class="footer-row">
-      
+
     </div>
   </div>
 </div>
@@ -189,55 +349,26 @@
 <!-- ============================================= -->
 <!-- Sous-composant Modale Collectif                -->
 <!-- ============================================= -->
-<app-modal-collectif
-  [visible]="showModalCollectif"
-  [isNewAgent]="isNewAgent"
-  [agentEdite]="agentEdite"
-   [paragraphes]="paragrapheSelectionne ? [paragrapheSelectionne] : paragraphes"
-  [paragraphes]="paragraphes"
-  [emplois]="emplois"
-  [filtreState]="filtreState"
-  [activeFilterCount]="activeFilterCount"
-  [exercice]="exercice"
-  [budget]="budget"
-  [section]="section"
-  [programme]="programme"
-  [agents]="agents"
-  [action]="action"
-  [activite]="activite"
-  [chapitre]="chapitre"
-  [statut]="statut"
-  [age]="age"
-  (fermer)="fermerModalCollectif()"
+<app-modal-collectif [visible]="showModalCollectif" [isNewAgent]="isNewAgent" [agentEdite]="agentEdite"
+  [paragraphes]="paragrapheSelectionne ? [paragrapheSelectionne] : paragraphes" [paragraphes]="paragraphes"
+  [emplois]="emplois" [filtreState]="filtreState" [activeFilterCount]="activeFilterCount" [exercice]="exercice"
+  [budget]="budget" [section]="section" [programme]="programme" [agents]="agents" [action]="action"
+  [activite]="activite" [chapitre]="chapitre" [statut]="statut" [age]="age" (fermer)="fermerModalCollectif()"
   (sauvegarder)="onSauvegarderCollectif($event)">
 </app-modal-collectif>
 
 <!-- ============================================= -->
 <!-- Sous-composant Modale Individuel               -->
 <!-- ============================================= -->
-<app-modal-individuel
-  [visible]="showModalIndividuel"
-  [paragrapheSelectionne]="paragrapheSelectionne"
-   [agentEdite]="agentEdite"
-  [exercice]="exercice"
-  [budget]="budget"
-  [section]="section"
-  [programme]="programme"
-  [action]="action"
-  [activite]="activite"
-  [chapitre]="chapitre"
-  [statut]="statut"
-  [age]="age"
-  (fermer)="fermerModalIndividuel()"
-  (enregistrer)="onEnregistrerIndividuel($event)">
-</app-modal-individuel>
+<!-- <app-modal-individuel [visible]="showModalIndividuel" [paragrapheSelectionne]="paragrapheSelectionne"
+  [agentEdite]="agentEdite" [exercice]="exercice" [budget]="budget" [section]="section" [programme]="programme"
+  [action]="action" [activite]="activite" [chapitre]="chapitre" [statut]="statut" [age]="age"
+  (fermer)="fermerModalIndividuel()" (enregistrer)="onEnregistrerIndividuel($event)">
+</app-modal-individuel> -->
 <!-- ============================================= -->
 <!-- Sous-composant Modale ajouter paragraphe               -->
 <!-- ============================================= -->
-<app-modal-ajout-paragraphe
-  [visible]="showModalAjoutParagraphe"
-  [tousLesParagraphes]="tousLesParagraphes"
-  [paragraphesActifs]="paragraphes"
-  (fermer)="fermerModalAjoutParagraphe()"
+<app-modal-ajout-paragraphe [visible]="showModalAjoutParagraphe" [tousLesParagraphes]="tousLesParagraphes"
+  [paragraphesActifs]="paragraphes" (fermer)="fermerModalAjoutParagraphe()"
   (sauvegarder)="onSauvegarderNouveauParagraphe($event)">
 </app-modal-ajout-paragraphe>

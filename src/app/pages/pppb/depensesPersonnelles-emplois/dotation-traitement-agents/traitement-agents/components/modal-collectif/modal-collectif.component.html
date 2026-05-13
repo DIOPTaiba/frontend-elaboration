@@ -111,15 +111,15 @@
             </td>
 
             <!-- ← colonnesDepenses à la place de paragraphes -->
-            <td *ngFor="let col of colonnesDepenses" class="mtd-val">
+            <!-- <td *ngFor="let col of colonnesDepenses" class="mtd-val">
               <input type="number"
                      [(ngModel)]="ligne.valeurs[col.code]"
                      class="modal-cell-input modal-cell-number"
                      (ngModelChange)="recalculerCumulLigne(i)" />
-            </td>
+            </td> -->
             <td *ngIf="colonnesDepenses.length === 0"></td>
 
-            <td class="mtd-cumul">{{ ligne.cumul | number:'1.0-0' }}</td>
+            <!-- <td class="mtd-cumul">{{ ligne.cumul | number:'1.0-0' }}</td> -->
              <td class="mtd-actions">
     <div class="actions-cell">
       <button class="btn-ligne-action btn-ligne-modifier"
@@ -153,11 +153,11 @@
           <tr class="modal-recap-row">
             <td colspan="3" class="modal-recap-label">Récapitulatif</td>
             <!-- ← colonnesDepenses à la place de paragraphes -->
-            <td *ngFor="let col of colonnesDepenses" class="modal-recap-val">
+            <!-- <td *ngFor="let col of colonnesDepenses" class="modal-recap-val">
               {{ getModalRecap(col.code) | number:'1.0-0' }}
             </td>
             <td *ngIf="colonnesDepenses.length === 0"></td>
-            <td class="modal-recap-cumul">{{ getModalTotalCumul() | number:'1.0-0' }}</td>
+            <td class="modal-recap-cumul">{{ getModalTotalCumul() | number:'1.0-0' }}</td> -->
           </tr>
         </tbody>
       </table>

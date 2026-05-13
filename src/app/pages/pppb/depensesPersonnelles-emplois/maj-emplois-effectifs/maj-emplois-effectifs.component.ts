@@ -13,12 +13,13 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { IconModule } from 'src/app/icon/icon.module';
 import { MatSort } from '@angular/material/sort';
-import { majEmploisEffectifsService } from 'src/app/services/pppb/depensesPersonnel/majEmploisEffectifs.service';
+import { MajEmploisEffectifsService } from 'src/app/services/pppb/depensesPersonnelEmplois/majEmploisEffectifs.service';
 import { GlobalService } from 'src/app/services/pppb/global/global.service';
 import { ProgrammeDto } from 'src/app/dtos/global/programme.dto';
 import { ParametreRechercheDto } from 'src/app/dtos/global/parametreRecherche.dto';
 import { isThisISOWeek } from 'date-fns';
 import { ChapitreEffectifsDto } from 'src/app/dtos/majEffectifsEmplois/chapitreEffectifs.dto';
+import { DotationsTraitementsService } from 'src/app/services/pppb/depensesPersonnelEmplois/dotationsTraitements.service';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -654,8 +655,9 @@ export class MajEmploisEffectifsComponent {
   totalElements: number = 0;
 
   constructor(
-    private majEmploisEffectifsService: majEmploisEffectifsService,
+    private majEmploisEffectifsService: MajEmploisEffectifsService,
     private globalService: GlobalService,
+    private dotationsTraitementsService : DotationsTraitementsService
   ) { }
 
   @ViewChild(MatPaginator)
@@ -760,11 +762,6 @@ export class MajEmploisEffectifsComponent {
   loading = false;
 
   ngOnInit(): void {
-      // this.listeProgrammes = this.majEmploisEffectifsService.getProgrammes();
-      this.loadProgrammes();
-  
-    this.selectedProgramme = null;
-
     this.globalService.getExerciceCourant().subscribe({
       next: (valeur) => {
         this.exerciceCourant = valeur;
@@ -778,6 +775,9 @@ export class MajEmploisEffectifsComponent {
       },
       error: (err) => { console.error('Erreur exercice courant:', err); }
     });
+
+    this.loadProgrammes();
+    this.selectedProgramme = null;
 
 
   }
@@ -833,6 +833,23 @@ export class MajEmploisEffectifsComponent {
         error: (err) => { console.error('Erreur chargement chapitre data:', err); }
       });
     }
+
+  //   getAgents() {
+  //   this.loading = true;
+  //   this.dotationsTraitementsService.getAgents(this.parametreRecherche).subscribe({
+  //     next: (data) => {
+  //       this.listeAgents = data;
+  //       this.parametreRecherche.exeCode = this.exerciceCourant.toString() + '_1';
+  //       console.log('AGENTS:', this.listeAgents);
+  //       // this.toastr.success('Blogs chargés avec succès');
+  //       this.loading = false;
+  //     },
+  //     error: (error) => {
+  //       // this.toastr.error('Erreur lors du chargement des blogs');
+  //       this.loading = false;
+  //     },
+  //   });
+  // }
 
 
 }
