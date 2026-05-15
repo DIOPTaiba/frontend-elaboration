@@ -15,15 +15,15 @@ export class SaisieMajProjetBudgetService {
 
   constructor(private apiService: ApiService) {}
 
-  getChapitresInvestissement(secId: string, sfinCode: string, proId: number, proCode: string,exeCode:String): Observable<ChapitreDto[]> {
+  getChapitresInvestissement(secId: string, sfinCode: string, proId: string, proCode: string,exeCode:String): Observable<ChapitreDto[]> {
     return this.apiService.get<ChapitreDto[]>(`/chapitresInvestissement/${secId}/${sfinCode}/${proId}/${proCode}/${exeCode}`);
   }
 
-  getChapitresFonctionnement(secId: string, sfinCode: string, proId: number,exeCode:String): Observable<ChapitreDto[]> {
+  getChapitresFonctionnement(secId: string, sfinCode: string, proId: string,exeCode:String): Observable<ChapitreDto[]> {
     return this.apiService.get<ChapitreDto[]>(`/chapitresFonctionnement/${secId}/${sfinCode}/${proId}/${exeCode}`);
   }
 
-  getActionsProjetDeBudget(proId: number, pappRef: string, chapCode: string, chapId: string): Observable<ActionDto[]> {
+  getActionsProjetDeBudget(proId: string, pappRef: string, chapCode: string, chapId: string): Observable<ActionDto[]> {
     return this.apiService.get<ActionDto[]>(`/actionsProjetDeBudget/${proId}/${pappRef}/${chapCode}/${chapId}`);
   }
 

@@ -171,7 +171,7 @@ groupHeaderColumns: string[] = ['1','2','cr1','cr2','exp'];
     const params = {
       exe: Number(this.exerciceCourant),
       sectionId: SECTION_COURANTE.sec_id,
-      proId: String(this.selectedProgramme.proId),
+      proId: this.selectedProgramme.proId,
       cadeCode: this.selectedCategorie.cadeCode,
       sfinCode: this.codeFin
     };
