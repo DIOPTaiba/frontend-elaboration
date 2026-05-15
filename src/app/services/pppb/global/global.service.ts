@@ -14,7 +14,7 @@ import { SourceFinancementDto } from '../../../dtos/global/source-financement.dt
 })
 export class GlobalService {
 
-  private exerciceCourant = signal<number | null>(null);
+  private exerciceCourant = signal<string | null>(null);
   private projetBudget = signal<ProjetBudgetDto | null>(null);
   private programmes = signal<ProgrammeDto[]>([]);
   private typesFin = signal<TypeFinancementDto[]>([]);
@@ -23,19 +23,19 @@ export class GlobalService {
 
   constructor(private apiService: ApiService) {}
 
-  getExerciceCourant(): Observable<number> {
-    return this.apiService.get<number>('/exerciceEnCours').pipe(
+  getExerciceCourant(): Observable<string> {
+    return this.apiService.get<string>('/exerciceEnCours').pipe(
       tap((value) => this.exerciceCourant.set(value))
     );
   }
 
-  getProjetBudget(exerciceCourant: number): Observable<ProjetBudgetDto> {
+  getProjetBudget(exerciceCourant: string): Observable<ProjetBudgetDto> {
     return this.apiService.get<ProjetBudgetDto>(`/projetsBudget/${exerciceCourant}`).pipe(
       tap((value) => this.projetBudget.set(value))
     );
   }
 
-  getProgrammes(exercice: number): Observable<ProgrammeDto[]> {
+  getProgrammes(exercice: string): Observable<ProgrammeDto[]> {
     const secId = SECTION_COURANTE.sec_id;
     return this.apiService.get<ProgrammeDto[]>(`/programmes/${secId}/${exercice}`).pipe(
       tap((value) => this.programmes.set(value))

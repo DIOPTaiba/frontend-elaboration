@@ -7,7 +7,7 @@ import { ParametreRechercheDto } from 'src/app/dtos/global/parametreRecherche.dt
 @Injectable({
   providedIn: 'root',
 })
-export class majEmploisEffectifsService {
+export class DotationsTraitementsService {
 
   private tests = signal<string>('');
 
@@ -33,11 +33,6 @@ export class majEmploisEffectifsService {
       return this.apiService.post(`/majEffectifEmplois/chapitreEffectifs`, parametreRecherche);
     }
 
-    /**
-     * Liste emplois
-     */
-    public getEmplois(parametreRecherche: ParametreRechercheDto): Observable<any[]> {
-      return this.apiService.post(`/majEffectifEmplois/emploisEffectifs`, parametreRecherche);
-    }
+    
 
 }

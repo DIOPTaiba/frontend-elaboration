@@ -1,8 +1,12 @@
 export interface ActiviteDto {
-  copId: string;
-  copCode: string;
-  copLibelle: string;
-  budcStatCod: string;
-  copNipCode: string;
-  budcCode: string;
+  budcCode: string ;
+  copCode: string ;
+  copId: string ;
+  copLibelle: string ;
+  codeAction: string;
+  codeActivite: string;
+  copNipCode: string ;
+  budcStatCod: string ;
+  libActivite: string;
+  libAction: string;
 }

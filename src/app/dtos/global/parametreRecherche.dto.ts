@@ -7,4 +7,5 @@ export interface ParametreRechercheDto {
   exeCode?: string;
   exeCode1?: string;
   chapId?: string;
+  budcCode?: string;
 }

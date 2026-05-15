@@ -15,15 +15,15 @@ export class SaisieMajProjetBudgetService {
 
   constructor(private apiService: ApiService) {}
 
-  getChapitresInvestissement(secId: string, sfinCode: string, proId: number, proCode: string): Observable<ChapitreDto[]> {
-    return this.apiService.get<ChapitreDto[]>(`/chapitresInvestissement/${secId}/${sfinCode}/${proId}/${proCode}`);
+  getChapitresInvestissement(secId: string, sfinCode: string, proId: string, proCode: string,exeCode:String): Observable<ChapitreDto[]> {
+    return this.apiService.get<ChapitreDto[]>(`/chapitresInvestissement/${secId}/${sfinCode}/${proId}/${proCode}/${exeCode}`);
   }
 
-  getChapitresFonctionnement(secId: string, sfinCode: string, proId: number): Observable<ChapitreDto[]> {
-    return this.apiService.get<ChapitreDto[]>(`/chapitresFonctionnement/${secId}/${sfinCode}/${proId}`);
+  getChapitresFonctionnement(secId: string, sfinCode: string, proId: string,exeCode:String): Observable<ChapitreDto[]> {
+    return this.apiService.get<ChapitreDto[]>(`/chapitresFonctionnement/${secId}/${sfinCode}/${proId}/${exeCode}`);
   }
 
-  getActionsProjetDeBudget(proId: number, pappRef: string, chapCode: string, chapId: string): Observable<ActionDto[]> {
+  getActionsProjetDeBudget(proId: string, pappRef: string, chapCode: string, chapId: string): Observable<ActionDto[]> {
     return this.apiService.get<ActionDto[]>(`/actionsProjetDeBudget/${proId}/${pappRef}/${chapCode}/${chapId}`);
   }
 
@@ -41,5 +41,13 @@ export class SaisieMajProjetBudgetService {
 
   getLignesBudget(params: ParametreRechercheDto): Observable<LigneBudgetDto[]> {
     return this.apiService.post<LigneBudgetDto[]>('/saisieMaj/lignesBudget', params);
+  }
+
+  getListeActiviteSaisie(params: ParametreRechercheDto): Observable<ActiviteDto[]> {
+    return this.apiService.post<ActiviteDto[]>('/saisieMaj/listeActiviteSaisie', params);
+  }
+
+  getLigneSaisie(params: ParametreRechercheDto): Observable<LigneBudgetDto[]> {
+    return this.apiService.post<LigneBudgetDto[]>('/saisieMaj/ligneSaisie', params);
   }
 }
