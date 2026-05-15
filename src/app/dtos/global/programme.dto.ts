@@ -1,5 +1,5 @@
 export interface ProgrammeDto {
-  proId: number;
+  proId: string;
   proCode: string;
   pappRef: string;
   proLibelle: string;
