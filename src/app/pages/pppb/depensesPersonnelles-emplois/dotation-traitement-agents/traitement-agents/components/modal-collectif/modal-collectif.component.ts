@@ -8,6 +8,7 @@ import {
   Agent, EmploiRef, FiltreState, Paragraphe
 } from '../../models/traitement-agent.models';
 import { TraitementAgentService } from '../../services/traitement-agent.service';
+import { AgentDto } from 'src/app/dtos/global/agent.dto';
 
 @Component({
   selector: 'app-modal-collectif',
@@ -21,7 +22,7 @@ export class ModalCollectifComponent implements OnChanges {
 
   @Input() visible       = false;
   @Input() isNewAgent    = false;
-  @Input() agentEdite: Agent | null = null;
+  @Input() agentEdite: AgentDto | null = null;
   @Input() paragraphes: Paragraphe[] = [];
   @Input() emplois: EmploiRef[] = [];
   @Input() filtreState!: FiltreState;
@@ -41,7 +42,7 @@ export class ModalCollectifComponent implements OnChanges {
   @Output() fermer      = new EventEmitter<void>();
   @Output() sauvegarder = new EventEmitter<Agent[]>();
 
-  modalLignes: Agent[] = [];
+  modalLignes: AgentDto[] = [];
   colonnesDepenses: { code: string; label: string }[] = [];
 
   showModalSelectionAgent = false;
@@ -53,9 +54,9 @@ ngOnChanges(changes: SimpleChanges): void {
   if (changes['visible']?.currentValue === true || changes['paragraphes']) {
     if (!this.visible) return;
 
-    this.modalLignes = this.agentEdite
-      ? [{ ...this.agentEdite, valeurs: { ...this.agentEdite.valeurs } }]
-      : [];
+    // this.modalLignes = this.agentEdite
+    //   ? [{ ...this.agentEdite, valeurs: { ...this.agentEdite.valeurs } }]
+    //   : [];
 
     // ✅ Première colonne : 661_1
     this.colonnesDepenses = this.paragraphes.length > 0
@@ -123,11 +124,11 @@ ngOnChanges(changes: SimpleChanges): void {
       (sum, col) => sum + (valeurs[col.code] ?? 0), 0
     );
 
-    this.modalLignes.push({
-      ...agent,
-      valeurs,
-      cumul,
-    });
+    // this.modalLignes.push({
+    //   ...agent,
+    //   valeurs,
+    //   cumul,
+    // });
 
     this.showModalSelectionAgent = false;
   }
@@ -151,30 +152,30 @@ ngOnChanges(changes: SimpleChanges): void {
   this.colonnesDepenses.push(newCol);
 
   // Initialiser la nouvelle colonne à null pour toutes les lignes existantes
-  this.modalLignes.forEach(l => {
-    l.valeurs[newCode] = null;
-  });
+  // this.modalLignes.forEach(l => {
+  //   l.valeurs[newCode] = null;
+  // });
 }
 
   // ── Recalcul du cumul d'une ligne après saisie ────────────
-  recalculerCumulLigne(i: number): void {
-    this.modalLignes[i].cumul = this.colonnesDepenses.reduce(
-      (sum, col) => sum + (this.modalLignes[i].valeurs[col.code] ?? 0), 0
-    );
-  }
+  // recalculerCumulLigne(i: number): void {
+  //   this.modalLignes[i].cumul = this.colonnesDepenses.reduce(
+  //     (sum, col) => sum + (this.modalLignes[i].valeurs[col.code] ?? 0), 0
+  //   );
+  // }
 
   // ── Récapitulatifs ────────────────────────────────────────
-  getModalRecap(code: string): number {
-    return this.modalLignes.reduce(
-      (s, l) => s + (l.valeurs[code] ?? 0), 0
-    );
-  }
+  // getModalRecap(code: string): number {
+  //   return this.modalLignes.reduce(
+  //     (s, l) => s + (l.valeurs[code] ?? 0), 0
+  //   );
+  // }
 
-  getModalTotalCumul(): number {
-    return this.modalLignes.reduce(
-      (s, l) => s + (l.cumul ?? 0), 0
-    );
-  }
+  // getModalTotalCumul(): number {
+  //   return this.modalLignes.reduce(
+  //     (s, l) => s + (l.cumul ?? 0), 0
+  //   );
+  // }
 
   // ── Enregistrement ────────────────────────────────────────
   onSauvegarder(): void {
@@ -183,13 +184,13 @@ ngOnChanges(changes: SimpleChanges): void {
     );
     if (lignesValides.length === 0) return;
 
-    lignesValides.forEach(l => {
-      l.cumul = this.colonnesDepenses.reduce(
-        (sum, col) => sum + (l.valeurs[col.code] ?? 0), 0
-      );
-    });
+    // lignesValides.forEach(l => {
+    //   l.cumul = this.colonnesDepenses.reduce(
+    //     (sum, col) => sum + (l.valeurs[col.code] ?? 0), 0
+    //   );
+    // });
 
-    this.sauvegarder.emit(lignesValides);
+    // this.sauvegarder.emit(lignesValides);
   }
 
   onFermer(): void {

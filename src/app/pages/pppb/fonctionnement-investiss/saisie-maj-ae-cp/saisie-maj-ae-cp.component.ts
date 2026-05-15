@@ -317,7 +317,7 @@ isFullTable(): boolean {
 
     this.globalService.getExerciceCourant().subscribe({
       next: (valeur) => {
-        // this.exerciceCourant = valeur;
+        this.exerciceCourant = valeur;
         this.globalService.getProjetBudget(valeur).subscribe({
           next: (projet) => { this.projetBudgetLib = projet.expbLib; this.projetBudgetCode = projet.expbCode; },
           error: (err) => { console.error('Erreur projet budget:', err); }
