@@ -10,3 +10,4 @@ export interface LigneBudgetDto {
   aeLFI0: number;
   aeLFI1: number;
 }
+

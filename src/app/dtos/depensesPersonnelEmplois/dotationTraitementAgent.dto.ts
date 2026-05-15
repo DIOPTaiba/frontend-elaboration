@@ -1,0 +1,20 @@
+export interface AgentDto {
+    montantTraitementsSalaires: number,
+    montantCotisationsSociales: number,
+    montantPrestationsFamiliales: number,
+    montantPrisesChargeMedicales: number,
+    montantAutresChargesPersonnel: number,
+    montantPrimes: number,
+    montantIndemnites: number,
+    montantContractuels: number,
+    chapitre: null,
+    codeAction: string,
+    libAction: string,
+    codeActivite: string,
+    libActivite: string,
+    matricule: string,
+    nom: string,
+    emploi: string,
+    statut: string,
+    age: number
+}
