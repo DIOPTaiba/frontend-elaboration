@@ -21,7 +21,7 @@ export class GlobalService {
   private categoriesDepense = signal<CategorieDepenseDto[]>([]);
   private sourcesFin = signal<SourceFinancementDto[]>([]);
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   getExerciceCourant(): Observable<string> {
     return this.apiService.get<string>('/exerciceEnCours').pipe(
@@ -58,6 +58,21 @@ export class GlobalService {
     return this.apiService.get<SourceFinancementDto[]>(`/sourcesFin/${tfinId}`).pipe(
       tap((value) => this.sourcesFin.set(value))
     );
+  }
+
+  calculerSommes<T>(
+    liste: T[],
+    champs: (keyof T)[]
+  ) {
+    return liste.reduce((totaux, item) => {
+      champs.forEach(champ => {
+
+        totaux[String(champ)] =
+          (totaux[String(champ)] || 0)
+          + Number(item[champ] || 0);
+      });
+      return totaux;
+    }, {} as Record<string, number>);
   }
 
 }

@@ -132,39 +132,39 @@
     <ng-container matColumnDef="effectifsN">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="effectifsN"
         class="widthEffectifs border-top-0 f-w-600 f-s-14 p-x-24 p-l-5"> Effectifs 2026 </th>
-      <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{element.effectif0 | number}} </td>
-      <td mat-footer-cell *matFooterCellDef class=" text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{element.effectif0 | dsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef class=" text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="agentsSolde">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="agentsSolde"
         class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-5"> Agents Solde </th>
-      <td mat-cell class="text-right" *matCellDef="let element"> {{element.nombreAgent | number}} </td>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.nombreAgent | dsNumber}} </td>
       <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0}}</td>
     </ng-container>
     <ng-container matColumnDef="contractuels">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="contractuels"
         class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-5"> Contractuels </th>
       <td mat-cell class="text-right" *matCellDef="let element"> {{element.nombreContractuel}} </td>
-      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="total"
         class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-5"> Total </th>
-      <td mat-cell class="text-right" *matCellDef="let element"> {{element.nombreAgent + element.nombreContractuel | number}} </td>
-      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.nombreAgent + element.nombreContractuel | dsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="ecart">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="ecart"
         class="widthEffectifs border-top-0 f-w-600 f-s-14 p-x-24 p-l-5"> Ecart </th>
-      <td mat-cell class="text-right" *matCellDef="let element"> {{(element.effectif0 - (element.nombreAgent + element.nombreContractuel)) | number}}
+      <td mat-cell class="text-right" *matCellDef="let element"> {{ ((element.nombreAgent + element.nombreContractuel) - element.effectif0) | dsNumber }}
       </td>
-      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="dotation">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="dotation" class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-5">
         Dotation </th>
-      <td mat-cell class="text-right" *matCellDef="let element"> {{element.montant | number}} </td>
-      <td mat-footer-cell *matFooterCellDef class="widthColNumber text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.montant | dsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef class="widthColdsNumber text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="expand">
       <th mat-header-cell *matHeaderCellDef class="border-top-0 p-l-0" aria-label="row actions">
@@ -239,7 +239,7 @@ $event.stopPropagation()
                           <td class="">{{agent.action }}</td>
                           <td class="">{{agent.activite }}</td>
                           <td class="text-right">{{agent.effectifs }}</td>
-                          <td class="text-right">{{agent.budgetPrevu | number}}</td>
+                          <td class="text-right">{{agent.budgetPrevu | dsNumber}}</td>
                           <td class="action-link text-center">
                             <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip" matTooltip="Modifier"
                               matTooltipPosition="above"><i-tabler name="edit" class="icon-18"></i-tabler></a>
@@ -255,9 +255,9 @@ $event.stopPropagation()
                           <td class="  fw-bold " colspan="7">
                             Total
                           </td>
-                          <td class=" col-2 text-right fw-bold">{{50000 | number}}
+                          <td class=" col-2 text-right fw-bold">{{50000 | dsNumber}}
                           </td>
-                          <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
+                          <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | dsNumber}}
                           </td>
                           <td></td>
                         </tr>
@@ -302,7 +302,7 @@ $event.stopPropagation()
                           <td class="  fw-bold " colspan="2">
                             Total
                           </td>
-                          <td class=" col-2 text-right fw-bold">{{25 | number}}
+                          <td class=" col-2 text-right fw-bold">{{25 | dsNumber}}
                           </td>
                           <td></td>
                         </tr>
@@ -331,7 +331,7 @@ $event.stopPropagation()
                       <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5">
                         <label class="f-s-14 f-w-600 ">Effectif</label>
                         <mat-form-field appearance="outline" class="w-100 ">
-                          <input matInput type="number" min="1" class="text-center no-spinner" value="" />
+                          <input matInput type="dsNumber" min="1" class="text-center no-spinner" value="" />
                         </mat-form-field>
                       </div>
 
@@ -422,32 +422,32 @@ expandedElementChapitre = expandedElementChapitre === element ? null : element
     <ng-container matColumnDef="effectifsN">
       <th mat-header-cell *matHeaderCellDef class="widthEffectifs border-top-0 f-w-600 f-s-14 p-x-24 p-l-0"> </th>
       <td mat-cell class="text-right p-r-2 " *matCellDef="let element"> {{element.effectifsN}} </td>
-      <td mat-footer-cell *matFooterCellDef class=" text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-footer-cell *matFooterCellDef class=" text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="agentsSolde">
       <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Agents Solde </th>
       <td mat-cell class="text-right" *matCellDef="let element"> {{element.agentsSolde}} </td>
-      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="contractuels">
       <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Contractuels </th>
       <td mat-cell class="text-right" *matCellDef="let element"> {{element.contractuels}} </td>
-      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef class="widthEffectifs bg2 f-w-600 f-s-14 p-x-24 p-l-0"> Total </th>
       <td mat-cell class="text-right" *matCellDef="let element"> {{element.total}} </td>
-      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="ecart">
       <th mat-header-cell *matHeaderCellDef class="widthEffectifs border-top-0 f-w-600 f-s-14 p-x-24 p-l-0"> </th>
       <td mat-cell class="text-right" *matCellDef="let element"> {{element.ecart}} </td>
-      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | number}}
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}
     </ng-container>
     <ng-container matColumnDef="dotation">
       <th mat-header-cell *matHeaderCellDef class="border-top-0 f-w-600 f-s-14 p-x-24 p-l-0"> </th>
-      <td mat-cell class="text-right" *matCellDef="let element"> {{element.dotation | number}} </td>
-      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | number}}</td>
+      <td mat-cell class="text-right" *matCellDef="let element"> {{element.dotation | dsNumber}} </td>
+      <td mat-footer-cell *matFooterCellDef class="text-right p-r-2 p-l-0 f-w-600">{{0 | dsNumber}}</td>
     </ng-container>
     <ng-container matColumnDef="expand">
       <th mat-header-cell *matHeaderCellDef class="border-top-0 p-l-0" aria-label="row actions">
@@ -522,7 +522,7 @@ $event.stopPropagation()
                           <td class="">{{agent.action }}</td>
                           <td class="">{{agent.activite }}</td>
                           <td class="text-right">{{agent.effectifs }}</td>
-                          <td class="text-right">{{agent.budgetPrevu | number}}</td>
+                          <td class="text-right">{{agent.budgetPrevu | dsNumber}}</td>
                           <td class="action-link text-center">
                             <a class="m-r-10 cursor-pointer" color="primary" #tooltip="matTooltip"
                               matTooltip="Libérer/Affecter l'agent" matTooltipPosition="above"><i-tabler name="edit"
@@ -540,9 +540,9 @@ $event.stopPropagation()
                           <td class="  fw-bold " colspan="7">
                             Total
                           </td>
-                          <td class=" col-2 text-right fw-bold">{{50000 | number}}
+                          <td class=" col-2 text-right fw-bold">{{50000 | dsNumber}}
                           </td>
-                          <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | number}}
+                          <td class="pe-2 col-2 text-right fw-bold "> {{50000000 | dsNumber}}
                           </td>
                           <td></td>
                         </tr>
@@ -608,7 +608,7 @@ $event.stopPropagation()
                       <div class="col-2 col-md-2 col-lg-2 m-0 p-0 p-r-5">
                         <label class="f-s-14 f-w-600 ">Effectif</label>
                         <mat-form-field appearance="outline" class="w-100 ">
-                          <input matInput type="number" min="1" class="text-center no-spinner" value="" />
+                          <input matInput type="dsNumber" min="1" class="text-center no-spinner" value="" />
                         </mat-form-field>
                       </div>
 

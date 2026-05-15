@@ -7,7 +7,6 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { DecimalPipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -17,9 +16,9 @@ import { MajEmploisEffectifsService } from 'src/app/services/pppb/depensesPerson
 import { GlobalService } from 'src/app/services/pppb/global/global.service';
 import { ProgrammeDto } from 'src/app/dtos/global/programme.dto';
 import { ParametreRechercheDto } from 'src/app/dtos/global/parametreRecherche.dto';
-import { isThisISOWeek } from 'date-fns';
 import { ChapitreEffectifsDto } from 'src/app/dtos/majEffectifsEmplois/chapitreEffectifs.dto';
 import { DotationsTraitementsService } from 'src/app/services/pppb/depensesPersonnelEmplois/dotationsTraitements.service';
+import { DoubleSpaceNumberPipe } from 'src/app/pipes/double-space-number.pipe';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -628,7 +627,7 @@ const ACTIVITE_DATA: objetType[] = [
   selector: 'app-maj-emplois-effectifs',
   imports: [
     MaterialModule,
-    DecimalPipe,
+    DoubleSpaceNumberPipe,
     FormsModule,
     MatPaginatorModule,
     IconModule
@@ -653,11 +652,11 @@ export class MajEmploisEffectifsComponent {
   projetBudgetCode: string;
   parametreRecherche: ParametreRechercheDto = {};
   totalElements: number = 0;
+  totaux: Record<string, number>;
 
   constructor(
     private majEmploisEffectifsService: MajEmploisEffectifsService,
     private globalService: GlobalService,
-    private dotationsTraitementsService : DotationsTraitementsService
   ) { }
 
   @ViewChild(MatPaginator)
@@ -768,7 +767,7 @@ export class MajEmploisEffectifsComponent {
         // this.parametreRecherche.exeCode = valeur-1+'_1';
         this.parametreRecherche.exeCode = '2025_1';
         console.log('ExeCode ', this.parametreRecherche.exeCode);
-        this.parametreRecherche.exeCode1 = valeur+'_1';
+        this.parametreRecherche.exeCode1 = valeur + '_1';
         this.globalService.getProjetBudget(valeur).subscribe({
           next: (projet) => { this.projetBudgetLib = projet.expbLib; this.projetBudgetCode = projet.expbCode; },
           error: (err) => { console.error('Erreur projet budget:', err); }
@@ -800,40 +799,41 @@ export class MajEmploisEffectifsComponent {
   }
 
   onProgrammeChange(prog: ProgrammeDto) {
-      this.selectedProgramme = prog;
-      this.parametreRecherche.proId = prog.proId;
-      this.getChapitres();
-    }
+    this.selectedProgramme = prog;
+    this.parametreRecherche.proId = prog.proId;
+    this.getChapitres();
+  }
 
-    getChapitres() {
-      if (!this.selectedProgramme) {
-        console.warn('Aucun programme sélectionné');
-        return;
-      }
-      this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
-        next: (data) => {
-          this.listeChapitre.data = data;
-          this.totalElements = data.length;
-          console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.data);
-        },
-        error: (err) => { console.error('Erreur chargement chapitre data:', err); }
-      });
+  getChapitres() {
+    if (!this.selectedProgramme) {
+      console.warn('Aucun programme sélectionné');
+      return;
     }
+    this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
+      next: (data) => {
+        this.listeChapitre.data = data;
+        this.totalElements = data.length;
+        console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.data);
+        this.totaux = this.calculTotaux(this.listeChapitre.data);
+      },
+      error: (err) => { console.error('Erreur chargement chapitre data:', err); }
+    });
+  }
 
-    getEmplois() {
-      if (!this.selectedProgramme) {
-        console.warn('Aucun programme sélectionné');
-        return;
-      }
-      this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
-        next: (data) => {
-          this.listeChapitre.data = data;
-          this.totalElements = data.length;
-          console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.data);
-        },
-        error: (err) => { console.error('Erreur chargement chapitre data:', err); }
-      });
+  getEmplois() {
+    if (!this.selectedProgramme) {
+      console.warn('Aucun programme sélectionné');
+      return;
     }
+    this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
+      next: (data) => {
+        this.listeChapitre.data = data;
+        this.totalElements = data.length;
+        console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.data);
+      },
+      error: (err) => { console.error('Erreur chargement chapitre data:', err); }
+    });
+  }
 
   //   getAgents() {
   //   this.loading = true;
@@ -851,6 +851,18 @@ export class MajEmploisEffectifsComponent {
   //     },
   //   });
   // }
+
+  
+  calculTotaux(chapitres: ChapitreEffectifsDto[]) {
+    return this.globalService.calculerSommes(chapitres, [
+      'effectif0',
+      'nombreAgent',
+      'nombreContractuel',
+      'montant'
+    ]);
+
+  }
+
 
 
 }
