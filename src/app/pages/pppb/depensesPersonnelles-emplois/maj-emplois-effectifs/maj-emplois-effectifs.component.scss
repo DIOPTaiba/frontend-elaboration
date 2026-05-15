@@ -22,9 +22,7 @@ table {
     width: 100%;
 }
 
-.border-top-0{
-    border-top: unset !important;
-}
+
 
 .bg2{
     background-color: #4675c1;
@@ -134,7 +132,7 @@ tr.example-detail-row {
 ::ng-deep .mat-mdc-table .mat-mdc-header-cell, .mat-mdc-cell, 
 .mat-mdc-table tfoot,
 .mat-mdc-footer-cell {
-  border: 1px solid #dee2e6 !important;
+  border: 0.5px solid #dee2e6 !important;
   border-collapse: collapse;
   border-bottom: unset !important;
 }
@@ -143,3 +141,6 @@ tr.example-detail-row {
   padding: 0 !important;
 }
 
+.border-top-0{
+    border-top: unset !important;
+}

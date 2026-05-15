@@ -14,6 +14,11 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { IconModule } from 'src/app/icon/icon.module';
 import { MatSort } from '@angular/material/sort';
 import { majEmploisEffectifsService } from 'src/app/services/pppb/depensesPersonnel/majEmploisEffectifs.service';
+import { GlobalService } from 'src/app/services/pppb/global/global.service';
+import { ProgrammeDto } from 'src/app/dtos/global/programme.dto';
+import { ParametreRechercheDto } from 'src/app/dtos/global/parametreRecherche.dto';
+import { isThisISOWeek } from 'date-fns';
+import { ChapitreEffectifsDto } from 'src/app/dtos/majEffectifsEmplois/chapitreEffectifs.dto';
 
 const CHAPITRE_DATA: objetChapitre[] = [
   {
@@ -641,8 +646,16 @@ const ACTIVITE_DATA: objetType[] = [
   ],
 })
 export class MajEmploisEffectifsComponent {
+  selectedProgramme: ProgrammeDto | null = null;
+  exerciceCourant: number = 0;
+  projetBudgetLib: string = '';
+  projetBudgetCode: string;
+  parametreRecherche: ParametreRechercheDto = {};
+  totalElements: number = 0;
 
-  constructor(private majEmploisEffectifsService: majEmploisEffectifsService,
+  constructor(
+    private majEmploisEffectifsService: majEmploisEffectifsService,
+    private globalService: GlobalService,
   ) { }
 
   @ViewChild(MatPaginator)
@@ -660,10 +673,10 @@ export class MajEmploisEffectifsComponent {
       this.listeChapitre.sortingDataAccessor = (item, property) => {
         switch (property) {
           case 'code':
-            return Number(item.code); // tri numérique correct
+            return Number(item.chapCode); // tri numérique correct
 
           case 'libelle':
-            return item.libelle?.toLowerCase() || ''; // tri texte
+            return item.chapLib?.toLowerCase() || ''; // tri texte
 
           case 'effectifsN':
           case 'agentsSolde':
@@ -671,7 +684,7 @@ export class MajEmploisEffectifsComponent {
           case 'total':
           case 'ecart':
           case 'dotation':
-            return Number(item[property as keyof objetChapitre]) || 0;
+            return Number(item[property as keyof ChapitreEffectifsDto]) || 0;
 
           default:
             return '';
@@ -682,7 +695,7 @@ export class MajEmploisEffectifsComponent {
   }
 
 
-  listeChapitre = new MatTableDataSource<objetChapitre>(CHAPITRE_DATA);
+  listeChapitre = new MatTableDataSource<ChapitreEffectifsDto>([]);
   listeEmplois = new MatTableDataSource(EMPLOI_DATA);
   listeActions = new MatTableDataSource(ACTION_DATA);
   listeActivites = new MatTableDataSource(ACTIVITE_DATA);
@@ -738,6 +751,9 @@ export class MajEmploisEffectifsComponent {
     this.listeEmplois.filter = '';
     this.listeActions.filter = '';
     this.listeActivites.filter = '';
+    if (this.choix === 'chapitre') {
+      this.getChapitres();
+    }
   }
 
   listeProgrammes: any[] = [];
@@ -746,7 +762,24 @@ export class MajEmploisEffectifsComponent {
   ngOnInit(): void {
       // this.listeProgrammes = this.majEmploisEffectifsService.getProgrammes();
       this.loadProgrammes();
-    
+  
+    this.selectedProgramme = null;
+
+    this.globalService.getExerciceCourant().subscribe({
+      next: (valeur) => {
+        this.exerciceCourant = valeur;
+        this.parametreRecherche.exeCode = valeur-1+'_1';
+        console.log('ExeCode ', this.parametreRecherche.exeCode);
+        this.parametreRecherche.exeCode1 = valeur+'_1';
+        this.globalService.getProjetBudget(valeur).subscribe({
+          next: (projet) => { this.projetBudgetLib = projet.expbLib; this.projetBudgetCode = projet.expbCode; },
+          error: (err) => { console.error('Erreur projet budget:', err); }
+        });
+      },
+      error: (err) => { console.error('Erreur exercice courant:', err); }
+    });
+
+
   }
 
   loadProgrammes() {
@@ -764,6 +797,42 @@ export class MajEmploisEffectifsComponent {
       },
     });
   }
+
+  onProgrammeChange(prog: ProgrammeDto) {
+      this.selectedProgramme = prog;
+      this.parametreRecherche.proId = prog.proId;
+      this.getChapitres();
+    }
+
+    getChapitres() {
+      if (!this.selectedProgramme) {
+        console.warn('Aucun programme sélectionné');
+        return;
+      }
+      this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
+        next: (data) => {
+          this.listeChapitre.data = data;
+          this.totalElements = data.length;
+          console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.data);
+        },
+        error: (err) => { console.error('Erreur chargement chapitre data:', err); }
+      });
+    }
+
+    getEmplois() {
+      if (!this.selectedProgramme) {
+        console.warn('Aucun programme sélectionné');
+        return;
+      }
+      this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
+        next: (data) => {
+          this.listeChapitre.data = data;
+          this.totalElements = data.length;
+          console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.data);
+        },
+        error: (err) => { console.error('Erreur chargement chapitre data:', err); }
+      });
+    }
 
 
 }

@@ -2,7 +2,6 @@ import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ApiService } from '../../api.service';
-import { ParametreRechercheDto } from 'src/app/dtos/global/parametreRecherche.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -27,17 +26,11 @@ export class majEmploisEffectifsService {
     }
   
     /**
-     * Liste chapitres
+     * Retourne les blogs en cache (local)
      */
-    public getChapitres(parametreRecherche: ParametreRechercheDto): Observable<any[]> {
-      return this.apiService.post(`/majEffectifEmplois/chapitreEffectifs`, parametreRecherche);
-    }
-
-    /**
-     * Liste emplois
-     */
-    public getEmplois(parametreRecherche: ParametreRechercheDto): Observable<any[]> {
-      return this.apiService.post(`/majEffectifEmplois/emploisEffectifs`, parametreRecherche);
+    public getProgrammesXXXX() {
+      return this.listeProgrammes();
+      console.log("liste Programmes",this.listeProgrammes());
     }
 
 }

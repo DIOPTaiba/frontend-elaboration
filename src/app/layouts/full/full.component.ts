@@ -55,7 +55,6 @@ interface quicklinks {
     HeaderComponent,
     AppHorizontalHeaderComponent,
     AppHorizontalSidebarComponent,
-    CustomizerComponent,
     BrandingComponent,
   ],
   templateUrl: './full.component.html',
