@@ -6,4 +6,5 @@ export interface ParametreRechercheDto {
   sfinCode?: string;
   exeCode?: string;
   chapId?: string;
+  budcCode?: string;
 }

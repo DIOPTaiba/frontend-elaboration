@@ -100,26 +100,43 @@
         <div class="search-filter-row m-b-12">
           <div class="search-filter-group">
             <label class="f-s-14 f-w-600">Code</label>
-            <mat-form-field appearance="outline" class="field-select">
-              <mat-select [(ngModel)]="selectedCode" (ngModelChange)="onCodeChange()">
-                <mat-option value="">-- Tous --</mat-option>
-                <mat-option *ngFor="let item of filteredNatures" [value]="item.code">{{ item.code }}</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <ng-select
+              class="w-100 widthCode "
+              [(ngModel)]="selectedCode"
+              (change)="onCodeChange()"
+              [items]="natures"
+              bindLabel="codeLigne"
+              bindValue="codeLigne"
+              placeholder="-- Tous --"
+              [searchable]="true"
+              [clearable]="true"
+              notFoundText="Aucun résultat">
+            </ng-select>
           </div>
           <div class="search-filter-group search-filter-grow">
             <label class="f-s-14 f-w-600">Libellé</label>
-            <mat-form-field appearance="outline" class="field-flex">
-              <mat-select [(ngModel)]="selectedLibelle" (ngModelChange)="onLibelleChange()">
-                <mat-option value="">-- Tous --</mat-option>
-                <mat-option *ngFor="let item of filteredNatures" [value]="item.libelle">{{ item.libelle }}</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <ng-select
+              class="w-100"
+              [(ngModel)]="selectedLibelle"
+              (change)="onLibelleChange()"
+              [items]="natures"
+              bindLabel="libLigne"
+              bindValue="libLigne"
+              placeholder="-- Tous --"
+              [searchable]="true"
+              [clearable]="true"
+              notFoundText="Aucun résultat">
+            </ng-select>
           </div>
         </div>
 
+        <!-- Spinner -->
+        <div *ngIf="isLoadingNatures" class="spinner-center">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+
         <!-- Table -->
-        <div class="table-wrapper">
+        <div class="table-wrapper" *ngIf="!isLoadingNatures">
           <table class="nature-table">
             <thead>
               <tr>
@@ -130,17 +147,17 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of filteredNatures; let i = index"
-                  [class.row-selected]="item.selected"
+                  [class.row-selected]="isSelected(item)"
                   (click)="toggleSelection(item)">
                 <td class="col-check">
-                  <input type="checkbox" [(ngModel)]="item.selected"
+                  <input type="checkbox" [checked]="isSelected(item)"
                          (click)="$event.stopPropagation()" (change)="onCheckChange(item)" />
                 </td>
-                <td class="col-code">{{ item.code }}</td>
-                <td class="col-libelle">{{ item.libelle }}</td>
+                <td class="col-code">{{ item.codeLigne }}</td>
+                <td class="col-libelle">{{ item.libLigne }}</td>
               </tr>
               <tr *ngIf="filteredNatures.length === 0">
-                <td colspan="3" class="empty-row">Aucun résultat trouvé.</td>
+                <td colspan="3" class="empty-row">Aucune donnée.</td>
               </tr>
             </tbody>
           </table>

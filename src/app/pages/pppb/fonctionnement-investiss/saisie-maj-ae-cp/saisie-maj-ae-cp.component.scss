@@ -1,6 +1,17 @@
+.btn_trash{font-size: 16px; width: 16px; height: 16px; color: red;}
+.btn_btntrash{font-size: 12px; width: 12px; height: 12px; }
+
+.spinner-lignes-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 0;
+}
+
 .padr {
     padding-right: 5px !important;
 }
+label{color: #163a76;font-weight:500 !important;}
 
 .padf {
     padding-left: 3px !important;

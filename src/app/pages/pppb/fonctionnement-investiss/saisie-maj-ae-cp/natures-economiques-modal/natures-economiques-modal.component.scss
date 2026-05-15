@@ -1,3 +1,10 @@
+.spinner-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+}
+
 /* ===== Overlay ===== */
 .modal-overlay {
   position: fixed;
@@ -81,9 +88,9 @@
 
 /* ===== Field widths ===== */
 .field-code {
-  width: 112px;
-  min-width: 112px;
-  max-width: 112px;
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
 
   input {
     text-align: center;
@@ -132,6 +139,7 @@
   }
 }
 
+
 /* ===== Search filter row ===== */
 .search-filter-row {
   display: flex;
@@ -148,6 +156,8 @@
     white-space: nowrap;
   }
 }
+label{color: #163a76;font-weight:500 !important;}
+.widthCode{width: 100px;}
 
 .search-filter-grow {
   flex: 1;

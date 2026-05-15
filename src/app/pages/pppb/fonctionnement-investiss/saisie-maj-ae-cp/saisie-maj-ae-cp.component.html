@@ -41,7 +41,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        
+
 
         <div class="col-12 col-md-3 col-lg-3 m-0 p-0  padr">
             <label class="f-s-14 f-w-600  ">Catégorie de dépenses </label>
@@ -56,11 +56,11 @@
             </mat-form-field>
         </div>
 
-<div class="col-12 col-md-3 col-lg-3 m-0 p-0 ">
+        <div class="col-12 col-md-3 col-lg-3 m-0 p-0 ">
             <label class="f-s-14 f-w-600  ">Type de financement</label>
             <mat-form-field appearance="outline" class="w-100   ">
                 <mat-select disableOptionCentering placeholder="" (selectionChange)="onTypeFinChange($event.value)">
-                    @for (type of listeTypesFin; track type.tfinId) {
+                    @for (type of listeTypesFinsFiltered; track type.tfinId) {
                     <mat-option [value]="type">
                         {{ type.tfinCode }} - {{ type.tfinLib }}
                     </mat-option>
@@ -76,7 +76,7 @@
         <mat-accordion class="col-12 col-md-6 col-lg-6 m-0 p-0 padr m-t-16 rounded  ">
             <mat-expansion-panel class="background-light-bleu cardWithShadow b-1 rounded">
                 <mat-expansion-panel-header>
-                    <mat-panel-title class="f-w-600 f-s-14 gap-4">
+                    <mat-panel-title class="f-w-600 f-s-14 gap-4 text-primary">
                         <i class="iconify f-s-15 d-flex  " data-icon="solar:inbox-linear"></i>
 
                         <h4 class=""> Enveloppes</h4>
@@ -98,13 +98,15 @@
                             <td class="fw-bold text-primary text-center">AE</td>
                             <td class="text-end">{{ enveloppeTotalData?.montantN1AE | dsNumber }}</td>
                             <td class="text-end">{{ enveloppeRepartiData?.montantN1AE | dsNumber }}</td>
-                            <td class="text-end">{{ ((enveloppeTotalData?.montantN1AE ?? 0) - (enveloppeRepartiData?.montantN1AE ?? 0)) | dsNumber }}</td>
+                            <td class="text-end">{{ ((enveloppeTotalData?.montantN1AE ?? 0) -
+                                (enveloppeRepartiData?.montantN1AE ?? 0)) | dsNumber }}</td>
                         </tr>
                         <tr class="bg-white">
                             <td class="fw-bold text-success text-center">CP</td>
                             <td class="text-end">{{ enveloppeTotalData?.montantN1CP | dsNumber }}</td>
                             <td class="text-end">{{ enveloppeRepartiData?.montantN1CP | dsNumber }}</td>
-                            <td class="text-end">{{ ((enveloppeTotalData?.montantN1CP ?? 0) - (enveloppeRepartiData?.montantN1CP ?? 0)) | dsNumber }}</td>
+                            <td class="text-end">{{ ((enveloppeTotalData?.montantN1CP ?? 0) -
+                                (enveloppeRepartiData?.montantN1CP ?? 0)) | dsNumber }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -241,7 +243,8 @@
 
         <!-- SPINNER ROW -->
         <ng-container matColumnDef="loading">
-            <td mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length" style="text-align:center; padding: 20px;">
+            <td mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length"
+                style="text-align:center; padding: 20px;">
                 <mat-spinner diameter="36" style="margin: 0 auto;"></mat-spinner>
             </td>
         </ng-container>
@@ -276,8 +279,8 @@
             <td mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length" class="empty-state-cell">
                 <div class="empty-state">
                     <mat-icon class="empty-icon ">inbox</mat-icon>
-                    <span class="empty-title ">Pas de données  </span>
-                  <!--   <p class="empty-subtitle">Sélectionnez un programme, une catégorie et une source de financement</p> -->
+                    <span class="empty-title ">Pas de données </span>
+                    <!--   <p class="empty-subtitle">Sélectionnez un programme, une catégorie et une source de financement</p> -->
                 </div>
             </td>
         </ng-container>
@@ -287,7 +290,8 @@
         <!-- SPINNER -->
         <tr mat-footer-row *matFooterRowDef="['loading']" [style.display]="isLoading ? '' : 'none'"></tr>
         <!-- ===================== FOOTER (TOTAL) ===================== -->
-        <tr mat-footer-row *matFooterRowDef="displayedColumns" class="total-row" [style.display]="isLoading ? 'none' : ''"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns" class="total-row"
+            [style.display]="isLoading ? 'none' : ''"></tr>
 
         <!-- DETAIL -->
         <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="detail-row"></tr>
@@ -303,13 +307,17 @@
 
                             <div class="toolbar-activite">
                                 <label class="f-s-13 f-w-600 text-primary">Activité</label>
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <mat-select formControlName="default_template" disableOptionCentering placeholder="">
-                                        @for (template of templates; track template) {
-                                        <mat-option [value]="template">{{ template }}</mat-option>
-                                        }
-                                    </mat-select>
-                                </mat-form-field>
+                                <ng-select class="w-100" [(ngModel)]="selectedActiviteSaisie"
+                                    (change)="onActiviteSaisieChange($event)" [items]="listeActivitesSaisie"
+                                    bindLabel="libActivite" placeholder="-- Toutes --" [searchable]="true"
+                                    [searchFn]="searchActivite" [clearable]="true" notFoundText="Aucun résultat">
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.codeActivite }} - {{ item.libActivite }}
+                                    </ng-template>
+                                    <ng-template ng-label-tmp let-item="item">
+                                        {{ item.codeActivite }} - {{ item.libActivite }}
+                                    </ng-template>
+                                </ng-select>
                             </div>
 
                             <button mat-flat-button class="btn-enregistrer">
@@ -319,8 +327,12 @@
                         </div>
                         <mat-card class="cardWithShadow b-1 rounded m-b-10  p-10  ">
 
+                            <div *ngIf="isLoadingLignes" class="spinner-lignes-center">
+                                <mat-spinner diameter="40"></mat-spinner>
+                            </div>
 
-                            <div *ngIf="isFullTable(); else simpleTable" class="table-budget sub-table">
+                            <div *ngIf="isFullTable() && !isLoadingLignes; else simpleTable"
+                                class="table-budget sub-table">
                                 <div class="table-scroll">
                                     <table>
 
@@ -335,13 +347,15 @@
                                                     <span *ngIf="showEchEJ">Echéanciers des CP associés aux EJ
                                                         antérieurs non dénoués</span>
                                                 </th>
-                                                <th colspan="4">Dotations AE 2027</th>
+                                                <th colspan="4">Dotations AE {{exerciceCourant+1}}</th>
                                                 <th [attr.colspan]="showEchAE ? 5 : 1">
                                                     <span *ngIf="showEchAE">Echéanciers des CP associés aux AE de
-                                                        2027</span>
+                                                        {{exerciceCourant+1}}</span>
                                                 </th>
-                                                <th colspan="4">Dotations CP 2027</th>
+                                                <th colspan="4">Dotations CP {{exerciceCourant+1}}</th>
+                                                <th rowspan="2" class="col-action-header"></th>
                                             </tr>
+
 
                                             <tr class="bg-light">
                                                 <th class="toggle-col" (click)="showEchEJ = !showEchEJ"
@@ -349,14 +363,14 @@
                                                     {{ showEchEJ ? '◀' : '▶' }} Ech. CP
                                                 </th>
                                                 <ng-container *ngIf="showEchEJ">
-                                                    <th>CP 2027</th>
-                                                    <th>CP 2028</th>
-                                                    <th>CP 2029</th>
+                                                    <th>CP {{exerciceCourant+1}}</th>
+                                                    <th>CP {{exerciceCourant+2}}</th>
+                                                    <th>CP {{exerciceCourant+3}}</th>
                                                     <th class="danger">CP Autres</th>
                                                 </ng-container>
 
-                                                <th>Rappel LFI 2026</th>
-                                                <th>Motant AE 2027</th>
+                                                <th>Rappel LFI {{exerciceCourant}}</th>
+                                                <th>Motant AE {{exerciceCourant+1}}</th>
                                                 <th colspan="2">Ecart</th>
 
                                                 <th class="toggle-col" (click)="showEchAE = !showEchAE"
@@ -364,14 +378,14 @@
                                                     {{ showEchAE ? '◀' : '▶' }} Ech. CP
                                                 </th>
                                                 <ng-container *ngIf="showEchAE">
-                                                    <th>CP 2027</th>
-                                                    <th>CP 2028</th>
-                                                    <th>CP 2029</th>
+                                                    <th>CP {{exerciceCourant+1}}</th>
+                                                    <th>CP {{exerciceCourant+2}}</th>
+                                                    <th>CP {{exerciceCourant+3}}</th>
                                                     <th class="danger">CP Autres</th>
                                                 </ng-container>
 
-                                                <th>Rappel LFI 2026</th>
-                                                <th>Montant CP 2027</th>
+                                                <th>Rappel LFI {{exerciceCourant}}</th>
+                                                <th>Montant CP {{exerciceCourant+1}}</th>
                                                 <th colspan="2">Ecart</th>
 
                                             </tr>
@@ -379,7 +393,7 @@
 
                                         <tbody>
                                             <tr *ngIf="listeLigneBudget.length === 0">
-                                                <td colspan="20">
+                                                <td colspan="21">
                                                     <div class="empty-state">
                                                         <mat-icon class="empty-icon">inbox</mat-icon>
                                                         <span class="empty-title">Pas de données</span>
@@ -392,82 +406,93 @@
 
                                                 <td>{{ el.codeAction }}</td>
                                                 <td>{{ el.codeActivite }}</td>
-                                               <td>{{ el.codeLigne}} - {{el.libLigne }}</td>
-                                                <td>{{ el.aeLFI0 | dsNumber }}</td>
+                                                <td>{{ el.codeLigne}} - {{el.libLigne }}</td>
+                                                <td> - </td>
                                                 <td class="toggle-col"></td>
                                                 <ng-container *ngIf="showEchEJ">
-                                                    <td class="p-0 col-number"><input type="number"
-                                                            [(value)]="el.cpLFI1" class="full-input text-end"></td>
-                                                    <td class="p-0 col-number"><input type="number"
-                                                            [(value)]="el.cpLFI1" class="full-input text-end"></td>
-                                                    <td class="p-0 col-number"><input type="number"
-                                                            [(value)]="el.cpLFI1" class="full-input text-end"></td>
-                                                    <td class="p-0 col-number"><input type="number"
-                                                            [(value)]="el.cpLFI1"
+                                                    <td class="p-0 col-number"><input type="number" [(value)]="zero"
+                                                            class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number" [(value)]="zero"
+                                                            class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number" [(value)]="zero"
+                                                            class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number" [(value)]="zero"
                                                             class="danger full-input text-end"></td>
                                                 </ng-container>
 
-                                                <td>{{ el.aeLFI1 | dsNumber }}</td>
-                                                <td class="p-0 col-number"><input type="number" [(value)]="el.aeLFI1"
+                                                <td>{{ el.aeLFI0 | dsNumber }}</td>
+                                                <td class="p-0 col-number"><input type="text"
+                                                        [value]="el.aeLFI1 | dsNumber"
+                                                        (change)="onAeLFI1Change(el, $event)"
                                                         class="full-input text-end"></td>
-                                                <td>ecartAE </td>
-                                                <td> 7 %</td>
+                                                <td>{{ getEcartAE(el) | dsNumber }}</td>
+                                                <td>{{ getEcartAEPct(el) }}</td>
 
                                                 <td class="toggle-col"></td>
                                                 <ng-container *ngIf="showEchAE">
-                                                    <td class="p-0 col-number"><input type="number"
-                                                            [(value)]="el.cpLFI1" class="full-input text-end"></td>
-                                                    <td class="p-0 col-number"><input type="number"
-                                                            [(value)]="el.cpLFI1" class="full-input text-end"></td>
-                                                    <td class="p-0 col-number"><input type="number"
-                                                             [(value)]="el.cpLFI1" class="full-input text-end"></td>
-                                                    <td class="p-0 col-number"><input type="number"
- [(value)]="el.cpLFI1"                                                            class="danger full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number" [(value)]="zero"
+                                                            class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number" [(value)]="zero"
+                                                            class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number" [(value)]="zero"
+                                                            class="full-input text-end"></td>
+                                                    <td class="p-0 col-number"><input type="number" [(value)]="zero"
+                                                            class="danger full-input text-end">
+                                                    </td>
                                                 </ng-container>
 
-                                                <td>{{ el.cpLFI1 | dsNumber }}</td>
                                                 <td>{{ el.cpLFI0 | dsNumber }}</td>
-                                                <td>ecartCP </td>
-                                                <td> 6 %</td>
+                                                <td>{{ el.cpLFI1 | dsNumber }}</td>
+                                                <td>{{ getEcartCP(el) | dsNumber }}</td>
+                                                <td>{{ getEcartCPPct(el) }}</td>
+
+
+                                                <td class="text-center">
+                                                    <mat-icon title="Supprimer"
+                                                        class="btn btn-sm p-0 btn_trash">delete</mat-icon>
+                                                </td>
+
+
 
                                             </tr>
                                         </tbody>
 
-                                      <!--   <tfoot>
+                                        <tfoot>
                                             <tr class="text-end total-row">
 
                                                 <td colspan="3">Récapitulatif</td>
 
-                                                <td class="text-end">{{ getTotal2('ej') | dsNumber }}</td>
+                                                <td class="text-end">-</td>
                                                 <td class="toggle-col"></td>
                                                 <ng-container *ngIf="showEchEJ">
-                                                    <td class="text-end">{{ getTotal2('cp2027_ej') | dsNumber }}</td>
-                                                    <td class="text-end">{{ getTotal2('cp2028_ej') | dsNumber }}</td>
-                                                    <td class="text-end">{{ getTotal2('cp2029_ej') | dsNumber }}</td>
-                                                    <td class="danger text-end">{{ getTotal2('cpAutres_ej') | dsNumber }}
+                                                    <td class="text-end">0</td>
+                                                    <td class="text-end">0</td>
+                                                    <td class="text-end">0</td>
+                                                    <td class="danger text-end">0
                                                     </td>
                                                 </ng-container>
 
-                                                <td>{{ getTotal2('rappelAE') | dsNumber }}</td>
-                                                <td>{{ getTotal2('montantAE') | dsNumber }}</td>
-                                                <td>{{ getTotal2('ecartAE') | dsNumber }}</td>
-                                                <td>{{ getTotal2('ecartAEpct') }}%</td>
+                                                <td>{{ getTotal2('aeLFI0') | dsNumber }}</td>
+                                                <td>{{ getTotal2('aeLFI1') | dsNumber }}</td>
+                                                <td>{{ getTotalEcartAE() | dsNumber }}</td>
+                                                <td>{{ getTotalEcartAEPct() }}</td>
 
                                                 <td class="toggle-col"></td>
                                                 <ng-container *ngIf="showEchAE">
-                                                    <td>{{ getTotal2('cp2027_ae') | dsNumber }}</td>
-                                                    <td>{{ getTotal2('cp2028_ae') | dsNumber }}</td>
-                                                    <td>{{ getTotal2('cp2029_ae') | dsNumber }}</td>
-                                                    <td class="danger">{{ getTotal2('cpAutres_ae') | dsNumber }}</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                    <td class="danger">0</td>
                                                 </ng-container>
 
-                                                <td>{{ getTotal2('rappelCP') | dsNumber }}</td>
-                                                <td>{{ getTotal2('montantCP') | dsNumber }}</td>
-                                                <td>{{ getTotal2('ecartCP') | dsNumber }}</td>
-                                                <td>{{ getTotal2('ecartCPpct') }}%</td>
+                                                <td>{{ getTotal2('cpLFI0') | dsNumber }}</td>
+                                                <td>{{ getTotal2('cpLFI1') | dsNumber }}</td>
+                                                <td>{{ getTotalEcartCP() | dsNumber }}</td>
+                                                <td>{{ getTotalEcartCPPct() }}</td>
+                                                <td></td>
 
                                             </tr>
-                                        </tfoot> -->
+                                        </tfoot>
 
                                     </table>
                                 </div>
@@ -477,7 +502,7 @@
                             <!-- TABLEAU SIMPLIFIÉ -->
                             <ng-template #simpleTable>
 
-                                <div class="table-budget sub-table">
+                                <div *ngIf="!isLoadingLignes" class="table-budget sub-table">
                                     <div class="table-scroll">
                                         <table>
 
@@ -486,28 +511,29 @@
                                                     <th rowspan="2">Action</th>
                                                     <th rowspan="2">Activité</th>
                                                     <th rowspan="2">Ligne de dépense</th>
-                                                    <th colspan="4">Dotations AE 2027</th>
-                                                    <th colspan="4">Dotations CP 2027</th>
+                                                    <th colspan="4">Dotations AE {{exerciceCourant+1}}</th>
+                                                    <th colspan="4">Dotations CP {{exerciceCourant+1}}</th>
+                                                    <th rowspan="2" class="col-action-header"></th>
                                                 </tr>
 
                                                 <tr class="bg-light">
 
 
-                                                    <th>Rappel LFI 2026</th>
-                                                    <th>Motant 2027</th>
+                                                    <th>Rappel LFI {{exerciceCourant}}</th>
+                                                    <th>Motant {{exerciceCourant+1}}</th>
                                                     <th colspan="2" class="text-center">Ecart</th>
 
 
 
-                                                    <th>Rappel LFI 2026</th>
-                                                    <th>Montant 2027</th>
+                                                    <th>Rappel LFI {{exerciceCourant}}</th>
+                                                    <th>Montant {{exerciceCourant+1}}</th>
                                                     <th colspan="2" class="text-center">Ecart</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
                                                 <tr *ngIf="listeLigneBudget.length === 0">
-                                                    <td colspan="12">
+                                                    <td colspan="13">
                                                         <div class="empty-state">
                                                             <mat-icon class="empty-icon">inbox</mat-icon>
                                                             <span class="empty-title">Pas de données</span>
@@ -520,42 +546,49 @@
 
                                                     <td>{{ el.codeAction }}</td>
                                                     <td>{{ el.codeActivite }}</td>
-                                                     <td>{{ el.codeLigne}} - {{el.libLigne }}</td>
+                                                    <td>{{ el.codeLigne}} - {{el.libLigne }}</td>
 
 
                                                     <td>{{ el.aeLFI0 | dsNumber }}</td>
-                                                    <td class="p-0 col-number"><input type="number"
-                                                            [(value)]="el.cpLFI1" class="full-input text-end"></td>
-                                                    <td>ecartAE </td>
-                                                    <td>AE %</td>
+                                                    <td class="p-0 col-number"><input type="text"
+                                                            [value]="el.aeLFI1 | dsNumber"
+                                                            (change)="onAeLFI1Change(el, $event)"
+                                                            class="full-input text-end"></td>
+                                                    <td>{{ getEcartAE(el) | dsNumber }}</td>
+                                                    <td>{{ getEcartAEPct(el) }}</td>
 
 
 
-                                                    <td>{{ el.aeLFI1 | dsNumber }}</td>
                                                     <td>{{ el.cpLFI0 | dsNumber }}</td>
-                                                    <td>ecartCP </td>
-                                                    <td>CPpct%</td>
+                                                    <td>{{ el.cpLFI1 | dsNumber }}</td>
+                                                    <td>{{ getEcartCP(el) | dsNumber }}</td>
+                                                    <td>{{ getEcartCPPct(el) }}</td>
+                                                    <td class="text-center">
+                                                        <mat-icon title="Supprimer"
+                                                            class="btn btn-sm p-0 btn_trash">delete</mat-icon>
+                                                    </td>
 
                                                 </tr>
                                             </tbody>
 
-                                         <!--    <tfoot>
+                                            <tfoot>
                                                 <tr class="text-end total-row">
 
                                                     <td colspan="3">Récapitulatif</td>
 
 
-                                                    <td>{{ getTotal2('rappelAE') | dsNumber }}</td>
-                                                    <td>{{ getTotal2('montantAE') | dsNumber }}</td>
-                                                    <td>{{ getTotal2('ecartAE') | dsNumber }}</td>
-                                                    <td>{{ getTotal2('ecartAEpct') }}%</td>
-                                                    <td>{{ getTotal2('rappelCP') | dsNumber }}</td>
-                                                    <td>{{ getTotal2('montantCP') | dsNumber }}</td>
-                                                    <td>{{ getTotal2('ecartCP') | dsNumber }}</td>
-                                                    <td>{{ getTotal2('ecartCPpct') }}%</td>
+                                                    <td>{{ getTotal2('aeLFI0') | dsNumber }}</td>
+                                                    <td>{{ getTotal2('aeLFI1') | dsNumber }}</td>
+                                                    <td>{{ getTotalEcartAE() | dsNumber }}</td>
+                                                    <td>{{ getTotalEcartAEPct() }}</td>
+                                                    <td>{{ getTotal2('cpLFI0') | dsNumber }}</td>
+                                                    <td>{{ getTotal2('cpLFI1') | dsNumber }}</td>
+                                                    <td>{{ getTotalEcartCP() | dsNumber }}</td>
+                                                    <td>{{ getTotalEcartCPPct() }}</td>
+                                                    <td></td>
 
                                                 </tr>
-                                            </tfoot> -->
+                                            </tfoot>
 
                                         </table>
                                     </div>
@@ -563,36 +596,27 @@
 
                             </ng-template>
 
-                            <mat-paginator
-                                [length]="listeLigneBudget.length"
-                                [pageSize]="ligneBudgetPageSize"
-                                [pageIndex]="ligneBudgetPage"
-                                [pageSizeOptions]="[5, 10, 20]"
+                            <mat-paginator [length]="listeLigneBudget.length" [pageSize]="ligneBudgetPageSize"
+                                [pageIndex]="ligneBudgetPage" [pageSizeOptions]="[5, 10, 20]"
                                 (page)="onLigneBudgetPageChange($event)">
                             </mat-paginator>
 
-                            <mat-card *ngIf="listeLigneBudget.length > 0" class="cardWithShadow b-1 rounded m-t-10 m-b-10  p-20 p-b-10 ">
-                                <div class="row align-items-center">
-                                    <label class="marge col-12 col-lg-1 col-md-1 f-s-14 f-w-600  ">Action </label>
-                                    <mat-form-field appearance="outline" class=" col-12 col-lg-11 col-md-11 w-100">
-                                        <input readonly [value]="suSselectedRow?.libAction" matInput>
-                                    </mat-form-field>
+                            <mat-card *ngIf="listeLigneBudget.length > 0"
+                                class="cardWithShadow b-1 rounded m-t-0 m-b-4 p-10 p-b-9">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 col-lg-6 col-md-6 m-0 p-0 padr">
+                                        <label class="f-s-14 f-w-600">Action</label>
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input readonly [value]="suSselectedRow?.libAction" matInput>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-md-6 m-0 p-0">
+                                        <label class="f-s-14 f-w-600">Activité</label>
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input [value]="suSselectedRow?.libActivite" readonly matInput>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
-
-                                <div class="row align-items-center">
-                                    <label class="marge col-12 col-lg-1 col-md-1 f-s-14 f-w-600  ">Activité </label>
-                                    <mat-form-field appearance="outline" class="  col-12 col-lg-11 col-md-11 w-100">
-                                        <input [value]="suSselectedRow?.libActivite" readonly matInput>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <!--      <div class="row align-items-center">
-                                    <label class="marge col-12 col-lg-1 col-md-1 f-s-14 f-w-600   ">Ligne </label>
-                                    <mat-form-field appearance="outline" class=" col-12 col-lg-11 col-md-11 w-100">
-                                        <input readonly [value]="suSselectedRow?.ligne" matInput>
-                                    </mat-form-field>
-                                </div> -->
                             </mat-card>
 
                         </mat-card>
@@ -605,12 +629,8 @@
     <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
     </mat-paginator>
     <!-- Modal ajouter ligne -->
-    <app-natures-economiques-modal
-        [isVisible]="showModal"
-        [programme]="selectedProgramme"
-        [categorieDepense]="selectedCategorie"
-        [chapitre]="selectedChapitre"
-        (ajouter)="onNaturesAjoutees($event)"
+    <app-natures-economiques-modal [isVisible]="showModal" [programme]="selectedProgramme"
+        [categorieDepense]="selectedCategorie" [chapitre]="selectedChapitre" (ajouter)="onNaturesAjoutees($event)"
         (fermer)="showModal = false">
     </app-natures-economiques-modal>
 

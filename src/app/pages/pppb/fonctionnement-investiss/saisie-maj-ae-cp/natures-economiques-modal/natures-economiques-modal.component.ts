@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitte
 import { SaisieMajProjetBudgetService } from 'src/app/services/pppb/fonctionnementInvestiss/saisie-maj-projet-budget.service';
 import { ActionDto } from 'src/app/dtos/global/action.dto';
 import { ActiviteDto } from 'src/app/dtos/global/activite.dto';
+import { LigneBudgetDto } from 'src/app/dtos/saisieMaj/ligneBudget.dto';
 import { ProgrammeDto } from 'src/app/dtos/global/programme.dto';
 import { CategorieDepenseDto } from 'src/app/dtos/global/categorie-depense.dto';
 import { SectionDto, SECTION_COURANTE } from 'src/app/dtos/global/section.dto';
@@ -14,11 +15,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-export interface NatureEconomique {
-  code: string;
-  libelle: string;
-  selected: boolean;
-}
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export interface SectionInfo {
   code: string;
@@ -26,7 +24,7 @@ export interface SectionInfo {
 }
 
 export interface ModalResult {
-  selectedNatures: NatureEconomique[];
+  selectedNatures: LigneBudgetDto[];
 }
 
 @Component({
@@ -41,6 +39,8 @@ export interface ModalResult {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
+    NgSelectModule,
   ],
   templateUrl: './natures-economiques-modal.component.html',
   styleUrls: ['./natures-economiques-modal.component.scss']
@@ -54,6 +54,7 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
   @Input() programme: ProgrammeDto | null = null;
   @Input() categorieDepense: CategorieDepenseDto | null = null;
   @Input() chapitre: ChapitreDto | null = null;
+  @Input() sfinCode: string = '';
   @Output() ajouter = new EventEmitter<ModalResult>();
   @Output() fermer = new EventEmitter<void>();
 
@@ -62,6 +63,22 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
 
   actions: ActionDto[] = [];
   activites: ActiviteDto[] = [];
+
+  // Search filters
+  selectedCode: string = '';
+  selectedLibelle: string = '';
+
+  natures: LigneBudgetDto[] = [];
+  filteredNatures: LigneBudgetDto[] = [];
+  selectedLignes: Set<string> = new Set();
+  isLoadingNatures = false;
+
+
+  get selectedItems(): LigneBudgetDto[] {
+    return this.natures.filter(n => this.selectedLignes.has(n.codeLigne));
+  }
+
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isVisible']?.currentValue === true && this.programme && this.chapitre) {
@@ -94,79 +111,68 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
     });
   }
 
+  private chargerNatures(): void {
+    if (!this.chapitre || !this.categorieDepense) return;
+    this.isLoadingNatures = true;
+    this.saisieMajService.getLigneSaisie({
+      budcCode: this.selectedActivite?.budcCode,
+      chapId: this.chapitre.chapId,
+      cadeCode: this.categorieDepense.cadeCode,
+      sfinCode: this.sfinCode
+    }).subscribe({
+      next: (data) => {
+        this.natures = data;
+        this.filteredNatures = [...data];
+        this.isLoadingNatures = false;
+      },
+      error: (err) => {
+        console.error('Erreur natures économiques:', err);
+        this.isLoadingNatures = false;
+      }
+    });
+  }
+
   onActionSelect(): void {
     this.selectedActivite = null;
     this.activites = [];
+    this.natures = [];
+    this.filteredNatures = [];
+    this.selectedLignes.clear();
     this.chargerActivites();
   }
 
-  onActiviteSelect(): void { }
-  // Search filters
-  selectedCode: string = '';
-  selectedLibelle: string = '';
-
-  // Nature économique data
-  natures: NatureEconomique[] = [
-    { code: '2121', libelle: 'Brevet', selected: false },
-    { code: '2122', libelle: 'Marque de Fabrique', selected: false },
-    { code: '2123', libelle: "Droit d'auteur", selected: false },
-    { code: '2129', libelle: 'Autre Brevets, marques de fabrique, droits d\'auteur', selected: false },
-    { code: '2132', libelle: 'Acquisition de progiciels et logiciels', selected: false },
-    { code: '2139', libelle: 'Autres conception de système organisation -progiciels', selected: false },
-    { code: '2141', libelle: "Droit d'exploitation", selected: false },
-    { code: '2142', libelle: 'Fonds de commerce', selected: false },
-    { code: '2143', libelle: 'Pas de porte', selected: false },
-    { code: '2144', libelle: 'Licences', selected: false },
-    { code: '2149', libelle: 'Autres immobilisations incorporelles', selected: false },
-    { code: '2211', libelle: 'Terrains nus', selected: false },
-    { code: '2212', libelle: 'Terrains aménagés', selected: false },
-    { code: '2213', libelle: 'Sous-sols et sursols', selected: false },
-    { code: '2221', libelle: 'Bâtiments industriels et commerciaux', selected: false },
-    { code: '2222', libelle: 'Bâtiments administratifs', selected: false },
-  ];
-
-  filteredNatures: NatureEconomique[] = [];
-
-  get selectedItems(): NatureEconomique[] {
-    return this.natures.filter(n => n.selected);
+  onActiviteSelect(): void {
+    this.natures = [];
+    this.filteredNatures = [];
+    this.selectedLignes.clear();
+    this.chargerNatures();
   }
 
-  ngOnInit(): void {
-    this.filteredNatures = [...this.natures];
-  }
-
-  onCodeChange(): void {
-    this.applyFilters();
-  }
-
-  onLibelleChange(): void {
-    this.applyFilters();
-  }
+  onCodeChange(): void { this.applyFilters(); }
+  onLibelleChange(): void { this.applyFilters(); }
 
   applyFilters(): void {
     this.filteredNatures = this.natures.filter(item => {
-      const codeMatch = !this.selectedCode || item.code === this.selectedCode;
-      const libelleMatch = !this.selectedLibelle || item.libelle === this.selectedLibelle;
+      const codeMatch = !this.selectedCode || item.codeLigne === this.selectedCode;
+      const libelleMatch = !this.selectedLibelle || item.libLigne === this.selectedLibelle;
       return codeMatch && libelleMatch;
     });
   }
 
-  toggleSelection(item: NatureEconomique): void {
-    item.selected = !item.selected;
+  isSelected(item: LigneBudgetDto): boolean {
+    return this.selectedLignes.has(item.codeLigne);
   }
 
-  onCheckChange(item: NatureEconomique): void {
-    // handled via ngModel binding
+  toggleSelection(item: LigneBudgetDto): void {
+    if (this.selectedLignes.has(item.codeLigne)) {
+      this.selectedLignes.delete(item.codeLigne);
+    } else {
+      this.selectedLignes.add(item.codeLigne);
+    }
   }
 
-  browseAction(): void {
-    console.log('Browse action triggered');
-    // Implement navigation/lookup dialog for Action
-  }
-
-  browseActivite(): void {
-    console.log('Browse activite triggered');
-    // Implement navigation/lookup dialog for Activité
+  onCheckChange(item: LigneBudgetDto): void {
+    this.toggleSelection(item);
   }
 
   onAjouter(): void {
@@ -178,9 +184,6 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
   onFermer(): void {
     this.resetSelections();
     this.fermer.emit();
-    this.selectedActivite = null;
-    this.selectedAction = null;
-    this.activites = [];
   }
 
   onOverlayClick(event: MouseEvent): void {
@@ -191,24 +194,13 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
   }
 
   private resetSelections(): void {
-    this.natures.forEach(n => (n.selected = false));
+    this.selectedLignes.clear();
     this.selectedCode = '';
     this.selectedLibelle = '';
-    this.filteredNatures = [...this.natures];
+    this.natures = [];
+    this.filteredNatures = [];
+    this.selectedActivite = null;
+    this.selectedAction = null;
+    this.activites = [];
   }
-  actionCode: string = '';
-actionLibelle: string = '';
-
-activiteCode: string = '';
-activiteLibelle: string = '';
-
-onActionChange(libelle: string): void {
-  const found = this.actions.find(a => a.copLibelle === libelle);
-  this.actionCode = found ? found.copCode : '';
-}
-
-onActiviteChange(libelle: string): void {
-  const found = this.activites.find(a => a.copLibelle === libelle);
-  this.activiteCode = found ? found.copCode : '';
-}
 }
