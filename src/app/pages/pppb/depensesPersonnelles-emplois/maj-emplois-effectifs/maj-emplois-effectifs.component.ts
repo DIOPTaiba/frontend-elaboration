@@ -648,7 +648,7 @@ const ACTIVITE_DATA: objetType[] = [
 })
 export class MajEmploisEffectifsComponent {
   selectedProgramme: ProgrammeDto | null = null;
-  exerciceCourant: number = 0;
+  exerciceCourant: string = '';
   projetBudgetLib: string = '';
   projetBudgetCode: string;
   parametreRecherche: ParametreRechercheDto = {};
@@ -765,7 +765,8 @@ export class MajEmploisEffectifsComponent {
     this.globalService.getExerciceCourant().subscribe({
       next: (valeur) => {
         this.exerciceCourant = valeur;
-        this.parametreRecherche.exeCode = valeur-1+'_1';
+        // this.parametreRecherche.exeCode = valeur-1+'_1';
+        this.parametreRecherche.exeCode = '2025_1';
         console.log('ExeCode ', this.parametreRecherche.exeCode);
         this.parametreRecherche.exeCode1 = valeur+'_1';
         this.globalService.getProjetBudget(valeur).subscribe({

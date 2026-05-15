@@ -22,6 +22,7 @@ import { MajEmploisEffectifsService } from 'src/app/services/pppb/depensesPerson
 import { ChapitreDto } from 'src/app/dtos/global/chapitre.dto';
 import { DotationsTraitementsService } from 'src/app/services/pppb/depensesPersonnelEmplois/dotationsTraitements.service';
 import { AgentDto } from 'src/app/dtos/global/agent.dto';
+import { AgentService } from 'src/app/services/pppb/global/agent.service';
 @Component({
   selector: 'app-traitement-agent',
   standalone: true,
@@ -41,7 +42,7 @@ import { AgentDto } from 'src/app/dtos/global/agent.dto';
 })
 export class TraitementAgentComponent implements OnInit {
   selectedProgramme: ProgrammeDto | null = null;
-  exerciceCourant: number = 0;
+  exerciceCourant: string = '';
   projetBudgetLib: string = '';
   projetBudgetCode: string;
   parametreRecherche: ParametreRechercheDto = {};
@@ -97,7 +98,8 @@ export class TraitementAgentComponent implements OnInit {
   constructor(private traitementAgentService: TraitementAgentService,
     private globalService: GlobalService,
     private majEmploisEffectifsService: MajEmploisEffectifsService,
-    private dotationsTraitementsService: DotationsTraitementsService
+    private dotationsTraitementsService: DotationsTraitementsService,
+    private agentService : AgentService
   ) { }
 
   ngOnInit(): void {
@@ -105,8 +107,9 @@ export class TraitementAgentComponent implements OnInit {
     this.globalService.getExerciceCourant().subscribe({
       next: (valeur) => {
         this.exerciceCourant = valeur;
-        this.parametreRecherche.exeCode = valeur - 1 + '_1';
+        // this.parametreRecherche.exeCode = valeur - 1 + '_1';
         console.log('ExeCode ', this.parametreRecherche.exeCode);
+        this.parametreRecherche.exeCode = '2025_1';
         this.parametreRecherche.exeCode1 = valeur + '_1';
         this.globalService.getProjetBudget(valeur).subscribe({
           next: (projet) => { this.projetBudgetLib = projet.expbLib; this.projetBudgetCode = projet.expbCode; },
@@ -181,7 +184,7 @@ export class TraitementAgentComponent implements OnInit {
 
   getAgents() {
     this.loading = true;
-    this.dotationsTraitementsService.getAgents(this.parametreRecherche).subscribe({
+    this.agentService.getAgents(this.parametreRecherche).subscribe({
       next: (data) => {
         this.listeAgents = data;
         this.parametreRecherche.exeCode = this.exerciceCourant.toString() + '_1';

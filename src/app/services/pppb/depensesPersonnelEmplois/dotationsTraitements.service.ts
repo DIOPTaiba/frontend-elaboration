@@ -33,11 +33,6 @@ export class DotationsTraitementsService {
       return this.apiService.post(`/majEffectifEmplois/chapitreEffectifs`, parametreRecherche);
     }
 
-    /**
-     * Liste agents
-     */
-    public getAgents(parametreRecherche: ParametreRechercheDto): Observable<any[]> {
-      return this.apiService.post(`/agents`, parametreRecherche);
-    }
+    
 
 }
