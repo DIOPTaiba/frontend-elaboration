@@ -273,6 +273,7 @@ $text-muted:   #6b8aab;
     background: $subheader-bg; color: $text-header; font-weight: 600; font-size: 11px;
     text-align: center; vertical-align: top; padding: 6px 4px;
     border: 1px solid #245299; min-width: 72px;
+    border-bottom: none;
     .para-code  { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
     .para-label { font-size: 10px; font-weight: 400; line-height: 1.2; margin-bottom: 3px; word-break: break-word; }
   }
@@ -305,7 +306,15 @@ $text-muted:   #6b8aab;
     }
   }
 }
-
+//bouton modifier verticale
+thead tr.header-actions th {
+  background: $subheader-bg;
+  border: 1px solid #245299;
+  padding: 4px;
+  text-align: center;
+  vertical-align: middle;
+  border-top: none;
+}
 .para-unit {
   height: 20px; padding: 0 9px; border-radius: 4px; cursor: pointer;
   width: 22px; background: transparent; color: white; border: transparent;
@@ -350,7 +359,11 @@ $text-muted:   #6b8aab;
   border-radius: 8px;
   margin-bottom: 12px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  overflow: hidden;
+  overflow: visible;
+}
+
+.filter-body {
+  padding: 14px 20px 16px;  // ← plus de border-top puisque plus de header
 }
 
 // ── Header ───────────────────────────────────────────────────
@@ -855,6 +868,7 @@ $recap-bg:      #b0c4d8;
 // ── Footer ──
 .modal-bottom-footer {
   background: #f0f5fb; border-top: 1px solid $border-light; padding: 7px 14px;
+  
 }
 .modal-footer-row {
   display: flex; flex-wrap: wrap; align-items: baseline;
@@ -1636,5 +1650,22 @@ $text-muted:   #6b8aab;
     transition: opacity 0.15s;
 
     &:hover { opacity: 1; }
+  }
+}
+.toolbar-activite {
+  display: flex;
+   flex-direction: row;        // ← libellé et input sur la même ligne
+  align-items: center;        // ← aligne verticalement
+  justify-content: center;
+
+  gap: 4px;
+  .custom-label {
+    white-space: nowrap;
+    margin: 0;
+     padding-left: 0; 
+  }
+
+  ng-select {
+    width: 350px;  // ← augmentez selon vos besoins
   }
 }

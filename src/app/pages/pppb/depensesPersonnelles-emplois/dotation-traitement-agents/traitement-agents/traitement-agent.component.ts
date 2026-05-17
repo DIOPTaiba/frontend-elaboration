@@ -5,260 +5,302 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import {
-  Agent, EmploiRef, FiltreState, Paragraphe,
-  LigneIndividuelle,
+  Agent, EmploiRef, Paragraphe, LigneIndividuelle,
+  FiltreState,
 } from './models/traitement-agent.models';
 import { TraitementAgentService } from './services/traitement-agent.service';
-import { SECTION_COURANTE } from 'src/app/dtos/global/section.dto';
-import { SaisieMajProjetBudgetService } from 'src/app/services/pppb/fonctionnementInvestiss/saisie-maj-projet-budget.service';
-import { ModalCollectifComponent } from './components/modal-collectif/modal-collectif.component';
 import { GlobalService } from 'src/app/services/pppb/global/global.service';
 import { ParametreRechercheDto } from 'src/app/dtos/global/parametreRecherche.dto';
 import { ProgrammeDto } from 'src/app/dtos/global/programme.dto';
+import { ActiviteDto } from 'src/app/dtos/global/activite.dto';
 import { MajEmploisEffectifsService } from 'src/app/services/pppb/depensesPersonnelEmplois/majEmploisEffectifs.service';
 import { ChapitreDto } from 'src/app/dtos/global/chapitre.dto';
 import { DotationsTraitementsService } from 'src/app/services/pppb/depensesPersonnelEmplois/dotationsTraitements.service';
 import { AgentDto } from 'src/app/dtos/global/agent.dto';
 import { AgentService } from 'src/app/services/pppb/global/agent.service';
+import { MatTableDataSource } from '@angular/material/table';
+
 @Component({
   selector: 'app-traitement-agent',
   standalone: true,
   imports: [
-    CommonModule, FormsModule,
-    MatInputModule, MatSelectModule, MatIconModule, MatButtonModule,
     CommonModule,
     FormsModule,
-    ModalCollectifComponent,
-
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    NgSelectModule,
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './traitement-agent.component.html',
   styleUrls: ['./traitement-agent.component.scss'],
 })
 export class TraitementAgentComponent implements OnInit {
-  selectedProgramme: ProgrammeDto | null = null;
-  exerciceCourant: string = '';
-  projetBudgetLib: string = '';
-  projetBudgetCode: string;
-  parametreRecherche: ParametreRechercheDto = {};
-  totalElements: number = 0;
-  loading = false;
-  listeProgrammes: any[] = [];
-  listeChapitres: any[] = [];
-  listeAgents: AgentDto[] = [];
-  showFilter = true;
 
   // ── Paramètres de recherche ──
-  exercice = '2027';
-  budget = 'Projet LFI 2027';
-  section = 'Ministère des finances et du Budget';
+  selectedProgramme: ProgrammeDto | null = null;
+  selectedChapitre: ChapitreDto | null   = null;
+  exerciceCourant: string  = '';
+  projetBudgetLib: string  = '';
+  projetBudgetCode: string = '';
+  parametreRecherche: ParametreRechercheDto = {};
+  totalElements = 0;
+  loading       = false;
+  listeProgrammes: any[]   = [];
+  listeChapitresFiltres: ChapitreDto[] = [];
+  listeAgents: AgentDto[]  = [];
+  showFilter = true;
+
+
+  // ── Infos footer ──
+  exercice  = '2027';
+  budget    = 'Projet LFI 2027';
+  section   = 'Ministère des finances et du Budget';
   programme = "Elaboration du budget et suivi de l'exécution des dépenses";
-  action = 'Pilotage et coordination';
-  activite = 'Gestion administrative du personnel';
-  chapitre = 'Direction des Systèmes d’information';
-  statut = 'agent';
-  age = '0';
+  action    = 'Pilotage et coordination';
+  activite  = 'Gestion administrative du personnel';
+  chapitre  = 'Direction des Systèmes d\'information';
+  statut    = 'agent';
+  age       = '0';
 
   @Input() agents: Agent[] = [];
   @Output() modifierAgentEvent = new EventEmitter<{ agent: Agent; index: number }>();
-  @Output() ajouterAgentEvent = new EventEmitter<Agent>();
-
-  // ── Options selects ──
-  // gestionOptions = GESTION_OPTIONS;
-  // budgetOptions = BUDGET_OPTIONS;
-  // sectionOptions = SECTION_OPTIONS;
-  // programmeOptions = PROGRAMME_OPTIONS;
+  @Output() ajouterAgentEvent  = new EventEmitter<Agent>();
 
   // ── Paragraphes & emplois ──
-  paragraphes: Paragraphe[] = [];
-  emplois: EmploiRef[] = [];
-  agentsFiltres: Agent[] = [];
+  paragraphes: Paragraphe[]        = [];
+  emplois: EmploiRef[]             = [];
+  agentsFiltres: Agent[]           = [];
   tousLesParagraphes: Paragraphe[] = [];
 
-  // ─────────────────────────────────────────────
-  // Filtres
-  // ─────────────────────────────────────────────
-  // showFilter      = false;
-  // filterEmploi    = '';
-  // filterChapitre  = '';
-  // filterMatricule = '';
-  // filterAction    = '';
-  // filterActivite  = '';
-  // listeChapitres: any[] = [];
-  // selectedProgramme: any = null;
+  // ── Filtres ──
+  filterEmploi    = '';
+  filterChapitre: ChapitreDto | null = null;
+  filterMatricule = '';
+  filterAction    = '';
 
-  // filtreState: FiltreState = { emploi: '', chapitre: '', matricule: '', action: '', activite: '' };
-  selectedChapitre: ChapitreDto;
+  // ── Activité au-dessus du tableau ──
+  selectedActivite: string = '';
 
-  // get activeFilterCount(): number {
-  //   return [this.filterEmploi, this.filterChapitre, this.filterMatricule,
-  //           this.filterAction, this.filterActivite]
-  //     .filter(v => v && v.trim() !== '').length;
-  // }
+  // ── Listes filtres ──
+  listeActions:   any[] = [];
+  listeActivites: any[] = [];
+
+  // ── searchFn ──
+  searchActivite = (term: string, item: any): boolean => {
+    const t = term.toLowerCase();
+    return item.codeActivite?.toLowerCase().includes(t)
+        || item.libActivite?.toLowerCase().includes(t);
+  };
+
+  searchAction = (term: string, item: any): boolean => {
+    const t = term.toLowerCase();
+    return item.codeAction?.toLowerCase().includes(t)
+        || item.libAction?.toLowerCase().includes(t);
+  };
 
   // ── État modales ──
-  showModalCollectif = false;
-  showModalIndividuel = false;
-  isNewAgent = false;
-  agentEdite: AgentDto | null = null;
+  showModalCollectif       = false;
+  showModalIndividuel      = false;
+  showModalAjoutParagraphe = false;
+  isNewAgent               = false;
+  agentEdite: AgentDto | null           = null;
   paragrapheSelectionne: Paragraphe | null = null;
+  ligneBudgetPage = 0;
+  ligneBudgetPageSize = 5;
+  rechercheAgent = '';
 
-  constructor(private traitementAgentService: TraitementAgentService,
+  lignesIndividuelles: LigneIndividuelle[] = [];
+  ligneEnEditionIndividuel = -1;
+  nouvelleLigne: Agent | null = null;
+  
+// ── Modal collectif  ──
+modalLignes: AgentDto[]                              = [];
+colonnesDepenses: { code: string; label: string }[] = [];
+ligneEnEditionModal                                  = -1;
+showModalSelectionAgent                              = false;
+filtreState: FiltreState = {
+  emploi:    '',
+  chapitre:  '',
+  matricule: '',
+  action:    '',
+  activite:  '',
+};
+ouvrirModalModifier(para: Paragraphe): void {
+  this.isNewAgent            = false;
+  this.paragrapheSelectionne = para;
+  this.agentEdite            = null;
+  this.modalLignes           = [];
+  this.colonnesDepenses      = para
+    ? [{ code: `${para.code}_1`, label: para.label }]
+    : [];
+  this.ligneEnEditionModal   = -1;
+  this.showModalCollectif    = true;
+}
+
+ajouterLigneModal(): void {
+  if (!this.paragrapheSelectionne) return;
+  const numLigne = this.colonnesDepenses.length + 1;
+  this.colonnesDepenses.push({
+    code:  `${this.paragrapheSelectionne.code}_${numLigne}`,
+    label: `Ligne ${numLigne}`,
+  });
+}
+
+modifierLigneModal(i: number): void {
+  this.ligneEnEditionModal = this.ligneEnEditionModal === i ? -1 : i;
+}
+
+supprimerLigneModal(i: number): void {
+  if (!confirm(`Supprimer cette ligne ?`)) return;
+  this.modalLignes.splice(i, 1);
+  if (this.ligneEnEditionModal === i) this.ligneEnEditionModal = -1;
+}
+
+ouvrirSelectionAgent(): void {
+  this.rechercheAgent = '';
+  this.showModalSelectionAgent = true;
+}
+
+fermerSelectionAgent(): void {
+  this.showModalSelectionAgent = false;
+}
+
+get agentsFiltresSelection(): Agent[] {
+  const q = this.rechercheAgent.toLowerCase().trim();
+  const matriculesPresents = new Set(this.modalLignes.map(l => l.matricule));
+  return this.agents.filter(ag =>
+    !matriculesPresents.has(ag.matricule) &&
+    (!q || ag.nom.toLowerCase().includes(q) ||
+           ag.matricule.toLowerCase().includes(q) ||
+           ag.emploi.toLowerCase().includes(q))
+  );
+}
+
+selectionnerAgentModal(agent: Agent): void {
+  this.modalLignes.push({
+    emploi:    agent.emploi,
+    matricule: agent.matricule,
+    nom:       agent.nom,
+  } as AgentDto);
+  this.showModalSelectionAgent = false;
+}
+sauvegarderModal(): void {
+  const lignesValides = this.modalLignes.filter(
+    l => l.emploi || l.matricule || l.nom
+  );
+  if (lignesValides.length === 0) return;
+  this.showModalCollectif = false;
+}
+get activeFilterCount(): number {
+  return [
+    this.filtreState.emploi,
+    this.filtreState.chapitre,
+    this.filtreState.matricule,
+    this.filtreState.action,
+    this.filtreState.activite,
+  ].filter(v => !!v).length;
+}
+  constructor(
+    private traitementAgentService: TraitementAgentService,
     private globalService: GlobalService,
     private majEmploisEffectifsService: MajEmploisEffectifsService,
     private dotationsTraitementsService: DotationsTraitementsService,
-    private agentService : AgentService
-  ) { }
+    private agentService: AgentService,
+  ) {}
 
-  showModalSelectionAgent = false;
-  rechercheAgent          = '';
-
-  // ─────────────────────────────────────────────
-  // Modale INDIVIDUEL
-  // ─────────────────────────────────────────────
-  // showModalIndividuel      = false;
-  lignesIndividuelles: LigneIndividuelle[] = [];
-  ligneEnEditionIndividuel = -1;
-
-  // ─────────────────────────────────────────────
-  // Modale AJOUT PARAGRAPHE
-  // ─────────────────────────────────────────────
-  showModalAjoutParagraphe = false;
-
-
-  // ═════════════════════════════════════════════
+  // ═══════════════════════════════════════════════
   // Initialisation
-  // ═════════════════════════════════════════════
+  // ═══════════════════════════════════════════════
   ngOnInit(): void {
-
     this.globalService.getExerciceCourant().subscribe({
       next: (valeur) => {
         this.exerciceCourant = valeur;
-        // this.parametreRecherche.exeCode = valeur - 1 + '_1';
-        console.log('ExeCode ', this.parametreRecherche.exeCode);
-        this.parametreRecherche.exeCode = '2025_1';
+        this.parametreRecherche.exeCode  = '2025_1';
         this.parametreRecherche.exeCode1 = valeur + '_1';
         this.globalService.getProjetBudget(valeur).subscribe({
-          next: (projet) => { this.projetBudgetLib = projet.expbLib; this.projetBudgetCode = projet.expbCode; },
-          error: (err) => { console.error('Erreur projet budget:', err); }
+          next: (projet) => {
+            this.projetBudgetLib  = projet.expbLib;
+            this.projetBudgetCode = projet.expbCode;
+          },
+          error: (err) => console.error('Erreur projet budget:', err),
         });
       },
-      error: (err) => { console.error('Erreur exercice courant:', err); }
+      error: (err) => console.error('Erreur exercice courant:', err),
     });
 
     this.loadProgrammes();
-    this.selectedProgramme = null;
-
-    this.tousLesParagraphes = [...this.traitementAgentService.tousLesParagraphes]; 
+    this.selectedProgramme  = null;
+    this.tousLesParagraphes = [...this.traitementAgentService.tousLesParagraphes];
     this.paragraphes        = [...this.traitementAgentService.paragraphes];
-  //    const agentsSauvegardes = this.traitementAgentService.chargerAgents();
-  //    if (agentsSauvegardes && agentsSauvegardes.length > 0) {
-  //   this.agents = agentsSauvegardes;
-  //   this.agents.forEach(a => { a.cumul = this.traitementAgentService.calculerCumul(a); });
-  // } else if (!this.agents || this.agents.length === 0) {
-  //   this.agents = this.traitementAgentService.getDemoAgents();
-  // } else {
-  //   this.agents.forEach(a => { a.cumul = this.traitementAgentService.calculerCumul(a); });
-  // }
-
-  // this.agentsFiltres = [...this.agents];
-  // this.emplois       = this.traitementAgentService.buildEmploisRef(this.agents);
-
   }
 
-  loadProgrammes() {
+  // ── Chargement ──
+  loadProgrammes(): void {
     this.loading = true;
     this.majEmploisEffectifsService.getProgrammes().subscribe({
-      next: (data) => {
-        this.listeProgrammes = data;
-        console.log('PROGRAMMES:', this.listeProgrammes);
-        // this.toastr.success('Blogs chargés avec succès');
-        this.loading = false;
-      },
-      error: (error) => {
-        // this.toastr.error('Erreur lors du chargement des blogs');
-        this.loading = false;
-      },
+      next:  (data) => { this.listeProgrammes = data; this.loading = false; },
+      error: ()     => { this.loading = false; },
     });
   }
 
-  onProgrammeChange(prog: ProgrammeDto) {
-    this.selectedProgramme = prog;
-    this.parametreRecherche.proId = prog.proId;
-    this.getChapitres();
-  }
+onProgrammeChange(prog: ProgrammeDto | null): void {
+  if (!prog) return;
+  this.selectedProgramme = prog;
+  this.selectedChapitre  = null;
+  this.filterChapitre    = null;
+   this.listeChapitresFiltres = [];
+  this.listeAgents       = [];
+  this.parametreRecherche.proId = prog.proId;
+  this.getChapitres();
+}
 
-  getChapitres() {
-    if (!this.selectedProgramme) {
-      console.warn('Aucun programme sélectionné');
-      return;
-    }
-    this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
-      next: (data) => {
-        this.listeChapitres = data;
-        this.totalElements = data.length;
-        console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitres);
-      },
-      error: (err) => { console.error('Erreur chargement chapitre data:', err); }
-    });
-  }
+getChapitres(): void {
+  if (!this.selectedProgramme) return;
+  this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
+    next: (data) => { 
+      this.listeChapitresFiltres = data;
+      this.totalElements = data.length; 
+    },
+    error: (err) => console.error('Erreur chargement chapitres:', err),
+  });
+}
 
-  onChapitreChange(chapitre: ChapitreDto) {
+  onChapitreChange(chapitre: ChapitreDto | null): void {
+    if (!chapitre) { this.listeAgents = []; return; }
     this.selectedChapitre = chapitre;
     this.parametreRecherche.chapId = chapitre.chapId;
     this.getAgents();
   }
+  onActiviteChange(activite: ActiviteDto | null): void {
+  this.ligneBudgetPage = 0;
+  if (!activite) {
+    // réinitialiser le filtre activité
+    this.selectedActivite = '';
+  } else {
+    this.selectedActivite = activite.codeActivite;
+  }
+}
 
-  getAgents() {
+  getAgents(): void {
     this.loading = true;
+    this.parametreRecherche.exeCode = this.exerciceCourant.toString() + '_1';
     this.agentService.getAgents(this.parametreRecherche).subscribe({
-      next: (data) => {
-        this.listeAgents = data;
-        this.parametreRecherche.exeCode = this.exerciceCourant.toString() + '_1';
-        console.log('AGENTS:', this.listeAgents);
-        // this.toastr.success('Blogs chargés avec succès');
-        this.loading = false;
-      },
-      error: (error) => {
-        // this.toastr.error('Erreur lors du chargement des blogs');
-        this.loading = false;
-      },
+      next:  (data) => { this.listeAgents = data; this.loading = false; },
+      error: ()     => { this.loading = false; },
     });
   }
-
-    
 
   toggleFilter(event: Event): void {
     event.preventDefault();
     this.showFilter = !this.showFilter;
   }
 
-
-  // ── Filtres ──────────────────────────────────────
-  // onFiltreChange(state: FiltreState): void {
-  //   this.filtreState = state;
-  //   this.agentsFiltres = this.traitementAgentService.filtrer(this.agents, state);
-  // }
-
-  // onFiltreReset(): void {
-  //   this.filtreState = { emploi: '', chapitre: '', matricule: '', action: '', activite: '' };
-  //   this.agentsFiltres = [...this.agents];
-  // }
-
-  // clearField(field: string): void {
-  //   if (field === 'emploi')    this.filterEmploi    = '';
-  //   if (field === 'chapitre')  this.filterChapitre  = '';
-  //   if (field === 'matricule') this.filterMatricule = '';
-  //   if (field === 'action')    this.filterAction    = '';
-  //   if (field === 'activite')  this.filterActivite  = '';
-  //   this.appliquerFiltres();
-  // }
-
-  // ═════════════════════════════════════════════
-  // Récapitulatif tableau principal
-  // ═════════════════════════════════════════════
+  // ── Récapitulatif ──
   getRecapitulatif(code: string): number {
     return this.traitementAgentService.getRecap(this.agentsFiltres, code);
   }
@@ -267,97 +309,85 @@ export class TraitementAgentComponent implements OnInit {
     return this.traitementAgentService.getTotalCumul(this.agentsFiltres);
   }
 
-  // ── Modale collectif ─────────────────────────────
+  // ── Modales collectif ──
   ouvrirModalAjout(): void {
     this.isNewAgent = true;
     this.agentEdite = null;
     this.showModalCollectif = true;
   }
 
-  ouvrirModalModifier(para: Paragraphe): void {
-    this.isNewAgent = false;
-    this.paragrapheSelectionne = para;
-    this.showModalCollectif = true;
-  }
-
-  fermerModalCollectif(): void {
-    this.showModalCollectif = false;
-  }
+    fermerModalCollectif(): void { this.showModalCollectif = false; }
 
   onSauvegarderCollectif(lignes: Agent[]): void {
     if (this.isNewAgent) {
-      // Ajout de nouveaux agents
-      lignes.forEach(l => {
-        this.agents.push({ ...l });
-        this.ajouterAgentEvent.emit({ ...l });
-      });
+      lignes.forEach(l => { this.agents.push({ ...l }); this.ajouterAgentEvent.emit({ ...l }); });
     } else {
-      // Modification collective sur un paragraphe :
-      // on met à jour les agents existants par matricule,
-      // ou on les ajoute s'ils ne sont pas encore dans la liste
       lignes.forEach(ligne => {
         const idx = this.agents.findIndex(a => a.matricule === ligne.matricule);
         if (idx >= 0) {
-          // Mettre à jour uniquement les valeurs du paragraphe concerné
           this.agents[idx] = { ...this.agents[idx], valeurs: { ...this.agents[idx].valeurs, ...ligne.valeurs } };
           this.agents[idx].cumul = this.traitementAgentService.calculerCumul(this.agents[idx]);
           this.modifierAgentEvent.emit({ agent: { ...this.agents[idx] }, index: idx });
         } else {
-          // Agent sélectionné non présent → on l'ajoute
           this.agents.push({ ...ligne });
           this.ajouterAgentEvent.emit({ ...ligne });
         }
       });
     }
-
     this.emplois = this.traitementAgentService.buildEmploisRef(this.agents);
-    // this.agentsFiltres = this.traitementAgentService.filtrer(this.agents, this.filtreState);
-
-    // Persistance localStorage
     this.traitementAgentService.sauvegarderAgents(this.agents);
-
     this.fermerModalCollectif();
   }
-  // ── Modale individuel ─────────────────────────────
-  ouvrirModalIndividuel(agent: AgentDto, para: Paragraphe | null): void {
-    this.agentEdite = agent;
-    this.paragrapheSelectionne = para;
-    this.showModalIndividuel = true;
-  }
-  fermerModalIndividuel(): void {
-    this.showModalIndividuel = false;
-  }
 
-  ajouterLigneIndividuelle(): void {
-    this.lignesIndividuelles.push({ depense: '', texte: '', observation: '', montant: 0 });
-    this.ligneEnEditionIndividuel = this.lignesIndividuelles.length - 1;
-  }
- 
-  // Ouvre la modale dédiée aux paragraphes (plus ouvrirModalAjout qui gérait les agents)
-  ouvrirModalAjoutParagraphe(): void {
-    this.showModalAjoutParagraphe = true;
-  }
+  // ── Modale individuel ──
+ouvrirModalIndividuel(agent: AgentDto, para: Paragraphe | null): void {
+  this.agentEdite              = agent;
+  this.paragrapheSelectionne   = para;
+  this.lignesIndividuelles     = [];
+  this.ligneEnEditionIndividuel = -1;
+  this.showModalIndividuel     = true;
+}
 
-  fermerModalAjoutParagraphe(): void {
-    this.showModalAjoutParagraphe = false;
-  }
+fermerModalIndividuel(): void {
+  this.showModalIndividuel = false;
+}
+
+ajouterLigneIndividuelle(): void {
+  this.lignesIndividuelles.push({
+    depense: '', texte: '', observation: '', montant: 0
+  });
+  this.ligneEnEditionIndividuel = this.lignesIndividuelles.length - 1;
+}
+
+supprimerLigneIndividuelle(i: number): void {
+  if (!confirm('Supprimer cette ligne ?')) return;
+  this.lignesIndividuelles.splice(i, 1);
+  if (this.ligneEnEditionIndividuel === i) this.ligneEnEditionIndividuel = -1;
+}
+
+getTotalIndividuel(): number {
+  return this.lignesIndividuelles.reduce((sum, l) => sum + (l.montant ?? 0), 0);
+}
+
+sauvegarderIndividuel(): void {
+  // logique de sauvegarde à implémenter
+  this.fermerModalIndividuel();
+}
+  // ── Modale ajout paragraphe ──
+  ouvrirModalAjoutParagraphe(): void { this.showModalAjoutParagraphe = true; }
+  fermerModalAjoutParagraphe(): void { this.showModalAjoutParagraphe = false; }
 
   onSauvegarderNouveauParagraphe(nouveau: Paragraphe): void {
     this.paragraphes = this.traitementAgentService.ajouterParagraphe(this.paragraphes, nouveau);
-    // Initialiser la valeur du nouveau para à null pour chaque agent existant
     this.agents.forEach(agent => {
-      if (agent.valeurs[nouveau.code] === undefined) {
-        agent.valeurs[nouveau.code] = null;
-      }
+      if (agent.valeurs[nouveau.code] === undefined) agent.valeurs[nouveau.code] = null;
     });
-    // this.agentsFiltres = this.traitementAgentService.filtrer(this.agents, this.filtreState);
     this.fermerModalAjoutParagraphe();
   }
-  // ── Nouvelle ligne inline ─────────────────────────
-  nouvelleLigne: Agent | null = null;
 
+  // ── Nouvelle ligne inline ──
   ajouterLigneParagraphe(): void {
-    if (this.nouvelleLigne) return; // déjà en cours
+    if (this.nouvelleLigne) return;
     const valeurs: Record<string, number | null> = {};
     this.paragraphes.forEach(p => valeurs[p.code] = null);
     this.nouvelleLigne = { emploi: '', matricule: '', nom: '', valeurs, cumul: null };
@@ -365,9 +395,7 @@ export class TraitementAgentComponent implements OnInit {
 
   calculerCumulNouvelleLigne(): number {
     if (!this.nouvelleLigne) return 0;
-    return this.paragraphes.reduce(
-      (sum, p) => sum + (this.nouvelleLigne!.valeurs[p.code] ?? 0), 0
-    );
+    return this.paragraphes.reduce((sum, p) => sum + (this.nouvelleLigne!.valeurs[p.code] ?? 0), 0);
   }
 
   confirmerNouvelleLigne(): void {
@@ -375,11 +403,8 @@ export class TraitementAgentComponent implements OnInit {
     this.nouvelleLigne.cumul = this.calculerCumulNouvelleLigne();
     this.agents.push({ ...this.nouvelleLigne });
     this.emplois = this.traitementAgentService.buildEmploisRef(this.agents);
-    // this.agentsFiltres = this.traitementAgentService.filtrer(this.agents, this.filtreState);
     this.nouvelleLigne = null;
   }
 
-  annulerNouvelleLigne(): void {
-    this.nouvelleLigne = null;
-  }
+  annulerNouvelleLigne(): void { this.nouvelleLigne = null; }
 }
