@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { MaterialModule } from 'src/app/material.module';
 import {
   animate,
@@ -662,16 +662,16 @@ export class MajEmploisEffectifsComponent {
   @ViewChild(MatPaginator)
   set paginator(paginator: MatPaginator) {
     if (paginator) {
-      this.listeChapitre.paginator = paginator;
+      this.dataSourceChapitre.paginator = paginator;
     }
   }
 
   @ViewChild('sortChapitre')
   set sortChapitre(sort: MatSort) {
     if (sort) {
-      this.listeChapitre.sort = sort;
+      this.dataSourceChapitre.sort = sort;
 
-      this.listeChapitre.sortingDataAccessor = (item, property) => {
+      this.dataSourceChapitre.sortingDataAccessor = (item, property) => {
         switch (property) {
           case 'code':
             return Number(item.chapCode); // tri numérique correct
@@ -695,8 +695,9 @@ export class MajEmploisEffectifsComponent {
     }
   }
 
-
-  listeChapitre = new MatTableDataSource<ChapitreEffectifsDto>([]);
+  listeChapitre = signal<ChapitreEffectifsDto[]>([]);
+  dataSourceChapitre = new MatTableDataSource<ChapitreEffectifsDto>([]);
+  // listeChapitre = new MatTableDataSource<ChapitreEffectifsDto>([]);
   listeEmplois = new MatTableDataSource(EMPLOI_DATA);
   listeActions = new MatTableDataSource(ACTION_DATA);
   listeActivites = new MatTableDataSource(ACTIVITE_DATA);
@@ -726,7 +727,7 @@ export class MajEmploisEffectifsComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     switch (this.choix) {
       case "chapitre":
-        this.listeChapitre.filter = filterValue.trim().toLowerCase();
+        this.dataSourceChapitre.filter = filterValue.trim().toLowerCase();
         break;
 
       case "emploi":
@@ -748,7 +749,7 @@ export class MajEmploisEffectifsComponent {
     // vider l'input
     this.textRechercher = '';
     // vider le filtre MatTable
-    this.listeChapitre.filter = '';
+    this.dataSourceChapitre.filter = '';
     this.listeEmplois.filter = '';
     this.listeActions.filter = '';
     this.listeActivites.filter = '';
@@ -811,10 +812,11 @@ export class MajEmploisEffectifsComponent {
     }
     this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
       next: (data) => {
-        this.listeChapitre.data = data;
+        this.dataSourceChapitre.data = data;
+        this.listeChapitre.set(data);
         this.totalElements = data.length;
-        console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.data);
-        this.totaux = this.calculTotaux(this.listeChapitre.data);
+        console.log('CHAPITRE DATA:', this.totalElements, this.dataSourceChapitre.data);
+        this.totaux = this.calculTotaux(this.dataSourceChapitre.data);
       },
       error: (err) => { console.error('Erreur chargement chapitre data:', err); }
     });
@@ -827,9 +829,9 @@ export class MajEmploisEffectifsComponent {
     }
     this.majEmploisEffectifsService.getChapitres(this.parametreRecherche).subscribe({
       next: (data) => {
-        this.listeChapitre.data = data;
+        this.listeChapitre.set(data);
         this.totalElements = data.length;
-        console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.data);
+        console.log('CHAPITRE DATA:', this.totalElements, this.listeChapitre.set(data));
       },
       error: (err) => { console.error('Erreur chargement chapitre data:', err); }
     });
@@ -852,7 +854,7 @@ export class MajEmploisEffectifsComponent {
   //   });
   // }
 
-  
+
   calculTotaux(chapitres: ChapitreEffectifsDto[]) {
     return this.globalService.calculerSommes(chapitres, [
       'effectif0',

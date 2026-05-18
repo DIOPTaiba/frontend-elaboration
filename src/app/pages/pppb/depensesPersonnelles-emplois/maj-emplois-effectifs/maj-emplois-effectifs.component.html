@@ -92,7 +92,7 @@
 
   @if (choix == "chapitre") {
   <table mat-table multiTemplateDataRows matSort #sortChapitre="matSort" class="headerTablePrincipale "
-    [dataSource]="listeChapitre">
+    [dataSource]="dataSourceChapitre">
     <!-- Header 1 -->
     <ng-container matColumnDef="code0">
       <th mat-header-cell *matHeaderCellDef class="paddingHeaderRow1 f-w-600 f-s-14 p-x-24 p-l-0"></th>
