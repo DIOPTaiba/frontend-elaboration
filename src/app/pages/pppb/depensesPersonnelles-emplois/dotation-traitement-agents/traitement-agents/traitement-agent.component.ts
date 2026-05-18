@@ -44,7 +44,7 @@ export class TraitementAgentComponent implements OnInit {
   // ── Paramètres de recherche ──
   selectedProgramme: ProgrammeDto | null = null;
   selectedChapitre: ChapitreDto | null   = null;
-  exerciceCourant: string  = '';
+  exerciceCourant: number  = 0;
   projetBudgetLib: string  = '';
   projetBudgetCode: string = '';
   parametreRecherche: ParametreRechercheDto = {};
