@@ -13,3 +13,4 @@ export interface LigneBudgetDto {
   lbuCode?:string;
   dateLigne?:Date;
 }
+

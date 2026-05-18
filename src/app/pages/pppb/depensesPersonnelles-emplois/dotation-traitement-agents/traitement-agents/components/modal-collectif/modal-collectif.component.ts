@@ -15,7 +15,7 @@ import { AgentDto } from 'src/app/dtos/global/agent.dto';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './modal-collectif.component.html',
-  styleUrls: ['./modal-collectif.component.scss'],
+  // styleUrls: ['./modal-collectif.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ModalCollectifComponent implements OnChanges {
