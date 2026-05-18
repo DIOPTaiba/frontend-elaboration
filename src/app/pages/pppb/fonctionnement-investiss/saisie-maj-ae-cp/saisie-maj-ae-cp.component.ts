@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { from } from 'rxjs';
+import { concatMap, toArray } from 'rxjs/operators';
+import { ResponseDto } from 'src/app/dtos/global/response.dto';
 import { MaterialModule } from 'src/app/material.module';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -59,7 +62,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 })
 
 export class SaisieMajAeCpComponent implements OnInit {
-  exerciceCourant: string = '';
+  exerciceCourant: number = 0;
   projetBudgetLib: string = '';
   projetBudgetCode: string = '';
   sectionLabel: string = `${SECTION_COURANTE.sec_code} - ${SECTION_COURANTE.sec_libelle}`;
@@ -130,6 +133,7 @@ groupHeaderColumns: string[] = ['1','2','cr1','cr2','exp'];
 
   suSselectRow(row: any) {
     this.suSselectedRow = row;
+    console.log('ligne selectionnée',row);
   }
 
   codeFin: string = '';
@@ -169,7 +173,7 @@ groupHeaderColumns: string[] = ['1','2','cr1','cr2','exp'];
   getEnveloppe() {
     if (!this.selectedProgramme || !this.selectedCategorie) return;
     const params = {
-      exe: Number(this.exerciceCourant),
+      exe: this.exerciceCourant,
       sectionId: SECTION_COURANTE.sec_id,
       proId: this.selectedProgramme.proId,
       cadeCode: this.selectedCategorie.cadeCode,
@@ -239,12 +243,12 @@ groupHeaderColumns: string[] = ['1','2','cr1','cr2','exp'];
     this.listeChapitres.data = [];
 
     if (cadeCode === '5' || cadeCode === '6') {
-      this.saisieMajService.getChapitresInvestissement(secId, sfinCode, proId, proCode,exeCode).subscribe({
+      this.saisieMajService.getChapitresInvestissement({ sectionId: secId, sfinCode, proId, proCode, exeCode }).subscribe({
         next: (data) => { this.listeChapitres.data = data; this.isLoading = false; },
         error: (err) => { console.error('Erreur chapitres investissement:', err); this.isLoading = false; }
       });
     } else {
-      this.saisieMajService.getChapitresFonctionnement(secId, sfinCode, proId,exeCode).subscribe({
+      this.saisieMajService.getChapitresFonctionnement({ sectionId: secId, sfinCode, proId, exeCode }).subscribe({
         next: (data) => { this.listeChapitres.data = data; this.isLoading = false; },
         error: (err) => { console.error('Erreur chapitres fonctionnement:', err); this.isLoading = false; }
       });
@@ -317,7 +321,7 @@ isFullTable(): boolean {
 
     this.globalService.getExerciceCourant().subscribe({
       next: (valeur) => {
-        // this.exerciceCourant = valeur;
+        this.exerciceCourant = valeur;
         this.globalService.getProjetBudget(valeur).subscribe({
           next: (projet) => { this.projetBudgetLib = projet.expbLib; this.projetBudgetCode = projet.expbCode; },
           error: (err) => { console.error('Erreur projet budget:', err); }
@@ -349,7 +353,7 @@ getTotal2(field: string): number {
 onAeLFI1Change(el: LigneBudgetDto, event: Event): void {
   const raw = (event.target as HTMLInputElement).value.replace(/\s/g, '');
   const parsed = parseFloat(raw);
-  if (!isNaN(parsed)) el.aeLFI1 = parsed;
+  if (!isNaN(parsed)) { el.aeLFI1 = parsed; this.onLigneModifiee(el); }
 }
 
 getEcartAE(el: LigneBudgetDto): number {
@@ -392,6 +396,12 @@ getTotalEcartCPPct(): string {
 showModal = false;
 selectedChapitre: ChapitreDto | null = null;
 showEchEJ = true;
+notifVisible = false;
+notifSuccess = false;
+notifMessage = '';
+confirmVisible = false;
+confirmMessage = '';
+private confirmCallback: () => void = () => {};
 
 ouvrirModal(chapitre: ChapitreDto) {
   this.selectedChapitre = chapitre;
@@ -399,8 +409,115 @@ ouvrirModal(chapitre: ChapitreDto) {
 }
 showEchAE = true;
 
+lignesModifiees = new Set<string>();
+
+onLigneModifiee(ligne: LigneBudgetDto): void {
+  if (ligne.lbuCode) this.lignesModifiees.add(ligne.lbuCode);
+}
+
+enregistrerLigne(ligne: LigneBudgetDto): import('rxjs').Observable<ResponseDto> {
+  return this.saisieMajService.updateLigneBudget(ligne.lbuCode!, {
+    ae1: ligne.aeLFI1,
+    cp1: ligne.cpLFI1,
+    cpMn: 0,
+    aeMn: 0,
+    foncatId: ''
+  });
+}
+
+enregistrerLignesModifiees(): void {
+  const lignes = this.filteredLigneBudget.filter(l => l.lbuCode && this.lignesModifiees.has(l.lbuCode));
+  if (lignes.length === 0) return;
+
+  from(lignes).pipe(
+    concatMap(ligne => this.enregistrerLigne(ligne)),
+    toArray()
+  ).subscribe({
+    next: (responses: ResponseDto[]) => {
+      const erreur = responses.find(r => r.etat === 0);
+      this.notifSuccess = !erreur;
+      this.notifMessage = !erreur
+        ? 'Ligne(s) enregistrée(s) avec succès.'
+        : (erreur.messageErreur || 'Erreur lors de l\'enregistrement.');
+      this.notifVisible = true;
+      if (!erreur) {
+        this.lignesModifiees.clear();
+        this.getEnveloppe();
+      }
+    },
+    error: (err: Error) => {
+      this.notifSuccess = false;
+      this.notifMessage = err.message || 'Erreur lors de l\'enregistrement.';
+      this.notifVisible = true;
+    }
+  });
+}
+
+isLigneAnneeEnCours(ligne: LigneBudgetDto): boolean {
+  if (!ligne.dateLigne) return false;
+  return new Date(ligne.dateLigne).getFullYear() === this.exerciceCourant;
+}
+
+onConfirmOui(): void {
+  this.confirmVisible = false;
+  this.confirmCallback();
+}
+
+onConfirmNon(): void {
+  this.confirmVisible = false;
+  this.confirmCallback = () => {};
+}
+
+supprimerLigne(ligne: LigneBudgetDto): void {
+  if (!ligne.lbuCode) return;
+  this.confirmMessage = `Voulez-vous vraiment supprimer la ligne "${ligne.codeLigne} - ${ligne.libLigne}" ?`;
+  this.confirmCallback = () => this.executerSuppression(ligne);
+  this.confirmVisible = true;
+}
+
+private executerSuppression(ligne: LigneBudgetDto): void {
+  this.saisieMajService.supprimerLigneBudget(ligne.lbuCode!).subscribe({
+    next: (success) => {
+      if (success) {
+        this.listeLigneBudget = this.listeLigneBudget.filter(l => l.lbuCode !== ligne.lbuCode);
+        this.filteredLigneBudget = this.filteredLigneBudget.filter(l => l.lbuCode !== ligne.lbuCode);
+      } else {
+        this.notifSuccess = false;
+        this.notifMessage = 'Erreur lors de la suppression.';
+        this.notifVisible = true;
+      }
+    },
+    error: (err) => {
+      this.notifSuccess = false;
+      this.notifMessage = err.message || 'Erreur lors de la suppression.';
+      this.notifVisible = true;
+    }
+  });
+}
+
+private rechargerLignes(): void {
+  if (!this.selectedChapitre) return;
+  this.isLoadingLignes = true;
+  this.saisieMajService.getLignesBudget({ chapId: this.selectedChapitre.chapId, exeCode: this.projetBudgetCode }).subscribe({
+    next: (data) => {
+      this.listeLigneBudget = data;
+      this.filteredLigneBudget = [...data];
+      this.ligneBudgetPage = 0;
+      this.lignesModifiees.clear();
+      this.isLoadingLignes = false;
+    },
+    error: (err) => { console.error('Erreur rechargement lignes:', err); this.isLoadingLignes = false; }
+  });
+}
+
 onNaturesAjoutees(result: ModalResult): void {
-  console.log('Natures ajoutées :', result.selectedNatures);
   this.showModal = false;
+  this.notifSuccess = result.success;
+  this.notifMessage = result.success ? 'Ligne(s) ajoutée(s) avec succès.' : (result.messageErreur || 'Erreur lors de l\'insertion.');
+  this.notifVisible = true;
+
+  if (result.success) {
+    this.rechargerLignes();
+  }
 }
 }

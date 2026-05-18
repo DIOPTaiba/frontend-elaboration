@@ -9,4 +9,7 @@ export interface LigneBudgetDto {
   cpLFI1: number;
   aeLFI0: number;
   aeLFI1: number;
+  idLigne?: number;
+  lbuCode?:string;
+  dateLigne?:Date;
 }

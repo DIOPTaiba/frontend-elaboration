@@ -14,7 +14,6 @@ export const DashboardsRoutes: Routes = [
         component: AppDashboard1Component,
         data: {
           title: 'Tableau de bord',
-        
           breadcrumb: false,
         },
       },

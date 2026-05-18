@@ -1,11 +1,33 @@
 export interface ParametreRechercheDto {
   exe?: number;
-  sectionId?: string;
-  proId?: string;
-  cadeCode?: string;
-  sfinCode?: string;
   exeCode?: string;
   exeCode1?: string;
+  sectionId?: string;
+  sectionCode?: string;
+  proId?: string;
+  proCode?: string;
   chapId?: string;
+  chapCode?: string;
+  typeFinCode?: string;
+  sfinCode?: string;
+  sfinCodeNew?: string;
+  cadeCode?: string;
   budcCode?: string;
+  natId?: string;
+  natIdNumber?: number;
+  natCode?: string;
+  matricule?: string;
+  dateDebut?: string; 
+  dateFin?: string;  
+  bailfCode?: number;
+  cp1Prec?: number;
+  cp1?: number;
+  aeAnt?: number;
+  ae1Prec?: number;
+  ae1?: number;
+  cpMn?: number;
+  aeMn?: number;
+  foncatId?: string;
+  pappRef?: string;
+  copId?: string;
 }

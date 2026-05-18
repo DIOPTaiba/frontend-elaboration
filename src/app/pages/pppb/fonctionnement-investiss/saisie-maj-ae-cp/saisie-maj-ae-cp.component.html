@@ -320,7 +320,7 @@
                                 </ng-select>
                             </div>
 
-                            <button mat-flat-button class="btn-enregistrer">
+                            <button mat-flat-button class="btn-enregistrer" (click)="enregistrerLignesModifiees()">
                                 <mat-icon>save</mat-icon>
                                 Enregistrer
                             </button>
@@ -445,15 +445,7 @@
                                                 <td>{{ el.cpLFI1 | dsNumber }}</td>
                                                 <td>{{ getEcartCP(el) | dsNumber }}</td>
                                                 <td>{{ getEcartCPPct(el) }}</td>
-
-
-                                                <td class="text-center">
-                                                    <mat-icon title="Supprimer"
-                                                        class="btn btn-sm p-0 btn_trash">delete</mat-icon>
-                                                </td>
-
-
-
+                                                <td class="text-center" title="Supprimer"><i class="iconify btn_trash" data-icon="solar:trash-bin-trash-linear"  [class.icon-disabled]="!isLigneAnneeEnCours(el)" (click)="isLigneAnneeEnCours(el) && supprimerLigne(el)"></i></td>
                                             </tr>
                                         </tbody>
 
@@ -563,9 +555,8 @@
                                                     <td>{{ el.cpLFI1 | dsNumber }}</td>
                                                     <td>{{ getEcartCP(el) | dsNumber }}</td>
                                                     <td>{{ getEcartCPPct(el) }}</td>
-                                                    <td class="text-center">
-                                                        <mat-icon title="Supprimer"
-                                                            class="btn btn-sm p-0 btn_trash">delete</mat-icon>
+                                                    <td class="text-center" title="Supprimer">
+                                                        <i class="iconify btn_trash" data-icon="solar:trash-bin-trash-linear"  [class.icon-disabled]="!isLigneAnneeEnCours(el)" (click)="isLigneAnneeEnCours(el) && supprimerLigne(el)"></i>
                                                     </td>
 
                                                 </tr>
@@ -630,8 +621,41 @@
     </mat-paginator>
     <!-- Modal ajouter ligne -->
     <app-natures-economiques-modal [isVisible]="showModal" [programme]="selectedProgramme"
-        [categorieDepense]="selectedCategorie" [chapitre]="selectedChapitre" (ajouter)="onNaturesAjoutees($event)"
+        [categorieDepense]="selectedCategorie" [chapitre]="selectedChapitre"
+        [codeFin]="codeFin" [sourceFin]="selectedSourceFin"
+        (ajouter)="onNaturesAjoutees($event)"
         (fermer)="showModal = false">
     </app-natures-economiques-modal>
+
+    <!-- Modal confirmation suppression -->
+    <div class="notif-overlay" *ngIf="confirmVisible">
+      <div class="notif-card">
+        <div class="notif-icon-circle" style="background:#fff3e0; color:#e65100;">
+          <mat-icon>help_outline</mat-icon>
+        </div>
+        <h3 class="notif-title" style="color:#e65100;">Confirmation</h3>
+        <p class="notif-message">{{ confirmMessage }}</p>
+        <div class="confirm-actions">
+          <button class="notif-btn btn-cancel" (click)="onConfirmNon()">Annuler</button>
+          <button class="notif-btn btn-error" (click)="onConfirmOui()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal notification succès / erreur -->
+    <div class="notif-overlay" *ngIf="notifVisible" (click)="notifVisible = false">
+      <div class="notif-card" (click)="$event.stopPropagation()">
+        <div class="notif-icon-circle" [ngClass]="notifSuccess ? 'success' : 'error'">
+          <mat-icon>{{ notifSuccess ? 'check_circle' : 'error_outline' }}</mat-icon>
+        </div>
+        <h3 class="notif-title" [ngClass]="notifSuccess ? 'success-text' : 'error-text'">
+          {{ notifSuccess ? 'Succès' : 'Erreur' }}
+        </h3>
+        <p class="notif-message">{{ notifMessage }}</p>
+        <button class="notif-btn" [ngClass]="notifSuccess ? 'btn-success' : 'btn-error'" (click)="notifVisible = false">
+          OK
+        </button>
+      </div>
+    </div>
 
 </mat-card>
