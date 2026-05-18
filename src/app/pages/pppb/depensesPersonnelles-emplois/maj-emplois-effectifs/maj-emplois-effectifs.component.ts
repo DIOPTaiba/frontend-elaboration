@@ -647,7 +647,7 @@ const ACTIVITE_DATA: objetType[] = [
 })
 export class MajEmploisEffectifsComponent {
   selectedProgramme: ProgrammeDto | null = null;
-  exerciceCourant: string = '';
+  exerciceCourant: number = 0;
   projetBudgetLib: string = '';
   projetBudgetCode: string;
   parametreRecherche: ParametreRechercheDto = {};
