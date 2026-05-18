@@ -61,18 +61,28 @@ export class GlobalService {
   }
 
   calculerSommes<T>(
-    liste: T[],
-    champs: (keyof T)[]
-  ) {
-    return liste.reduce((totaux, item) => {
-      champs.forEach(champ => {
+  liste: T[],
+  champs: (keyof T)[]
+): Record<keyof T, number> {
 
-        totaux[String(champ)] =
-          (totaux[String(champ)] || 0)
-          + Number(item[champ] || 0);
-      });
-      return totaux;
-    }, {} as Record<string, number>);
-  }
+  const totaux = {} as Record<keyof T, number>;
+
+  champs.forEach(champ => {
+    totaux[champ] = 0;
+  });
+
+  liste.forEach(item => {
+
+    champs.forEach(champ => {
+
+      totaux[champ] += Number(item[champ] || 0);
+
+    });
+
+  });
+
+  return totaux;
+
+}
 
 }

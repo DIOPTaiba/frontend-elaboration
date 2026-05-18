@@ -1,4 +1,4 @@
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, computed, signal, ViewChild } from '@angular/core';
 import { MaterialModule } from 'src/app/material.module';
 import {
   animate,
@@ -20,208 +20,7 @@ import { ChapitreEffectifsDto } from 'src/app/dtos/majEffectifsEmplois/chapitreE
 import { DotationsTraitementsService } from 'src/app/services/pppb/depensesPersonnelEmplois/dotationsTraitements.service';
 import { DoubleSpaceNumberPipe } from 'src/app/pipes/double-space-number.pipe';
 
-const CHAPITRE_DATA: objetChapitre[] = [
-  {
-    code: '25025332',
-    libelle: 'Direction de la programmation budgétaire',
-    effectifsN: 200,
-    agentsSolde: 250,
-    contractuels: 100,
-    total: 350,
-    ecart: 150,
-    dotation: 100000
-  },
-  {
-    code: '25025333',
-    libelle: 'Direction de la Solde',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025331',
-    libelle: 'Direction des Systèmes d’information',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025330',
-    libelle: 'Direction du Contrôle budgétaire',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '2502533',
-    libelle: 'Direction des Pensions',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025330',
-    libelle: 'Direction de la programmation budgétaire',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025331',
-    libelle: 'Direction de la Solde',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025332',
-    libelle: 'Direction des Systèmes d’information',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025333',
-    libelle: 'Direction du Contrôle budgétaire',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '2502533',
-    libelle: 'Direction des Pensions',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025330',
-    libelle: 'Direction de la programmation budgétaire',
-    effectifsN: 200,
-    agentsSolde: 250,
-    contractuels: 100,
-    total: 350,
-    ecart: 150,
-    dotation: 525000550
-  },
-  {
-    code: '25025331',
-    libelle: 'Direction de la Solde',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025332',
-    libelle: 'Direction des Systèmes d’information',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025333',
-    libelle: 'Direction du Contrôle budgétaire',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '2502533',
-    libelle: 'Direction des Pensions',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025330',
-    libelle: 'Direction de la programmation budgétaire',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025331',
-    libelle: 'Direction de la Solde',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025332',
-    libelle: 'Direction des Systèmes d’information',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '25025333',
-    libelle: 'Direction du Contrôle budgétaire',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-  {
-    code: '2502533',
-    libelle: 'Direction des Pensions',
-    effectifsN: 100,
-    agentsSolde: 100,
-    contractuels: 100,
-    total: 100,
-    ecart: 100,
-    dotation: 100
-  },
-];
+
 const AGENT_DATA: objetAgent[] = [
   {
     chapitre: 'Direction SI DGB',
@@ -652,7 +451,7 @@ export class MajEmploisEffectifsComponent {
   projetBudgetCode: string;
   parametreRecherche: ParametreRechercheDto = {};
   totalElements: number = 0;
-  totaux: Record<string, number>;
+  // totaux: Record<string, number>;
 
   constructor(
     private majEmploisEffectifsService: MajEmploisEffectifsService,
@@ -697,6 +496,19 @@ export class MajEmploisEffectifsComponent {
 
   listeChapitre = signal<ChapitreEffectifsDto[]>([]);
   dataSourceChapitre = new MatTableDataSource<ChapitreEffectifsDto>([]);
+
+  totaux = computed(() =>
+    this.globalService.calculerSommes(
+      this.listeChapitre(),
+      [
+        'effectif0',
+        'nombreAgent',
+        'nombreContractuel',
+        'montant'
+      ]
+    )
+
+  );
   // listeChapitre = new MatTableDataSource<ChapitreEffectifsDto>([]);
   listeEmplois = new MatTableDataSource(EMPLOI_DATA);
   listeActions = new MatTableDataSource(ACTION_DATA);
@@ -765,8 +577,7 @@ export class MajEmploisEffectifsComponent {
     this.globalService.getExerciceCourant().subscribe({
       next: (valeur) => {
         this.exerciceCourant = valeur;
-        // this.parametreRecherche.exeCode = valeur-1+'_1';
-        this.parametreRecherche.exeCode = '2025_1';
+        this.parametreRecherche.exeCode = valeur - 1 + '_1';
         console.log('ExeCode ', this.parametreRecherche.exeCode);
         this.parametreRecherche.exeCode1 = valeur + '_1';
         this.globalService.getProjetBudget(valeur).subscribe({
@@ -816,7 +627,8 @@ export class MajEmploisEffectifsComponent {
         this.listeChapitre.set(data);
         this.totalElements = data.length;
         console.log('CHAPITRE DATA:', this.totalElements, this.dataSourceChapitre.data);
-        this.totaux = this.calculTotaux(this.dataSourceChapitre.data);
+
+        // this.totaux = this.calculTotaux(this.dataSourceChapitre.data);
       },
       error: (err) => { console.error('Erreur chargement chapitre data:', err); }
     });
@@ -864,6 +676,8 @@ export class MajEmploisEffectifsComponent {
     ]);
 
   }
+
+
 
 
 
