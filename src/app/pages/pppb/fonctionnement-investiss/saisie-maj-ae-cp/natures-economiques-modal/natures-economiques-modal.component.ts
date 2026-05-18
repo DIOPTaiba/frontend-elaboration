@@ -1,4 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { from } from 'rxjs';
+import { concatMap, toArray } from 'rxjs/operators';
 import { SaisieMajProjetBudgetService } from 'src/app/services/pppb/fonctionnementInvestiss/saisie-maj-projet-budget.service';
 import { ActionDto } from 'src/app/dtos/global/action.dto';
 import { ActiviteDto } from 'src/app/dtos/global/activite.dto';
@@ -7,6 +9,8 @@ import { ProgrammeDto } from 'src/app/dtos/global/programme.dto';
 import { CategorieDepenseDto } from 'src/app/dtos/global/categorie-depense.dto';
 import { SectionDto, SECTION_COURANTE } from 'src/app/dtos/global/section.dto';
 import { ChapitreDto } from 'src/app/dtos/global/chapitre.dto';
+import { SourceFinancementDto } from 'src/app/dtos/global/source-financement.dto';
+import { ResponseDto } from 'src/app/dtos/global/response.dto';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -25,6 +29,8 @@ export interface SectionInfo {
 
 export interface ModalResult {
   selectedNatures: LigneBudgetDto[];
+  success: boolean;
+  messageErreur?: string;
 }
 
 @Component({
@@ -55,6 +61,8 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
   @Input() categorieDepense: CategorieDepenseDto | null = null;
   @Input() chapitre: ChapitreDto | null = null;
   @Input() sfinCode: string = '';
+  @Input() codeFin: string = '';
+  @Input() sourceFin: SourceFinancementDto | null = null;
   @Output() ajouter = new EventEmitter<ModalResult>();
   @Output() fermer = new EventEmitter<void>();
 
@@ -87,25 +95,25 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
   }
 
   private chargerActions(): void {
-    // if (!this.programme || !this.chapitre) return;
-    // this.saisieMajService.getActionsProjetDeBudget(
-    //   this.programme.proId,
-    //   this.programme.pappRef,
-    //   this.chapitre.chapCode,
-    //   this.chapitre.chapId
-    // ).subscribe({
-    //   next: (data) => { this.actions = data; },
-    //   error: (err) => { console.error('Erreur actions:', err); }
-    // });
+    if (!this.programme || !this.chapitre) return;
+    this.saisieMajService.getActionsProjetDeBudget({
+      proId: this.programme.proId,
+      pappRef: this.programme.pappRef,
+      chapCode: this.chapitre.chapCode,
+      chapId: this.chapitre.chapId
+    }).subscribe({
+      next: (data) => { this.actions = data; },
+      error: (err) => { console.error('Erreur actions:', err); }
+    });
   }
 
   private chargerActivites(): void {
     if (!this.selectedAction || !this.programme || !this.chapitre) return;
-    this.saisieMajService.getActivitesProjetDeBudget(
-      this.selectedAction.copId,
-      this.programme.pappRef,
-      this.chapitre.chapCode
-    ).subscribe({
+    this.saisieMajService.getActivitesProjetDeBudget({
+      copId: this.selectedAction.copId,
+      pappRef: this.programme.pappRef,
+      chapCode: this.chapitre.chapCode
+    }).subscribe({
       next: (data) => { this.activites = data; },
       error: (err) => { console.error('Erreur activités:', err); }
     });
@@ -176,9 +184,40 @@ export class NaturesEconomiquesModalComponent implements OnInit, OnChanges {
   }
 
   onAjouter(): void {
-    if (this.selectedItems.length === 0) return;
-    this.ajouter.emit({ selectedNatures: [...this.selectedItems] });
-    this.resetSelections();
+    if (this.selectedItems.length === 0 || !this.chapitre || !this.categorieDepense) return;
+
+    from(this.selectedItems).pipe(
+      concatMap(ligne => this.saisieMajService.insertLigneBudget({
+        sectionId: this.section.sec_id,
+        budcCode: this.selectedActivite?.budcCode,
+        chapId: this.chapitre!.chapId,
+        natIdNumber: ligne.idLigne,
+        cadeCode: this.categorieDepense!.cadeCode,
+        sfinCode: this.codeFin,
+        sfinCodeNew: this.sourceFin?.sfinCode,
+        bailfCode: Number(this.sourceFin?.sfinBailfCode),
+        cp1Prec: 0,
+        cp1: 0,
+        aeAnt: 0,
+        ae1Prec: 0,
+        ae1: 0,
+        foncatId: 'OPSCM43095'
+      })),
+      toArray()
+    ).subscribe({
+      next: (responses: ResponseDto[]) => {
+        const erreur = responses.find(r => r.etat === 0);
+        if (erreur) {
+          this.ajouter.emit({ selectedNatures: [], success: false, messageErreur: erreur.messageErreur });
+        } else {
+          this.ajouter.emit({ selectedNatures: [...this.selectedItems], success: true });
+          this.resetSelections();
+        }
+      },
+      error: (err: Error) => {
+        this.ajouter.emit({ selectedNatures: [], success: false, messageErreur: err.message });
+      }
+    });
   }
 
   onFermer(): void {
