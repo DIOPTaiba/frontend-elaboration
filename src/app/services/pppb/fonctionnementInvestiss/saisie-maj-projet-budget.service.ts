@@ -7,6 +7,7 @@ import { ActiviteDto } from '../../../dtos/global/activite.dto';
 import { ParametreRechercheDto } from '../../../dtos/global/parametreRecherche.dto';
 import { EnveloppeBudgetDto } from '../../../dtos/saisieMaj/enveloppeBudget.dto';
 import { LigneBudgetDto } from '../../../dtos/saisieMaj/ligneBudget.dto';
+import { ResponseDto } from '../../../dtos/global/response.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -15,20 +16,20 @@ export class SaisieMajProjetBudgetService {
 
   constructor(private apiService: ApiService) {}
 
-  getChapitresInvestissement(secId: string, sfinCode: string, proId: string, proCode: string,exeCode:String): Observable<ChapitreDto[]> {
-    return this.apiService.get<ChapitreDto[]>(`/chapitresInvestissement/${secId}/${sfinCode}/${proId}/${proCode}/${exeCode}`);
+  getChapitresInvestissement(params: ParametreRechercheDto): Observable<ChapitreDto[]> {
+    return this.apiService.get<ChapitreDto[]>(`/chapitresInvestissement/${params.sectionId}/${params.sfinCode}/${params.proId}/${params.proCode}/${params.exeCode}`);
   }
 
-  getChapitresFonctionnement(secId: string, sfinCode: string, proId: string,exeCode:String): Observable<ChapitreDto[]> {
-    return this.apiService.get<ChapitreDto[]>(`/chapitresFonctionnement/${secId}/${sfinCode}/${proId}/${exeCode}`);
+  getChapitresFonctionnement(params: ParametreRechercheDto): Observable<ChapitreDto[]> {
+    return this.apiService.get<ChapitreDto[]>(`/chapitresFonctionnement/${params.sectionId}/${params.sfinCode}/${params.proId}/${params.exeCode}`);
   }
 
-  getActionsProjetDeBudget(proId: string, pappRef: string, chapCode: string, chapId: string): Observable<ActionDto[]> {
-    return this.apiService.get<ActionDto[]>(`/actionsProjetDeBudget/${proId}/${pappRef}/${chapCode}/${chapId}`);
+  getActionsProjetDeBudget(params: ParametreRechercheDto): Observable<ActionDto[]> {
+    return this.apiService.get<ActionDto[]>(`/actionsProjetDeBudget/${params.proId}/${params.pappRef}/${params.chapCode}/${params.chapId}`);
   }
 
-  getActivitesProjetDeBudget(copCopId: string, pappRef: string, chapCode: string): Observable<ActiviteDto[]> {
-    return this.apiService.get<ActiviteDto[]>(`/activitesProjetDeBudget/${copCopId}/${pappRef}/${chapCode}`);
+  getActivitesProjetDeBudget(params: ParametreRechercheDto): Observable<ActiviteDto[]> {
+    return this.apiService.get<ActiviteDto[]>(`/activitesProjetDeBudget/${params.copId}/${params.pappRef}/${params.chapCode}`);
   }
 
   enveloppeTotal(params: ParametreRechercheDto): Observable<EnveloppeBudgetDto> {
@@ -49,5 +50,17 @@ export class SaisieMajProjetBudgetService {
 
   getLigneSaisie(params: ParametreRechercheDto): Observable<LigneBudgetDto[]> {
     return this.apiService.post<LigneBudgetDto[]>('/saisieMaj/ligneSaisie', params);
+  }
+
+  insertLigneBudget(params: ParametreRechercheDto): Observable<ResponseDto> {
+    return this.apiService.post<ResponseDto>('/saisieMaj/insertLigneBudget', params);
+  }
+
+  updateLigneBudget(numeroLigne: string, params: ParametreRechercheDto): Observable<ResponseDto> {
+    return this.apiService.put<ResponseDto>(`/saisieMaj/updateLigneBudget/${numeroLigne}`, params);
+  }
+
+  supprimerLigneBudget(lbuCode: string): Observable<boolean> {
+    return this.apiService.delete<boolean>(`/saisieMaj/supprimerLigneBudget/${lbuCode}`);
   }
 }
