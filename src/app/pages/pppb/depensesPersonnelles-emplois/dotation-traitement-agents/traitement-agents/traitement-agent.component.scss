@@ -1654,18 +1654,14 @@ $text-muted:   #6b8aab;
 }
 .toolbar-activite {
   display: flex;
-   flex-direction: row;        // ← libellé et input sur la même ligne
-  align-items: center;        // ← aligne verticalement
-  justify-content: center;
-
-  gap: 4px;
-  .custom-label {
+  gap: 8px;
+  margin-left: 265px;
+  label {
     white-space: nowrap;
     margin: 0;
-     padding-left: 0; 
+    padding-left: 0;
   }
-
   ng-select {
-    width: 350px;  // ← augmentez selon vos besoins
+    width: 665px;
   }
 }

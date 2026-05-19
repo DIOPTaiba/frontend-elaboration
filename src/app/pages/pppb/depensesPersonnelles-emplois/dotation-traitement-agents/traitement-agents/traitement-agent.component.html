@@ -14,7 +14,7 @@
 
     <div class="search-field custom-field" style="flex: 0 0 350px;">
       <label class="custom-label">Projet de Budget</label>
-      <div class="custom-input-wrapper">
+      <div class="custom-input-wrapper">      
         <input class="custom-input custom-input--readonly" [value]="projetBudgetLib" readonly />
       </div>
     </div>
@@ -103,7 +103,7 @@
 
     <div class="filter-row">
       <!-- Action -->
-      <div class="filter-field custom-field">
+      <!-- <div class="filter-field custom-field">
         <label class="custom-label">Action</label>
         <ng-select
           [(ngModel)]="filterAction"
@@ -123,7 +123,7 @@
             {{ item.codeAction }} - {{ item.libAction }}
           </ng-template>
         </ng-select>
-      </div>
+      </div> -->
 
       <!-- Matricule -->
       <div class="filter-field custom-field">
@@ -147,7 +147,7 @@
  <div class="section-header">
   <h2 class="section-title">Traitements des agents par lignes de dépenses</h2>
 
- <div class="toolbar-activite">
+ <!-- <div class="toolbar-activite">
     <label class="f-s-13 f-w-600 text-primary">Activité</label>
     <ng-select class="w-100" 
         [(ngModel)]="selectedActivite"
@@ -166,9 +166,9 @@
             {{ item.codeActivite }} - {{ item.libActivite }}
         </ng-template>
     </ng-select>
-</div>
+</div> -->
 
-  <button class="btn-ajouter" (click)="ouvrirModalAjoutParagraphe()">+ Ajouter Paragraphe</button>
+  
 </div>
 
   <div class="table-wrapper">
